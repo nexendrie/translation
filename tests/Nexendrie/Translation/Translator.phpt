@@ -13,10 +13,16 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 class TranslatorTest extends \Tester\TestCase {
+  /** @var Translator */
   private $translator;
   
   function setUp() {
     $this->translator = new Translator;
+    $this->translator->folder = __DIR__ . "/../../lang";
+  }
+  
+  function testLang() {
+    Assert::same(__DIR__ . "/../../lang", $this->translator->folder);
   }
   
   function testTranslateEn() {
