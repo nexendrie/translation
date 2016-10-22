@@ -59,8 +59,10 @@ class Loader {
   
   /**
    * @param string $folder
+   * @throws \Exception
    */
   function setFolder($folder) {
+    if(!is_dir($folder)) throw new \Exception("Folder $folder does not exist.");
     $this->folder = $folder;
   }
   
@@ -84,7 +86,6 @@ class Loader {
   protected function loadTexts() {
     if(!is_null($this->texts)) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
-    if(!is_dir($this->folder)) throw new \Exception("Folder $this->folder does not exist.");
     $texts = [];
     $files = Finder::findFiles("*.en.neon")->from($this->folder);
     /** @var \SplFileInfo $file */
