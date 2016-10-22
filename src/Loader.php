@@ -23,7 +23,6 @@ class Loader {
   protected $folder = NULL;
   
   /**
-   * Loader constructor.
    * @param string $lang
    * @param string $folder
    */
