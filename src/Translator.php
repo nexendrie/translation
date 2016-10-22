@@ -1,8 +1,7 @@
 <?php
 namespace Nexendrie\Translation;
 
-use Nette\Neon\Neon,
-    Nette\Utils\Arrays;
+use Nette\Utils\Arrays;
 
 /**
  * Translator
@@ -14,59 +13,39 @@ use Nette\Neon\Neon,
 class Translator implements \Nette\Localization\ITranslator {
   use \Nette\SmartObject;
   
-  /** @var string */
-  protected $lang = "en";
-  /** @var array */
-  protected $texts = NULL;
-  /** @var string */
-  protected $folder = NULL;
+  /** @var Loader */
+  protected $loader;
+  
+  function __construct() {
+    $this->loader = new Loader;
+  }
   
   /**
    * @return string
    */
   function getLang() {
-    return $this->lang;
+    return $this->loader->lang;
   }
   
   /**
    * @param string $lang
    */
   function setLang($lang) {
-    if($lang !== $this->lang) {
-      $this->lang = $lang;
-      $this->texts = NULL;
-      $this->loadTexts();
-    }
+    $this->loader->lang = $lang;
   }
   
   /**
    * @return string
    */
   function getFolder() {
-    return $this->folder;
+    return $this->loader->folder;
   }
   
   /**
    * @param string $folder
    */
   function setFolder($folder) {
-    $this->folder = $folder;
-  }
-  
-  /**
-   * @return void
-   * @throws \Exception
-   */
-  protected function loadTexts() {
-    if(!is_null($this->texts)) return;
-    if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
-    if(!is_dir($this->folder)) throw new \Exception("Folder $this->folder does not exist.");
-    $default = Neon::decode(file_get_contents("$this->folder/en.neon"));
-    $lang = [];
-    if($this->lang != "en" AND is_file("$this->folder/{$this->lang}.neon")) {
-      $lang = Neon::decode(file_get_contents("$this->folder/{$this->lang}.neon"));
-    }
-    $this->texts = array_merge($default, $lang);
+    $this->loader->folder = $folder;
   }
   
   /**
@@ -75,8 +54,7 @@ class Translator implements \Nette\Localization\ITranslator {
    * @return string
    */
   function translate($message, $count = 0) {
-    $this->loadTexts();
-    return Arrays::get($this->texts, $message, "");
+    return Arrays::get($this->loader->texts, $message, "");
   }
 }
 ?>
