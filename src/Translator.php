@@ -60,6 +60,7 @@ class Translator implements \Nette\Localization\ITranslator {
   protected function loadTexts() {
     if(!is_null($this->texts)) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
+    if(!is_dir($this->folder)) throw new \Exception("Folder $this->folder does not exist.");
     $default = Neon::decode(file_get_contents("$this->folder/en.neon"));
     $lang = [];
     if($this->lang != "en" AND is_file("$this->folder/{$this->lang}.neon")) {

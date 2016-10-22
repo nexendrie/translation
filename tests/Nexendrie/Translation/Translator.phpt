@@ -27,6 +27,10 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::exception(function() {
       $this->translator->translate("abc");
     }, \Exception::class);
+    $this->translator->folder = __DIR__ . "lang";
+    Assert::exception(function() {
+      $this->translator->translate("abc");
+    }, \Exception::class);
   }
   
   function testTranslateEn() {
