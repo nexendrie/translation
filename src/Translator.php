@@ -17,9 +17,9 @@ class Translator implements \Nette\Localization\ITranslator {
   /** @var string */
   protected $lang = "en";
   /** @var array */
-  protected $texts = null;
+  protected $texts = NULL;
   /** @var string */
-  protected $folder = null;
+  protected $folder = NULL;
   
   /**
    * @return string
@@ -34,7 +34,7 @@ class Translator implements \Nette\Localization\ITranslator {
   function setLang($lang) {
     if($lang !== $this->lang) {
       $this->lang = $lang;
-      $this->texts = null;
+      $this->texts = NULL;
       $this->loadTexts();
     }
   }
