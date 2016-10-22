@@ -19,7 +19,7 @@ class Translator implements \Nette\Localization\ITranslator {
   /** @var array */
   protected $texts = null;
   /** @var string */
-  protected $folder = __DIR__ . "/lang";
+  protected $folder = null;
   
   /**
    * @return string
@@ -55,9 +55,11 @@ class Translator implements \Nette\Localization\ITranslator {
   
   /**
    * @return void
+   * @throws \Exception
    */
   protected function loadTexts() {
     if(!is_null($this->texts)) return;
+    if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
     $default = Neon::decode(file_get_contents("$this->folder/en.neon"));
     $lang = [];
     if($this->lang != "en" AND is_file("$this->folder/{$this->lang}.neon")) {
