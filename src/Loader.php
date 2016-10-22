@@ -73,8 +73,9 @@ class Loader {
   protected function loadDomain($name) {
     $default = Neon::decode(file_get_contents("$this->folder/$name.en.neon"));
     $lang = [];
-    if($this->lang != "en" AND is_file("$this->folder/$name.{$this->lang}.neon")) {
-      $lang = Neon::decode(file_get_contents("$this->folder/$name.{$this->lang}.neon"));
+    $filename = "$this->folder/$name.{$this->lang}.neon";
+    if($this->lang != "en" AND is_file($filename)) {
+      $lang = Neon::decode(file_get_contents($filename));
     }
     return array_merge($default, $lang);
   }
