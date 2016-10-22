@@ -20,7 +20,6 @@ class TranslatorTest extends \Tester\TestCase {
     $this->translator = new Translator;
     $this->translator->folder = __DIR__ . "/../../lang";
   }
-  
   function testLang() {
     Assert::same(__DIR__ . "/../../lang", $this->translator->folder);
     $this->translator->folder = NULL;
@@ -39,8 +38,9 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("abc"));
     Assert::same("", $this->translator->translate("abc"));
     // existing string
-    Assert::type("string", $this->translator->translate("content"));
-    Assert::same("Content", $this->translator->translate("content"));
+    Assert::type("string", $this->translator->translate("book.content"));
+    Assert::same("Content", $this->translator->translate("book.content"));
+    Assert::same("XYZ", $this->translator->translate("xyz"));
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
@@ -53,8 +53,9 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("abc"));
     Assert::same("", $this->translator->translate("abc"));
     // existing string
-    Assert::type("string", $this->translator->translate("content"));
-    Assert::same("Obsah", $this->translator->translate("content"));
+    Assert::type("string", $this->translator->translate("book.content"));
+    Assert::same("Obsah", $this->translator->translate("book.content"));
+    Assert::same("xyz", $this->translator->translate("xyz"));
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
@@ -70,8 +71,8 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("abc"));
     Assert::same("", $this->translator->translate("abc"));
     // existing string
-    Assert::type("string", $this->translator->translate("content"));
-    Assert::same("Content", $this->translator->translate("content"));
+    Assert::type("string", $this->translator->translate("book.content"));
+    Assert::same("Content", $this->translator->translate("book.content"));
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));

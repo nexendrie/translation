@@ -54,7 +54,14 @@ class Translator implements \Nette\Localization\ITranslator {
    * @return string
    */
   function translate($message, $count = 0) {
-    return Arrays::get($this->loader->texts, $message, "");
+    if(strpos($message, ".") === false) {
+      $domain = "messages";
+    } else {
+      $domain = substr($message, 0, strpos($message, "."));
+      $message = substr($message, strpos($message, ".") + strlen("."));
+    }
+    $texts = Arrays::get($this->loader->texts, $domain, []);
+    return Arrays::get($texts, $message, "");
   }
 }
 ?>

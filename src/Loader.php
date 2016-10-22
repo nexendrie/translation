@@ -1,7 +1,8 @@
 <?php
 namespace Nexendrie\Translation;
 
-use Nette\Neon\Neon;
+use Nette\Neon\Neon,
+    Nette\Utils\Finder;
 
 /**
  * Translations loader
@@ -65,6 +66,19 @@ class Loader {
   }
   
   /**
+   * @param string $name
+   * @return array
+   */
+  protected function loadDomain($name) {
+    $default = Neon::decode(file_get_contents("$this->folder/$name.en.neon"));
+    $lang = [];
+    if($this->lang != "en" AND is_file("$this->folder/$name.{$this->lang}.neon")) {
+      $lang = Neon::decode(file_get_contents("$this->folder/$name.{$this->lang}.neon"));
+    }
+    return array_merge($default, $lang);
+  }
+  
+  /**
    * @return void
    * @throws \Exception
    */
@@ -72,12 +86,14 @@ class Loader {
     if(!is_null($this->texts)) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
     if(!is_dir($this->folder)) throw new \Exception("Folder $this->folder does not exist.");
-    $default = Neon::decode(file_get_contents("$this->folder/en.neon"));
-    $lang = [];
-    if($this->lang != "en" AND is_file("$this->folder/{$this->lang}.neon")) {
-      $lang = Neon::decode(file_get_contents("$this->folder/{$this->lang}.neon"));
+    $texts = [];
+    $files = Finder::findFiles("*.en.neon")->from($this->folder);
+    /** @var \SplFileInfo $file */
+    foreach($files as $file) {
+      $domain = $file->getBasename(".en.neon");
+      $texts[$domain] = $this->loadDomain($domain);
     }
-    $this->texts = array_merge($default, $lang);
+    $this->texts = $texts;
   }
   
   /**
