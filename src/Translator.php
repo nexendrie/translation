@@ -16,8 +16,8 @@ class Translator implements \Nette\Localization\ITranslator {
   /** @var Loader */
   protected $loader;
   
-  function __construct() {
-    $this->loader = new Loader;
+  function __construct(Loader $loader = NULL) {
+    $this->loader = (is_null($loader))? new Loader: $loader;
   }
   
   /**
