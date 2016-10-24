@@ -17,6 +17,8 @@ class Loader {
   
   /** @var string */
   protected $lang;
+  /** @var string */
+  protected $loadedLang = NULL;
   /** @var array */
   protected $texts = NULL;
   /** @var string */
@@ -31,7 +33,6 @@ class Loader {
     $this->folder = $folder;
   }
   
-  
   /**
    * @return string
    */
@@ -45,8 +46,6 @@ class Loader {
   function setLang($lang) {
     if($lang !== $this->lang) {
       $this->lang = $lang;
-      $this->texts = NULL;
-      $this->loadTexts();
     }
   }
   
@@ -87,6 +86,7 @@ class Loader {
   protected function loadTexts() {
     if(!is_null($this->texts)) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
+    if($this->lang === $this->loadedLang) return;
     $texts = [];
     $files = Finder::findFiles("*.en.neon")->from($this->folder);
     /** @var \SplFileInfo $file */
@@ -95,6 +95,7 @@ class Loader {
       $texts[$domain] = $this->loadDomain($domain);
     }
     $this->texts = $texts;
+    $this->loadedLang = $this->lang;
   }
   
   /**
