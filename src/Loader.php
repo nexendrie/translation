@@ -84,9 +84,8 @@ class Loader {
    * @throws \Exception
    */
   protected function loadTexts() {
-    if(!is_null($this->texts)) return;
-    if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
     if($this->lang === $this->loadedLang) return;
+    if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
     $texts = [];
     $files = Finder::findFiles("*.en.neon")->from($this->folder);
     /** @var \SplFileInfo $file */
