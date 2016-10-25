@@ -2,7 +2,9 @@
 namespace Nexendrie\Translation;
 
 use Nette\Neon\Neon,
-    Nette\Utils\Finder;
+    Nette\Utils\Finder,
+    Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 /**
  * Translations loader
@@ -16,36 +18,41 @@ class Loader {
   use \Nette\SmartObject;
   
   /** @var string */
-  protected $lang;
-  /** @var string */
   protected $loadedLang = NULL;
   /** @var array */
   protected $texts = NULL;
   /** @var string */
   protected $folder = NULL;
+  /** @var ILocaleResolver|NULL */
+  protected $resolver = NULL;
   
   /**
    * @param string $lang
    * @param string $folder
    */
-  function __construct($lang = "en", $folder = NULL) {
+  function __construct($lang = "en", $folder = NULL, ILocaleResolver $resolver = NULL) {
     $this->lang = $lang;
     $this->folder = $folder;
+    if($resolver) {
+      $this->resolver = $resolver;
+    } else {
+      $this->resolver = new ManualLocaleResolver;
+    }
   }
   
   /**
    * @return string
    */
   function getLang() {
-    return $this->lang;
+    return $this->resolver->resolve();
   }
   
   /**
    * @param string $lang
    */
   function setLang($lang) {
-    if($lang !== $this->lang) {
-      $this->lang = $lang;
+    if($this->resolver instanceof ManualLocaleResolver) {
+      $this->resolver->lang = $lang;
     }
   }
   
