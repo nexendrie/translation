@@ -68,7 +68,9 @@ class Loader {
    * @throws \Exception
    */
   function setFolder($folder) {
-    if(!is_dir($folder)) throw new \Exception("Folder $folder does not exist.");
+    if(!is_dir($folder)) {
+      throw new \Exception("Folder $folder does not exist.");
+    }
     $this->folder = $folder;
   }
   
