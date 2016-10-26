@@ -35,7 +35,9 @@ class Loader {
    */
   function __construct($lang = "en", $folder = NULL, ILocaleResolver $resolver = NULL) {
     $this->lang = $lang;
-    $this->folder = $folder;
+    if(is_string($folder)) {
+      $this->setFolder($folder);
+    }
     if($resolver) {
       $this->resolver = $resolver;
     } else {
