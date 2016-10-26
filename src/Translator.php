@@ -55,11 +55,12 @@ class Translator implements ITranslator {
    * @return string
    */
   function translate($message, $count = 0) {
-    if(strpos($message, ".") === false) {
+    $dotPos = strpos($message, ".");
+    if($dotPos === false) {
       $domain = "messages";
     } else {
-      $domain = substr($message, 0, strpos($message, "."));
-      $message = substr($message, strpos($message, ".") + strlen("."));
+      $domain = substr($message, 0, $dotPos);
+      $message = substr($message, $dotPos + strlen("."));
     }
     $texts = Arrays::get($this->loader->texts, $domain, []);
     return Arrays::get($texts, $message, "");
