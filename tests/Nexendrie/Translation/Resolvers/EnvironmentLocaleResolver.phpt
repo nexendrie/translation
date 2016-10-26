@@ -6,8 +6,6 @@ use Tester\Assert;
 require __DIR__ . "/../../../bootstrap.php";
 
 class EnvironmentLocaleResolverTest extends \Tester\TestCase {
-  use \Testbench\TCompiledContainer;
-  
   /** @var EnvironmentLocaleResolver */
   protected $resolver;
   

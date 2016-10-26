@@ -7,8 +7,6 @@ require __DIR__ . "/../../../bootstrap.php";
 
 
 class ManualLocaleResolverTest extends \Tester\TestCase {
-  use \Testbench\TCompiledContainer;
-  
   /** @var ManualLocaleResolver */
   protected $resolver;
   
