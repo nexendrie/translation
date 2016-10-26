@@ -38,6 +38,28 @@ class LoaderTest extends \Tester\TestCase {
     }, \Exception::class, "Folder  does not exist.");
   }
   
+  function testGetResources() {
+    // texts were not loaded yet so there are no resources
+    $resources = $this->loader->resources;
+    Assert::type("array", $resources);
+    Assert::count(0, $resources);
+    // english texts are loaded, there is 1 resource for each domain
+    $this->loader->getTexts();
+    $resources = $this->loader->resources;
+    Assert::type("array", $resources);
+    Assert::count(2, $resources);
+    Assert::count(1, $resources["messages"]);
+    Assert::count(1, $resources["book"]);
+    // czech and english texts are loaded so there are 2 resources for each domain
+    $this->loader->lang = "cs";
+    $this->loader->getTexts();
+    $resources = $this->loader->resources;
+    Assert::type("array", $resources);
+    Assert::count(2, $resources);
+    Assert::count(2, $resources["messages"]);
+    Assert::count(2, $resources["book"]);
+  }
+  
   function testGetTexts() {
     $texts = $this->loader->texts;
     Assert::type("array", $texts);

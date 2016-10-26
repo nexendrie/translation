@@ -13,6 +13,7 @@ use Nette\Neon\Neon,
  * @property string $lang
  * @property array $texts
  * @property string $folder
+ * @property-read array $resources
  */
 class Loader {
   use \Nette\SmartObject;
@@ -25,6 +26,8 @@ class Loader {
   protected $folder = NULL;
   /** @var ILocaleResolver|NULL */
   protected $resolver = NULL;
+  /** @var array */
+  protected $resources = [];
   
   /**
    * @param string $lang
@@ -75,15 +78,24 @@ class Loader {
   }
   
   /**
+   * @return array
+   */
+  function getResources() {
+    return $this->resources;
+  }
+  
+  /**
    * @param string $name
    * @return array
    */
   protected function loadDomain($name) {
     $default = Neon::decode(file_get_contents("$this->folder/$name.en.neon"));
+    $this->resources[$name][] = "$this->folder/$name.en.neon";
     $lang = [];
     $filename = "$this->folder/$name.{$this->lang}.neon";
     if($this->lang != "en" AND is_file($filename)) {
       $lang = Neon::decode(file_get_contents($filename));
+      $this->resources[$name][] = $filename;
     }
     return array_merge($default, $lang);
   }
@@ -95,7 +107,7 @@ class Loader {
   protected function loadTexts() {
     if($this->lang === $this->loadedLang) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
-    $texts = [];
+    $this->resources = $texts = [];
     $files = Finder::findFiles("*.en.neon")->from($this->folder);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
