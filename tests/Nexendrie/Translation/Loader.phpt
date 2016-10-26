@@ -1,7 +1,8 @@
 <?php
 namespace Nexendrie\Translation;
 
-use Tester\Assert;
+use Tester\Assert,
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 require __DIR__ . "/../../bootstrap.php";
 
@@ -10,7 +11,7 @@ class LoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $this->loader = new Loader("en", __DIR__ . "/../../lang", new Resolvers\ManualLocaleResolver());
+    $this->loader = new Loader("en", __DIR__ . "/../../lang", new ManualLocaleResolver());
   }
   
   function testGetLang() {

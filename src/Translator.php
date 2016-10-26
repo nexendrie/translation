@@ -1,7 +1,8 @@
 <?php
 namespace Nexendrie\Translation;
 
-use Nette\Utils\Arrays;
+use Nette\Utils\Arrays,
+    Nette\Localization\ITranslator;
 
 /**
  * Translator
@@ -10,7 +11,7 @@ use Nette\Utils\Arrays;
  * @property string $lang
  * @property string $folder
  */
-class Translator implements \Nette\Localization\ITranslator {
+class Translator implements ITranslator {
   use \Nette\SmartObject;
   
   /** @var Loader */
