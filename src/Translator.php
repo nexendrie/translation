@@ -50,6 +50,8 @@ class Translator implements ITranslator {
   }
   
   /**
+   * Translate the string
+   *
    * @param string $message
    * @param int $count
    * @return string

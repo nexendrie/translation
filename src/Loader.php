@@ -87,6 +87,8 @@ class Loader {
   }
   
   /**
+   * Load texts from one text domain
+   *
    * @param string $name
    * @return array
    */
@@ -103,6 +105,8 @@ class Loader {
   }
   
   /**
+   * Load all texts
+   *
    * @return void
    * @throws \Exception
    */
