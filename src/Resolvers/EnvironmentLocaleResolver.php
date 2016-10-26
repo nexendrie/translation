@@ -6,7 +6,7 @@ namespace Nexendrie\Translation\Resolvers;
  *
  * @author Jakub Konečný
  */
-class EnvironmentResolver implements ILocaleResolver {
+class EnvironmentLocaleResolver implements ILocaleResolver {
   const VARNAME = "TRANSLATOR_LANGUAGE";
   
   /** @var string */

@@ -5,27 +5,27 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class EnvironmentResolverTest extends \Tester\TestCase {
+class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
-  /** @var EnvironmentResolver */
+  /** @var EnvironmentLocaleResolver */
   protected $resolver;
   
   function setUp() {
-    $this->resolver = new EnvironmentResolver;
+    $this->resolver = new EnvironmentLocaleResolver;
   }
   
   function testResolve() {
     $lang = $this->resolver->resolve();
     Assert::type("string", $lang);
     Assert::same("en", $lang);
-    putenv(EnvironmentResolver::VARNAME . "=cs");
+    putenv(EnvironmentLocaleResolver::VARNAME . "=cs");
     $lang = $this->resolver->resolve();
     Assert::type("string", $lang);
     Assert::same("cs", $lang);
   }
 }
 
-$test = new EnvironmentResolverTest;
+$test = new EnvironmentLocaleResolverTest;
 $test->run();
 ?>
