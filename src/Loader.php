@@ -35,6 +35,7 @@ class Loader {
   /**
    * @param string $lang
    * @param string $folder
+   * @param ILocaleResolver $resolver
    */
   function __construct($lang = "en", $folder = NULL, ILocaleResolver $resolver = NULL) {
     $this->lang = $lang;
