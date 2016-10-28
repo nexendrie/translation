@@ -29,8 +29,11 @@ class TranslationExtensionTest extends \Tester\TestCase {
   }
   
   function testDefaultResolver() {
+    /** @var ManualLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ManualLocaleResolver::class, $resolver);
+    Assert::type("string", $resolver->defaultLang);
+    Assert::same("en", $resolver->defaultLang);
   }
   
   function testOtherResolver() {
@@ -40,8 +43,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
+    /** @var EnvironmentLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(EnvironmentLocaleResolver::class, $resolver);
+    Assert::same("en", $resolver->defaultLang);
   }
 }
 

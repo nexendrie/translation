@@ -13,7 +13,8 @@ class TranslationExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "localeResolver" => "manual",
-    "folder" => "%appDir%/lang"
+    "folder" => "%appDir%/lang",
+    "default" => "en",
   ];
   
   /**
@@ -23,23 +24,25 @@ class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
     Validators::assertField($config, "folder", "string");
+    Validators::assertField($config, "default", "string");
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(\Nexendrie\Translation\Translator::class);
     $builder->addDefinition($this->prefix("loader"))
       ->setClass(\Nexendrie\Translation\Loader::class)
       ->addSetup("setFolder", [$config["folder"]]);
-    $resolver = strtolower($config["localeResolver"]);
-    switch($resolver) {
+    $resolverName = strtolower($config["localeResolver"]);
+    switch($resolverName) {
       case "environment":
-        $builder->addDefinition($this->prefix("resolver"))
+        $resolver = $builder->addDefinition($this->prefix("resolverName"))
           ->setClass(\Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver::class);
         break;
       default:
-        $builder->addDefinition($this->prefix("resolver"))
+        $resolver = $builder->addDefinition($this->prefix("resolverName"))
           ->setClass(\Nexendrie\Translation\Resolvers\ManualLocaleResolver::class);
         break;
     }
+    $resolver->addSetup("setDefaultLang", [$config["default"]]);
   }
 }
 ?>
