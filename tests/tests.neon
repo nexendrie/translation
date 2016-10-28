@@ -1,2 +1,4 @@
 application:
     scanDirs: false
+extensions:
+    translation: Nexendrie\Translation\Bridges\NetteDI\TranslationExtension
