@@ -19,6 +19,7 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
+   * @throws \Exception
    */
   function loadConfiguration() {
     $config = $this->getConfig($this->defaults);
@@ -38,9 +39,12 @@ class TranslationExtension extends CompilerExtension {
         $resolver = $builder->addDefinition($this->prefix("resolverName"))
           ->setClass(\Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver::class);
         break;
-      default:
+      case "manual":
         $resolver = $builder->addDefinition($this->prefix("resolverName"))
           ->setClass(\Nexendrie\Translation\Resolvers\ManualLocaleResolver::class);
+        break;
+      default:
+        throw new \Exception("Invalid locale resolver.");
         break;
     }
     $resolver->addSetup("setDefaultLang", [$config["default"]]);
