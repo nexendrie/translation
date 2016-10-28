@@ -30,7 +30,8 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(\Nexendrie\Translation\Translator::class);
     $builder->addDefinition($this->prefix("loader"))
       ->setClass(\Nexendrie\Translation\Loader::class)
-      ->addSetup("setFolder", [$config["folder"]]);
+      ->addSetup("setFolder", [$config["folder"]])
+      ->addSetup("setDefaultLang", [$config["default"]]);
     $resolverName = strtolower($config["localeResolver"]);
     switch($resolverName) {
       case "environment":

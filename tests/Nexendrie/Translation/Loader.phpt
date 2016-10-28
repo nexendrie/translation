@@ -27,6 +27,19 @@ class LoaderTest extends \Tester\TestCase {
     Assert::same("cs", $lang);
   }
   
+  function testGetDefaultLang() {
+    $lang = $this->loader->defaultLang;
+    Assert::type("string", $lang);
+    Assert::same("en", $lang);
+  }
+  
+  function testSetDefaultLang() {
+    $this->loader->defaultLang = "cs";
+    $lang = $this->loader->defaultLang;
+    Assert::type("string", $lang);
+    Assert::same("cs", $lang);
+  }
+  
   function testGetFolder() {
     $folder = $this->loader->folder;
     Assert::type("string", $folder);

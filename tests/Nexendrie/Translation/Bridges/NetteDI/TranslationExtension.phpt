@@ -16,6 +16,10 @@ require __DIR__ . "/../../../../bootstrap.php";
 class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
+  function setUp() {
+    $this->refreshContainer();
+  }
+  
   function testTranslator() {
     /** @var Translator $translator */
     $translator = $this->getService(ITranslator::class);
@@ -26,6 +30,18 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testLoader() {
     $loader = $this->getService(Loader::class);
     Assert::type(Loader::class, $loader);
+    Assert::type("string", $loader->defaultLang);
+    Assert::same("en", $loader->defaultLang);
+    $config = [
+      "translation" => [
+        "default" => "cs"
+      ]
+    ];
+    $this->refreshContainer($config);
+    $loader = $this->getService(Loader::class);
+    Assert::type(Loader::class, $loader);
+    Assert::type("string", $loader->defaultLang);
+    Assert::same("cs", $loader->defaultLang);
   }
   
   function testDefaultResolver() {

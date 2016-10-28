@@ -10,6 +10,7 @@ use Nette\Neon\Neon,
  * Translations loader
  *
  * @author Jakub Konečný
+ * @property string $defaultLang
  * @property string $lang
  * @property array $texts
  * @property string $folder
@@ -18,6 +19,8 @@ use Nette\Neon\Neon,
 class Loader {
   use \Nette\SmartObject;
   
+  /** @var string */
+  protected $defaultLang = "en";
   /** @var string */
   protected $loadedLang = NULL;
   /** @var array */
@@ -59,6 +62,20 @@ class Loader {
     if($this->resolver instanceof ManualLocaleResolver) {
       $this->resolver->lang = $lang;
     }
+  }
+  
+  /**
+   * @return string
+   */
+  function getDefaultLang() {
+    return $this->defaultLang;
+  }
+  
+  /**
+   * @param string $defaultLang
+   */
+  function setDefaultLang($defaultLang) {
+    $this->defaultLang = $defaultLang;
   }
   
   /**
@@ -113,11 +130,12 @@ class Loader {
   protected function loadTexts() {
     if($this->lang === $this->loadedLang) return;
     if(is_null($this->folder)) throw new \Exception("Folder for translations was not set.");
+    $default = $this->defaultLang;
     $this->resources = $texts = [];
-    $files = Finder::findFiles("*.en.neon")->from($this->folder);
+    $files = Finder::findFiles("*.$default.neon")->from($this->folder);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $domain = $file->getBasename(".en.neon");
+      $domain = $file->getBasename(".$default.neon");
       $texts[$domain] = $this->loadDomain($domain);
     }
     $this->texts = $texts;
