@@ -29,6 +29,9 @@
         "squizlabs/php_codesniffer": "^2.6",
         "nette/di": "^2.4"
     },
+    "suggest": {
+        "nette/di": "To use TranslationExtension"
+    },
     "autoload": {
         "psr-4": {
             "Nexendrie\\Translation\\": "src/"
