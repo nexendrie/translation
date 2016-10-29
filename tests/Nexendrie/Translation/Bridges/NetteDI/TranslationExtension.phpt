@@ -13,6 +13,43 @@ use Tester\Assert;
 require __DIR__ . "/../../../../bootstrap.php";
 
 
+
+/**
+ * FallbackLocaleResolver
+ *
+ * @property string $defaultLang
+ */
+class FallbackLocaleResolver implements ILocaleResolver {
+  use \Nette\SmartObject;
+  
+  protected $defaultLang = "en";
+  
+  /**
+   * Resolve language
+   *
+   * @return string
+   */
+  function resolve() {
+    return $this->defaultLang;
+  }
+  
+  /**
+   * @return string
+   */
+  function getDefaultLang() {
+    return $this->defaultLang;
+  }
+  
+  /**
+   * Set default language
+   *
+   * @param string $default
+   */
+  function setDefaultLang($default) {
+    $this->defaultLang = (string) $default;
+  }
+}
+
 class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
@@ -62,6 +99,19 @@ class TranslationExtensionTest extends \Tester\TestCase {
     /** @var EnvironmentLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(EnvironmentLocaleResolver::class, $resolver);
+    Assert::same("en", $resolver->defaultLang);
+  }
+  
+  function testCustomResolver() {
+    $config = [
+      "translation" => [
+        "localeResolver" => FallbackLocaleResolver::class
+      ]
+    ];
+    $this->refreshContainer($config);
+    /** @var FallbackLocaleResolver $resolver */
+    $resolver = $this->getService(ILocaleResolver::class);
+    Assert::type(FallbackLocaleResolver::class, $resolver);
     Assert::same("en", $resolver->defaultLang);
   }
   
