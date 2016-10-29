@@ -83,6 +83,13 @@ class LoaderTest extends \Tester\TestCase {
     Assert::type("array", $texts["book"]);
     Assert::count(5, $texts["book"]);
   }
+  
+  function testNoFolder() {
+    Assert::exception(function() {
+      $this->loader = new Loader;
+      $this->loader->getTexts();
+    }, \Exception::class, "Folder for translations was not set.");
+  }
 }
 
 $test = new LoaderTest;
