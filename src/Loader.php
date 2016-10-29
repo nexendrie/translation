@@ -117,7 +117,7 @@ class Loader {
    * @return array
    */
   protected function loadDomain($name) {
-    $default = Neon::decode(file_get_contents("$this->folder/$name.en.neon"));
+    $default = Neon::decode(file_get_contents("$this->folder/$name.$this->defaultLang.neon"));
     $this->resources[$name][] = "$this->folder/$name.{$this->defaultLang}.neon";
     $lang = [];
     $filename = "$this->folder/$name.{$this->lang}.neon";
