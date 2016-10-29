@@ -54,9 +54,10 @@ class Translator implements ITranslator {
    *
    * @param string $message
    * @param int $count
+   * @param array $params
    * @return string
    */
-  function translate($message, $count = 0) {
+  function translate($message, $count = 0, $params = []) {
     $dotPos = strpos($message, ".");
     if($dotPos === false) {
       $domain = "messages";
@@ -65,7 +66,11 @@ class Translator implements ITranslator {
       $message = substr($message, $dotPos + strlen("."));
     }
     $texts = Arrays::get($this->loader->texts, $domain, []);
-    return Arrays::get($texts, $message, "");
+    $text = Arrays::get($texts, $message, "");
+    foreach($params as $key => $value) {
+      $text = str_replace("%$key%", $value, $text);
+    }
+    return $text;
   }
 }
 ?>

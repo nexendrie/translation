@@ -79,7 +79,7 @@ class LoaderTest extends \Tester\TestCase {
     Assert::type("array", $texts);
     Assert::count(2, $texts);
     Assert::type("array", $texts["messages"]);
-    Assert::count(2, $texts["messages"]);
+    Assert::count(3, $texts["messages"]);
     Assert::type("array", $texts["book"]);
     Assert::count(5, $texts["book"]);
   }
