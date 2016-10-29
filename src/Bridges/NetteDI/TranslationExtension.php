@@ -46,6 +46,7 @@ class TranslationExtension extends CompilerExtension {
           ->setClass(ManualLocaleResolver::class);
         break;
       default:
+        // todo: allow using custom resolver by setting valid class name
         throw new \Exception("Invalid locale resolver.");
         break;
     }
