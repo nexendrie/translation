@@ -48,7 +48,6 @@ class TranslationExtension extends CompilerExtension {
           ->setClass(ManualLocaleResolver::class);
         break;
       default:
-        // todo: allow using custom resolver by setting valid class name
         if(class_exists($resolverName)) {
           $resolver = $builder->addDefinition($this->prefix("resolverName"))
             ->setClass($resolverName);
