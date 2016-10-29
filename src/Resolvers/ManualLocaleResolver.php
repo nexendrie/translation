@@ -5,26 +5,19 @@ namespace Nexendrie\Translation\Resolvers;
  * ManualLocaleResolver
  *
  * @author Jakub Konečný
- * @property string $lang
- * @property string $defaultLang
+ * @property string|NULL $lang
  */
 class ManualLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
   
-  /** @var string */
-  protected $defaultLang = "en";
-  /** @var string */
-  protected $lang;
+  /** @var string|NULL */
+  protected $lang = NULL;
   
   /**
    * @return string
    */
   function getLang() {
-    if($this->lang) {
-      return $this->lang;
-    } else {
-      return $this->defaultLang;
-    }
+    return $this->lang;
   }
   
   /**
@@ -32,22 +25,6 @@ class ManualLocaleResolver implements ILocaleResolver {
    */
   function setLang($lang) {
     $this->lang = (string) $lang;
-  }
-  
-  /**
-   * @return string
-   */
-  function getDefaultLang() {
-    return $this->defaultLang;
-  }
-  
-  /**
-   * Set default language
-   *
-   * @param string $default
-   */
-  function setDefaultLang($default) {
-    $this->defaultLang = (string) $default;
   }
   
   /**

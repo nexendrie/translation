@@ -14,37 +14,17 @@ require __DIR__ . "/../../../../bootstrap.php";
 
 /**
  * FallbackLocaleResolver
- *
- * @property string $defaultLang
  */
 class FallbackLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
   
-  protected $defaultLang = "en";
-  
   /**
    * Resolve language
    *
-   * @return string
+   * @return NULL
    */
   function resolve() {
-    return $this->defaultLang;
-  }
-  
-  /**
-   * @return string
-   */
-  function getDefaultLang() {
-    return $this->defaultLang;
-  }
-  
-  /**
-   * Set default language
-   *
-   * @param string $default
-   */
-  function setDefaultLang($default) {
-    $this->defaultLang = (string) $default;
+    return NULL;
   }
 }
 
@@ -83,8 +63,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     /** @var ManualLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ManualLocaleResolver::class, $resolver);
-    Assert::type("string", $resolver->defaultLang);
-    Assert::same("en", $resolver->defaultLang);
+    Assert::type("null", $resolver->lang);
   }
   
   function testOtherResolver() {
@@ -97,7 +76,6 @@ class TranslationExtensionTest extends \Tester\TestCase {
     /** @var EnvironmentLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(EnvironmentLocaleResolver::class, $resolver);
-    Assert::same("en", $resolver->defaultLang);
   }
   
   function testCustomResolver() {
@@ -110,7 +88,6 @@ class TranslationExtensionTest extends \Tester\TestCase {
     /** @var FallbackLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(FallbackLocaleResolver::class, $resolver);
-    Assert::same("en", $resolver->defaultLang);
   }
   
   function testInvalidResolver() {

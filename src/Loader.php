@@ -55,7 +55,11 @@ class Loader {
    * @return string
    */
   function getLang() {
-    return $this->resolver->resolve();
+    $lang = $this->resolver->resolve();
+    if(is_null($lang)) {
+      $lang = $this->defaultLang;
+    }
+    return $lang;
   }
   
   /**

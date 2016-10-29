@@ -16,8 +16,7 @@ class ManualLocaleResolverTest extends \Tester\TestCase {
   
   function testResolve() {
     $lang = $this->resolver->resolve();
-    Assert::type("string", $lang);
-    Assert::same("en", $lang);
+    Assert::type("null", $lang);
     $this->resolver->lang = "cs";
     $lang = $this->resolver->resolve();
     Assert::type("string", $lang);
