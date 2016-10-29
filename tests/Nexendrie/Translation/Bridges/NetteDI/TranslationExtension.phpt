@@ -64,6 +64,17 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type(EnvironmentLocaleResolver::class, $resolver);
     Assert::same("en", $resolver->defaultLang);
   }
+  
+  function testInvalidResolver() {
+    $config = [
+      "translation" => [
+        "localeResolver" => "invalid"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, \Exception::class, "Invalid locale resolver.");
+  }
 }
 
 $test = new TranslationExtensionTest;
