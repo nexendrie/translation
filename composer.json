@@ -2,7 +2,7 @@
     "name": "nexendrie/translation",
     "description": "Easy translating of Nette applications with neon",
     "keywords": [
-      "translation", "translating", "internationalization", "nette", "neon"
+      "translation", "translating", "localization", "nette", "neon"
     ],
     "license": "BSD-3-Clause",
     "authors": [
