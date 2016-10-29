@@ -37,8 +37,8 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(Loader::class)
       ->addSetup("setFolder", [$config["folder"]])
       ->addSetup("setDefaultLang", [$config["default"]]);
-    $resolverName = strtolower($config["localeResolver"]);
-    switch($resolverName) {
+    $resolverName = $config["localeResolver"];
+    switch(strtolower($resolverName)) {
       case "environment":
         $resolver = $builder->addDefinition($this->prefix("resolverName"))
           ->setClass(EnvironmentLocaleResolver::class);
@@ -49,7 +49,12 @@ class TranslationExtension extends CompilerExtension {
         break;
       default:
         // todo: allow using custom resolver by setting valid class name
-        throw new \Exception("Invalid locale resolver.");
+        if(class_exists($resolverName)) {
+          $resolver = $builder->addDefinition($this->prefix("resolverName"))
+            ->setClass($resolverName);
+        } else {
+          throw new \Exception("Invalid locale resolver.");
+        }
         break;
     }
     $resolver->addSetup("setDefaultLang", [$config["default"]]);
