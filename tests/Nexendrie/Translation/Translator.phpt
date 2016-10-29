@@ -38,8 +38,9 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("Content", $this->translator->translate("book.content"));
     Assert::same("XYZ", $this->translator->translate("xyz"));
     // parameters
-    Assert::type("string", $this->translator->translate("param", 0, ["param1" => "value1"]));
-    Assert::same("Param1: value1", $this->translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $this->translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::type("string", $result);
+    Assert::same("Param1: value1", $result);
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
@@ -56,8 +57,9 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("Obsah", $this->translator->translate("book.content"));
     Assert::same("xyz", $this->translator->translate("xyz"));
     // parameters
-    Assert::type("string", $this->translator->translate("param", 0, ["param1" => "value1"]));
-    Assert::same("Param2: value1", $this->translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $this->translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::type("string", $result);
+    Assert::same("Param2: value1", $result);
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));

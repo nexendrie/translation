@@ -11,7 +11,8 @@ class LoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $this->loader = new Loader("en", __DIR__ . "/../../lang", new ManualLocaleResolver());
+    $folder = __DIR__ . "/../../lang";
+    $this->loader = new Loader("en", $folder, new ManualLocaleResolver());
   }
   
   function testGetLang() {
