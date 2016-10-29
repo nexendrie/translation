@@ -2,7 +2,9 @@
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\DI\CompilerExtension,
-    Nette\Utils\Validators;
+    Nette\Utils\Validators,
+    Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -37,11 +39,11 @@ class TranslationExtension extends CompilerExtension {
     switch($resolverName) {
       case "environment":
         $resolver = $builder->addDefinition($this->prefix("resolverName"))
-          ->setClass(\Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver::class);
+          ->setClass(EnvironmentLocaleResolver::class);
         break;
       case "manual":
         $resolver = $builder->addDefinition($this->prefix("resolverName"))
-          ->setClass(\Nexendrie\Translation\Resolvers\ManualLocaleResolver::class);
+          ->setClass(ManualLocaleResolver::class);
         break;
       default:
         throw new \Exception("Invalid locale resolver.");
