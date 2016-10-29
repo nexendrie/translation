@@ -4,7 +4,9 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Nette\DI\CompilerExtension,
     Nette\Utils\Validators,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\Translator,
+    Nexendrie\Translation\Loader;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -30,9 +32,9 @@ class TranslationExtension extends CompilerExtension {
     Validators::assertField($config, "default", "string");
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("translator"))
-      ->setClass(\Nexendrie\Translation\Translator::class);
+      ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
-      ->setClass(\Nexendrie\Translation\Loader::class)
+      ->setClass(Loader::class)
       ->addSetup("setFolder", [$config["folder"]])
       ->addSetup("setDefaultLang", [$config["default"]]);
     $resolverName = strtolower($config["localeResolver"]);
