@@ -21,7 +21,7 @@ class Translator implements ITranslator {
   protected $untranslated = [];
   
   function __construct(Loader $loader = NULL) {
-    $this->loader = (is_null($loader))? new Loader: $loader;
+    $this->loader = (is_null($loader)) ? new Loader : $loader;
   }
   
   /**

@@ -9,7 +9,7 @@ class InvalidFolderException extends \RuntimeException {
   
 }
 
-class FolderNotSetException extends InvalidStateException  {
+class FolderNotSetException extends InvalidStateException {
   
 }
 
