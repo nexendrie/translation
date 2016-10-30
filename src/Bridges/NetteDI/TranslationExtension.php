@@ -47,22 +47,21 @@ class TranslationExtension extends CompilerExtension {
     $resolverName = $config["localeResolver"];
     switch(strtolower($resolverName)) {
       case "environment":
-        $builder->addDefinition($this->prefix("localeResolver"))
-          ->setClass(EnvironmentLocaleResolver::class);
+        $resolver = EnvironmentLocaleResolver::class;
         break;
       case "manual":
-        $builder->addDefinition($this->prefix("localeResolver"))
-          ->setClass(ManualLocaleResolver::class);
+        $resolver = ManualLocaleResolver::class;
         break;
       default:
         if(class_exists($resolverName)) {
-          $builder->addDefinition($this->prefix("localeResolver"))
-            ->setClass($resolverName);
+          $resolver = $resolverName;
         } else {
           throw new InvalidLocaleResolverException("Invalid locale resolver.");
         }
         break;
     }
+    $builder->addDefinition($this->prefix("localeResolver"))
+      ->setClass($resolver);
   }
 }
 ?>
