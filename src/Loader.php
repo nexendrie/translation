@@ -117,7 +117,8 @@ class Loader {
    * @return array
    */
   protected function loadDomain($name) {
-    $default = Neon::decode(file_get_contents("$this->folder/$name.$this->defaultLang.neon"));
+    $defaultFilename = "$this->folder/$name.$this->defaultLang.neon";
+    $default = Neon::decode(file_get_contents($defaultFilename));
     $this->resources[$name][] = "$this->folder/$name.{$this->defaultLang}.neon";
     $lang = [];
     $filename = "$this->folder/$name.{$this->lang}.neon";
@@ -135,7 +136,9 @@ class Loader {
    * @throws \Exception
    */
   protected function loadTexts() {
-    if($this->lang === $this->loadedLang) return;
+    if($this->lang === $this->loadedLang) {
+      return;
+    }
     if(is_null($this->folder)) {
       throw new \Exception("Folder for translations was not set.");
     }
