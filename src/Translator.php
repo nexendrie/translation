@@ -10,12 +10,15 @@ use Nette\Utils\Arrays,
  * @author Jakub Konečný
  * @property string $lang
  * @property string[] $folders
+ * @property-read string[] $untranslated
  */
 class Translator implements ITranslator {
   use \Nette\SmartObject;
   
   /** @var Loader */
   protected $loader;
+  /** @var string[] */
+  protected $untranslated = [];
   
   function __construct(Loader $loader = NULL) {
     $this->loader = (is_null($loader))? new Loader: $loader;
@@ -50,6 +53,13 @@ class Translator implements ITranslator {
   }
   
   /**
+   * @return string[]
+   */
+  function getUntranslated() {
+    return $this->untranslated;
+  }
+  
+  /**
    * Translate the string
    *
    * @param string $message
@@ -69,6 +79,9 @@ class Translator implements ITranslator {
     $text = Arrays::get($texts, $message, "");
     foreach($params as $key => $value) {
       $text = str_replace("%$key%", $value, $text);
+    }
+    if($text === "") {
+      $this->untranslated[] = $message;
     }
     return $text;
   }

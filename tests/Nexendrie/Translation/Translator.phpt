@@ -29,6 +29,7 @@ class TranslatorTest extends \Tester\TestCase {
   }
   
   function testTranslateEn() {
+    Assert::count(0, $this->translator->untranslated);
     Assert::same("en", $this->translator->lang);
     // non-existing string
     Assert::type("string", $this->translator->translate("abc"));
@@ -44,9 +45,11 @@ class TranslatorTest extends \Tester\TestCase {
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
+    Assert::count(2, $this->translator->untranslated);
   }
   
   function testTranslateCs() {
+    Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "cs";
     Assert::same("cs", $this->translator->lang);
     // non-existing string
@@ -63,12 +66,14 @@ class TranslatorTest extends \Tester\TestCase {
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
+    Assert::count(2, $this->translator->untranslated);
   }
   
   /**
    * Test non-existing language
    */
   function testTranslateX() {
+    Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "x";
     Assert::same("x", $this->translator->lang);
     // non-existing string
@@ -80,6 +85,7 @@ class TranslatorTest extends \Tester\TestCase {
     // string existing only in default translation
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
+    Assert::count(2, $this->translator->untranslated);
   }
 }
 
