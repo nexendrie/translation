@@ -171,5 +171,14 @@ class Loader {
     $this->loadTexts();
     return $this->texts;
   }
+  
+  /**
+   * @return string
+   */
+  function getResolverName() {
+    $class = get_class($this->resolver);
+    $pos = strrpos($class, '\\');
+    return substr($class, $pos + 1);
+  }
 }
 ?>

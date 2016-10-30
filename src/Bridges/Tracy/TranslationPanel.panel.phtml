@@ -1,0 +1,27 @@
+<p>Untranslated message: <?php echo count($translator->untranslated); ?>, loaded resources <?php echo $resourcesCount; ?></p>
+<div id="resolvedLanguage">
+  <h1>Resolved language</h1>
+  <table>
+    <tr><td><?php echo $loader->getResolverName(); ?></td><td><?php echo $loader->lang; ?></td></tr>
+  </table>
+</div>
+<br/>
+<div id="resources">
+  <h1>Loaded resources</h1>
+  <table>
+    <th><td>Domain</td><td>Filename</td></th>
+    <?php foreach($loader->resources as $domain => $files) {
+      foreach($files as $filename) {
+        echo "<tr><td></td><td>$domain</td><td>$filename</td></tr>";
+      }
+    }
+    ?>
+  </table>
+</div>
+<div id="untranslated">
+  <?php if(count($translator->untranslated)) echo "<h1>Untranslated message</h1>"; ?>
+  <?php foreach($translator->untranslated as $message) {
+    echo "<p>$message</p>";
+  }
+  ?>
+</div>

@@ -8,7 +8,9 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\InvalidLocaleResolverException,
-    Nexendrie\Translation\InvalidFolderException;
+    Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
+    Nette\DI\MissingServiceException;
 
 use Tester\Assert;
 
@@ -120,6 +122,24 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
     }, \InvalidArgumentException::class, "translation.folders has to be string or array of strings.");
+  }
+  
+  function testPanel() {
+    $panel = $this->getService(TranslationPanel::class);
+    Assert::type(TranslationPanel::class, $panel);
+    $panel = \Tracy\Debugger::getBar()->getPanel("translation");
+    Assert::type(TranslationPanel::class, $panel);
+    $config = [
+      "translation" => [
+        "debugger" => false
+      ]
+    ];
+    Assert::exception(function() use($config){
+      $this->refreshContainer($config);
+      $panel = $this->getService(TranslationPanel::class);
+      Assert::type(TranslationPanel::class, $panel);
+    }, MissingServiceException::class);
+    
   }
 }
 
