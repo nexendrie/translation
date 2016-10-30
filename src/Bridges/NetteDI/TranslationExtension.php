@@ -7,7 +7,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loader,
-    Nexendrie\Translation\InvalidLocaleResolverException;
+    Nexendrie\Translation\InvalidLocaleResolverException,
+    Nexendrie\Translation\InvalidFolderException;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -24,12 +25,17 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
-   * @throws \Exception
+   * @throws InvalidFolderException
+   * @throws InvalidLocaleResolverException
    */
   function loadConfiguration() {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
     Validators::assertField($config, "folder", "string");
+    $folder = $config["folder"];
+    if(!is_dir($folder)) {
+      throw new InvalidFolderException("Folder $folder does not exist.");
+    }
     Validators::assertField($config, "default", "string");
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("translator"))

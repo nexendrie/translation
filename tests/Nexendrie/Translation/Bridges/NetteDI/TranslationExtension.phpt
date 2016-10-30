@@ -7,7 +7,8 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
-    Nexendrie\Translation\InvalidLocaleResolverException;
+    Nexendrie\Translation\InvalidLocaleResolverException,
+    Nexendrie\Translation\InvalidFolderException;
 
 use Tester\Assert;
 
@@ -100,6 +101,17 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
     }, InvalidLocaleResolverException::class, "Invalid locale resolver.");
+  }
+  
+  function testInvalidFolder() {
+    $config = [
+      "translation" => [
+        "folder" => "/dev/null"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidFolderException::class, "Folder /dev/null does not exist.");
   }
 }
 
