@@ -2,14 +2,14 @@
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\DI\CompilerExtension,
-  Nette\Utils\Validators,
-  Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
-  Nexendrie\Translation\Resolvers\ManualLocaleResolver,
-  Nexendrie\Translation\Translator,
-  Nexendrie\Translation\Loader,
-  Nexendrie\Translation\InvalidLocaleResolverException,
-  Nexendrie\Translation\InvalidFolderException,
-  Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
+    Nette\Utils\Validators,
+    Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\Translator,
+    Nexendrie\Translation\Loader,
+    Nexendrie\Translation\InvalidLocaleResolverException,
+    Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 
 /**
  * TranslationExtension for Nette DI Container
