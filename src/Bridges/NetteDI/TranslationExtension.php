@@ -2,13 +2,14 @@
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\DI\CompilerExtension,
-    Nette\Utils\Validators,
-    Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
-    Nexendrie\Translation\Translator,
-    Nexendrie\Translation\Loader,
-    Nexendrie\Translation\InvalidLocaleResolverException,
-    Nexendrie\Translation\InvalidFolderException;
+  Nette\Utils\Validators,
+  Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
+  Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+  Nexendrie\Translation\Translator,
+  Nexendrie\Translation\Loader,
+  Nexendrie\Translation\InvalidLocaleResolverException,
+  Nexendrie\Translation\InvalidFolderException,
+  Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -21,6 +22,7 @@ class TranslationExtension extends CompilerExtension {
     "localeResolver" => "manual",
     "folders" => ["%appDir%/lang"],
     "default" => "en",
+    "debugger" => "%debugMode%",
   ];
   
   /**
@@ -85,6 +87,12 @@ class TranslationExtension extends CompilerExtension {
     }
     $builder->addDefinition($this->prefix("localeResolver"))
       ->setClass($resolver);
+    if($config["debugger"] AND interface_exists('Tracy\IBarPanel')) {
+      $builder->addDefinition($this->prefix("panel"))
+        ->setClass(TranslationPanel::class);
+      $builder->getDefinition("tracy.bar")
+        ->addSetup("addPanel", ["@" . $this->prefix("panel"), "translation"]);
+    }
   }
 }
 ?>
