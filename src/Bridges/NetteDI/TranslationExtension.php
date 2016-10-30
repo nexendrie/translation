@@ -24,6 +24,31 @@ class TranslationExtension extends CompilerExtension {
   ];
   
   /**
+   * @return string
+   * @throws InvalidLocaleResolverException
+   */
+  protected function resolveResolverClass() {
+    $config = $this->getConfig($this->defaults);
+    $resolverName = $config["localeResolver"];
+    switch(strtolower($resolverName)) {
+      case "environment":
+        $resolver = EnvironmentLocaleResolver::class;
+        break;
+      case "manual":
+        $resolver = ManualLocaleResolver::class;
+        break;
+      default:
+        if(class_exists($resolverName)) {
+          $resolver = $resolverName;
+        } else {
+          throw new InvalidLocaleResolverException("Invalid locale resolver.");
+        }
+        break;
+    }
+    return $resolver;
+  }
+  
+  /**
    * @return void
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
@@ -44,21 +69,10 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(Loader::class)
       ->addSetup("setFolder", [$folder])
       ->addSetup("setDefaultLang", [$config["default"]]);
-    $resolverName = $config["localeResolver"];
-    switch(strtolower($resolverName)) {
-      case "environment":
-        $resolver = EnvironmentLocaleResolver::class;
-        break;
-      case "manual":
-        $resolver = ManualLocaleResolver::class;
-        break;
-      default:
-        if(class_exists($resolverName)) {
-          $resolver = $resolverName;
-        } else {
-          throw new InvalidLocaleResolverException("Invalid locale resolver.");
-        }
-        break;
+    try {
+      $resolver = $this->resolveResolverClass();
+    } catch(InvalidLocaleResolverException $e) {
+      throw $e;
     }
     $builder->addDefinition($this->prefix("localeResolver"))
       ->setClass($resolver);
