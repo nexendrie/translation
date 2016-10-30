@@ -122,7 +122,7 @@ class Loader {
     $this->resources[$name][] = $defaultFilename;
     $lang = [];
     $filename = "$this->folder/$name.{$this->lang}.neon";
-    if($this->lang != "en" AND is_file($filename)) {
+    if($this->lang != $this->defaultLang AND is_file($filename)) {
       $lang = Neon::decode(file_get_contents($filename));
       $this->resources[$name][] = $filename;
     }
