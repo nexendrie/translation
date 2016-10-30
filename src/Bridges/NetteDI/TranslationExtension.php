@@ -42,7 +42,7 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
       ->setClass(Loader::class)
-      ->addSetup("setFolder", [$config["folder"]])
+      ->addSetup("setFolder", [$folder])
       ->addSetup("setDefaultLang", [$config["default"]]);
     $resolverName = $config["localeResolver"];
     switch(strtolower($resolverName)) {
