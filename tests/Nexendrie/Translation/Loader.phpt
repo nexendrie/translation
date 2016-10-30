@@ -50,7 +50,7 @@ class LoaderTest extends \Tester\TestCase {
   function testSetFolder() {
     Assert::exception(function() {
       $this->loader->folder = NULL;
-    }, \Exception::class, "Folder  does not exist.");
+    }, InvalidFolderException::class, "Folder  does not exist.");
   }
   
   function testGetResources() {
@@ -89,7 +89,7 @@ class LoaderTest extends \Tester\TestCase {
     Assert::exception(function() {
       $this->loader = new Loader;
       $this->loader->getTexts();
-    }, \Exception::class, "Folder for translations was not set.");
+    }, FolderNotSetException::class, "Folder for translations was not set.");
   }
 }
 

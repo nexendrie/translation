@@ -6,7 +6,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Translator,
-    Nexendrie\Translation\Loader;
+    Nexendrie\Translation\Loader,
+    Nexendrie\Translation\InvalidLocaleResolverException;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -52,7 +53,7 @@ class TranslationExtension extends CompilerExtension {
           $builder->addDefinition($this->prefix("resolverName"))
             ->setClass($resolverName);
         } else {
-          throw new \Exception("Invalid locale resolver.");
+          throw new InvalidLocaleResolverException("Invalid locale resolver.");
         }
         break;
     }

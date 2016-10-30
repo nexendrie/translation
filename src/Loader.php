@@ -94,11 +94,11 @@ class Loader {
   
   /**
    * @param string $folder
-   * @throws \Exception
+   * @throws InvalidFolderException
    */
   function setFolder($folder) {
     if(!is_dir($folder)) {
-      throw new \Exception("Folder $folder does not exist.");
+      throw new InvalidFolderException("Folder $folder does not exist.");
     }
     $this->folder = $folder;
   }
@@ -133,14 +133,14 @@ class Loader {
    * Load all texts
    *
    * @return void
-   * @throws \Exception
+   * @throws FolderNotSetException
    */
   protected function loadTexts() {
     if($this->lang === $this->loadedLang) {
       return;
     }
     if(is_null($this->folder)) {
-      throw new \Exception("Folder for translations was not set.");
+      throw new FolderNotSetException("Folder for translations was not set.");
     }
     $default = $this->defaultLang;
     $this->resources = $texts = [];

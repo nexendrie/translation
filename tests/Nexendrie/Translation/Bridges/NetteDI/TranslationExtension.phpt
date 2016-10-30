@@ -6,7 +6,8 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
-    Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver;
+    Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
+    Nexendrie\Translation\InvalidLocaleResolverException;
 
 use Tester\Assert;
 
@@ -98,7 +99,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, \Exception::class, "Invalid locale resolver.");
+    }, InvalidLocaleResolverException::class, "Invalid locale resolver.");
   }
 }
 
