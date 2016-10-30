@@ -81,7 +81,7 @@ class Translator implements ITranslator {
       $text = str_replace("%$key%", $value, $text);
     }
     if($text === "") {
-      $this->untranslated[] = $message;
+      $this->untranslated[] = "$domain.$message";
     }
     return $text;
   }
