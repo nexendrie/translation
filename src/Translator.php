@@ -9,7 +9,7 @@ use Nette\Utils\Arrays,
  *
  * @author Jakub Konečný
  * @property string $lang
- * @property string $folder
+ * @property string[] $folders
  */
 class Translator implements ITranslator {
   use \Nette\SmartObject;
@@ -36,17 +36,17 @@ class Translator implements ITranslator {
   }
   
   /**
-   * @return string
+   * @return string[]
    */
-  function getFolder() {
-    return $this->loader->folder;
+  function getFolders() {
+    return $this->loader->folders;
   }
   
   /**
-   * @param string $folder
+   * @param string[] $folders
    */
-  function setFolder($folder) {
-    $this->loader->folder = $folder;
+  function setFolders($folders) {
+    $this->loader->folders = $folders;
   }
   
   /**

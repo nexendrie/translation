@@ -13,7 +13,7 @@ use Nette\Neon\Neon,
  * @property string $defaultLang
  * @property string $lang
  * @property array $texts
- * @property string $folder
+ * @property string[] $folders
  * @property-read array $resources
  */
 class Loader {
@@ -25,8 +25,8 @@ class Loader {
   protected $loadedLang = NULL;
   /** @var array */
   protected $texts = NULL;
-  /** @var string */
-  protected $folder = NULL;
+  /** @var string[] */
+  protected $folders = [];
   /** @var ILocaleResolver|NULL */
   protected $resolver = NULL;
   /** @var array */
@@ -34,15 +34,15 @@ class Loader {
   
   /**
    * @param string $lang
-   * @param string $folder
+   * @param string $folders
    * @param ILocaleResolver $resolver
    */
-  function __construct($lang = "en", $folder = NULL, ILocaleResolver $resolver = NULL) {
+  function __construct($lang = "en", $folders = NULL, ILocaleResolver $resolver = NULL) {
     if(is_string($lang)) {
       $this->setLang($lang);
     }
-    if(is_string($folder)) {
-      $this->setFolder($folder);
+    if(is_string($folders) OR is_array($folders)) {
+      $this->setFolders($folders);
     }
     if($resolver) {
       $this->resolver = $resolver;
@@ -86,21 +86,26 @@ class Loader {
   }
   
   /**
-   * @return string
+   * @return string[]
    */
-  function getFolder() {
-    return $this->folder;
+  function getFolders() {
+    return $this->folders;
   }
   
   /**
-   * @param string $folder
+   * @param string[] $folders
    * @throws InvalidFolderException
    */
-  function setFolder($folder) {
-    if(!is_dir($folder)) {
-      throw new InvalidFolderException("Folder $folder does not exist.");
+  function setFolders($folders) {
+    if(is_string($folders)) {
+      $folders = [$folders];
     }
-    $this->folder = $folder;
+    foreach($folders as $folder) {
+      if(!is_dir($folder)) {
+        throw new InvalidFolderException("Folder $folder does not exist.");
+      }
+      $this->folders[] = $folder;
+    }
   }
   
   /**
@@ -117,16 +122,21 @@ class Loader {
    * @return array
    */
   protected function loadDomain($name) {
-    $defaultFilename = "$this->folder/$name.$this->defaultLang.neon";
-    $default = Neon::decode(file_get_contents($defaultFilename));
-    $this->resources[$name][] = $defaultFilename;
-    $lang = [];
-    $filename = "$this->folder/$name.{$this->lang}.neon";
-    if($this->lang != $this->defaultLang AND is_file($filename)) {
-      $lang = Neon::decode(file_get_contents($filename));
-      $this->resources[$name][] = $filename;
+    $return = [];
+    foreach($this->folders as $folder) {
+      $defaultFilename = "$folder/$name.$this->defaultLang.neon";
+      if(!is_file($defaultFilename)) continue;
+      $default = Neon::decode(file_get_contents($defaultFilename));
+      $this->resources[$name][] = $defaultFilename;
+      $lang = [];
+      $filename = "$folder/$name.{$this->lang}.neon";
+      if($this->lang != $this->defaultLang AND is_file($filename)) {
+        $lang = Neon::decode(file_get_contents($filename));
+        $this->resources[$name][] = $filename;
+      }
+      $return = array_merge($return, $default, $lang);
     }
-    return array_merge($default, $lang);
+    return $return;
   }
   
   /**
@@ -139,12 +149,12 @@ class Loader {
     if($this->lang === $this->loadedLang) {
       return;
     }
-    if(is_null($this->folder)) {
+    if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $default = $this->defaultLang;
     $this->resources = $texts = [];
-    $files = Finder::findFiles("*.$default.neon")->from($this->folder);
+    $files = Finder::findFiles("*.$default.neon")->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $domain = $file->getBasename(".$default.neon");

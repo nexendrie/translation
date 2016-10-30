@@ -18,13 +18,13 @@ class TranslatorTest extends \Tester\TestCase {
   
   function setUp() {
     $this->translator = new Translator;
-    $this->translator->folder = __DIR__ . "/../../lang";
+    $this->translator->folders = __DIR__ . "/../../lang";
   }
   
   function testLang() {
-    Assert::same(__DIR__ . "/../../lang", $this->translator->folder);
+    Assert::same(__DIR__ . "/../../lang", $this->translator->folders[0]);
     Assert::exception(function() {
-      $this->translator->folder = NULL;
+      $this->translator->folders = "";
     }, \Exception::class, "Folder  does not exist.");
   }
   

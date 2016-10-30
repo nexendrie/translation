@@ -19,7 +19,7 @@ class TranslationExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "localeResolver" => "manual",
-    "folder" => "%appDir%/lang",
+    "folders" => ["%appDir%/lang"],
     "default" => "en",
   ];
   
@@ -50,16 +50,25 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
+   * @throws \InvalidArgumentException
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    */
   function loadConfiguration() {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
-    Validators::assertField($config, "folder", "string");
-    $folder = $config["folder"];
-    if(!is_dir($folder)) {
-      throw new InvalidFolderException("Folder $folder does not exist.");
+    Validators::assertField($config, "folders");
+    if(is_string($config["folders"])) {
+      $folders = [$config["folders"]];
+    } elseif(is_array($config["folders"])) {
+      $folders = $config["folders"];
+    } else {
+      throw new \InvalidArgumentException("$this->name.folders has to be string or array of strings.");
+    }
+    foreach($folders as $folder) {
+      if(!is_dir($folder)) {
+        throw new InvalidFolderException("Folder $folder does not exist.");
+      }
     }
     Validators::assertField($config, "default", "string");
     $builder = $this->getContainerBuilder();
@@ -67,7 +76,7 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
       ->setClass(Loader::class)
-      ->addSetup("setFolder", [$folder])
+      ->addSetup("setFolders", [$folders])
       ->addSetup("setDefaultLang", [$config["default"]]);
     try {
       $resolver = $this->resolveResolverClass();

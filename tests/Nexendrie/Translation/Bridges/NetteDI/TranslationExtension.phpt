@@ -106,12 +106,20 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testInvalidFolder() {
     $config = [
       "translation" => [
-        "folder" => "/dev/null"
+        "folders" => "/dev/null"
       ]
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
     }, InvalidFolderException::class, "Folder /dev/null does not exist.");
+    $config = [
+      "translation" => [
+        "folders" => 1
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, \InvalidArgumentException::class, "translation.folders has to be string or array of strings.");
   }
 }
 

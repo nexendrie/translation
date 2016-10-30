@@ -11,7 +11,7 @@ class LoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $folder = __DIR__ . "/../../lang";
+    $folder = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
     $this->loader = new Loader("en", $folder, new ManualLocaleResolver());
   }
   
@@ -42,14 +42,16 @@ class LoaderTest extends \Tester\TestCase {
   }
   
   function testGetFolder() {
-    $folder = $this->loader->folder;
-    Assert::type("string", $folder);
-    Assert::same(__DIR__ . "/../../lang", $folder);
+    $folders = $this->loader->folders;
+    Assert::type("array", $folders);
+    Assert::count(2, $folders);
+    Assert::same(__DIR__ . "/../../lang", $folders[0]);
+    Assert::same(__DIR__ . "/../../lang2", $folders[1]);
   }
   
   function testSetFolder() {
     Assert::exception(function() {
-      $this->loader->folder = NULL;
+      $this->loader->folders = "";
     }, InvalidFolderException::class, "Folder  does not exist.");
   }
   
@@ -62,23 +64,25 @@ class LoaderTest extends \Tester\TestCase {
     $this->loader->getTexts();
     $resources = $this->loader->resources;
     Assert::type("array", $resources);
-    Assert::count(2, $resources);
+    Assert::count(3, $resources);
     Assert::count(1, $resources["messages"]);
     Assert::count(1, $resources["book"]);
-    // czech and english texts are loaded so there are 2 resources for each domain
+    Assert::count(1, $resources["abc"]);
+    // czech and english texts are loaded, there are 2 resources for each domain
     $this->loader->lang = "cs";
     $this->loader->getTexts();
     $resources = $this->loader->resources;
     Assert::type("array", $resources);
-    Assert::count(2, $resources);
+    Assert::count(3, $resources);
     Assert::count(2, $resources["messages"]);
     Assert::count(2, $resources["book"]);
+    Assert::count(2, $resources["abc"]);
   }
   
   function testGetTexts() {
     $texts = $this->loader->texts;
     Assert::type("array", $texts);
-    Assert::count(2, $texts);
+    Assert::count(3, $texts);
     Assert::type("array", $texts["messages"]);
     Assert::count(3, $texts["messages"]);
     Assert::type("array", $texts["book"]);
