@@ -81,6 +81,11 @@ class TranslationExtension extends CompilerExtension {
   function loadConfiguration() {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
+    try {
+      $resolver = $this->resolveResolverClass();
+    } catch(InvalidLocaleResolverException $e) {
+      throw $e;
+    }
     Validators::assertField($config, "folders");
     try {
       $folders = $this->getFolders();
@@ -97,11 +102,6 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(Loader::class)
       ->addSetup("setFolders", [$folders])
       ->addSetup("setDefaultLang", [$config["default"]]);
-    try {
-      $resolver = $this->resolveResolverClass();
-    } catch(InvalidLocaleResolverException $e) {
-      throw $e;
-    }
     $builder->addDefinition($this->prefix("localeResolver"))
       ->setClass($resolver);
     if($config["debugger"] AND interface_exists('Tracy\IBarPanel')) {
