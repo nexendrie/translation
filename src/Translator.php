@@ -73,7 +73,7 @@ class Translator implements ITranslator {
       $domain = "messages";
     } else {
       $domain = substr($message, 0, $dotPos);
-      $message = substr($message, $dotPos + strlen("."));
+      $message = substr($message, $dotPos + 1);
     }
     $texts = Arrays::get($this->loader->texts, $domain, []);
     $text = Arrays::get($texts, $message, "");
