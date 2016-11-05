@@ -5,6 +5,7 @@
       "translation", "translating", "localization", "nette", "neon"
     ],
     "license": "BSD-3-Clause",
+    "homepage": "https://nexendrie.gitlab.io",
     "authors": [
         {
             "name": "Jakub Konečný",
