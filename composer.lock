@@ -1109,12 +1109,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942"
+                "reference": "35156b828f17cc626cfc4d9cc41b773c5b429bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/494f1c74b3e778e7752c32c0bb85d132c88bb942",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/35156b828f17cc626cfc4d9cc41b773c5b429bda",
+                "reference": "35156b828f17cc626cfc4d9cc41b773c5b429bda",
                 "shasum": ""
             },
             "require": {
@@ -1138,7 +1138,12 @@
             ],
             "description": "Code quality tools for Nexendrie project",
             "homepage": "https://nexendrie.gitlab.io",
-            "time": "2016-11-05 11:54:30"
+            "keywords": [
+                "code",
+                "quality",
+                "testing"
+            ],
+            "time": "2016-11-05 13:04:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

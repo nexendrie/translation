@@ -20,7 +20,7 @@ class TranslationExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "localeResolver" => "manual",
-    "folders" => ["%appDir%/lang"],
+    "folders" => [],
     "default" => "en",
     "debugger" => "%debugMode%",
   ];
@@ -57,6 +57,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidLocaleResolverException
    */
   function loadConfiguration() {
+    $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
     try {
@@ -65,6 +66,9 @@ class TranslationExtension extends CompilerExtension {
       throw $e;
     }
     Validators::assertField($config, "folders", "array");
+    if(!count($config["folders"])) {
+      $config["folders"][] = $builder->expand("%appDir%/lang");
+    }
     $folders = $config["folders"];
     foreach($folders as $folder) {
       if(!is_dir($folder)) {
@@ -72,7 +76,6 @@ class TranslationExtension extends CompilerExtension {
       }
     }
     Validators::assertField($config, "default", "string");
-    $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
