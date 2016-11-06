@@ -51,28 +51,6 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @return string[]
-   * @throws \InvalidArgumentException
-   * @throws InvalidFolderException
-   */
-  protected function getFolders() {
-    $config = $this->getConfig($this->defaults);
-    if(is_string($config["folders"])) {
-      $folders = [$config["folders"]];
-    } elseif(is_array($config["folders"])) {
-      $folders = $config["folders"];
-    } else {
-      throw new \InvalidArgumentException("$this->name.folders has to be string or array of strings.");
-    }
-    foreach($folders as $folder) {
-      if(!is_dir($folder)) {
-        throw new InvalidFolderException("Folder $folder does not exist.");
-      }
-    }
-    return $folders;
-  }
-  
-  /**
    * @return void
    * @throws \InvalidArgumentException
    * @throws InvalidFolderException
@@ -86,13 +64,12 @@ class TranslationExtension extends CompilerExtension {
     } catch(InvalidLocaleResolverException $e) {
       throw $e;
     }
-    Validators::assertField($config, "folders");
-    try {
-      $folders = $this->getFolders();
-    } catch(\InvalidArgumentException $e) {
-      throw $e;
-    } catch(InvalidFolderException $e) {
-      throw $e;
+    Validators::assertField($config, "folders", "array");
+    $folders = $config["folders"];
+    foreach($folders as $folder) {
+      if(!is_dir($folder)) {
+        throw new InvalidFolderException("Folder $folder does not exist.");
+      }
     }
     Validators::assertField($config, "default", "string");
     $builder = $this->getContainerBuilder();

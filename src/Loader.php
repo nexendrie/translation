@@ -34,12 +34,10 @@ class Loader {
   
   /**
    * @param ILocaleResolver $resolver
-   * @param string $folders
+   * @param string[] $folders
    */
-  function __construct(ILocaleResolver $resolver = NULL, $folders = NULL) {
-    if(is_string($folders) OR is_array($folders)) {
-      $this->setFolders($folders);
-    }
+  function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {
+    $this->setFolders($folders);
     if($resolver) {
       $this->resolver = $resolver;
     } else {
@@ -92,10 +90,7 @@ class Loader {
    * @param string[] $folders
    * @throws InvalidFolderException
    */
-  function setFolders($folders) {
-    if(is_string($folders)) {
-      $folders = [$folders];
-    }
+  function setFolders(array $folders) {
     foreach($folders as $folder) {
       if(!is_dir($folder)) {
         throw new InvalidFolderException("Folder $folder does not exist.");

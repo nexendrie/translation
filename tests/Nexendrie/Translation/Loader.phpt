@@ -11,8 +11,8 @@ class LoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $folder = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
-    $this->loader = new Loader(new ManualLocaleResolver(), $folder);
+    $folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
+    $this->loader = new Loader(new ManualLocaleResolver(), $folders);
   }
   
   function testGetLang() {
@@ -51,7 +51,7 @@ class LoaderTest extends \Tester\TestCase {
   
   function testSetFolder() {
     Assert::exception(function() {
-      $this->loader->folders = "";
+      $this->loader->folders = [""];
     }, InvalidFolderException::class, "Folder  does not exist.");
   }
   
