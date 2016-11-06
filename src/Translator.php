@@ -71,17 +71,18 @@ class Translator implements ITranslator {
     $dotPos = strpos($message, ".");
     if($dotPos === false) {
       $domain = "messages";
+      $m = $message;
     } else {
       $domain = substr($message, 0, $dotPos);
-      $message = substr($message, $dotPos + 1);
+      $m = substr($message, $dotPos + 1);
     }
     $texts = Arrays::get($this->loader->texts, $domain, []);
-    $text = Arrays::get($texts, $message, "");
+    $text = Arrays::get($texts, $m, "");
     foreach($params as $key => $value) {
       $text = str_replace("%$key%", $value, $text);
     }
     if($text === "") {
-      $this->untranslated[] = "$domain.$message";
+      $this->untranslated[] = $message;
     }
     return $text;
   }
