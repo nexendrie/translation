@@ -33,14 +33,10 @@ class Loader {
   protected $resources = [];
   
   /**
-   * @param string $lang
    * @param string $folders
    * @param ILocaleResolver $resolver
    */
-  function __construct($lang = "en", $folders = NULL, ILocaleResolver $resolver = NULL) {
-    if(is_string($lang)) {
-      $this->setLang($lang);
-    }
+  function __construct($folders = NULL, ILocaleResolver $resolver = NULL) {
     if(is_string($folders) OR is_array($folders)) {
       $this->setFolders($folders);
     }
