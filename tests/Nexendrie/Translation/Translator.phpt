@@ -33,7 +33,7 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("en", $this->translator->lang);
     // non-existing string
     Assert::type("string", $this->translator->translate("abc"));
-    Assert::same("", $this->translator->translate("abc"));
+    Assert::same("abc", $this->translator->translate("abc"));
     // existing string
     Assert::type("string", $this->translator->translate("book.content"));
     Assert::same("Content", $this->translator->translate("book.content"));
@@ -54,7 +54,7 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("cs", $this->translator->lang);
     // non-existing string
     Assert::type("string", $this->translator->translate("abc"));
-    Assert::same("", $this->translator->translate("abc"));
+    Assert::same("abc", $this->translator->translate("abc"));
     // existing string
     Assert::type("string", $this->translator->translate("book.content"));
     Assert::same("Obsah", $this->translator->translate("book.content"));
@@ -78,7 +78,7 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("x", $this->translator->lang);
     // non-existing string
     Assert::type("string", $this->translator->translate("abc"));
-    Assert::same("", $this->translator->translate("abc"));
+    Assert::same("abc", $this->translator->translate("abc"));
     // existing string
     Assert::type("string", $this->translator->translate("book.content"));
     Assert::same("Content", $this->translator->translate("book.content"));

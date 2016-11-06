@@ -83,8 +83,10 @@ class Translator implements ITranslator {
     }
     if($text === "") {
       $this->untranslated[] = $message;
+      return $message;
+    } else {
+      return $text;
     }
-    return $text;
   }
 }
 ?>
