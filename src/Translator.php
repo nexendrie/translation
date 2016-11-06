@@ -59,6 +59,22 @@ class Translator implements ITranslator {
     return $this->untranslated;
   }
   
+  protected function multiLevelTrans(array $message, array $texts, $domain) {
+    $text = $texts;
+    foreach($message as $index => $part) {
+      if(count($message) === $index) {
+        $text = Arrays::get($text, $part, "");
+      } else {
+        $text = Arrays::get($text, $part, []);
+      }
+    }
+    if($text === "" OR is_array($text)) {
+      return $domain . "." . implode($message, ".");
+    } else {
+      return $text;
+    }
+  }
+  
   /**
    * Translate the string
    *
@@ -77,7 +93,12 @@ class Translator implements ITranslator {
       $m = substr($message, $dotPos + 1);
     }
     $texts = Arrays::get($this->loader->texts, $domain, []);
-    $text = Arrays::get($texts, $m, "");
+    $parts = explode(".", $m);
+    if(count($parts) === 1) {
+      $text = Arrays::get($texts, $m, "");
+    } else {
+      $text = $this->multiLevelTrans($parts, $texts, $domain);
+    }
     foreach($params as $key => $value) {
       $text = str_replace("%$key%", $value, $text);
     }

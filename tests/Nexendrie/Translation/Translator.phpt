@@ -18,7 +18,7 @@ class TranslatorTest extends \Tester\TestCase {
   
   function setUp() {
     $this->translator = new Translator;
-    $this->translator->folders = [__DIR__ . "/../../lang"];
+    $this->translator->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
   }
   
   function testLang() {
@@ -46,6 +46,12 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
     Assert::count(2, $this->translator->untranslated);
+    // multi-level message
+    Assert::type("string", $this->translator->translate("abc.multi.abc"));
+    Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
+    Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
+    Assert::type("string", $this->translator->translate("abc.multi2.def"));
+    Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
   }
   
   function testTranslateCs() {
@@ -67,6 +73,13 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
     Assert::count(2, $this->translator->untranslated);
+    // multi-level message
+    Assert::type("string", $this->translator->translate("abc.multi.abc"));
+    Assert::same("Abc", $this->translator->translate("abc.multi.abc"));
+    Assert::type("string", $this->translator->translate("abc.multi.def"));
+    Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
+    Assert::type("string", $this->translator->translate("abc.multi2.def"));
+    Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
   }
   
   /**
@@ -86,6 +99,12 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::type("string", $this->translator->translate("test"));
     Assert::same("Test", $this->translator->translate("test"));
     Assert::count(2, $this->translator->untranslated);
+    // multi-level message
+    Assert::type("string", $this->translator->translate("abc.multi.abc"));
+    Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
+    Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
+    Assert::type("string", $this->translator->translate("abc.multi2.def"));
+    Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
   }
 }
 
