@@ -33,10 +33,10 @@ class Loader {
   protected $resources = [];
   
   /**
-   * @param string $folders
    * @param ILocaleResolver $resolver
+   * @param string $folders
    */
-  function __construct($folders = NULL, ILocaleResolver $resolver = NULL) {
+  function __construct(ILocaleResolver $resolver = NULL, $folders = NULL) {
     if(is_string($folders) OR is_array($folders)) {
       $this->setFolders($folders);
     }

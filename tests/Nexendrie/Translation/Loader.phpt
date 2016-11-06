@@ -12,7 +12,7 @@ class LoaderTest extends \Tester\TestCase {
   
   function setUp() {
     $folder = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
-    $this->loader = new Loader($folder, new ManualLocaleResolver());
+    $this->loader = new Loader(new ManualLocaleResolver(), $folder);
   }
   
   function testGetLang() {
