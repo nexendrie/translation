@@ -5,7 +5,6 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
-
 class PanelTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   

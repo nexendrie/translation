@@ -5,7 +5,6 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-
 class ManualLocaleResolverTest extends \Tester\TestCase {
   /** @var ManualLocaleResolver */
   protected $resolver;
