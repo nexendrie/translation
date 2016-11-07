@@ -52,7 +52,6 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
-   * @throws \InvalidArgumentException
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    */
