@@ -80,6 +80,15 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $loader = $this->getService(ILoader::class);
     /** @var ILoader $loader */
     Assert::type(IniLoader::class, $loader);
+    $config = [
+      "translation" => [
+        "loader" => Loader::class
+      ]
+    ];
+    $this->refreshContainer($config);
+    $loader = $this->getService(ILoader::class);
+    /** @var ILoader $loader */
+    Assert::type(Loader::class, $loader);
   }
   
   function testInvalidLoader() {
