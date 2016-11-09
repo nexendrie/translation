@@ -19,7 +19,7 @@ use Nette\Neon\Neon,
  * @property string[] $folders
  * @property-read array $resources
  */
-class Loader implements ILoader {
+class NeonLoader implements ILoader {
   use \Nette\SmartObject;
   
   /** @var string */

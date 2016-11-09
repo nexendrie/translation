@@ -8,13 +8,13 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class LoaderTest extends \Tester\TestCase {
-  /** @var Loader */
+class NeonLoaderTest extends \Tester\TestCase {
+  /** @var NeonLoader */
   protected $loader;
   
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-    $this->loader = new Loader(new ManualLocaleResolver(), $folders);
+    $this->loader = new NeonLoader(new ManualLocaleResolver(), $folders);
   }
   
   function testGetLang() {
@@ -93,12 +93,12 @@ class LoaderTest extends \Tester\TestCase {
   
   function testNoFolder() {
     Assert::exception(function() {
-      $this->loader = new Loader;
+      $this->loader = new NeonLoader;
       $this->loader->getTexts();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
 }
 
-$test = new LoaderTest;
+$test = new NeonLoaderTest;
 $test->run();
 ?>
