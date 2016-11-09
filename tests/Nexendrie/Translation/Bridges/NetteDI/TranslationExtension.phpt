@@ -84,6 +84,14 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testInvalidLoader() {
     $config = [
       "translation" => [
+        "loader" => "invalid"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidLoaderException::class, "Invalid translation loader.");
+    $config = [
+      "translation" => [
         "loader" => "stdClass"
       ]
     ];
@@ -127,6 +135,14 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $config = [
       "translation" => [
         "localeResolver" => "invalid"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidLocaleResolverException::class, "Invalid locale resolver.");
+    $config = [
+      "translation" => [
+        "localeResolver" => "stdClass"
       ]
     ];
     Assert::exception(function() use($config) {

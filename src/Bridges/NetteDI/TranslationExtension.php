@@ -12,6 +12,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\Resolvers\ILocaleResolver;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -43,7 +44,7 @@ class TranslationExtension extends CompilerExtension {
         $resolver = ManualLocaleResolver::class;
         break;
       default:
-        if(class_exists($resolverName)) {
+        if(class_exists($resolverName) AND in_array(ILocaleResolver::class, class_implements($resolverName))) {
           $resolver = $resolverName;
         } else {
           throw new InvalidLocaleResolverException("Invalid locale resolver.");
