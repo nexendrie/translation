@@ -2,3 +2,6 @@ application:
     scanDirs: false
 extensions:
     translation: Nexendrie\Translation\Bridges\NetteDI\TranslationExtension
+translation:
+    folders:
+        - %appDir%/lang/neon

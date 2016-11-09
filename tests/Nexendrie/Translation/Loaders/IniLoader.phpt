@@ -8,13 +8,13 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class NeonLoaderTest extends \Tester\TestCase {
+class IniLoaderTest extends \Tester\TestCase {
   /** @var NeonLoader */
   protected $loader;
   
   function setUp() {
-    $folders = [__DIR__ . "/../../../lang/neon", __DIR__ . "/../../../lang2/neon"];
-    $this->loader = new NeonLoader(new ManualLocaleResolver(), $folders);
+    $folders = [__DIR__ . "/../../../lang/ini", __DIR__ . "/../../../lang2/ini"];
+    $this->loader = new IniLoader(new ManualLocaleResolver(), $folders);
   }
   
   function testGetLang() {
@@ -47,8 +47,8 @@ class NeonLoaderTest extends \Tester\TestCase {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
-    Assert::same(__DIR__ . "/../../../lang/neon", $folders[0]);
-    Assert::same(__DIR__ . "/../../../lang2/neon", $folders[1]);
+    Assert::same(__DIR__ . "/../../../lang/ini", $folders[0]);
+    Assert::same(__DIR__ . "/../../../lang2/ini", $folders[1]);
   }
   
   function testSetFolder() {
@@ -99,6 +99,6 @@ class NeonLoaderTest extends \Tester\TestCase {
   }
 }
 
-$test = new NeonLoaderTest;
+$test = new IniLoaderTest;
 $test->run();
 ?>
