@@ -13,7 +13,7 @@ class IniLoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $folders = [__DIR__ . "/../../../lang/ini", __DIR__ . "/../../../lang2/ini"];
+    $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new IniLoader(new ManualLocaleResolver(), $folders);
   }
   
@@ -47,8 +47,8 @@ class IniLoaderTest extends \Tester\TestCase {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
-    Assert::same(__DIR__ . "/../../../lang/ini", $folders[0]);
-    Assert::same(__DIR__ . "/../../../lang2/ini", $folders[1]);
+    Assert::same(__DIR__ . "/../../../lang", $folders[0]);
+    Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
   }
   
   function testSetFolder() {

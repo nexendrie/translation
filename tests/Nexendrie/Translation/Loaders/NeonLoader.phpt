@@ -13,7 +13,7 @@ class NeonLoaderTest extends \Tester\TestCase {
   protected $loader;
   
   function setUp() {
-    $folders = [__DIR__ . "/../../../lang/neon", __DIR__ . "/../../../lang2/neon"];
+    $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new NeonLoader(new ManualLocaleResolver(), $folders);
   }
   
@@ -47,8 +47,8 @@ class NeonLoaderTest extends \Tester\TestCase {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
-    Assert::same(__DIR__ . "/../../../lang/neon", $folders[0]);
-    Assert::same(__DIR__ . "/../../../lang2/neon", $folders[1]);
+    Assert::same(__DIR__ . "/../../../lang", $folders[0]);
+    Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
   }
   
   function testSetFolder() {
