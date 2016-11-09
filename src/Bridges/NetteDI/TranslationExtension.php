@@ -23,6 +23,7 @@ class TranslationExtension extends CompilerExtension {
     "folders" => [],
     "default" => "en",
     "debugger" => "%debugMode%",
+    "loader" => Loader::class,
   ];
   
   /**
@@ -78,7 +79,7 @@ class TranslationExtension extends CompilerExtension {
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
-      ->setClass(Loader::class)
+      ->setClass($config["loader"])
       ->addSetup("setFolders", [$folders])
       ->addSetup("setDefaultLang", [$config["default"]]);
     $builder->addDefinition($this->prefix("localeResolver"))

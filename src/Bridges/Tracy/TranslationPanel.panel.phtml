@@ -10,7 +10,7 @@
   <h1>Loaded resources</h1>
   <table>
     <th><td>Domain</td><td>Filename</td></th>
-    <?php foreach($loader->resources as $domain => $files) {
+    <?php foreach($loader->getResources() as $domain => $files) {
       foreach($files as $filename) {
         echo "<tr><td></td><td>$domain</td><td>$filename</td></tr>";
       }

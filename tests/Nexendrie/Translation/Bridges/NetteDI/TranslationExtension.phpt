@@ -3,6 +3,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\Localization\ITranslator,
     Nexendrie\Translation\Translator,
+    Nexendrie\Translation\ILoader,
     Nexendrie\Translation\Loader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
@@ -47,20 +48,21 @@ class TranslationExtensionTest extends \Tester\TestCase {
   }
   
   function testLoader() {
-    $loader = $this->getService(Loader::class);
+    /** @var ILoader $loader */
+    $loader = $this->getService(ILoader::class);
     Assert::type(Loader::class, $loader);
-    Assert::type("string", $loader->defaultLang);
-    Assert::same("en", $loader->defaultLang);
+    Assert::type("string", $loader->getDefaultLang());
+    Assert::same("en", $loader->getDefaultLang());
     $config = [
       "translation" => [
         "default" => "cs"
       ]
     ];
     $this->refreshContainer($config);
-    $loader = $this->getService(Loader::class);
+    $loader = $this->getService(ILoader::class);
     Assert::type(Loader::class, $loader);
-    Assert::type("string", $loader->defaultLang);
-    Assert::same("cs", $loader->defaultLang);
+    Assert::type("string", $loader->getDefaultLang());
+    Assert::same("cs", $loader->getDefaultLang());
   }
   
   function testDefaultResolver() {

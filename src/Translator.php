@@ -20,7 +20,7 @@ class Translator implements ITranslator {
   /** @var string[] */
   protected $untranslated = [];
   
-  function __construct(Loader $loader = NULL) {
+  function __construct(ILoader $loader = NULL) {
     $this->loader = (is_null($loader)) ? new Loader : $loader;
   }
   
@@ -28,28 +28,28 @@ class Translator implements ITranslator {
    * @return string
    */
   function getLang() {
-    return $this->loader->lang;
+    return $this->loader->getLang();
   }
   
   /**
    * @param string $lang
    */
   function setLang($lang) {
-    $this->loader->lang = $lang;
+    $this->loader->setLang($lang);
   }
   
   /**
    * @return string[]
    */
   function getFolders() {
-    return $this->loader->folders;
+    return $this->loader->getFolders();
   }
   
   /**
    * @param string[] $folders
    */
   function setFolders($folders) {
-    $this->loader->folders = $folders;
+    $this->loader->setFolders($folders);
   }
   
   /**
@@ -99,7 +99,7 @@ class Translator implements ITranslator {
       $domain = substr($message, 0, $dotPos);
       $m = substr($message, $dotPos + 1);
     }
-    $texts = Arrays::get($this->loader->texts, $domain, []);
+    $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);
     if(count($parts) === 1) {
       $text = Arrays::get($texts, $m, "");

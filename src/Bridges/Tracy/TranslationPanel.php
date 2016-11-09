@@ -1,7 +1,7 @@
 <?php
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Nexendrie\Translation\Loader,
+use Nexendrie\Translation\ILoader,
     Nexendrie\Translation\Translator,
     Tracy\IBarPanel;
 
@@ -13,10 +13,10 @@ use Nexendrie\Translation\Loader,
 class TranslationPanel implements IBarPanel {
   /** @var Translator */
   protected $translator;
-  /** @var Loader */
+  /** @var ILoader */
   protected $loader;
   
-  function __construct(Translator $translator, Loader $loader) {
+  function __construct(Translator $translator, ILoader $loader) {
     $this->translator = $translator;
     $this->loader = $loader;
   }
