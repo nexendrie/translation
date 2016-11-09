@@ -3,7 +3,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\Localization\ITranslator,
     Nexendrie\Translation\Translator,
-    Nexendrie\Translation\ILoader,
+    Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,

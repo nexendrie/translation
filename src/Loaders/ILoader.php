@@ -1,5 +1,5 @@
 <?php
-namespace Nexendrie\Translation;
+namespace Nexendrie\Translation\Loaders;
 
 /**
  * ILoader

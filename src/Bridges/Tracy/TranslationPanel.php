@@ -1,7 +1,7 @@
 <?php
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Nexendrie\Translation\ILoader,
+use Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Translator,
     Tracy\IBarPanel;
 

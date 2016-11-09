@@ -10,9 +10,9 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
-    Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
-use Nexendrie\Translation\ILoader;
-use Nexendrie\Translation\Resolvers\ILocaleResolver;
+    Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
+    Nexendrie\Translation\Loaders\ILoader,
+    Nexendrie\Translation\Resolvers\ILocaleResolver;
 
 /**
  * TranslationExtension for Nette DI Container

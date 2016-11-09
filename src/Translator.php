@@ -3,6 +3,7 @@ namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays,
     Nette\Localization\ITranslator,
+    Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\NeonLoader;
 
 /**
@@ -16,7 +17,7 @@ use Nette\Utils\Arrays,
 class Translator implements ITranslator {
   use \Nette\SmartObject;
   
-  /** @var NeonLoader */
+  /** @var ILoader */
   protected $loader;
   /** @var string[] */
   protected $untranslated = [];
