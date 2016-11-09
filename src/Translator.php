@@ -11,7 +11,6 @@ use Nette\Utils\Arrays,
  *
  * @author Jakub Konečný
  * @property string $lang
- * @property string[] $folders
  * @property-read string[] $untranslated
  */
 class Translator implements ITranslator {
@@ -38,20 +37,6 @@ class Translator implements ITranslator {
    */
   function setLang($lang) {
     $this->loader->setLang($lang);
-  }
-  
-  /**
-   * @return string[]
-   */
-  function getFolders() {
-    return $this->loader->getFolders();
-  }
-  
-  /**
-   * @param string[] $folders
-   */
-  function setFolders($folders) {
-    $this->loader->setFolders($folders);
   }
   
   /**

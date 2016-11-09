@@ -43,7 +43,7 @@ class NeonLoaderTest extends \Tester\TestCase {
     Assert::same("cs", $lang);
   }
   
-  function testGetFolder() {
+  function testGetFolders() {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
@@ -51,7 +51,7 @@ class NeonLoaderTest extends \Tester\TestCase {
     Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
   }
   
-  function testSetFolder() {
+  function testSetFolders() {
     Assert::exception(function() {
       $this->loader->folders = [""];
     }, InvalidFolderException::class, "Folder  does not exist.");

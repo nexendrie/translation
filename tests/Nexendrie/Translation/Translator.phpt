@@ -17,15 +17,9 @@ class TranslatorTest extends \Tester\TestCase {
   private $translator;
   
   function setUp() {
-    $this->translator = new Translator;
-    $this->translator->folders = [__DIR__ . "/../../lang/neon", __DIR__ . "/../../lang2/neon"];
-  }
-  
-  function testLang() {
-    Assert::same(__DIR__ . "/../../lang/neon", $this->translator->folders[0]);
-    Assert::exception(function() {
-      $this->translator->folders = [""];
-    }, \Exception::class, "Folder  does not exist.");
+    $loader = new Loaders\NeonLoader;
+    $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
+    $this->translator = new Translator($loader);
   }
   
   function testTranslateEn() {
