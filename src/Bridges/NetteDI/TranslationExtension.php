@@ -6,13 +6,14 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Translator,
+    Nexendrie\Translation\Loaders\ILoader,
+    Nexendrie\Translation\Loaders\FileLoader,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
-    Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Resolvers\ILocaleResolver;
 
 /**
@@ -114,10 +115,12 @@ class TranslationExtension extends CompilerExtension {
     Validators::assertField($config, "default", "string");
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(Translator::class);
-    $builder->addDefinition($this->prefix("loader"))
+    $loader = $builder->addDefinition($this->prefix("loader"))
       ->setClass($loader)
-      ->addSetup("setFolders", [$folders])
       ->addSetup("setDefaultLang", [$config["default"]]);
+    if(in_array(FileLoader::class, class_parents($loader->class))) {
+      $loader->addSetup("setFolders", [$folders]);
+    }
     $builder->addDefinition($this->prefix("localeResolver"))
       ->setClass($resolver);
     if($config["debugger"] AND interface_exists('Tracy\IBarPanel')) {
