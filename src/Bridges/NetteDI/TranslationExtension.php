@@ -9,7 +9,9 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
+use Nexendrie\Translation\ILoader;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -23,7 +25,7 @@ class TranslationExtension extends CompilerExtension {
     "folders" => [],
     "default" => "en",
     "debugger" => "%debugMode%",
-    "loader" => NeonLoader::class,
+    "loader" => "neon",
   ];
   
   /**
@@ -52,9 +54,32 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
+   * @return string
+   * @throws InvalidLoaderException
+   */
+  protected function resolveLoaderClass() {
+    $config = $this->getConfig($this->defaults);
+    $loaderName = $config["loader"];
+    switch(strtolower($loaderName)) {
+      case "neon":
+        $loader = NeonLoader::class;
+        break;
+      default:
+        if(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {
+          $loader = $loaderName;
+        } else {
+          throw new InvalidLoaderException("Invalid translation loader.");
+        }
+        break;
+    }
+    return $loader;
+  }
+  
+  /**
    * @return void
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
+   * @throws InvalidLoaderException
    */
   function loadConfiguration() {
     $builder = $this->getContainerBuilder();
@@ -75,11 +100,17 @@ class TranslationExtension extends CompilerExtension {
         throw new InvalidFolderException("Folder $folder does not exist.");
       }
     }
+    Validators::assertField($config, "loader", "string");
+    try {
+      $loader = $this->resolveLoaderClass();
+    } catch(InvalidLoaderException $e) {
+      throw $e;
+    }
     Validators::assertField($config, "default", "string");
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix("loader"))
-      ->setClass($config["loader"])
+      ->setClass($loader)
       ->addSetup("setFolders", [$folders])
       ->addSetup("setDefaultLang", [$config["default"]]);
     $builder->addDefinition($this->prefix("localeResolver"))

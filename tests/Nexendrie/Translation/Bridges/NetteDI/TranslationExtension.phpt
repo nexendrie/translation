@@ -10,10 +10,10 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
-    Nette\DI\MissingServiceException;
-
-use Tester\Assert;
+    Nette\DI\MissingServiceException,
+    Tester\Assert;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
@@ -33,6 +33,10 @@ class FallbackLocaleResolver implements ILocaleResolver {
   }
 }
 
+class Loader extends NeonLoader {
+  
+}
+
 class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
@@ -47,7 +51,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("XYZ", $translator->translate("xyz"));
   }
   
-  function testLoader() {
+  function testDefaultLoader() {
     /** @var ILoader $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(NeonLoader::class, $loader);
@@ -63,6 +67,29 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type(NeonLoader::class, $loader);
     Assert::type("string", $loader->getDefaultLang());
     Assert::same("cs", $loader->getDefaultLang());
+  }
+  
+  function testCustomLoader() {
+    $config = [
+      "translation" => [
+        "loader" => Loader::class
+      ]
+    ];
+    $this->refreshContainer($config);
+    $loader = $this->getService(ILoader::class);
+    /** @var ILoader $loader */
+    Assert::type(Loader::class, $loader);
+  }
+  
+  function testInvalidLoader() {
+    $config = [
+      "translation" => [
+        "loader" => "stdClass"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidLoaderException::class, "Invalid translation loader.");
   }
   
   function testDefaultResolver() {

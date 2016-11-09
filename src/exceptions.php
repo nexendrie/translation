@@ -16,4 +16,8 @@ class FolderNotSetException extends InvalidStateException {
 class InvalidLocaleResolverException extends \RuntimeException {
   
 }
+
+class InvalidLoaderException extends \RuntimeException {
+  
+}
 ?>
