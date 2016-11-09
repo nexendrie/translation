@@ -1,6 +1,8 @@
 <?php
 namespace Nexendrie\Translation\Loaders;
 
+use Nexendrie\Translation\InvalidFolderException;
+
 /**
  * ILoader
  *
