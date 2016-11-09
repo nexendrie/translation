@@ -2,7 +2,8 @@
 namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays,
-    Nette\Localization\ITranslator;
+    Nette\Localization\ITranslator,
+    Nexendrie\Translation\Loaders\Loader;
 
 /**
  * Translator

@@ -1,17 +1,19 @@
 <?php
-namespace Nexendrie\Translation;
+namespace Nexendrie\Translation\Loaders;
 
 use Tester\Assert,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\FolderNotSetException;
 
-require __DIR__ . "/../../bootstrap.php";
+require __DIR__ . "/../../../bootstrap.php";
 
 class LoaderTest extends \Tester\TestCase {
   /** @var Loader */
   protected $loader;
   
   function setUp() {
-    $folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
+    $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new Loader(new ManualLocaleResolver(), $folders);
   }
   
@@ -45,8 +47,8 @@ class LoaderTest extends \Tester\TestCase {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
-    Assert::same(__DIR__ . "/../../lang", $folders[0]);
-    Assert::same(__DIR__ . "/../../lang2", $folders[1]);
+    Assert::same(__DIR__ . "/../../../lang", $folders[0]);
+    Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
   }
   
   function testSetFolder() {

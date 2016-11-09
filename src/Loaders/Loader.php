@@ -1,10 +1,13 @@
 <?php
-namespace Nexendrie\Translation;
+namespace Nexendrie\Translation\Loaders;
 
 use Nette\Neon\Neon,
     Nette\Utils\Finder,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\ILoader,
+    Nexendrie\Translation\InvalidFolderException,
+    Nexendrie\Translation\FolderNotSetException;
 
 /**
  * Translations loader

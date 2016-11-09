@@ -6,7 +6,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Translator,
-    Nexendrie\Translation\Loader,
+    Nexendrie\Translation\Loaders\Loader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
