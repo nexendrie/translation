@@ -5,6 +5,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\NeonLoader,
+    Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
@@ -72,13 +73,13 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testCustomLoader() {
     $config = [
       "translation" => [
-        "loader" => Loader::class
+        "loader" => "ini"
       ]
     ];
     $this->refreshContainer($config);
     $loader = $this->getService(ILoader::class);
     /** @var ILoader $loader */
-    Assert::type(Loader::class, $loader);
+    Assert::type(IniLoader::class, $loader);
   }
   
   function testInvalidLoader() {

@@ -7,6 +7,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\NeonLoader,
+    Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
@@ -64,6 +65,9 @@ class TranslationExtension extends CompilerExtension {
     switch(strtolower($loaderName)) {
       case "neon":
         $loader = NeonLoader::class;
+        break;
+      case "ini":
+        $loader = IniLoader::class;
         break;
       default:
         if(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {
