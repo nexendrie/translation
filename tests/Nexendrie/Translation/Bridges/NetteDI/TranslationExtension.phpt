@@ -9,6 +9,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
+    Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
@@ -17,22 +18,6 @@ use Nette\Localization\ITranslator,
     Tester\Assert;
 
 require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * FallbackLocaleResolver
- */
-class FallbackLocaleResolver implements ILocaleResolver {
-  use \Nette\SmartObject;
-  
-  /**
-   * Resolve language
-   *
-   * @return NULL
-   */
-  function resolve() {
-    return NULL;
-  }
-}
 
 class Loader extends NeonLoader {
   
