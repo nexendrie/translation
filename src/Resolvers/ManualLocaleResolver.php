@@ -3,6 +3,7 @@ namespace Nexendrie\Translation\Resolvers;
 
 /**
  * ManualLocaleResolver
+ * Allows you to manually specify current language
  *
  * @author Jakub Konečný
  * @property string|NULL $lang

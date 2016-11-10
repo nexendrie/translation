@@ -3,6 +3,7 @@ namespace Nexendrie\Translation\Loaders;
 
 /**
  * IniLoader
+ * Loads texts from ini files
  *
  * @author Jakub Konečný
  */

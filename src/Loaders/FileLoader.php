@@ -8,7 +8,9 @@ use Nette\Utils\Finder,
     Nexendrie\Translation\FolderNotSetException;
 
 /**
- * Translations loader
+ * Generic file translations loader
+ * Loads texts from {$this->extension} files
+ * You need to define method parseFile() which processes individual file
  *
  * @author Jakub Konečný
  * @property string $defaultLang

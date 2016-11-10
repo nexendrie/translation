@@ -3,6 +3,8 @@ namespace Nexendrie\Translation\Resolvers;
 
 /**
  * FallbackLocaleResolver
+ * Fallback resolver when nothing else can be used
+ * Uses just default language (specified by loader)
  *
  * @author Jakub Konečný
  */

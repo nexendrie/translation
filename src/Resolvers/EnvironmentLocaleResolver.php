@@ -3,6 +3,7 @@ namespace Nexendrie\Translation\Resolvers;
 
 /**
  * EnvironmentResolver
+ * Reads current language from an environment variables
  *
  * @author Jakub Konečný
  */

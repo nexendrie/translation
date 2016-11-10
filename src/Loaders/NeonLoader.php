@@ -5,6 +5,7 @@ use Nette\Neon\Neon;
 
 /**
  * Translations loader
+ * Loads texts from neon files
  *
  * @author Jakub Konečný
  */
