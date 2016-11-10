@@ -14,11 +14,11 @@ class IniLoader extends FileLoader {
   /**
    * Parse individual file
    *
-   * @param string $content
+   * @param string $filename
    * @return array
    */
-  protected function parseFile($content) {
-    return parse_ini_string($content, true);
+  protected function parseFile($filename) {
+    return parse_ini_file($filename, true);
   }
 }
 ?>

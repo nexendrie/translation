@@ -114,10 +114,10 @@ abstract class FileLoader implements ILoader {
   /**
    * Parse individual file
    * 
-   * @param string $content
+   * @param string $filename
    * @return array
    */
-  abstract protected function parseFile($content);
+  abstract protected function parseFile($filename);
   
   /**
    * Load texts from one text domain
@@ -133,13 +133,13 @@ abstract class FileLoader implements ILoader {
     $files = Finder::findFiles($defaultFilename)->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $default = $this->parseFile(file_get_contents($file->getPathname()));
+      $default = $this->parseFile($file->getPathname());
       $this->resources[$name][] = $file->getPathname();
       $lang = [];
       $filename = "$name.$this->lang.$extension";
       $filename = str_replace($defaultFilename, $filename, $file->getPathname());
       if($this->lang != $defaultLang AND is_file($filename)) {
-        $lang = $this->parseFile(file_get_contents($filename));
+        $lang = $this->parseFile($filename);
         $this->resources[$name][] = $filename;
       }
       $return = array_merge($return, $default, $lang);

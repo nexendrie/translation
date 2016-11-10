@@ -16,11 +16,11 @@ class NeonLoader extends FileLoader {
   /**
    * Parse individual file
    *
-   * @param string $content
+   * @param string $filename
    * @return array
    */
-  protected function parseFile($content) {
-    return Neon::decode($content);
+  protected function parseFile($filename) {
+    return Neon::decode(file_get_contents($filename));
   }
 }
 ?>
