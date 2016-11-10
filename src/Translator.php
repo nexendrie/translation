@@ -3,8 +3,7 @@ namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays,
     Nette\Localization\ITranslator,
-    Nexendrie\Translation\Loaders\ILoader,
-    Nexendrie\Translation\Loaders\NeonLoader;
+    Nexendrie\Translation\Loaders\ILoader;
 
 /**
  * Translator
@@ -21,8 +20,8 @@ class Translator implements ITranslator {
   /** @var string[] */
   protected $untranslated = [];
   
-  function __construct(ILoader $loader = NULL) {
-    $this->loader = (is_null($loader)) ? new NeonLoader : $loader;
+  function __construct(ILoader $loader) {
+    $this->loader = $loader;
   }
   
   /**
