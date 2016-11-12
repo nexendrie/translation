@@ -15,7 +15,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
-    Nexendrie\Translation\Resolvers\ILocaleResolver;
+    Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nette\Utils\Arrays;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -30,6 +31,13 @@ class TranslationExtension extends CompilerExtension {
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => "neon",
+  ];
+  
+  /** @var string[] */
+  protected $loaders = [
+    "neon" => NeonLoader::class,
+    "ini" => IniLoader::class,
+    "json" => JsonLoader::class,
   ];
   
   /**
@@ -64,25 +72,14 @@ class TranslationExtension extends CompilerExtension {
   protected function resolveLoaderClass() {
     $config = $this->getConfig($this->defaults);
     $loaderName = $config["loader"];
-    switch(strtolower($loaderName)) {
-      case "neon":
-        $loader = NeonLoader::class;
-        break;
-      case "ini":
-        $loader = IniLoader::class;
-        break;
-      case "json":
-        $loader = JsonLoader::class;
-        break;
-      default:
-        if(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {
-          $loader = $loaderName;
-        } else {
-          throw new InvalidLoaderException("Invalid translation loader.");
-        }
-        break;
+    $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
+    if($loader !== "") {
+      return $loader;
+    } elseif(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {
+      return $loaderName;
+    } else {
+      throw new InvalidLoaderException("Invalid translation loader.");
     }
-    return $loader;
   }
   
   /**
