@@ -57,44 +57,28 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("cs", $loader->getDefaultLang());
   }
   
+  /**
+   * @param string $name
+   * @param string $class
+   * @return void
+   */
+  protected function customLoader($name, $class) {
+    $config = [
+      "translation" => [
+        "loader" => $name
+      ]
+    ];
+    $this->refreshContainer($config);
+    $loader = $this->getService(ILoader::class);
+    /** @var ILoader $loader */
+    Assert::type($class, $loader);
+  }
+  
   function testCustomLoader() {
-    $config = [
-      "translation" => [
-        "loader" => "ini"
-      ]
-    ];
-    $this->refreshContainer($config);
-    $loader = $this->getService(ILoader::class);
-    /** @var ILoader $loader */
-    Assert::type(IniLoader::class, $loader);
-    $config = [
-      "translation" => [
-        "loader" => "json"
-      ]
-    ];
-    $this->refreshContainer($config);
-    $loader = $this->getService(ILoader::class);
-    /** @var ILoader $loader */
-    Assert::type(JsonLoader::class, $loader);
-    $config = [
-      "translation" => [
-        "loader" => "yaml"
-      ]
-    ];
-    $this->refreshContainer($config);
-    $loader = $this->getService(ILoader::class);
-    /** @var ILoader $loader */
-    Assert::type(YamlLoader::class, $loader);
-    $config = [
-      "translation" => [
-        "loader" => Loader::class
-      ]
-    ];
-    $this->refreshContainer($config);
-    $loader = $this->getService(ILoader::class);
-    /** @var ILoader $loader */
-    Assert::type(Loader::class, $loader);
-    
+    $this->customLoader("ini", IniLoader::class);
+    $this->customLoader("json", JsonLoader::class);
+    $this->customLoader("yaml", YamlLoader::class);
+    $this->customLoader(Loader::class, Loader::class);
   }
   
   function testInvalidLoader() {
@@ -123,28 +107,26 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type("null", $resolver->lang);
   }
   
-  function testOtherResolver() {
+  /**
+   * @param string $name
+   * @param string $class
+   * @return void
+   */
+  protected function customResolver($name, $class) {
     $config = [
       "translation" => [
-        "localeResolver" => "environment"
+        "localeResolver" => $name
       ]
     ];
     $this->refreshContainer($config);
-    /** @var EnvironmentLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
-    Assert::type(EnvironmentLocaleResolver::class, $resolver);
+    /** @var ILocaleResolver $resolver */
+    Assert::type($class, $resolver);
   }
   
   function testCustomResolver() {
-    $config = [
-      "translation" => [
-        "localeResolver" => FallbackLocaleResolver::class
-      ]
-    ];
-    $this->refreshContainer($config);
-    /** @var FallbackLocaleResolver $resolver */
-    $resolver = $this->getService(ILocaleResolver::class);
-    Assert::type(FallbackLocaleResolver::class, $resolver);
+    $this->customResolver("environment", EnvironmentLocaleResolver::class);
+    $this->customResolver(FallbackLocaleResolver::class, FallbackLocaleResolver::class);
   }
   
   function testInvalidResolver() {
