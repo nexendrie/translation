@@ -1,0 +1,7 @@
+<?php
+return [
+  "test" => "Test",
+  "xyz" => "XYZ",
+  "param" => "Param1: %param1%",
+];
+?>
