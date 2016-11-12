@@ -9,9 +9,6 @@ class YamlLoaderTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   use TFileLoaderTest;
   
-  /** @var YamlLoader */
-  protected $loader;
-  
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new YamlLoader(new ManualLocaleResolver(), $folders);

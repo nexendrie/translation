@@ -7,9 +7,6 @@ require __DIR__ . "/../../../bootstrap.php";
 
 
 class JsonLoaderTest extends \Tester\TestCase {
-  /** @var JsonLoader */
-  protected $loader;
-  
   use TFileLoaderTest;
   
   function setUp() {

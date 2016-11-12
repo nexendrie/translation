@@ -6,9 +6,6 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 require __DIR__ . "/../../../bootstrap.php";
 
 class IniLoaderTest extends \Tester\TestCase {
-  /** @var IniLoader */
-  protected $loader;
-  
   use TFileLoaderTest;
   
   function setUp() {

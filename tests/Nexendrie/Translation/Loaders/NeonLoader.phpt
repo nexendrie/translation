@@ -6,9 +6,6 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 require __DIR__ . "/../../../bootstrap.php";
 
 class NeonLoaderTest extends \Tester\TestCase {
-  /** @var NeonLoader */
-  protected $loader;
-  
   use TFileLoaderTest;
   
   function setUp() {
