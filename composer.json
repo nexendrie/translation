@@ -42,6 +42,11 @@
         },
         "classmap": ["src/exceptions.php"]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Nexendrie\\Translation\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
