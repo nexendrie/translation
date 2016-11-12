@@ -31,7 +31,8 @@
     },
     "suggest": {
         "nette/di": "To use TranslationExtension",
-        "tracy/tracy": "For debugger panel"
+        "tracy/tracy": "For debugger panel",
+        "ext-json": "To use JsonLoader"
     },
     "autoload": {
         "psr-4": {

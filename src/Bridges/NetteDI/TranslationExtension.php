@@ -10,6 +10,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Loaders\FileLoader,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Loaders\IniLoader,
+    Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
@@ -69,6 +70,9 @@ class TranslationExtension extends CompilerExtension {
         break;
       case "ini":
         $loader = IniLoader::class;
+        break;
+      case "json":
+        $loader = JsonLoader::class;
         break;
       default:
         if(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {

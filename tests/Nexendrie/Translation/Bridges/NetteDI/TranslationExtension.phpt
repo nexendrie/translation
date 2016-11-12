@@ -6,6 +6,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Loaders\IniLoader,
+    Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
@@ -67,6 +68,15 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type(IniLoader::class, $loader);
     $config = [
       "translation" => [
+        "loader" => "json"
+      ]
+    ];
+    $this->refreshContainer($config);
+    $loader = $this->getService(ILoader::class);
+    /** @var ILoader $loader */
+    Assert::type(JsonLoader::class, $loader);
+    $config = [
+      "translation" => [
         "loader" => Loader::class
       ]
     ];
@@ -74,6 +84,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $loader = $this->getService(ILoader::class);
     /** @var ILoader $loader */
     Assert::type(Loader::class, $loader);
+    
   }
   
   function testInvalidLoader() {
