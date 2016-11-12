@@ -1,5 +1,5 @@
 Version 0.1.0+dev
-- added JsonLoader
+- added JsonLoader and YamlLoader
 
 Version 0.1.0
 - first version

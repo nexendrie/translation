@@ -11,6 +11,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
+    Nexendrie\Translation\Loaders\YamlLoader,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
@@ -44,6 +45,7 @@ class TranslationExtension extends CompilerExtension {
     "neon" => NeonLoader::class,
     "ini" => IniLoader::class,
     "json" => JsonLoader::class,
+    "yaml" => YamlLoader::class,
   ];
   
   /**

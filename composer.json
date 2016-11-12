@@ -2,7 +2,7 @@
     "name": "nexendrie/translation",
     "description": "Easy translating of Nette applications",
     "keywords": [
-      "translation", "translating", "localization", "nette", "neon", "json", "ini"
+      "translation", "translating", "localization", "nette", "neon", "json", "ini", "yaml"
     ],
     "license": "BSD-3-Clause",
     "homepage": "https://nexendrie.gitlab.io",
@@ -27,12 +27,14 @@
         "nexendrie/code-quality": "dev-master",
         "nette/tester": "dev-master",
         "nette/di": "^2.4",
-        "tracy/tracy": "^2.4"
+        "tracy/tracy": "^2.4",
+        "symfony/yaml": "^3.1"
     },
     "suggest": {
         "nette/di": "To use TranslationExtension",
         "tracy/tracy": "For debugger panel",
-        "ext-json": "To use JsonLoader"
+        "ext-json": "To use JsonLoader",
+        "symfony/yaml": "To use YamlLoader"
     },
     "autoload": {
         "psr-4": {
