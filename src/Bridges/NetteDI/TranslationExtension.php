@@ -83,6 +83,25 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
+   * @return string[]
+   * @throws InvalidFolderException
+   */
+  protected function getFolders() {
+    $builder = $this->getContainerBuilder();
+    $config = $this->getConfig($this->defaults);
+    if(!count($config["folders"])) {
+      $config["folders"][] = $builder->expand("%appDir%/lang");
+    }
+    $folders = $config["folders"];
+    foreach($folders as $folder) {
+      if(!is_dir($folder)) {
+        throw new InvalidFolderException("Folder $folder does not exist.");
+      }
+    }
+    return $folders;
+  }
+  
+  /**
    * @return void
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
@@ -98,14 +117,10 @@ class TranslationExtension extends CompilerExtension {
       throw $e;
     }
     Validators::assertField($config, "folders", "array");
-    if(!count($config["folders"])) {
-      $config["folders"][] = $builder->expand("%appDir%/lang");
-    }
-    $folders = $config["folders"];
-    foreach($folders as $folder) {
-      if(!is_dir($folder)) {
-        throw new InvalidFolderException("Folder $folder does not exist.");
-      }
+    try {
+      $folders = $this->getFolders();
+    } catch(InvalidFolderException $e) {
+      throw $e;
     }
     Validators::assertField($config, "loader", "string");
     try {
