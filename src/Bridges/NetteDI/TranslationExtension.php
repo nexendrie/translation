@@ -34,6 +34,12 @@ class TranslationExtension extends CompilerExtension {
   ];
   
   /** @var string[] */
+  protected $resolvers = [
+    "environment" => EnvironmentLocaleResolver::class,
+    "manual" => ManualLocaleResolver::class,
+  ];
+  
+  /** @var string[] */
   protected $loaders = [
     "neon" => NeonLoader::class,
     "ini" => IniLoader::class,
@@ -47,22 +53,14 @@ class TranslationExtension extends CompilerExtension {
   protected function resolveResolverClass() {
     $config = $this->getConfig($this->defaults);
     $resolverName = $config["localeResolver"];
-    switch(strtolower($resolverName)) {
-      case "environment":
-        $resolver = EnvironmentLocaleResolver::class;
-        break;
-      case "manual":
-        $resolver = ManualLocaleResolver::class;
-        break;
-      default:
-        if(class_exists($resolverName) AND in_array(ILocaleResolver::class, class_implements($resolverName))) {
-          $resolver = $resolverName;
-        } else {
-          throw new InvalidLocaleResolverException("Invalid locale resolver.");
-        }
-        break;
+    $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
+    if($resolver !== "") {
+      return $resolver;
+    } elseif(class_exists($resolverName) AND in_array(ILocaleResolver::class, class_implements($resolverName))) {
+      return $resolverName;
+    } else {
+      throw new InvalidLocaleResolverException("Invalid locale resolver.");
     }
-    return $resolver;
   }
   
   /**
