@@ -30,7 +30,7 @@ class MessagesCatalogue extends PhpLoader {
     $files = Finder::findFiles("catalogue.$lang.$extension")->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $texts = $this->parseFile($file->getPathname());
+      $texts = array_merge($texts, $this->parseFile($file->getPathname()));
       $this->resources["*"][] = $file->getPathname();
     }
     $this->texts = $texts;
