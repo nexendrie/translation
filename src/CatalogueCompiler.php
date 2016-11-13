@@ -30,6 +30,11 @@ class CatalogueCompiler {
     $this->folder = $folder;
   }
   
+  /**
+   * Compile catalogues
+   *
+   * @return void
+   */
   function compile() {
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
