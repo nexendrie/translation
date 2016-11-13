@@ -183,8 +183,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testCompiler() {
     $config = [
       "translation" => [
-        "compile" => true,
-        "languages" => [],
+        "compiler" => [
+          "enabled" => true,
+          "languages" => [],
+        ],
         "folders" => [
           "%appDir%/lang", "%appDir%/lang2"
         ]
@@ -193,7 +195,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::exception(function() use($config){
       $this->refreshContainer($config);
     }, NoLanguageSpecifiedException::class);
-    $config["translation"]["languages"] = ["en", "cs", "xyz"];
+    $config["translation"]["compiler"]["languages"] = ["en", "cs", "xyz"];
     $this->refreshContainer($config);
     $loader = $this->getService(ILoader::class);
     Assert::type(MessagesCatalogue::class, $loader);

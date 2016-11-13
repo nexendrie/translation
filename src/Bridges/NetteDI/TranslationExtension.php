@@ -36,8 +36,10 @@ class TranslationExtension extends CompilerExtension {
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => "neon",
-    "compile" => false,
-    "languages" => [],
+    "compiler" => [
+      "enabled" => false,
+      "languages" => [],
+    ],
   ];
   
   /** @var string[] */
@@ -152,9 +154,9 @@ class TranslationExtension extends CompilerExtension {
       $builder->getDefinition("tracy.bar")
         ->addSetup("addPanel", ["@" . $this->prefix("panel"), "translation"]);
     }
-    Validators::assertField($config, "compile", "bool");
-    Validators::assertField($config, "languages", "array");
-    if($config["compile"] AND count($config["languages"]) < 1) {
+    Validators::assertField($config["compiler"], "enabled", "bool");
+    Validators::assertField($config["compiler"], "languages", "array");
+    if($config["compiler"]["enabled"] AND count($config["compiler"]["languages"]) < 1) {
       throw new NoLanguageSpecifiedException("Specify at least 1 language for catalogue compiler or disable the compiler.");
     }
   }
@@ -165,7 +167,7 @@ class TranslationExtension extends CompilerExtension {
   function beforeCompile() {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    if(!$config["compile"]) {
+    if(!$config["compiler"]["enabled"]) {
       return;
     }
     $serviceName = $this->prefix("loader");
@@ -179,7 +181,7 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(MessagesCatalogue::class)
       ->addSetup("setFolders", [[$folder]]);
     $builder->addDefinition($this->prefix("catalogueCompiler"))
-      ->setFactory(CatalogueCompiler::class, [$loader, $config["languages"], $folder]);
+      ->setFactory(CatalogueCompiler::class, [$loader, $config["compiler"]["languages"], $folder]);
   }
   
   /**
@@ -188,7 +190,7 @@ class TranslationExtension extends CompilerExtension {
    */
   function afterCompile(ClassType $class) {
     $config = $this->getConfig($this->defaults);
-    if(!$config["compile"]) {
+    if(!$config["compiler"]["enabled"]) {
       return;
     }
     $initialize = $class->methods["initialize"];
