@@ -54,6 +54,7 @@ class TranslationExtension extends CompilerExtension {
     "ini" => IniLoader::class,
     "json" => JsonLoader::class,
     "yaml" => YamlLoader::class,
+    "catalogue" => MessagesCatalogue::class
   ];
   
   /**

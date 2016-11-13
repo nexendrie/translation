@@ -81,6 +81,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $this->customLoader("ini", IniLoader::class);
     $this->customLoader("json", JsonLoader::class);
     $this->customLoader("yaml", YamlLoader::class);
+    $this->customLoader("catalogue", MessagesCatalogue::class);
     $this->customLoader(Loader::class, Loader::class);
   }
   
