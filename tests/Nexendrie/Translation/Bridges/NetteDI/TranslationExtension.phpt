@@ -8,15 +8,18 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\Loaders\YamlLoader,
+    Nexendrie\Translation\Loaders\MessagesCatalogue,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
+    Nexendrie\Translation\CatalogueCompiler,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nette\DI\MissingServiceException,
+    Nexendrie\Translation\NoLanguageSpecifiedException,
     Tester\Assert;
 
 require __DIR__ . "/../../../../bootstrap.php";
@@ -175,6 +178,46 @@ class TranslationExtensionTest extends \Tester\TestCase {
       Assert::type(TranslationPanel::class, $panel);
     }, MissingServiceException::class);
     
+  }
+  
+  function testCompiler() {
+    $config = [
+      "translation" => [
+        "compile" => true,
+        "languages" => [],
+        "folders" => [
+          "%appDir%/lang", "%appDir%/lang2"
+        ]
+      ]
+    ];
+    Assert::exception(function() use($config){
+      $this->refreshContainer($config);
+    }, NoLanguageSpecifiedException::class);
+    $config["translation"]["languages"] = ["en", "cs", "xyz"];
+    $this->refreshContainer($config);
+    $loader = $this->getService(ILoader::class);
+    Assert::type(MessagesCatalogue::class, $loader);
+    /** @var NeonLoader $originalLoader */
+    $originalLoader = $this->getContainer()->getService("translation.originalLoader");
+    Assert::type(NeonLoader::class, $originalLoader);
+    $compiler =  $this->getService(CatalogueCompiler::class);
+    Assert::type(CatalogueCompiler::class, $compiler);
+    /** @var Translator $translator */
+    $translator = $this->getService(ITranslator::class);
+    Assert::same("Content", $translator->translate("book.content"));
+    Assert::same("Test", $translator->translate("book.test"));
+    Assert::same("ABC", $translator->translate("abc.multi.abc"));
+    Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $translator->lang = "cs";
+    Assert::same("Obsah", $translator->translate("book.content"));
+    Assert::same("Test", $translator->translate("book.test"));
+    Assert::same("Abc", $translator->translate("abc.multi.abc"));
+    Assert::same("Param2: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $translator->lang = "xyz";
+    Assert::same("Content", $translator->translate("book.content"));
+    Assert::same("Test", $translator->translate("book.test"));
+    Assert::same("ABC", $translator->translate("abc.multi.abc"));
+    Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
   }
 }
 

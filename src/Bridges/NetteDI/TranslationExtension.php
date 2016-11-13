@@ -2,6 +2,7 @@
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\DI\CompilerExtension,
+    Nette\PhpGenerator\ClassType,
     Nette\Utils\Validators,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
@@ -12,11 +13,14 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\Loaders\YamlLoader,
+    Nexendrie\Translation\Loaders\MessagesCatalogue,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
+    Nexendrie\Translation\NoLanguageSpecifiedException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nexendrie\Translation\CatalogueCompiler,
     Nette\Utils\Arrays;
 
 /**
@@ -32,6 +36,8 @@ class TranslationExtension extends CompilerExtension {
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => "neon",
+    "compile" => false,
+    "languages" => [],
   ];
   
   /** @var string[] */
@@ -106,6 +112,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
+   * @throws NoLanguageSpecifiedException
    */
   function loadConfiguration() {
     $builder = $this->getContainerBuilder();
@@ -145,6 +152,50 @@ class TranslationExtension extends CompilerExtension {
       $builder->getDefinition("tracy.bar")
         ->addSetup("addPanel", ["@" . $this->prefix("panel"), "translation"]);
     }
+    Validators::assertField($config, "compile", "bool");
+    Validators::assertField($config, "languages", "array");
+    if($config["compile"] AND count($config["languages"]) < 1) {
+      throw new NoLanguageSpecifiedException("Specify at least 1 language for catalogue compiler or disable the compiler.");
+    }
+  }
+  
+  /**
+   * @return void
+   */
+  function beforeCompile() {
+    $builder = $this->getContainerBuilder();
+    $config = $this->getConfig($this->defaults);
+    if(!$config["compile"]) {
+      return;
+    }
+    $serviceName = $this->prefix("loader");
+    $loader = $builder->getDefinition($serviceName);
+    $builder->removeDefinition($serviceName);
+    $folder = $builder->expand("%tempDir%/catalogues");
+    @mkdir($folder, 0777, true);
+    $builder->addDefinition($this->prefix("originalLoader"), $loader)
+      ->setFactory($loader->class, [new ManualLocaleResolver, $config["folders"]])
+      ->setAutowired(false);
+    $builder->addDefinition($serviceName)
+      ->setClass(MessagesCatalogue::class)
+      ->addSetup("setFolders", [[$folder]]);
+    $builder->addDefinition($this->prefix("catalogueCompiler"))
+      ->setFactory(CatalogueCompiler::class, [$loader, $config["languages"], $folder]);
+  }
+  
+  /**
+   * @param ClassType $class
+   * @return void
+   */
+  function afterCompile(ClassType $class) {
+    $builder = $this->getContainerBuilder();
+    $config = $this->getConfig($this->defaults);
+    if(!$config["compile"]) {
+      return;
+    }
+    $initialize = $class->methods["initialize"];
+    $initialize->addBody('@mkdir(?, 0777, true);
+$this->getService(?)->compile();', [$builder->expand("%tempDir%/catalogues"), $this->prefix("catalogueCompiler")]);
   }
 }
 ?>
