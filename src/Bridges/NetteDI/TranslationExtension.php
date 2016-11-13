@@ -172,7 +172,6 @@ class TranslationExtension extends CompilerExtension {
     $loader = $builder->getDefinition($serviceName);
     $builder->removeDefinition($serviceName);
     $folder = $builder->expand("%tempDir%/catalogues");
-    @mkdir($folder, 0777, true);
     $builder->addDefinition($this->prefix("originalLoader"), $loader)
       ->setFactory($loader->class, [new ManualLocaleResolver, $config["folders"]])
       ->setAutowired(false);
@@ -188,14 +187,12 @@ class TranslationExtension extends CompilerExtension {
    * @return void
    */
   function afterCompile(ClassType $class) {
-    $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     if(!$config["compile"]) {
       return;
     }
     $initialize = $class->methods["initialize"];
-    $initialize->addBody('@mkdir(?, 0777, true);
-$this->getService(?)->compile();', [$builder->expand("%tempDir%/catalogues"), $this->prefix("catalogueCompiler")]);
+    $initialize->addBody('$this->getService(?)->compile();', [$this->prefix("catalogueCompiler")]);
   }
 }
 ?>

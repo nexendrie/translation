@@ -3,6 +3,8 @@ namespace Nexendrie\Translation\Loaders;
 
 use Tester\Assert,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\CatalogueCompiler,
+    Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\FolderNotSetException;
 
 require __DIR__ . "/../../../bootstrap.php";
@@ -11,15 +13,19 @@ class MessagesCatalogueTest extends \Tester\TestCase {
   use TFileLoaderTest;
   
   function setUp() {
-    $folders = [__DIR__ . "/../../../catalogues"];
-    $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), $folders);
+    $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
+    $folder = __DIR__ . "/../../../_temp/catalogues";
+    $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
+    $compiler = new CatalogueCompiler($loader, ["en", "cs"], $folder);
+    $compiler->compile();
+    $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
   }
   
   function testGetFolders() {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(1, $folders);
-    Assert::same(__DIR__ . "/../../../catalogues", $folders[0]);
+    Assert::same(__DIR__ . "/../../../_temp/catalogues", $folders[0]);
   }
   
   function testGetResources() {

@@ -36,6 +36,7 @@ class CatalogueCompiler {
    * @return void
    */
   function compile() {
+    @mkdir($this->folder, 0777, true);
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
