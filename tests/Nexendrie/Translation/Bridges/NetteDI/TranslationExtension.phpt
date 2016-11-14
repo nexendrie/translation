@@ -8,6 +8,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\Loaders\YamlLoader,
+    Nexendrie\Translation\Loaders\PhpLoader,
     Nexendrie\Translation\Loaders\MessagesCatalogue,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
@@ -81,6 +82,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $this->customLoader("ini", IniLoader::class);
     $this->customLoader("json", JsonLoader::class);
     $this->customLoader("yaml", YamlLoader::class);
+    $this->customLoader("php", PhpLoader::class);
     $this->customLoader("catalogue", MessagesCatalogue::class);
     $this->customLoader(Loader::class, Loader::class);
   }

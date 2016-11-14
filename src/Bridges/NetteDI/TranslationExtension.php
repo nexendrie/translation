@@ -13,6 +13,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
     Nexendrie\Translation\Loaders\YamlLoader,
+    Nexendrie\Translation\Loaders\PhpLoader,
     Nexendrie\Translation\Loaders\MessagesCatalogue,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
@@ -54,6 +55,7 @@ class TranslationExtension extends CompilerExtension {
     "ini" => IniLoader::class,
     "json" => JsonLoader::class,
     "yaml" => YamlLoader::class,
+    "php" => PhpLoader::class,
     "catalogue" => MessagesCatalogue::class
   ];
   
