@@ -10,6 +10,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\YamlLoader,
     Nexendrie\Translation\Loaders\PhpLoader,
     Nexendrie\Translation\Loaders\MessagesCatalogue,
+    Nexendrie\Translation\Loaders\Loader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
@@ -24,10 +25,6 @@ use Nette\Localization\ITranslator,
     Tester\Assert;
 
 require __DIR__ . "/../../../../bootstrap.php";
-
-class Loader extends NeonLoader {
-  
-}
 
 class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
