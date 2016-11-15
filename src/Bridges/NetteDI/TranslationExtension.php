@@ -4,8 +4,10 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Nette\DI\CompilerExtension,
     Nette\PhpGenerator\ClassType,
     Nette\Utils\Validators,
+    Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\FileLoader,
@@ -20,7 +22,6 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\NoLanguageSpecifiedException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
-    Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
     Nette\Utils\Arrays;
 
@@ -47,6 +48,7 @@ class TranslationExtension extends CompilerExtension {
   protected $resolvers = [
     "environment" => EnvironmentLocaleResolver::class,
     "manual" => ManualLocaleResolver::class,
+    "fallback" => FallbackLocaleResolver::class,
   ];
   
   /** @var string[] */
