@@ -6,6 +6,7 @@ use Nexendrie\Translation\Loaders\ILoader,
 
 /**
  * CatalogueCompiler
+ * Compiles messages catalogues from resources found by loader
  *
  * @author Jakub Konečný
  */

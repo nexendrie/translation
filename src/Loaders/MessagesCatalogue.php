@@ -6,6 +6,7 @@ use Nette\Utils\Finder,
 
 /**
  * MessagesCatalogue
+ * Loads texts from compiled (PHP) messages catalogue
  *
  * @author Jakub Konečný
  */
