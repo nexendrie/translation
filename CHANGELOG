@@ -1,3 +1,7 @@
+Version 0.2.0+dev
+- simplified using php loader and standalone messages catalogue with Nette DI extension
+- use texts from all folders in MessagesCatalogue
+
 Version 0.2.0
 - added JsonLoader, YamlLoader and PhpLoader
 - Nette DI extension can now compile catalogues from messages
