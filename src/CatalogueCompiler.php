@@ -41,6 +41,7 @@ class CatalogueCompiler {
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
+      $texts["__resources"] = $this->loader->getResources();
       $content = "<?php
 return " . Helpers::dump($texts) . ";
 ?>";

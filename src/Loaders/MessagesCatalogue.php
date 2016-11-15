@@ -32,7 +32,12 @@ class MessagesCatalogue extends PhpLoader {
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $texts = array_merge($texts, $this->parseFile($file->getPathname()));
-      $this->resources["*"][] = $file->getPathname();
+      if(isset($texts["__resources"])) {
+        $this->resources = array_merge($this->resources, $texts["__resources"]);
+        unset($texts["__resources"]);
+      } else {
+        $this->resources["*"][] = $file->getPathname();
+      }
     }
     $this->texts = $texts;
     $this->loadedLang = $this->lang;

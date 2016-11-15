@@ -28,26 +28,6 @@ class MessagesCatalogueTest extends \Tester\TestCase {
     Assert::same(__DIR__ . "/../../../_temp/catalogues", $folders[0]);
   }
   
-  function testGetResources() {
-    // texts were not loaded yet so there are no resources
-    $resources = $this->loader->resources;
-    Assert::type("array", $resources);
-    Assert::count(0, $resources);
-    // english texts are loaded, there is 1 resource
-    $this->loader->getTexts();
-    $resources = $this->loader->resources;
-    Assert::type("array", $resources);
-    Assert::count(1, $resources);
-    Assert::count(1, $resources["*"]);
-    // czech and english texts are loaded, there is 1 resource
-    $this->loader->lang = "cs";
-    $this->loader->getTexts();
-    $resources = $this->loader->resources;
-    Assert::type("array", $resources);
-    Assert::count(1, $resources);
-    Assert::count(1, $resources["*"]);
-  }
-  
   function testNoFolder() {
     Assert::exception(function() {
       $this->loader = new MessagesCatalogue();
