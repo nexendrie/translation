@@ -105,6 +105,17 @@ abstract class FileLoader implements ILoader {
   }
   
   /**
+   * @param string $filename
+   * @param string $domain
+   * @return void
+   */
+  protected function addResource($filename, $domain) {
+    if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain])) {
+      $this->resources[$domain][] = $filename;
+    }
+  }
+  
+  /**
    * @return array
    */
   function getResources() {
@@ -134,13 +145,13 @@ abstract class FileLoader implements ILoader {
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $default = $this->parseFile($file->getPathname());
-      $this->resources[$name][] = $file->getPathname();
+      $this->addResource($file->getPathname(), $name);
       $lang = [];
       $filename = "$name.$this->lang.$extension";
       $filename = str_replace($defaultFilename, $filename, $file->getPathname());
       if($this->lang != $defaultLang AND is_file($filename)) {
         $lang = $this->parseFile($filename);
-        $this->resources[$name][] = $filename;
+        $this->addResource($filename, $name);
       }
       $return = array_merge($return, $default, $lang);
     }
