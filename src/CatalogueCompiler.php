@@ -2,7 +2,8 @@
 namespace Nexendrie\Translation;
 
 use Nexendrie\Translation\Loaders\ILoader,
-    Nette\PhpGenerator\Helpers;
+    Nette\PhpGenerator\Helpers,
+    Nette\Utils\FileSystem;
 
 /**
  * CatalogueCompiler
@@ -37,7 +38,7 @@ class CatalogueCompiler {
    * @return void
    */
   function compile() {
-    @mkdir($this->folder, 0777, true);
+    FileSystem::createDir($this->folder);
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
