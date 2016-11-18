@@ -30,8 +30,8 @@ abstract class FileLoader implements ILoader {
   protected $texts = NULL;
   /** @var string[] */
   protected $folders = [];
-  /** @var ILocaleResolver|NULL */
-  protected $resolver = NULL;
+  /** @var ILocaleResolver */
+  protected $resolver;
   /** @var array */
   protected $resources = [];
   /** @var string */
