@@ -42,5 +42,27 @@ class MessagesCatalogue extends PhpLoader {
     $this->texts = $texts;
     $this->loadedLang = $this->lang;
   }
+  
+  
+  /**
+   * @return string[]
+   * @throws FolderNotSetException
+   */
+  function getAvailableLanguages() {
+    if(!count($this->folders)) {
+      throw new FolderNotSetException("Folder for translations was not set.");
+    }
+    $languages = [];
+    $extension = $this->extension;
+    $files = Finder::findFiles("catalogue.*.$extension")->from($this->folders);
+    /** @var \SplFileInfo $file */
+    foreach($files as $file) {
+      $lang = substr($file->getBasename(".$extension"), strpos($file->getBasename(), ".") + 1);
+      if(!in_array($lang, $languages)) {
+        $languages[] = $lang;
+      }
+    }
+    return $languages;
+  }
 }
 ?>

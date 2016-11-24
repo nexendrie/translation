@@ -1,5 +1,6 @@
 Version 0.2.1+dev
 - nette/neon is now optional dependency
+- loaders have to define available languages
 
 Version 0.2.1
 - simplified using php loader and standalone messages catalogue with Nette DI extension

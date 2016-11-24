@@ -41,5 +41,10 @@ interface ILoader {
    * @return string
    */
   function getResolverName();
+  
+  /**
+   * @return string[]
+   */
+  function getAvailableLanguages();
 }
 ?>

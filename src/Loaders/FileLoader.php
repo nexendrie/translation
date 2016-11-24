@@ -200,5 +200,26 @@ abstract class FileLoader implements ILoader {
     $pos = strrpos($class, '\\');
     return substr($class, $pos + 1);
   }
+  
+  /**
+   * @return string[]
+   * @throws FolderNotSetException
+   */
+  function getAvailableLanguages() {
+    if(!count($this->folders)) {
+      throw new FolderNotSetException("Folder for translations was not set.");
+    }
+    $languages = [];
+    $extension = $this->extension;
+    $files = Finder::findFiles("*.$extension")->from($this->folders);
+    /** @var \SplFileInfo $file */
+    foreach($files as $file) {
+      $lang = substr($file->getBasename(".$extension"), strpos($file->getBasename(), ".") + 1);
+      if(!in_array($lang, $languages)) {
+        $languages[] = $lang;
+      }
+    }
+    return $languages;
+  }
 }
 ?>

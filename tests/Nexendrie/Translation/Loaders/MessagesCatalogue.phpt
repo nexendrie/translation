@@ -34,6 +34,18 @@ class MessagesCatalogueTest extends \Tester\TestCase {
       $this->loader->getTexts();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
+  
+  function testGetAvailableLanguages() {
+    $result = $this->loader->getAvailableLanguages();
+    Assert::type("array", $result);
+    Assert::count(2, $result);
+    Assert::contains("en", $result);
+    Assert::contains("cs", $result);
+    Assert::exception(function() {
+      $this->loader = new MessagesCatalogue();
+      $this->loader->getAvailableLanguages();
+    }, FolderNotSetException::class, "Folder for translations was not set.");
+  }
 }
 
 $test = new MessagesCatalogueTest;
