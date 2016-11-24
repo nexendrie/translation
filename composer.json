@@ -20,7 +20,6 @@
     "require": {
         "php": ">=5.6.0",
         "nette/utils": "^2.4",
-        "nette/neon": "^2.4",
         "nette/finder": "^2.4"
     },
     "require-dev": {
@@ -28,11 +27,13 @@
         "nette/tester": "dev-master",
         "nette/di": "^2.4",
         "tracy/tracy": "^2.4",
-        "symfony/yaml": "^3.1"
+        "symfony/yaml": "^3.1",
+        "nette/neon": "^2.4"
     },
     "suggest": {
         "nette/di": "To use TranslationExtension",
         "tracy/tracy": "For debugger panel",
+        "nette/neon": "To use NeonLoader",
         "ext-json": "To use JsonLoader",
         "symfony/yaml": "To use YamlLoader"
     },
