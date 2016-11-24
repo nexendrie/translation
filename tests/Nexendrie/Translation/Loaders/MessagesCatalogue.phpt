@@ -4,7 +4,6 @@ namespace Nexendrie\Translation\Loaders;
 use Tester\Assert,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
-    Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\FolderNotSetException;
 
 require __DIR__ . "/../../../bootstrap.php";
