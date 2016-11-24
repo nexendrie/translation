@@ -1,6 +1,6 @@
 {
     "name": "nexendrie/translation",
-    "description": "Easy translating of Nette applications",
+    "description": "Easy translating of PHP applications",
     "keywords": [
       "translation", "translating", "localization", "nette", "neon", "json", "ini", "yaml"
     ],
