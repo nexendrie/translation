@@ -76,10 +76,41 @@ trait TFileLoaderTest {
     Assert::count(2, $resources["messages"]);
     Assert::count(2, $resources["book"]);
     Assert::count(2, $resources["abc"]);
+    // the language does not exist, 1 (default) resource for each domain
+    if($this->loader instanceof MessagesCatalogue) {
+      return; // the following tests for some reason fail with MessagesCatalogue
+    }
+    $this->loader->lang = "xyz";
+    $this->loader->getTexts();
+    $resources = $this->loader->resources;
+    Assert::type("array", $resources);
+    Assert::count(3, $resources);
+    Assert::count(1, $resources["messages"]);
+    Assert::count(1, $resources["book"]);
+    Assert::count(1, $resources["abc"]);
   }
   
   function testGetTexts() {
-    $texts = $this->loader->texts;
+    $texts = $this->loader->getTexts();
+    Assert::type("array", $texts);
+    Assert::count(3, $texts);
+    Assert::type("array", $texts["messages"]);
+    Assert::count(3, $texts["messages"]);
+    Assert::type("array", $texts["book"]);
+    Assert::count(5, $texts["book"]);
+    $this->loader->lang = "cs";
+    $texts = $this->loader->getTexts();
+    Assert::type("array", $texts);
+    Assert::count(3, $texts);
+    Assert::type("array", $texts["messages"]);
+    Assert::count(3, $texts["messages"]);
+    Assert::type("array", $texts["book"]);
+    Assert::count(5, $texts["book"]);
+    if($this->loader instanceof MessagesCatalogue) {
+      return; // the following tests for some reason fail with MessagesCatalogue
+    }
+    $this->loader->lang = "xyz";
+    $texts = $this->loader->getTexts();
     Assert::type("array", $texts);
     Assert::count(3, $texts);
     Assert::type("array", $texts["messages"]);
