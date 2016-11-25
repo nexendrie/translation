@@ -121,7 +121,8 @@ trait TFileLoaderTest {
   
   function testNoFolder() {
     Assert::exception(function() {
-      $this->loader = new NeonLoader;
+      $class = get_class($this->loader);
+      $this->loader = new $class;
       $this->loader->getTexts();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
@@ -133,7 +134,8 @@ trait TFileLoaderTest {
     Assert::contains("en", $result);
     Assert::contains("cs", $result);
     Assert::exception(function() {
-      $this->loader = new NeonLoader;
+      $class = get_class($this->loader);
+      $this->loader = new $class;
       $this->loader->getAvailableLanguages();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
