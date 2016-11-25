@@ -6,7 +6,6 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 require __DIR__ . "/../../../bootstrap.php";
 
 class YamlLoaderTest extends \Tester\TestCase {
-  use \Testbench\TCompiledContainer;
   use TFileLoaderTest;
   
   function setUp() {

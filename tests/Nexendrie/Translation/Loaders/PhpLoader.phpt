@@ -7,7 +7,6 @@ require __DIR__ . "/../../../bootstrap.php";
 
 
 class PhpLoaderTest extends \Tester\TestCase {
-  use \Testbench\TCompiledContainer;
   use TFileLoaderTest;
   
   function setUp() {
