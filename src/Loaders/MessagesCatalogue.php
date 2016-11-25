@@ -57,7 +57,8 @@ class MessagesCatalogue extends PhpLoader {
     $files = Finder::findFiles("catalogue.*.$extension")->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $lang = substr($file->getBasename(".$extension"), strpos($file->getBasename(), ".") + 1);
+      $filename = $file->getBasename(".$extension");
+      $lang = substr($filename, strpos($filename, ".") + 1);
       if(!in_array($lang, $languages)) {
         $languages[] = $lang;
       }
