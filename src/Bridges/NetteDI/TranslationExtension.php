@@ -71,7 +71,7 @@ class TranslationExtension extends CompilerExtension {
     $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
     if($resolver !== "") {
       return $resolver;
-    } elseif(class_exists($resolverName) AND in_array(ILocaleResolver::class, class_implements($resolverName))) {
+    } elseif(class_exists($resolverName) AND is_subclass_of($resolverName, ILocaleResolver::class)) {
       return $resolverName;
     } else {
       throw new InvalidLocaleResolverException("Invalid locale resolver.");
@@ -88,7 +88,7 @@ class TranslationExtension extends CompilerExtension {
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
       return $loader;
-    } elseif(class_exists($loaderName) AND in_array(ILoader::class, class_implements($loaderName))) {
+    } elseif(class_exists($loaderName) AND is_subclass_of($loaderName, ILoader::class)) {
       return $loaderName;
     } else {
       throw new InvalidLoaderException("Invalid translation loader.");
