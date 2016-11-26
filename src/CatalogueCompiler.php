@@ -26,8 +26,11 @@ class CatalogueCompiler {
    * @param string[] $languages
    * @param string $folder
    */
-  function __construct(ILoader $loader, array $languages, $folder) {
+  function __construct(ILoader $loader, array $languages = [], $folder) {
     $this->loader = $loader;
+    if(!count($languages)) {
+      $languages = $loader->getAvailableLanguages();
+    }
     $this->languages = $languages;
     $this->folder = $folder;
   }

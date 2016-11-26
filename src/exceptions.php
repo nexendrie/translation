@@ -20,8 +20,4 @@ class InvalidLocaleResolverException extends \RuntimeException {
 class InvalidLoaderException extends \RuntimeException {
   
 }
-
-class NoLanguageSpecifiedException extends InvalidStateException {
-  
-}
 ?>

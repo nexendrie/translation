@@ -20,7 +20,6 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
-    Nexendrie\Translation\NoLanguageSpecifiedException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nexendrie\Translation\CatalogueCompiler,
     Nette\Utils\Arrays;
@@ -119,7 +118,6 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
-   * @throws NoLanguageSpecifiedException
    */
   function loadConfiguration() {
     $builder = $this->getContainerBuilder();
@@ -161,9 +159,6 @@ class TranslationExtension extends CompilerExtension {
     }
     Validators::assertField($config["compiler"], "enabled", "bool");
     Validators::assertField($config["compiler"], "languages", "array");
-    if($config["compiler"]["enabled"] AND count($config["compiler"]["languages"]) < 1) {
-      throw new NoLanguageSpecifiedException("Specify at least 1 language for catalogue compiler or disable the compiler.");
-    }
   }
   
   /**
