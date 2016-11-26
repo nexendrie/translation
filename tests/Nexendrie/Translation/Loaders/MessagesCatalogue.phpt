@@ -14,7 +14,7 @@ class MessagesCatalogueTest extends \Tester\TestCase {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $folder = __DIR__ . "/../../../_temp/catalogues";
     $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
-    $compiler = new CatalogueCompiler($loader, ["en", "cs"], $folder);
+    $compiler = new CatalogueCompiler($loader, $folder, ["en", "cs"]);
     $compiler->compile();
     $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
   }

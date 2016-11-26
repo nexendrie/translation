@@ -181,7 +181,7 @@ class TranslationExtension extends CompilerExtension {
       ->setClass(MessagesCatalogue::class)
       ->addSetup("setFolders", [[$folder]]);
     $builder->addDefinition($this->prefix("catalogueCompiler"))
-      ->setFactory(CatalogueCompiler::class, [$loader, $config["compiler"]["languages"], $folder]);
+      ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config["compiler"]["languages"]]);
   }
   
   /**
