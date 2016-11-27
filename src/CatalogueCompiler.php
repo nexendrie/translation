@@ -41,7 +41,6 @@ class CatalogueCompiler {
    * @return void
    */
   function compile() {
-    FileSystem::createDir($this->folder);
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
@@ -50,7 +49,7 @@ class CatalogueCompiler {
 return " . Helpers::dump($texts) . ";
 ?>";
       $filename = $this->folder . "/catalogue.$language.php";
-      file_put_contents($filename, $content);
+      FileSystem::write($filename, $content);
     }
   }
 }
