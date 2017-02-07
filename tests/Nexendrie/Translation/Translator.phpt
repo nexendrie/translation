@@ -46,6 +46,8 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+    // test untranslated messages
+    Assert::count(5, $this->translator->untranslated);
   }
   
   function testTranslateCs() {
@@ -55,6 +57,7 @@ class TranslatorTest extends \Tester\TestCase {
     // non-existing string
     Assert::type("string", $this->translator->translate("abc"));
     Assert::same("abc", $this->translator->translate("abc"));
+    Assert::count(2, $this->translator->untranslated);
     // existing string
     Assert::type("string", $this->translator->translate("book.content"));
     Assert::same("Obsah", $this->translator->translate("book.content"));
@@ -70,10 +73,11 @@ class TranslatorTest extends \Tester\TestCase {
     // multi-level message
     Assert::type("string", $this->translator->translate("abc.multi.abc"));
     Assert::same("Abc", $this->translator->translate("abc.multi.abc"));
-    Assert::type("string", $this->translator->translate("abc.multi.def"));
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+    // test untranslated messages
+    Assert::count(5, $this->translator->untranslated);
   }
   
   /**
@@ -99,6 +103,8 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+    // test untranslated messages
+    Assert::count(5, $this->translator->untranslated);
   }
 }
 
