@@ -1,7 +1,8 @@
 <?php
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Tester\Assert;
+use Tester\Assert,
+    Nexendrie\Translation\Translator;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
@@ -45,6 +46,26 @@ class PanelTest extends \Tester\TestCase {
         Assert::count(0, $div->children());
       }
     }
+  }
+  
+  function testGetPanelResources() {
+    /** @var Translator $translator */
+    $translator = $this->getService(Translator::class);
+    $translator->translate("xyz");
+    $result = $this->panel->getPanel();
+    Assert::type("string", $result);
+    $r = new \SimpleXMLElement("<root>$result</root>");
+    Assert::same("Untranslated message: 0, loaded resources 2", (string) $r->p);
+  }
+  
+  function testGetPanelWithMessages() {
+    /** @var Translator $translator */
+    $translator = $this->getService(Translator::class);
+    $translator->translate("abcd");
+    $result = $this->panel->getPanel();
+    Assert::type("string", $result);
+    $r = new \SimpleXMLElement("<root>$result</root>");
+    Assert::same("Untranslated message: 1, loaded resources 2", (string) $r->p);
   }
 }
 
