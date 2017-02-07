@@ -12,6 +12,7 @@ use Nette\Utils\Arrays,
  * @author Jakub Konečný
  * @property string $lang
  * @property-read string[] $untranslated
+ * @method void onUntranslated(string $message)
  */
 class Translator implements ITranslator {
   use \Nette\SmartObject;
@@ -20,8 +21,11 @@ class Translator implements ITranslator {
   protected $loader;
   /** @var string[] */
   protected $untranslated = [];
+  /** @var callable[] */
+  public $onUntranslated = [];
   
   function __construct(ILoader $loader) {
+    $this->onUntranslated[] = [$this, "logUntranslatedMessage"];
     $this->loader = $loader;
   }
   
@@ -67,6 +71,14 @@ class Translator implements ITranslator {
   }
   
   /**
+   * @param string $message
+   * @return void
+   */
+  function logUntranslatedMessage($message) {
+    $this->untranslated[] = (string) $message;
+  }
+  
+  /**
    * Translate the string
    *
    * @param string $message
@@ -94,7 +106,7 @@ class Translator implements ITranslator {
       $text = str_replace("%$key%", $value, $text);
     }
     if($text === "") {
-      $this->untranslated[] = $message;
+      $this->onUntranslated($message);
       return $message;
     } else {
       return $text;

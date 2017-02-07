@@ -3,6 +3,7 @@ Version 0.2.1+dev
 - loaders have to define available languages
 - catalogue compiler now uses loader's languages by default
 - switched order of parameters $folder and $languages in CatalogueCompiler's constructor
+- added event onTranslated for Translator
 
 Version 0.2.1
 - simplified using php loader and standalone messages catalogue with Nette DI extension
