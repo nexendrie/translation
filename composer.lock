@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec8f8faf15c6c187f104ff7af959748d",
+    "content-hash": "139a8ade57eef1d526e3e5c71e03827c",
     "packages": [
         {
             "name": "nette/finder",
@@ -1102,7 +1102,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2017-02-04T14:42:23+00:00"
+            "time": "2017-02-04 14:42:23"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1110,21 +1110,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e"
+                "reference": "414e09477d90f6401e401fedd89572cfa2de11f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e",
-                "reference": "0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/414e09477d90f6401e401fedd89572cfa2de11f4",
+                "reference": "414e09477d90f6401e401fedd89572cfa2de11f4",
                 "shasum": ""
             },
             "require": {
                 "jakub-onderka/php-console-highlighter": "^0.3.2",
                 "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "mrtnzlml/testbench": "^2.4",
+                "mrtnzlml/testbench": "^2.4.2",
                 "nette/tester": "2.0.x-dev",
-                "php": ">=5.6.0",
-                "squizlabs/php_codesniffer": "^2.6"
+                "php": ">=7.0.0",
+                "squizlabs/php_codesniffer": "^2.8"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -1144,7 +1144,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2016-11-19 12:30:55"
+            "time": "2017-02-07T13:58:37+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -1351,7 +1351,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }
