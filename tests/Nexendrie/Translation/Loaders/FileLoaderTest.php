@@ -6,11 +6,11 @@ use Tester\Assert,
     Nexendrie\Translation\FolderNotSetException;
 
 /**
- * TLoaderTest
+ * General test suit for file loaders
  *
  * @author Jakub Konečný
  */
-trait TFileLoaderTest {
+abstract class FileLoaderTest extends \Tester\TestCase {
   /** @var FileLoader */
   protected $loader;
   

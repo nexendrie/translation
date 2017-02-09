@@ -5,9 +5,7 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class YamlLoaderTest extends \Tester\TestCase {
-  use TFileLoaderTest;
-  
+class YamlLoaderTest extends FileLoaderTest {
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new YamlLoader(new ManualLocaleResolver(), $folders);
