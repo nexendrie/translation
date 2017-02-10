@@ -21,7 +21,7 @@ class JsonLoader extends FileLoader {
    * @param string $filename
    * @return array
    */
-  protected function parseFile($filename) {
+  protected function parseFile(string $filename): array {
     return Json::decode(file_get_contents($filename), Json::FORCE_ARRAY);
   }
 }

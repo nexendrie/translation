@@ -19,7 +19,7 @@ class PhpLoader extends FileLoader {
    * @param string $filename
    * @return array
    */
-  protected function parseFile($filename) {
+  protected function parseFile(string $filename): array {
     return require $filename;
   }
 }

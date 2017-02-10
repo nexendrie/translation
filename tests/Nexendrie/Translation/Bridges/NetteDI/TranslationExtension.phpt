@@ -65,7 +65,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
    * @param string $class
    * @return void
    */
-  protected function customLoader($name, $class) {
+  protected function customLoader(string $name, string $class) {
     $config = [
       "translation" => [
         "loader" => $name
@@ -117,7 +117,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
    * @param string $class
    * @return void
    */
-  protected function customResolver($name, $class) {
+  protected function customResolver(string $name, string $class) {
     $config = [
       "translation" => [
         "localeResolver" => $name

@@ -21,7 +21,7 @@ class NeonLoader extends FileLoader {
    * @param string $filename
    * @return array
    */
-  protected function parseFile($filename) {
+  protected function parseFile(string $filename): array {
     return Neon::decode(file_get_contents($filename));
   }
 }

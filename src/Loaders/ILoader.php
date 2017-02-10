@@ -12,41 +12,41 @@ interface ILoader {
   /**
    * @return string
    */
-  function getLang();
+  function getLang(): string;
   
   /**
    * @param string $lang
    */
-  function setLang($lang);
+  function setLang(string $lang);
   
   /**
    * @return string
    */
-  function getDefaultLang();
+  function getDefaultLang(): string;
   
   /**
    * @param string $defaultLang
    */
-  function setDefaultLang($defaultLang);
+  function setDefaultLang(string $defaultLang);
   
   /**
    * @return array
    */
-  function getResources();
+  function getResources(): array;
   
   /**
    * @return array
    */
-  function getTexts();
+  function getTexts(): array;
   
   /**
    * @return string
    */
-  function getResolverName();
+  function getResolverName(): string;
   
   /**
    * @return string[]
    */
-  function getAvailableLanguages();
+  function getAvailableLanguages(): array;
 }
 ?>

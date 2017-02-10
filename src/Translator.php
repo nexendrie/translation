@@ -34,21 +34,21 @@ class Translator implements ITranslator {
   /**
    * @return string
    */
-  function getLang() {
+  function getLang(): string {
     return $this->loader->getLang();
   }
   
   /**
    * @param string $lang
    */
-  function setLang($lang) {
+  function setLang(string $lang) {
     $this->loader->setLang($lang);
   }
   
   /**
    * @return string[]
    */
-  function getUntranslated() {
+  function getUntranslated(): array {
     return $this->untranslated;
   }
   
@@ -59,7 +59,7 @@ class Translator implements ITranslator {
    * @param array $texts
    * @return string
    */
-  protected function multiLevelTrans(array $message, array $texts) {
+  protected function multiLevelTrans(array $message, array $texts): string {
     $text = $texts;
     foreach($message as $index => $part) {
       try {
@@ -76,8 +76,8 @@ class Translator implements ITranslator {
    * @param string $message
    * @return void
    */
-  function logUntranslatedMessage($message) {
-    $this->untranslated[] = (string) $message;
+  function logUntranslatedMessage(string $message) {
+    $this->untranslated[] = $message;
   }
   
   /**

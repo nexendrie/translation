@@ -55,7 +55,7 @@ abstract class FileLoader implements ILoader {
   /**
    * @return string
    */
-  function getLang() {
+  function getLang(): string {
     $lang = $this->resolver->resolve();
     if(is_null($lang)) {
       $lang = $this->defaultLang;
@@ -66,7 +66,7 @@ abstract class FileLoader implements ILoader {
   /**
    * @param string $lang
    */
-  function setLang($lang) {
+  function setLang(string $lang) {
     if($this->resolver instanceof ManualLocaleResolver) {
       $this->resolver->lang = $lang;
     }
@@ -75,21 +75,21 @@ abstract class FileLoader implements ILoader {
   /**
    * @return string
    */
-  function getDefaultLang() {
+  function getDefaultLang(): string {
     return $this->defaultLang;
   }
   
   /**
    * @param string $defaultLang
    */
-  function setDefaultLang($defaultLang) {
+  function setDefaultLang(string $defaultLang) {
     $this->defaultLang = $defaultLang;
   }
   
   /**
    * @return string[]
    */
-  function getFolders() {
+  function getFolders(): array {
     return $this->folders;
   }
   
@@ -111,7 +111,7 @@ abstract class FileLoader implements ILoader {
    * @param string $domain
    * @return void
    */
-  protected function addResource($filename, $domain) {
+  protected function addResource(string $filename, string $domain) {
     if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain])) {
       $this->resources[$domain][] = $filename;
     }
@@ -120,7 +120,7 @@ abstract class FileLoader implements ILoader {
   /**
    * @return array
    */
-  function getResources() {
+  function getResources(): array {
     return $this->resources;
   }
   
@@ -130,7 +130,7 @@ abstract class FileLoader implements ILoader {
    * @param string $filename
    * @return array
    */
-  abstract protected function parseFile($filename);
+  abstract protected function parseFile(string $filename): array;
   
   /**
    * Load texts from one text domain
@@ -138,7 +138,7 @@ abstract class FileLoader implements ILoader {
    * @param string $name
    * @return array
    */
-  protected function loadDomain($name) {
+  protected function loadDomain(string $name) {
     $return = [];
     $defaultLang = $this->defaultLang;
     $extension = $this->extension;
@@ -189,7 +189,7 @@ abstract class FileLoader implements ILoader {
   /**
    * @return array
    */
-  function getTexts() {
+  function getTexts(): array {
     $this->loadTexts();
     return $this->texts;
   }
@@ -197,7 +197,7 @@ abstract class FileLoader implements ILoader {
   /**
    * @return string
    */
-  function getResolverName() {
+  function getResolverName(): string {
     $class = get_class($this->resolver);
     $pos = strrpos($class, '\\');
     return substr($class, $pos + 1);
@@ -207,7 +207,7 @@ abstract class FileLoader implements ILoader {
    * @return string[]
    * @throws FolderNotSetException
    */
-  function getAvailableLanguages() {
+  function getAvailableLanguages(): array {
     if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }

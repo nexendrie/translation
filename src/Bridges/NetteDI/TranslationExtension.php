@@ -66,7 +66,7 @@ class TranslationExtension extends CompilerExtension {
    * @return string
    * @throws InvalidLocaleResolverException
    */
-  protected function resolveResolverClass() {
+  protected function resolveResolverClass(): string {
     $config = $this->getConfig($this->defaults);
     $resolverName = $config["localeResolver"];
     $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
@@ -83,7 +83,7 @@ class TranslationExtension extends CompilerExtension {
    * @return string
    * @throws InvalidLoaderException
    */
-  protected function resolveLoaderClass() {
+  protected function resolveLoaderClass(): string {
     $config = $this->getConfig($this->defaults);
     $loaderName = $config["loader"];
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
@@ -100,7 +100,7 @@ class TranslationExtension extends CompilerExtension {
    * @return string[]
    * @throws InvalidFolderException
    */
-  protected function getFolders() {
+  protected function getFolders(): array {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     if(!count($config["folders"])) {

@@ -26,7 +26,7 @@ class TranslationPanel implements IBarPanel {
   /**
    * @return string
    */
-  function getTab() {
+  function getTab(): string {
     $loader = $this->loader;
     ob_start();
     require __DIR__ . "/TranslationPanel.tab.phtml";
@@ -36,10 +36,10 @@ class TranslationPanel implements IBarPanel {
   /**
    * @return string
    */
-  function getPanel() {
+  function getPanel(): string {
     $loader = $this->loader;
     $translator = $this->translator;
-    $resourcesCount = count($loader->resources, COUNT_RECURSIVE) - count($loader->resources);
+    $resourcesCount = count($loader->getResources(), COUNT_RECURSIVE) - count($loader->getResources());
     ob_start();
     require __DIR__ . "/TranslationPanel.panel.phtml";
     return ob_get_clean();

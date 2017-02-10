@@ -13,7 +13,7 @@ use Nette\Utils\Finder,
  * @author Jakub Konečný
  */
 class MessagesCatalogue extends PhpLoader {
-  protected function loadDomain($name) {
+  protected function loadDomain(string $name) {
     
   }
   
@@ -50,7 +50,7 @@ class MessagesCatalogue extends PhpLoader {
    * @return string[]
    * @throws FolderNotSetException
    */
-  function getAvailableLanguages() {
+  function getAvailableLanguages(): array {
     if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }

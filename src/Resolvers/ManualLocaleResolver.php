@@ -26,8 +26,8 @@ class ManualLocaleResolver implements ILocaleResolver {
   /**
    * @param string $lang
    */
-  function setLang($lang) {
-    $this->lang = (string) $lang;
+  function setLang(string $lang) {
+    $this->lang = $lang;
   }
   
   /**
