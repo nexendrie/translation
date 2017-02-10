@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace Nexendrie\Translation\Loaders;
 
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 require __DIR__ . "/../../../bootstrap.php";
-
 
 class JsonLoaderTest extends FileLoaderTest {
   function setUp() {

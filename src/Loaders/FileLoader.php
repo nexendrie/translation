@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Nexendrie\Translation\Loaders;
 
 use Nette\Utils\Finder,
@@ -24,10 +26,10 @@ abstract class FileLoader implements ILoader {
   
   /** @var string */
   protected $defaultLang = "en";
-  /** @var string */
+  /** @var string|NULL */
   protected $loadedLang = NULL;
   /** @var array */
-  protected $texts = NULL;
+  protected $texts = [];
   /** @var string[] */
   protected $folders = [];
   /** @var ILocaleResolver */

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Nexendrie\Translation\Bridges\Tracy;
 
 use Nexendrie\Translation\Loaders\ILoader,
