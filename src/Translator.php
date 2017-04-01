@@ -76,7 +76,7 @@ class Translator implements ITranslator {
    * @param string $message
    * @return void
    */
-  function logUntranslatedMessage(string $message) {
+  function logUntranslatedMessage(string $message): void {
     $this->untranslated[] = $message;
   }
   

@@ -111,7 +111,7 @@ abstract class FileLoader implements ILoader {
    * @param string $domain
    * @return void
    */
-  protected function addResource(string $filename, string $domain) {
+  protected function addResource(string $filename, string $domain): void {
     if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain])) {
       $this->resources[$domain][] = $filename;
     }
@@ -166,7 +166,7 @@ abstract class FileLoader implements ILoader {
    * @return void
    * @throws FolderNotSetException
    */
-  protected function loadTexts() {
+  protected function loadTexts(): void {
     if($this->lang === $this->loadedLang) {
       return;
     }

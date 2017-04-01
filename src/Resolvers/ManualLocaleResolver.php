@@ -17,9 +17,9 @@ class ManualLocaleResolver implements ILocaleResolver {
   protected $lang = NULL;
   
   /**
-   * @return string
+   * @return string|NULL
    */
-  function getLang() {
+  function getLang(): ?string {
     return $this->lang;
   }
   
@@ -33,7 +33,7 @@ class ManualLocaleResolver implements ILocaleResolver {
   /**
    * @return string
    */
-  function resolve() {
+  function resolve(): ?string {
     return $this->getLang();
   }
 }

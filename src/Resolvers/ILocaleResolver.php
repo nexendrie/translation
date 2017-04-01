@@ -14,6 +14,6 @@ interface ILocaleResolver {
    *
    * @return string|NULL
    */
-  function resolve();
+  function resolve(): ?string;
 }
 ?>

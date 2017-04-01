@@ -42,7 +42,7 @@ class CatalogueCompiler {
    *
    * @return void
    */
-  function compile() {
+  function compile(): void {
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();

@@ -121,7 +121,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
    */
-  function loadConfiguration() {
+  function loadConfiguration(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string");
@@ -166,7 +166,7 @@ class TranslationExtension extends CompilerExtension {
   /**
    * @return void
    */
-  function beforeCompile() {
+  function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     if(!$config["compiler"]["enabled"]) {
@@ -190,7 +190,7 @@ class TranslationExtension extends CompilerExtension {
    * @param ClassType $class
    * @return void
    */
-  function afterCompile(ClassType $class) {
+  function afterCompile(ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     if(!$config["compiler"]["enabled"]) {
       return;

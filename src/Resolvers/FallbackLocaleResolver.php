@@ -18,7 +18,7 @@ class FallbackLocaleResolver implements ILocaleResolver {
    *
    * @return NULL
    */
-  function resolve() {
+  function resolve(): ?string {
     return NULL;
   }
 }

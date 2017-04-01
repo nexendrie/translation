@@ -23,7 +23,7 @@ class MessagesCatalogue extends PhpLoader {
    * @return void
    * @throws FolderNotSetException
    */
-  protected function loadTexts() {
+  protected function loadTexts(): void {
     if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
