@@ -28,7 +28,7 @@ install:
 script:
     - ./vendor/bin/parallel-lint src tests -e php,phpt
     - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
-    - ./vendor/bin/phpstan analyze -l 5 -c vendor/nexendrie/code-quality/phpstan.neon src tests
+    - ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests
     - ./vendor/bin/run-tests -p $TESTER_PHP_BIN tests -s $coverage
 
 after_script:
