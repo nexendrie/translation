@@ -113,15 +113,14 @@ class Translator implements ITranslator {
     } else {
       $text = $this->multiLevelTrans($parts, $texts);
     }
-    foreach($params as $key => $value) {
-      $text = str_replace("%$key%", $value, $text);
-    }
     if($text === "") {
       $this->onUntranslated($message);
       return $message;
-    } else {
-      return $text;
     }
+    foreach($params as $key => $value) {
+      $text = str_replace("%$key%", $value, $text);
+    }
+    return $text;
   }
 }
 ?>
