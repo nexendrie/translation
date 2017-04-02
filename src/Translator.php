@@ -53,6 +53,22 @@ class Translator implements ITranslator {
   }
   
   /**
+   * @param string $message
+   * @return string[]
+   */
+  protected function extractDomainAndMessage(string $message): array {
+    $dotPos = strpos($message, ".");
+    if($dotPos === false) {
+      $domain = "messages";
+      $m = $message;
+    } else {
+      $domain = substr($message, 0, $dotPos);
+      $m = substr($message, $dotPos + 1);
+    }
+    return [$domain, $m];
+  }
+  
+  /**
    * Translate multi-level message
    *
    * @param array $message
@@ -89,14 +105,7 @@ class Translator implements ITranslator {
    * @return string
    */
   function translate($message, $count = 0, $params = []) {
-    $dotPos = strpos($message, ".");
-    if($dotPos === false) {
-      $domain = "messages";
-      $m = $message;
-    } else {
-      $domain = substr($message, 0, $dotPos);
-      $m = substr($message, $dotPos + 1);
-    }
+    list($domain, $m) = $this->extractDomainAndMessage($message);
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);
     if(count($parts) === 1) {
