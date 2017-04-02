@@ -117,6 +117,7 @@ class Translator implements ITranslator {
       $this->onUntranslated($message);
       return $message;
     }
+    $params["count"] = $count;
     foreach($params as $key => $value) {
       $text = str_replace("%$key%", $value, $text);
     }
