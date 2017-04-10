@@ -9,7 +9,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class MessagesCatalogueTest extends FileLoaderTest {
+class MessagesCatalogueTestAbstract extends FileLoaderTestAbstract {
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $folder = __DIR__ . "/../../../_temp/catalogues";
@@ -27,6 +27,6 @@ class MessagesCatalogueTest extends FileLoaderTest {
   }
 }
 
-$test = new MessagesCatalogueTest;
+$test = new MessagesCatalogueTestAbstract;
 $test->run();
 ?>

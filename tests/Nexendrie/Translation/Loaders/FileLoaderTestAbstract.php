@@ -12,7 +12,7 @@ use Tester\Assert,
  *
  * @author Jakub Konečný
  */
-abstract class FileLoaderTest extends \Tester\TestCase {
+abstract class FileLoaderTestAbstract extends \Tester\TestCase {
   /** @var FileLoader */
   protected $loader;
   
