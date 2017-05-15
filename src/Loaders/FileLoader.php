@@ -45,10 +45,10 @@ abstract class FileLoader implements ILoader {
    */
   function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {
     $this->setFolders($folders);
-    if($resolver) {
-      $this->resolver = $resolver;
-    } else {
+    if(is_null($resolver)) {
       $this->resolver = new ManualLocaleResolver;
+    } else {
+      $this->resolver = $resolver;
     }
   }
   
