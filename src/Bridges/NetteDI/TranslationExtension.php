@@ -10,6 +10,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
+    Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\FileLoader,
@@ -63,20 +64,27 @@ class TranslationExtension extends CompilerExtension {
   ];
   
   /**
-   * @return string
+   * @return string[]
    * @throws InvalidLocaleResolverException
    */
-  protected function resolveResolverClass(): string {
+  protected function resolveResolverClass(): array {
     $config = $this->getConfig($this->defaults);
-    $resolverName = $config["localeResolver"];
-    $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
-    if($resolver !== "") {
-      return $resolver;
-    } elseif(class_exists($resolverName) AND is_subclass_of($resolverName, ILocaleResolver::class)) {
-      return $resolverName;
-    } else {
-      throw new InvalidLocaleResolverException("Invalid locale resolver.");
+    $return = [];
+    $resolvers = $config["localeResolver"];
+    if(!is_array($resolvers)) {
+      $resolvers = [$resolvers];
     }
+    foreach($resolvers as $resolverName) {
+      $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
+      if($resolver !== "") {
+        $return[] = $resolver;
+      } elseif(class_exists($resolverName) AND is_subclass_of($resolverName, ILocaleResolver::class)) {
+        $return[] = $resolverName;
+      } else {
+        throw new InvalidLocaleResolverException("Invalid locale resolver $resolverName.");
+      }
+    }
+    return $return;
   }
   
   /**
@@ -124,9 +132,9 @@ class TranslationExtension extends CompilerExtension {
   function loadConfiguration(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "localeResolver", "string");
+    Validators::assertField($config, "localeResolver", "string|array");
     try {
-      $resolver = $this->resolveResolverClass();
+      $resolvers = $this->resolveResolverClass();
     } catch(InvalidLocaleResolverException $e) {
       throw $e;
     }
@@ -151,8 +159,19 @@ class TranslationExtension extends CompilerExtension {
     if(in_array(FileLoader::class, class_parents($loader->class))) {
       $loader->addSetup("setFolders", [$folders]);
     }
-    $builder->addDefinition($this->prefix("localeResolver"))
-      ->setClass($resolver);
+    if(count($resolvers) === 1) {
+      $builder->addDefinition($this->prefix("localeResolver"))
+        ->setClass($resolvers[0]);
+    } else {
+      $chainResolver = $builder->addDefinition($this->prefix("localeResolver"))
+        ->setClass(ChainLocaleResolver::class);
+      foreach($resolvers as $index => $resolver) {
+        $resolverService = $builder->addDefinition($this->prefix("resolver.$index"))
+          ->setClass($resolver)
+          ->setAutowired(false);
+        $chainResolver->addSetup("addResolver", [$resolverService]);
+      }
+    }
     if($config["debugger"] AND interface_exists('Tracy\IBarPanel')) {
       $builder->addDefinition($this->prefix("panel"))
         ->setClass(TranslationPanel::class);

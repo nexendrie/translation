@@ -18,6 +18,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\LocaleResolver,
+    Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
@@ -143,7 +144,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLocaleResolverException::class, "Invalid locale resolver.");
+    }, InvalidLocaleResolverException::class, "Invalid locale resolver invalid.");
     $config = [
       "translation" => [
         "localeResolver" => "stdClass"
@@ -151,7 +152,23 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLocaleResolverException::class, "Invalid locale resolver.");
+    }, InvalidLocaleResolverException::class, "Invalid locale resolver stdClass.");
+  }
+  
+  function testChainResolver() {
+    $config = [
+      "translation" => [
+        "localeResolver" => [
+          "fallback", "environment"
+        ]
+      ]
+    ];
+    $this->refreshContainer($config);
+    putenv(EnvironmentLocaleResolver::VARNAME . "=cs");
+    /** @var ChainLocaleResolver $resolver */
+    $resolver = $this->getService(ILocaleResolver::class);
+    Assert::type(ChainLocaleResolver::class, $resolver);
+    Assert::same("cs", $resolver->resolve());
   }
   
   function testInvalidFolder() {
