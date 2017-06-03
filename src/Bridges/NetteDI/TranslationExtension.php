@@ -139,11 +139,6 @@ class TranslationExtension extends CompilerExtension {
       throw $e;
     }
     Validators::assertField($config, "folders", "array");
-    try {
-      $folders = $this->getFolders();
-    } catch(InvalidFolderException $e) {
-      throw $e;
-    }
     Validators::assertField($config, "loader", "string");
     try {
       $loader = $this->resolveLoaderClass();
@@ -153,12 +148,9 @@ class TranslationExtension extends CompilerExtension {
     Validators::assertField($config, "default", "string");
     $builder->addDefinition($this->prefix("translator"))
       ->setClass(Translator::class);
-    $loader = $builder->addDefinition($this->prefix("loader"))
+    $builder->addDefinition($this->prefix("loader"))
       ->setClass($loader)
       ->addSetup("setDefaultLang", [$config["default"]]);
-    if(in_array(FileLoader::class, class_parents($loader->class))) {
-      $loader->addSetup("setFolders", [$folders]);
-    }
     if(count($resolvers) === 1) {
       $builder->addDefinition($this->prefix("localeResolver"))
         ->setClass($resolvers[0]);
@@ -188,6 +180,15 @@ class TranslationExtension extends CompilerExtension {
   function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
+    try {
+      $folders = $this->getFolders();
+    } catch(InvalidFolderException $e) {
+      throw $e;
+    }
+    $loader = $builder->getDefinition($this->prefix("loader"));
+    if(in_array(FileLoader::class, class_parents($loader->class))) {
+      $loader->addSetup("setFolders", [$folders]);
+    }
     if(!$config["compiler"]["enabled"]) {
       return;
     }
