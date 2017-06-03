@@ -38,7 +38,7 @@ class MessagesCatalogue extends PhpLoader {
         $this->resources = array_merge($this->resources, $texts["__resources"]);
         unset($texts["__resources"]);
       } else {
-        $this->resources["*"][] = $file->getPathname();
+        $this->addResource($file->getPathname(), "*");
       }
     }
     $this->texts = $texts;
