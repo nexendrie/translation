@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Loaders;
 
 use Nette\Utils\Finder,
+    Nette\Utils\Strings,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\InvalidFolderException,
@@ -192,8 +193,7 @@ abstract class FileLoader implements ILoader {
    */
   function getResolverName(): string {
     $class = get_class($this->resolver);
-    $pos = strrpos($class, '\\');
-    return substr($class, $pos + 1);
+    return (string) Strings::after($class, '\\');
   }
   
   /**
@@ -217,7 +217,7 @@ abstract class FileLoader implements ILoader {
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");
-      $lang = substr($filename, strpos($filename, ".") + 1);
+      $lang = Strings::after($filename, ".");
       if(!in_array($lang, $languages)) {
         $languages[] = $lang;
       }
