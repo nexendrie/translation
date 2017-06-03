@@ -25,6 +25,13 @@ class MessagesCatalogueTestAbstract extends FileLoaderTestAbstract {
     Assert::count(1, $folders);
     Assert::same(__DIR__ . "/../../../_temp/catalogues", $folders[0]);
   }
+  
+  function testCatalogueWithoutResources() {
+    $folder = __DIR__ . "/../../../catalogue";
+    $loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
+    $loader->getTexts();
+    Assert::true(isset($loader->resources["*"]));
+  }
 }
 
 $test = new MessagesCatalogueTestAbstract;
