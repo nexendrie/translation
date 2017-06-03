@@ -26,12 +26,12 @@
         "nexendrie/code-quality": "dev-master",
         "nette/di": "^2.4",
         "tracy/tracy": "^2.4",
-        "symfony/yaml": "^3.2",
+        "symfony/yaml": "^3.3",
         "nette/neon": "^2.4",
         "phpstan/phpstan-nette": "^0.7"
     },
     "suggest": {
-        "nette/di": "To use TranslationExtension",
+        "nette/di": "For easier integration to Nette applications",
         "tracy/tracy": "For debugger panel",
         "nette/neon": "To use NeonLoader",
         "ext-json": "To use JsonLoader",
