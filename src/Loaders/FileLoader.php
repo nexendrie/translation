@@ -197,6 +197,13 @@ abstract class FileLoader implements ILoader {
   }
   
   /**
+   * @return string
+   */
+  protected function getLanguageFilenameMask(): string {
+    return "*.$this->extension";
+  }
+  
+  /**
    * @return string[]
    * @throws FolderNotSetException
    */
@@ -206,7 +213,7 @@ abstract class FileLoader implements ILoader {
     }
     $languages = [];
     $extension = $this->extension;
-    $files = Finder::findFiles("*.$extension")->from($this->folders);
+    $files = Finder::findFiles($this->getLanguageFilenameMask())->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");
