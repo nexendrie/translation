@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays,
+    Nette\Utils\Strings,
     Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\ILoader,
     Nette\InvalidArgumentException;
@@ -57,13 +58,12 @@ class Translator implements ITranslator {
    * @return string[]
    */
   protected function extractDomainAndMessage(string $message): array {
-    $dotPos = strpos($message, ".");
-    if($dotPos === false) {
+    if(!Strings::contains($message, ".")) {
       $domain = "messages";
       $m = $message;
     } else {
-      $domain = substr($message, 0, $dotPos);
-      $m = substr($message, $dotPos + 1);
+      $domain = Strings::before($message, ".");
+      $m = Strings::after($message, ".");
     }
     return [$domain, $m];
   }
