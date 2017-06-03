@@ -60,7 +60,7 @@ class TranslationExtension extends CompilerExtension {
     "json" => JsonLoader::class,
     "yaml" => YamlLoader::class,
     "php" => PhpLoader::class,
-    "catalogue" => MessagesCatalogue::class
+    "catalogue" => MessagesCatalogue::class,
   ];
   
   /**
@@ -115,6 +115,10 @@ class TranslationExtension extends CompilerExtension {
       $config["folders"][] = $builder->expand("%appDir%/lang");
     }
     $folders = $config["folders"];
+    /** @var ITranslationProvider $extension */
+    foreach($this->compiler->getExtensions(ITranslationProvider::class) as $extension) {
+      $folders = array_merge($folders, array_values($extension->getTranslationResources()));
+    }
     foreach($folders as $folder) {
       if(!is_dir($folder)) {
         throw new InvalidFolderException("Folder $folder does not exist.");

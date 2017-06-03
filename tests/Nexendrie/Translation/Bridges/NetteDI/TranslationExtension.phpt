@@ -6,6 +6,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Nette\Localization\ITranslator,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
+    Nexendrie\Translation\Loaders\FileLoader,
     Nexendrie\Translation\Loaders\NeonLoader,
     Nexendrie\Translation\Loaders\IniLoader,
     Nexendrie\Translation\Loaders\JsonLoader,
@@ -274,6 +275,18 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));
     Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+  }
+  
+  function testTranslationProvider() {
+    $config = [
+      "extensions" => [
+        "provider" => ProviderExtension::class
+      ]
+    ];
+    $this->refreshContainer($config);
+    /** @var FileLoader $loader */
+    $loader = $this->getService(FileLoader::class);
+    Assert::contains(__DIR__ . "/../../../../_temp", $loader->getFolders());
   }
 }
 
