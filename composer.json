@@ -15,7 +15,8 @@
     ],
     "support": {
         "source": "https://gitlab.com/nexendrie/translation/",
-        "issues": "https://gitlab.com/nexendrie/translation/issues"
+        "issues": "https://gitlab.com/nexendrie/translation/issues",
+        "docs": "https://nexendrie.gitlab.io/translation"
     },
     "require": {
         "php": ">=7.1.0",
