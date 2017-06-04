@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Translation\Bridges\NetteHttp;
+namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\Resolvers\ILocaleResolver,
-    Nette\Http\Session,
-    Nette\Http\SessionSection;
+use Nette\Http\Session,
+    Nette\Http\SessionSection,
+    Nette\Http\RequestFactory,
+    Nette\Http\Response;
 
 /**
  * SessionLocaleResolver
@@ -21,7 +22,12 @@ class SessionLocaleResolver implements ILocaleResolver {
   /** @var SessionSection */
   protected $section;
   
-  function __construct(Session $session) {
+  function __construct(Session $session = NULL) {
+    if(is_null($session)) {
+      $request = (new RequestFactory)->createHttpRequest();
+      $response = new Response;
+      $session = new Session($request, $response);
+    }
     $this->session = $session;
     $this->section = $session->getSection(get_class($this));
   }

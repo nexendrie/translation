@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Translation\Bridges\NetteHttp;
+namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver,
-    Nexendrie\Translation\Loaders\ILoader,
+use Nexendrie\Translation\Loaders\ILoader,
     Nette\Http\IRequest,
-    Nexendrie\Translation\LoaderNotSetException;
+    Nexendrie\Translation\LoaderNotSetException,
+    Nette\Http\RequestFactory;
 
 /**
  * HeaderLocaleResolver
@@ -21,7 +21,10 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   /** @var IRequest */
   protected $request;
   
-  function __construct(IRequest $request) {
+  function __construct(IRequest $request = NULL) {
+    if(is_null($request)) {
+      $request = (new RequestFactory)->createHttpRequest();
+    }
     $this->request = $request;
   }
   

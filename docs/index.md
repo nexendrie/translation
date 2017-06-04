@@ -44,6 +44,8 @@ $resolver->lang = "en";
 
 . You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses environment variable TRANSLATOR_LANGUAGE as storage.
 
+Session locale resolver takes and stores current language in session, header locale resolver takes it from Accept-Language request header.
+
 If you want to use multiple ways to resolve the language, use ChainLocaleResolver.
 
 ```php
@@ -82,7 +84,7 @@ translation:
         languages: { } # compile catalogues only for these languages
 ``` 
 
-Session locale resolver takes and stores current language in session, header locale resolver takes it from Accept-Language request header, param locale resolver from presenter's paramater locale.
+Param locale resolver from presenter's paramater locale.
 
 If you want to use ChainLocaleResolver, just specify the needed resolvers as elements of array:
 

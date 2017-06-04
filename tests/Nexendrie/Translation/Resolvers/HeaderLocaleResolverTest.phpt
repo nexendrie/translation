@@ -1,16 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Translation\Bridges\NetteHttp;
+namespace Nexendrie\Translation\Resolvers;
 
 use Tester\Assert,
-    Nette\Http\IRequest,
     Nette\Http\Request,
     Nette\Http\UrlScript,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\LoaderNotSetException;
 
-require __DIR__ . "/../../../../bootstrap.php";
+require __DIR__ . "/../../../bootstrap.php";
 
 class HeaderLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
@@ -23,9 +22,7 @@ class HeaderLocaleResolverTest extends \Tester\TestCase {
   }
   
   function testResolve() {
-    /** @var IRequest $request */
-    $request = $this->getService(IRequest::class);
-    $resolver = new HeaderLocaleResolver($request);
+    $resolver = new HeaderLocaleResolver();
     Assert::exception(function() use($resolver) {
       $resolver->resolve();
     }, LoaderNotSetException::class);

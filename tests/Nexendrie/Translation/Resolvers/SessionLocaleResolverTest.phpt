@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Translation\Bridges\NetteHttp;
+namespace Nexendrie\Translation\Resolvers;
 
 use Tester\Assert;
 
-require __DIR__ . "/../../../../bootstrap.php";
+require __DIR__ . "/../../../bootstrap.php";
 
 class SessionLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
@@ -14,13 +14,7 @@ class SessionLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   function setUp() {
-    $config = [
-      "translation" => [
-        "localeResolver" => "session"
-      ]
-    ];
-    $this->refreshContainer($config);
-    $this->resolver = $this->getService(SessionLocaleResolver::class);
+    $this->resolver = new SessionLocaleResolver;
   }
   
   function testResolver() {

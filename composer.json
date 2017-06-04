@@ -39,7 +39,7 @@
         "ext-json": "To use JsonLoader",
         "symfony/yaml": "To use YamlLoader",
         "nette/application": "To use param locale resolver in Nette applications",
-        "nette/http": "To use session and header locale resolvers in Nette applications"
+        "nette/http": "To use session and header locale resolvers"
     },
     "autoload": {
         "psr-4": {
