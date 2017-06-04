@@ -34,15 +34,21 @@ class PanelTest extends \Tester\TestCase {
     Assert::same("Untranslated message: 0, loaded resources 0", (string) $r->p);
     Assert::same("Resolved language", (string) $r->div->h1);
     foreach($r->div->table->tr->children() as $i => $td) {
-      if($i === 0) Assert::same("ManualLocaleResolver", (string) $td);
-      elseif($i === 1) Assert::same("en", (string) $td);
+      if($i === 0) {
+        Assert::same("ManualLocaleResolver", (string) $td);
+      } elseif($i === 1) {
+        Assert::same("en", (string) $td);
+      }
     }
     foreach($r->children() as $i1 => $div) {
       if($i1 === 1) {
         Assert::same("Loaded resources", (string) $div->h1);
         foreach($div->table->th as $i2 => $td) {
-          if($i2 === 0) Assert::same("Domain", (string) $td);
-          elseif($i2 === 1) Assert::same("Filename", (string) $td);
+          if($i2 === 0) {
+            Assert::same("Domain", (string) $td);
+          } elseif($i2 === 1) {
+            Assert::same("Filename", (string) $td);
+          }
         }
       } elseif($i1 === 2) {
         Assert::count(0, $div->children());
