@@ -8,6 +8,7 @@ namespace Nexendrie\Translation\Resolvers;
  * Reads current language from an environment variable
  *
  * @author Jakub Konečný
+ * @property string|NULL $lang
  */
 class EnvironmentLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
@@ -17,13 +18,27 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
   /**
    * @return string|NULL
    */
-  function resolve(): ?string {
+  function getLang(): ?string {
     $lang = getenv(static::VARNAME);
     if($lang) {
       return $lang;
     } else {
       return NULL;
     }
+  }
+  
+  /**
+   * @param string $lang
+   */
+  function setLang(string $lang) {
+    putenv(static::VARNAME . "=$lang");
+  }
+  
+  /**
+   * @return string|NULL
+   */
+  function resolve(): ?string {
+    return $this->getLang();
   }
 }
 ?>

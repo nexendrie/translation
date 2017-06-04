@@ -18,7 +18,7 @@ class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   function testResolve() {
     $lang = $this->resolver->resolve();
     Assert::type("null", $lang);
-    putenv(EnvironmentLocaleResolver::VARNAME . "=cs");
+    $this->resolver->lang = "cs";
     $lang = $this->resolver->resolve();
     Assert::type("string", $lang);
     Assert::same("cs", $lang);

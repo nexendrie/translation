@@ -3,6 +3,7 @@ Version 0.3.0+dev
 - added chain locale resolver
 - other Nette DIC extensions can add folders for translations now
 - added session locale resolver for Nette
+- added virtual property EnvironmentLocaleResolver::$lang
 
 Version 0.3.0
 - nette/neon is now optional dependency
