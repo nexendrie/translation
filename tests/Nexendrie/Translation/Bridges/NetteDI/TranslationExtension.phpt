@@ -15,12 +15,14 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\MessagesCatalogue,
     Nexendrie\Translation\Loaders\Loader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\LocaleResolver,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteHttp\HeaderLocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
@@ -136,6 +138,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $this->customResolver("environment", EnvironmentLocaleResolver::class);
     $this->customResolver("fallback", FallbackLocaleResolver::class);
     $this->customResolver("session", SessionLocaleResolver::class);
+    $this->customResolver("header", HeaderLocaleResolver::class);
     $this->customResolver(LocaleResolver::class, LocaleResolver::class);
   }
   
@@ -172,6 +175,19 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
     Assert::same("cs", $resolver->resolve());
+  }
+  
+  function testLoaderAwareResolver() {
+    $config = [
+      "translation" => [
+        "localeResolver" => "header"
+      ]
+    ];
+    $this->refreshContainer($config);
+    /** @var HeaderLocaleResolver $resolver */
+    $resolver = $this->getService(ILocaleResolver::class);
+    Assert::type(ILoaderAwareLocaleResolver::class, $resolver);
+    Assert::null($resolver->resolve());
   }
   
   function testInvalidFolder() {

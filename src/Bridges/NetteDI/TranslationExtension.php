@@ -12,6 +12,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteHttp\HeaderLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\FileLoader,
@@ -53,6 +54,7 @@ class TranslationExtension extends CompilerExtension {
     "manual" => ManualLocaleResolver::class,
     "fallback" => FallbackLocaleResolver::class,
     "session" => SessionLocaleResolver::class,
+    "header" => HeaderLocaleResolver::class,
   ];
   
   /** @var string[] */
@@ -218,10 +220,12 @@ class TranslationExtension extends CompilerExtension {
    */
   function afterCompile(ClassType $class): void {
     $config = $this->getConfig($this->defaults);
+    $initialize = $class->methods["initialize"];
+    $initialize->addBody('$resolver = $this->getService(?);
+if($resolver instanceof Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver) $resolver->setLoader($this->getService(?));', [$this->prefix("localeResolver"), $this->prefix("loader")]);
     if(!$config["compiler"]["enabled"]) {
       return;
     }
-    $initialize = $class->methods["initialize"];
     $initialize->addBody('$this->getService(?)->compile();', [$this->prefix("catalogueCompiler")]);
   }
 }

@@ -2,7 +2,7 @@ Version 0.3.0+dev
 - raised minimal version of PHP to 7.1
 - added chain locale resolver
 - other Nette DIC extensions can add folders for translations now
-- added session locale resolver for Nette
+- added session and header locale resolvers for Nette
 - added virtual property EnvironmentLocaleResolver::$lang
 
 Version 0.3.0
