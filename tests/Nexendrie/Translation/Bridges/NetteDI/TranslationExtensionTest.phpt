@@ -23,13 +23,15 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\HeaderLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteApplication\ParamLocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nette\DI\MissingServiceException,
-    Tester\Assert;
+    Tester\Assert,
+    Nette\Application\Application;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
@@ -139,6 +141,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $this->customResolver("fallback", FallbackLocaleResolver::class);
     $this->customResolver("session", SessionLocaleResolver::class);
     $this->customResolver("header", HeaderLocaleResolver::class);
+    $this->customResolver("param", ParamLocaleResolver::class);
     $this->customResolver(LocaleResolver::class, LocaleResolver::class);
   }
   
@@ -188,6 +191,21 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ILoaderAwareLocaleResolver::class, $resolver);
     Assert::null($resolver->resolve());
+  }
+  
+  function testAppRequestAwareResolver() {
+    /** @var Application $application */
+    $application = $this->getService(Application::class);
+    $count = count($application->onRequest);
+    $config = [
+      "translation" => [
+        "localeResolver" => "param"
+      ]
+    ];
+    $this->refreshContainer($config);
+    /** @var Application $application */
+    $application = $this->getService(Application::class);
+    Assert::count($count + 1, $application->onRequest);
   }
   
   function testInvalidFolder() {

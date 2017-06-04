@@ -1,4 +1,9 @@
 application:
     scanDirs: false
+    mapping:
+        *: NetteModule\*Presenter
+routing:
+    routes:
+        '<presenter>/<action>[/<id>]': "Micro:default"
 extensions:
     translation: Nexendrie\Translation\Bridges\NetteDI\TranslationExtension

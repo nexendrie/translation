@@ -7,12 +7,14 @@ use Nette\DI\CompilerExtension,
     Nette\PhpGenerator\ClassType,
     Nette\Utils\Validators,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nexendrie\Translation\Resolvers\IAppRequestAwareLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
     Nexendrie\Translation\Bridges\NetteHttp\HeaderLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteApplication\ParamLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\FileLoader,
@@ -27,7 +29,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\InvalidLoaderException,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nexendrie\Translation\CatalogueCompiler,
-    Nette\Utils\Arrays;
+    Nette\Utils\Arrays,
+    Nette\Application\Application;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -55,6 +58,7 @@ class TranslationExtension extends CompilerExtension {
     "fallback" => FallbackLocaleResolver::class,
     "session" => SessionLocaleResolver::class,
     "header" => HeaderLocaleResolver::class,
+    "param" => ParamLocaleResolver::class
   ];
   
   /** @var string[] */
@@ -196,6 +200,14 @@ class TranslationExtension extends CompilerExtension {
     $loader = $builder->getDefinition($this->prefix("loader"));
     if(in_array(FileLoader::class, class_parents($loader->class))) {
       $loader->addSetup("setFolders", [$folders]);
+    }
+    $resolver = $builder->getDefinition($this->prefix("localeResolver"));
+    if(in_array(IAppRequestAwareLocaleResolver::class, class_implements($resolver->class))) {
+      $applicationService = $builder->getByType(Application::class) ?? "application";
+      if($builder->hasDefinition($applicationService)) {
+        $builder->getDefinition($applicationService)
+          ->addSetup('$service->onRequest[] = ?', [[$resolver, "onRequest"]]);
+      }
     }
     if($config["compiler"]["enabled"]) {
       $serviceName = $this->prefix("loader");
