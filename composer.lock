@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "17c251c2d093a13db1d4b39c86616883",
+    "content-hash": "4fec7c695d45b2537d53daf52fbe9396",
     "packages": [
         {
             "name": "nette/finder",
@@ -127,6 +127,66 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "cebe/markdown",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cebe/markdown.git",
+                "reference": "c30eb5e01fe021cc5bba2f9ee0eeef96d4931166"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/c30eb5e01fe021cc5bba2f9ee0eeef96d4931166",
+                "reference": "c30eb5e01fe021cc5bba2f9ee0eeef96d4931166",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "cebe/indent": "*",
+                "facebook/xhprof": "*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "bin": [
+                "bin/markdown"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "cebe\\markdown\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc",
+                    "homepage": "http://cebe.cc/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A super fast, highly extensible markdown parser for PHP",
+            "homepage": "https://github.com/cebe/markdown#readme",
+            "keywords": [
+                "extensible",
+                "fast",
+                "gfm",
+                "markdown",
+                "markdown-extra"
+            ],
+            "time": "2016-09-14T20:40:20+00:00"
+        },
         {
             "name": "guzzle/guzzle",
             "version": "v3.9.3",
@@ -684,6 +744,53 @@
             "description": "Nette Caching Component",
             "homepage": "https://nette.org",
             "time": "2017-01-29T20:40:55+00:00"
+        },
+        {
+            "name": "nette/command-line",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/command-line.git",
+                "reference": "52e19a4fc581ec6565c683c760f6f9c73edff5e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/command-line/zipball/52e19a4fc581ec6565c683c760f6f9c73edff5e8",
+                "reference": "52e19a4fc581ec6565c683c760f6f9c73edff5e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.4"
+            },
+            "require-dev": {
+                "nette/tester": "~2.0",
+                "tracy/tracy": "^2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Command Line Tools",
+            "homepage": "https://nette.org",
+            "time": "2017-02-07T17:51:07+00:00"
         },
         {
             "name": "nette/component-model",
@@ -1336,7 +1443,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2017-05-02 15:37:20"
+            "time": "2017-05-02T15:37:20+00:00"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1379,7 +1486,70 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-05-15 08:19:42"
+            "time": "2017-05-15T08:19:42+00:00"
+        },
+        {
+            "name": "nexendrie/site-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nexendrie/site-generator.git",
+                "reference": "790dc5cf472ab7366fbc8c766db64a67d6271c20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/790dc5cf472ab7366fbc8c766db64a67d6271c20",
+                "reference": "790dc5cf472ab7366fbc8c766db64a67d6271c20",
+                "shasum": ""
+            },
+            "require": {
+                "cebe/markdown": "^1.1",
+                "nette/command-line": "^1.1",
+                "nette/finder": "^2.4",
+                "nette/neon": "^2.4",
+                "nette/utils": "^2.4",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "nette/tester": "dev-master",
+                "nexendrie/code-quality": "dev-master"
+            },
+            "bin": [
+                "src/generate-site"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nexendrie\\SiteGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Konečný",
+                    "email": "jakub.konecny2@centrum.cz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Static site generator which turns Markdown into HTML",
+            "homepage": "https://nexendrie.gitlab.io",
+            "keywords": [
+                "generator",
+                "html",
+                "markdown",
+                "site",
+                "static",
+                "website"
+            ],
+            "time": "2017-05-20T08:20:00+00:00"
         },
         {
             "name": "nikic/php-parser",
