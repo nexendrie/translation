@@ -197,21 +197,20 @@ class TranslationExtension extends CompilerExtension {
     if(in_array(FileLoader::class, class_parents($loader->class))) {
       $loader->addSetup("setFolders", [$folders]);
     }
-    if(!$config["compiler"]["enabled"]) {
-      return;
+    if($config["compiler"]["enabled"]) {
+      $serviceName = $this->prefix("loader");
+      $loader = $builder->getDefinition($serviceName);
+      $builder->removeDefinition($serviceName);
+      $folder = $builder->expand("%tempDir%/catalogues");
+      $builder->addDefinition($this->prefix("originalLoader"), $loader)
+        ->setFactory($loader->class, [new ManualLocaleResolver, $config["folders"]])
+        ->setAutowired(false);
+      $builder->addDefinition($serviceName)
+        ->setClass(MessagesCatalogue::class)
+        ->addSetup("setFolders", [[$folder]]);
+      $builder->addDefinition($this->prefix("catalogueCompiler"))
+        ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config["compiler"]["languages"]]);
     }
-    $serviceName = $this->prefix("loader");
-    $loader = $builder->getDefinition($serviceName);
-    $builder->removeDefinition($serviceName);
-    $folder = $builder->expand("%tempDir%/catalogues");
-    $builder->addDefinition($this->prefix("originalLoader"), $loader)
-      ->setFactory($loader->class, [new ManualLocaleResolver, $config["folders"]])
-      ->setAutowired(false);
-    $builder->addDefinition($serviceName)
-      ->setClass(MessagesCatalogue::class)
-      ->addSetup("setFolders", [[$folder]]);
-    $builder->addDefinition($this->prefix("catalogueCompiler"))
-      ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config["compiler"]["languages"]]);
   }
   
   /**
@@ -223,10 +222,9 @@ class TranslationExtension extends CompilerExtension {
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$resolver = $this->getService(?);
 if($resolver instanceof Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver) $resolver->setLoader($this->getService(?));', [$this->prefix("localeResolver"), $this->prefix("loader")]);
-    if(!$config["compiler"]["enabled"]) {
-      return;
+    if($config["compiler"]["enabled"]) {
+      $initialize->addBody('$this->getService(?)->compile();', [$this->prefix("catalogueCompiler")]);
     }
-    $initialize->addBody('$this->getService(?)->compile();', [$this->prefix("catalogueCompiler")]);
   }
 }
 ?>
