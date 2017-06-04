@@ -35,7 +35,8 @@
         "tracy/tracy": "For debugger panel",
         "nette/neon": "To use NeonLoader",
         "ext-json": "To use JsonLoader",
-        "symfony/yaml": "To use YamlLoader"
+        "symfony/yaml": "To use YamlLoader",
+        "nette/http": "To use SessionLocaleResolver in Nette applications"
     },
     "autoload": {
         "psr-4": {

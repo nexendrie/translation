@@ -11,6 +11,7 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
     Nexendrie\Translation\Translator,
     Nexendrie\Translation\Loaders\ILoader,
     Nexendrie\Translation\Loaders\FileLoader,
@@ -51,6 +52,7 @@ class TranslationExtension extends CompilerExtension {
     "environment" => EnvironmentLocaleResolver::class,
     "manual" => ManualLocaleResolver::class,
     "fallback" => FallbackLocaleResolver::class,
+    "session" => SessionLocaleResolver::class,
   ];
   
   /** @var string[] */

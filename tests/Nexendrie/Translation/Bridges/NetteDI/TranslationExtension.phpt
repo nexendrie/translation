@@ -20,6 +20,7 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\LocaleResolver,
     Nexendrie\Translation\Resolvers\ChainLocaleResolver,
+    Nexendrie\Translation\Bridges\NetteHttp\SessionLocaleResolver,
     Nexendrie\Translation\CatalogueCompiler,
     Nexendrie\Translation\InvalidLocaleResolverException,
     Nexendrie\Translation\InvalidFolderException,
@@ -134,6 +135,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testCustomResolver() {
     $this->customResolver("environment", EnvironmentLocaleResolver::class);
     $this->customResolver("fallback", FallbackLocaleResolver::class);
+    $this->customResolver("session", SessionLocaleResolver::class);
     $this->customResolver(LocaleResolver::class, LocaleResolver::class);
   }
   
