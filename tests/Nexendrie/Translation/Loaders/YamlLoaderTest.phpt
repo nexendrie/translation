@@ -7,13 +7,13 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class NeonLoaderTestAbstract extends FileLoaderTestAbstract {
+class YamlLoaderTest extends FileLoaderTestAbstract {
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-    $this->loader = new NeonLoader(new ManualLocaleResolver(), $folders);
+    $this->loader = new YamlLoader(new ManualLocaleResolver(), $folders);
   }
 }
 
-$test = new NeonLoaderTestAbstract;
+$test = new YamlLoaderTest;
 $test->run();
 ?>

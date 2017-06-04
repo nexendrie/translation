@@ -7,14 +7,13 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-
-class PhpLoaderTestAbstract extends FileLoaderTestAbstract {
+class JsonLoaderTest extends FileLoaderTestAbstract {
   function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-    $this->loader = new PhpLoader(new ManualLocaleResolver(), $folders);
+    $this->loader = new JsonLoader(new ManualLocaleResolver(), $folders);
   }
 }
 
-$test = new PhpLoaderTestAbstract;
+$test = new JsonLoaderTest;
 $test->run();
 ?>
