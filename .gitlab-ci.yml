@@ -2,6 +2,7 @@ image: nexendrie/php
 
 stages:
   - test
+  - deploy
 
 cache:
   paths:
@@ -21,3 +22,16 @@ test:cc:
     name: "Code coverage"
     paths:
     - coverage.html
+
+pages:
+  stage: deploy
+  environment:
+    name: documentation
+    url: https://nexendrie.gitlab.io/translation
+  script:
+  - phing documentation
+  artifacts:
+    paths:
+    - public
+  only:
+  - master@nexendrie/translation

@@ -19,6 +19,12 @@
       <arg path="tests/.coveralls.yml"/>
     </exec>
   </target>
+  <target name="documentation" depends="install">
+    <exec executable="vendor/bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="--source=docs"/>
+      <arg value="--output=public"/>
+    </exec>
+  </target>
   <target name="install">
     <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
       <arg value="install"/>

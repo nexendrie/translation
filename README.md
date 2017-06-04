@@ -8,3 +8,8 @@ Translate easily your application
 Installation
 ------------
 The best way to install it is via Composer. Just add **nexendrie/translation** to your dependencies.
+
+Documentation
+-------------
+
+See: https://nexendrie.gitlab.io/translation .
