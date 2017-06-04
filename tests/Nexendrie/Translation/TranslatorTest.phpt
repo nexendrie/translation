@@ -48,6 +48,16 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+    // plurals
+    Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
+    Assert::same("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
+    Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
+    Assert::same("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
+    Assert::same("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
+    Assert::same("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
+    Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
+    Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+    Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
     // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }
@@ -78,6 +88,16 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+    // plurals
+    Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", 0));
+    Assert::same("Je tu jedno jablko.", $this->translator->translate("abc.pluralSimple", 1));
+    Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
+    Assert::same("Je tu 0 jablek.", $this->translator->translate("abc.pluralSimpleParams", 0));
+    Assert::same("Je tu 1 jablko.", $this->translator->translate("abc.pluralSimpleParams", 1));
+    Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.multi.pluralSimple", 0));
+    Assert::same("Je tu jedno jablko.", $this->translator->translate("abc.multi.pluralSimple", 1));
+    Assert::same("Je tu 0 jablek.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+    Assert::same("Je tu 1 jablko.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
     // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }
@@ -105,7 +125,17 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
     Assert::type("string", $this->translator->translate("abc.multi2.def"));
     Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
-    // test untranslated messages
+    // plurals
+    Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
+    Assert::same("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
+    Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
+    Assert::same("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
+    Assert::same("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
+    Assert::same("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
+    Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
+    Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+    Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+      // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }
 }

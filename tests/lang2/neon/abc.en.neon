@@ -1,3 +1,7 @@
 abc: "ABC"
 multi:
     abc: "ABC"
+    pluralSimple: "{0} There are no apples.|{1} There is one apple."
+    pluralSimpleParams: "{0} There are %count% apples.|{1} There is %count% apple."
+pluralSimple: "{0} There are no apples.|{1} There is one apple."
+pluralSimpleParams: "{0} There are %count% apples.|{1} There is %count% apple."

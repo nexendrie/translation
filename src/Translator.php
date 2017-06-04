@@ -89,6 +89,24 @@ class Translator implements ITranslator {
   }
   
   /**
+   * Choose correct variant of message depending on $count
+   *
+   * @param string $message
+   * @param int $count
+   * @return string
+   */
+  protected function multiChoiceTrans(string $message, int $count): string {
+    $variants = explode("|", $message);
+    foreach($variants as $variant) {
+      $interval = Intervals::findInterval($variant);
+      if(is_string($interval) AND Intervals::isInInterval($count, $interval)) {
+        return (string) Strings::after($variant, $interval);
+      }
+    }
+    return "";
+  }
+  
+  /**
    * @param string $message
    * @return void
    */
@@ -116,6 +134,9 @@ class Translator implements ITranslator {
     if($text === "") {
       $this->onUntranslated($message);
       return $message;
+    }
+    if(is_string(Intervals::findInterval($text))) {
+      $text = Strings::trim($this->multiChoiceTrans($text, $count));
     }
     $params["count"] = $count;
     foreach($params as $key => $value) {
