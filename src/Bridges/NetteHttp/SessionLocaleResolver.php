@@ -24,13 +24,15 @@ class SessionLocaleResolver implements ILocaleResolver {
   function __construct(Session $session) {
     $this->session = $session;
     $this->section = $session->getSection(get_class($this));
-    $this->section->lang = NULL;
   }
   
   /**
    * @return string|NULL
    */
   function getLang(): ?string {
+    if(empty($this->section->lang)) {
+      return NULL;
+    }
     return $this->section->lang;
   }
   
