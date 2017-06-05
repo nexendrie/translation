@@ -1,3 +1,6 @@
+Version 0.5.0+dev
+- add actual domains to used resources in manually created messages catalogues
+
 Version 0.5.0
 - added pluralization
 

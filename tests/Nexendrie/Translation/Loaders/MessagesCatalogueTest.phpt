@@ -30,7 +30,7 @@ class MessagesCatalogueTest extends FileLoaderTestAbstract {
     $folder = __DIR__ . "/../../../catalogue";
     $loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
     $loader->getTexts();
-    Assert::true(isset($loader->resources["*"]));
+    Assert::count(3, $loader->resources);
   }
 }
 
