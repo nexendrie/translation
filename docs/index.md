@@ -17,9 +17,11 @@ The best way to install it is via Composer. Just add **nexendrie/translation** t
 General info
 ------------
 
-Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional paramters. Only message id is required, count does nothing at the moment.
+Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional paramters. Only message id is required.
 
 The translate method searches for message id in list of known texts, replaced passed parameters in found text and returns the result. If nothing is found, empty string is returned. Example of message with parameters: "blah blah %param1%". 
+
+Pluralization in messages is supported. You can define multiple variations for the message, the translator will choose the correct one depending on count. The variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}), inclusive range ([0,5]), exclusive range (]0,5]) or combination of exclusive and inclusive range. It is possible to pass Inf instead of number (only positive infinite is recognized right now).
 
 You can divide your texts to domains, by default domain messages is used. You can also use unlimited number of subdomains. Domain and subdomains are separated by dots in message id. Example: domain.subdomain1.subdomain2.id. 
 
