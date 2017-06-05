@@ -1,3 +1,7 @@
 abc: "Abc"
 multi:
     abc: "Abc"
+    pluralSimple: "{0} Není tu žádné jablko.|{1} Je tu jedno jablko."
+    pluralSimpleParams: "{0} Je tu %count% jablek.|{1} Je tu %count% jablko."
+pluralSimple: "{0} Není tu žádné jablko.|{1} Je tu jedno jablko."
+pluralSimpleParams: "{0} Je tu %count% jablek.|{1} Je tu %count% jablko."
