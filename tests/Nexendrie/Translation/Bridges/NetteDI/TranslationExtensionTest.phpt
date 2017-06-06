@@ -39,6 +39,8 @@ require __DIR__ . "/../../../../bootstrap.php";
 class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
+  static public $messages = [];
+  
   function setUp() {
     $this->refreshContainer();
   }
@@ -331,6 +333,26 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $factory = $this->getService(ILatteFactory::class);
     $latte = $factory->create();
     Assert::contains("translate", $latte->getFilters());
+  }
+  
+  static function onUntranslated(string $message): void {
+    static::$messages[] = $message;
+  }
+  
+  function testOnUntranslated() {
+    $config = [
+      "translation" => [
+        "onUntranslated" => [
+          static::class . "::onUntranslated"
+        ]
+      ]
+    ];
+    $this->refreshContainer($config);
+    Assert::count(0, static::$messages);
+    /** @var Translator $translator */
+    $translator = $this->getService(Translator::class);
+    $translator->translate("messages.nonsense");
+    Assert::count(1, static::$messages);
   }
 }
 

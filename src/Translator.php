@@ -28,7 +28,6 @@ class Translator implements ITranslator {
   public $onUntranslated = [];
   
   function __construct(ILoader $loader) {
-    $this->onUntranslated[] = [$this, "logUntranslatedMessage"];
     $this->loader = $loader;
   }
   

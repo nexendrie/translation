@@ -93,12 +93,13 @@ translation:
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
     loader: neon # neon, ini, json, yaml, php or catalogue
+    onUntranslated: { } # custom callbacks for Translator::onUntranslated()
     compiler:
         enabled: false # should we compile messages catalogues?
         languages: { } # compile catalogues only for these languages
 ``` 
 
-Param locale resolver from presenter's paramater locale.
+Param locale resolver from presenter's parameter locale.
 
 If you want to use ChainLocaleResolver, just specify the needed resolvers as elements of array:
 

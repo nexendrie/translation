@@ -46,6 +46,7 @@ class TranslationExtension extends CompilerExtension {
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => "neon",
+    "onUntranslated" => [],
     "compiler" => [
       "enabled" => false,
       "languages" => [],
@@ -143,6 +144,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidLoaderException
    */
   function loadConfiguration(): void {
+    $this->defaults["onUntranslated"][] = ["@" . $this->prefix("translator"), "logUntranslatedMessage"];
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "localeResolver", "string|array");
@@ -238,6 +240,16 @@ class TranslationExtension extends CompilerExtension {
   function afterCompile(ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     $initialize = $class->methods["initialize"];
+    $initialize->addBody('$translator = $this->getService(?);', [$this->prefix("translator")]);
+    foreach($config["onUntranslated"] as &$task) {
+      if(!is_array($task)) {
+        $task = explode("::", $task);
+      } elseif(substr($task[0], 0, 1) === "@") {
+        $initialize->addBody('$translator->onUntranslated[] = [$this->getService(?), ?];', [substr($task[0], 1), $task[1]]);
+        continue;
+      }
+      $initialize->addBody('$translator->onUntranslated[] = [?, ?];', [$task[0], $task[1]]);
+    }
     $initialize->addBody('$resolver = $this->getService(?);
 if($resolver instanceof Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver) $resolver->setLoader($this->getService(?));', [$this->prefix("localeResolver"), $this->prefix("loader")]);
     if($config["compiler"]["enabled"]) {
