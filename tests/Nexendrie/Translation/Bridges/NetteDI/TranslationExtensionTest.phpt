@@ -31,7 +31,8 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nette\DI\MissingServiceException,
     Tester\Assert,
-    Nette\Application\Application;
+    Nette\Application\Application,
+    Nette\Bridges\ApplicationLatte\ILatteFactory;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
@@ -323,6 +324,13 @@ class TranslationExtensionTest extends \Tester\TestCase {
     /** @var FileLoader $loader */
     $loader = $this->getService(FileLoader::class);
     Assert::contains(__DIR__ . "/../../../../_temp", $loader->getFolders());
+  }
+  
+  function testLatte() {
+    /** @var ILatteFactory $factory */
+    $factory = $this->getService(ILatteFactory::class);
+    $latte = $factory->create();
+    Assert::contains("translate", $latte->getFilters());
   }
 }
 

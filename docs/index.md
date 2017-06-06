@@ -114,4 +114,10 @@ translation:
 
 After registering and configuring the extension, you can require Nexendrie\Translation\Translator (or better Nette\Localization\ITranslator) in other services.
 
-For now, translator is not added to templates automatically, you have to do it yourself.
+You can also translate texts in Latte templates, as the extension automatically register the translator. It is possible to use count and other parameters. Examples:
+
+```latte
+{_"messages.abc"}
+{_"messages.abc", 5}
+{_"messages.abc", 5, ["param1" => "value1"]}
+```
