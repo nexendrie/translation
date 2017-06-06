@@ -7,6 +7,7 @@ Version 0.5.0+dev
 - added support for negative infinite in intervals
 - made validation of config values (arrays) in TranslationExtension stricter
 - %appDir%/lang is always used folders with Nette DI extension
+- fixed appending loader to multiple ILoaderAwareLocaleResolver in Nette DI Extension
 
 Version 0.5.0
 - added pluralization

@@ -30,7 +30,8 @@ use Nette\DI\CompilerExtension,
     Nette\Utils\Arrays,
     Nette\Application\Application,
     Nette\Bridges\ApplicationLatte\ILatteFactory,
-    Nette\Utils\AssertionException;
+    Nette\Utils\AssertionException,
+    Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -255,8 +256,8 @@ class TranslationExtension extends CompilerExtension {
       }
       $initialize->addBody('$translator->onUntranslated[] = [?, ?];', [$task[0], $task[1]]);
     }
-    $initialize->addBody('$resolver = $this->getService(?);
-if($resolver instanceof Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver) $resolver->setLoader($this->getService(?));', [$this->prefix(static::SERVICE_LOCALE_RESOLVER), $this->prefix(static::SERVICE_LOADER)]);
+    $initialize->addBody('$resolvers = $this->findByType(?);
+foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [ILoaderAwareLocaleResolver::class, $this->prefix(static::SERVICE_LOADER)]);
     if($config["compiler"]["enabled"]) {
       $initialize->addBody('$this->getService(?)->compile();', [$this->prefix(static::SERVICE_CATALOGUE_COMPILER)]);
     }
