@@ -4,3 +4,4 @@ includes:
 parameters:
     ignoreErrors:
         - '#Parameter \#2 \$interval of static method Nexendrie\\Translation\\Intervals::isInInterval\(\) expects string, string\|null given#'
+        - '#Call to an undefined method Nexendrie\\Translation\\Resolvers\\ILocaleResolver::setLang\(\)#'

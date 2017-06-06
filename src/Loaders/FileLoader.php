@@ -61,8 +61,8 @@ abstract class FileLoader implements ILoader {
    * @param string $lang
    */
   function setLang(string $lang) {
-    if($this->resolver instanceof ManualLocaleResolver) {
-      $this->resolver->lang = $lang;
+    if(method_exists($this->resolver, "setLang")) {
+      $this->resolver->setLang($lang);
     }
   }
   
