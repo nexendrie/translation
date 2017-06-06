@@ -29,7 +29,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\CatalogueCompiler,
     Nette\Utils\Arrays,
     Nette\Application\Application,
-    Nette\Bridges\ApplicationLatte\ILatteFactory;
+    Nette\Bridges\ApplicationLatte\ILatteFactory,
+    Nette\Utils\AssertionException;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -86,10 +87,12 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return string[]
+   * @throws AssertionException
    * @throws InvalidLocaleResolverException
    */
   protected function resolveResolverClass(): array {
     $config = $this->getConfig($this->defaults);
+    Validators::assertField($config, "localeResolver", "string|array");
     $return = [];
     $resolvers = $config["localeResolver"];
     if(!is_array($resolvers)) {
@@ -110,10 +113,12 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return string
+   * @throws AssertionException
    * @throws InvalidLoaderException
    */
   protected function resolveLoaderClass(): string {
     $config = $this->getConfig($this->defaults);
+    Validators::assertField($config, "loader", "string");
     $loaderName = $config["loader"];
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
@@ -132,6 +137,7 @@ class TranslationExtension extends CompilerExtension {
   protected function getFolders(): array {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
+    Validators::assertField($config, "folders", "array");
     if(!count($config["folders"])) {
       $config["folders"][] = $builder->expand("%appDir%/lang");
     }
@@ -150,6 +156,7 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
+   * @throws AssertionException
    * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
@@ -158,20 +165,11 @@ class TranslationExtension extends CompilerExtension {
     $this->defaults["onUntranslated"][] = ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "logUntranslatedMessage"];
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "localeResolver", "string|array");
-    try {
-      $resolvers = $this->resolveResolverClass();
-    } catch(InvalidLocaleResolverException $e) {
-      throw $e;
-    }
-    Validators::assertField($config, "folders", "array");
-    Validators::assertField($config, "loader", "string");
-    try {
-      $loader = $this->resolveLoaderClass();
-    } catch(InvalidLoaderException $e) {
-      throw $e;
-    }
     Validators::assertField($config, "default", "string");
+    Validators::assertField($config["compiler"], "enabled", "bool");
+    Validators::assertField($config["compiler"], "languages", "array");
+    $resolvers = $this->resolveResolverClass();
+    $loader = $this->resolveLoaderClass();
     $builder->addDefinition($this->prefix(static::SERVICE_TRANSLATOR))
       ->setClass(Translator::class);
     $builder->addDefinition($this->prefix(static::SERVICE_LOADER))
@@ -196,8 +194,6 @@ class TranslationExtension extends CompilerExtension {
       $builder->getDefinition("tracy.bar")
         ->addSetup("addPanel", ["@" . $this->prefix(static::SERVICE_PANEL), "translation"]);
     }
-    Validators::assertField($config["compiler"], "enabled", "bool");
-    Validators::assertField($config["compiler"], "languages", "array");
   }
   
   /**
