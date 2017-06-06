@@ -26,7 +26,7 @@ The translator contains variable $onUntranslated which is an array of callbacks 
 Pluralization
 -------------
 
-Pluralization in messages is supported. You can define multiple variations for the message, the translator will choose the correct one depending on count. The variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}) or use inclusive range ([0,5] for 0 - 5), exclusive range (]0,5] for 1 - 4) or combination of exclusive and inclusive range. It is possible to pass Inf instead of number (only positive infinite is recognized right now).
+Pluralization in messages is supported. You can define multiple variations for the message, the translator will choose the correct one depending on count. The variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}) or use inclusive range ([0,5] for 0 - 5), exclusive range (]0,5] for 1 - 4) or combination of exclusive and inclusive range. It is possible to pass -Inf/+Inf instead of number.
 
 Message domain and sub-domains
 ------------------------------

@@ -22,7 +22,7 @@ class IntervalsTest extends \Tester\TestCase {
     $this->tryInterval("abc]0,1]abc", "]0,1]");
     $this->tryInterval("abc[0,1[abc", "[0,1[");
     $this->tryInterval("abc]0,1[abc", "]0,1[");
-    $this->tryInterval("abc]Inf,Inf[abc", "]Inf,Inf[");
+    $this->tryInterval("abc]-Inf,+Inf[abc", "]-Inf,+Inf[");
   }
   
   function testIsInInterval() {
@@ -38,6 +38,10 @@ class IntervalsTest extends \Tester\TestCase {
     Assert::true(Intervals::isInInterval(2, "[2,5]"));
     Assert::true(Intervals::isInInterval(5, "[2,5]"));
     Assert::true(Intervals::isInInterval(3, "[2,5]"));
+    Assert::true(Intervals::isInInterval(0, "]-Inf,+Inf["));
+    Assert::true(Intervals::isInInterval(0, "]-Inf,1]"));
+    Assert::true(Intervals::isInInterval(0, "[0,+Inf["));
+    Assert::false(Intervals::isInInterval(0, "]+Inf,-Inf["));
   }
 }
 

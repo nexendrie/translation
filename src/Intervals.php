@@ -13,7 +13,7 @@ use Nette\Utils\Strings;
 class Intervals {
   use \Nette\StaticClass;
   
-  const PATTERN = '/(\{\d+(,\d+)*\})|((\[|\])(\d+|Inf),(\d+|Inf)(\[|\]))/';
+  const PATTERN = '/(\{\d+(,\d+)*\})|((\[|\])(\d+|\+Inf|-Inf),(\d+|\+Inf|-Inf)(\[|\]))/';
   
   /**
    * @param string $text
@@ -39,7 +39,7 @@ class Intervals {
     $interval = str_replace("Inf", PHP_INT_MAX, $interval);
     $start = Strings::substring($interval, 0, 1);
     $end = Strings::substring($interval, -1, 1);
-    [$limit1, $limit2] = explode(",", Strings::substring($interval, 1, Strings::length($interval) - 1));
+    [$limit1, $limit2] = explode(",", Strings::trim($interval, "[]"));
     if($limit1 > $limit2) {
       return false;
     } elseif($number < $limit1) {
