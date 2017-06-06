@@ -21,6 +21,8 @@ Core part of this package is Nexendrie\Translation\Translator class. It implemen
 
 The translate method searches for message id in list of known texts, replaces passed parameters in found text and returns the result. If nothing is found, empty string is returned. Example of message with parameters: "blah blah %param1%". 
 
+The translator contains variable $onUntranslated which is an array of callbacks that are called when it encounters an unknown message id. By default, it is empty but some integrations may fill it with own or user-defined callbacks.
+
 Pluralization
 -------------
 
@@ -93,13 +95,14 @@ translation:
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
     loader: neon # neon, ini, json, yaml, php or catalogue
-    onUntranslated: { } # custom callbacks for Translator::onUntranslated()
+    onUntranslated: # custom callbacks for Translator::onUntranslated()
+        - ["@translator", "logUntranslatedMessage"] # this is always present unless overwritten with !
     compiler:
         enabled: false # should we compile messages catalogues?
         languages: { } # compile catalogues only for these languages
 ``` 
 
-Param locale resolver from presenter's parameter locale.
+Param locale resolver takes language from presenter's parameter locale, it is not possible to change the paramter's name.
 
 If you want to use ChainLocaleResolver, just specify the needed resolvers as elements of array:
 
