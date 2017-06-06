@@ -54,7 +54,9 @@ class TranslationExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "localeResolver" => "manual",
-    "folders" => [],
+    "folders" => [
+      "%appDir%/lang",
+    ],
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => "neon",
@@ -135,11 +137,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidFolderException
    */
   protected function getFolders(): array {
-    $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    if(!count($config["folders"])) {
-      $config["folders"][] = $builder->expand("%appDir%/lang");
-    }
     Validators::assertField($config, "folders", "string[]");
     $folders = $config["folders"];
     /** @var ITranslationProvider $extension */

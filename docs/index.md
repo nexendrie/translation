@@ -91,7 +91,7 @@ extensions:
 translation:
     localeResolver: manual # manual, environment, fallback, session, header or param
     folders:
-        - %appDir%/lang
+        - %appDir%/lang # this is always present unless overwritten with !
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
     loader: neon # neon, ini, json, yaml, php or catalogue

@@ -6,6 +6,7 @@ Version 0.5.0+dev
 - moved InvalidLoaderException and InvalidLocaleResolver to namespace Nexendrie\Translation\Bridges\NetteDI
 - added support for negative infinite in intervals
 - made validation of config values (arrays) in TranslationExtension stricter
+- %appDir%/lang is always used folders with Nette DI extension
 
 Version 0.5.0
 - added pluralization

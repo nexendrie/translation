@@ -51,11 +51,12 @@ class TranslationExtensionTest extends \Tester\TestCase {
   }
   
   function testDefaultLoader() {
-    /** @var ILoader $loader */
+    /** @var NeonLoader $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(NeonLoader::class, $loader);
     Assert::type("string", $loader->getDefaultLang());
     Assert::same("en", $loader->getDefaultLang());
+    Assert::count(1, $loader->folders);
     $config = [
       "translation" => [
         "default" => "cs"
