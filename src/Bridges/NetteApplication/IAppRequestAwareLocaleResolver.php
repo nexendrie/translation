@@ -1,7 +1,8 @@
 <?php
-namespace Nexendrie\Translation\Resolvers;
+namespace Nexendrie\Translation\Bridges\NetteApplication;
 
-use Nette\Application\Application,
+use Nexendrie\Translation\Resolvers\ILocaleResolver,
+    Nette\Application\Application,
     Nette\Application\Request;
 
 /**

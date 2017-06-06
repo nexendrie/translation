@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteApplication;
 
-use Nexendrie\Translation\Resolvers\IAppRequestAwareLocaleResolver,
-    Nette\Application\Application,
+use Nette\Application\Application,
     Nette\Application\Request;
 
 /**
