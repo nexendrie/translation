@@ -92,7 +92,7 @@ class TranslationExtension extends CompilerExtension {
    */
   protected function resolveResolverClass(): array {
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "localeResolver", "string|array");
+    Validators::assertField($config, "localeResolver", "string|string[]");
     $return = [];
     $resolvers = $config["localeResolver"];
     if(!is_array($resolvers)) {
@@ -137,10 +137,10 @@ class TranslationExtension extends CompilerExtension {
   protected function getFolders(): array {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "folders", "array");
     if(!count($config["folders"])) {
       $config["folders"][] = $builder->expand("%appDir%/lang");
     }
+    Validators::assertField($config, "folders", "string[]");
     $folders = $config["folders"];
     /** @var ITranslationProvider $extension */
     foreach($this->compiler->getExtensions(ITranslationProvider::class) as $extension) {
@@ -167,7 +167,7 @@ class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "default", "string");
     Validators::assertField($config["compiler"], "enabled", "bool");
-    Validators::assertField($config["compiler"], "languages", "array");
+    Validators::assertField($config["compiler"], "languages", "string[]");
     $resolvers = $this->resolveResolverClass();
     $loader = $this->resolveLoaderClass();
     $builder->addDefinition($this->prefix(static::SERVICE_TRANSLATOR))
