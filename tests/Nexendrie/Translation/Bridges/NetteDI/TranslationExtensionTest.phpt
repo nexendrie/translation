@@ -16,7 +16,6 @@ use Nette\Localization\ITranslator,
     Nexendrie\Translation\Loaders\Loader,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver,
     Nexendrie\Translation\Resolvers\FallbackLocaleResolver,
     Nexendrie\Translation\Resolvers\LocaleResolver,
@@ -115,10 +114,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
   }
   
   function testDefaultResolver() {
-    /** @var ManualLocaleResolver $resolver */
+    /** @var ChainLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
-    Assert::type(ManualLocaleResolver::class, $resolver);
-    Assert::type("null", $resolver->lang);
+    Assert::type(ChainLocaleResolver::class, $resolver);
+    Assert::null($resolver->resolve());
   }
   
   /**
@@ -242,6 +241,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testCompiler() {
     $config = [
       "translation" => [
+        "localeResolver" => "manual",
         "compiler" => [
           "enabled" => true,
           "languages" => [],
@@ -280,6 +280,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testCompilerWithLanguages() {
     $config = [
       "translation" => [
+        "localeResolver" => "manual",
         "compiler" => [
           "enabled" => true,
           "languages" => ["en", "cs", "xyz"],

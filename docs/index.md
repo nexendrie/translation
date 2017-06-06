@@ -89,7 +89,9 @@ extensions:
 
 ```yaml
 translation:
-    localeResolver: manual # manual, environment, fallback, session, header or param
+    localeResolver: # manual, environment, fallback, session, header or param
+        - session
+        - header
     folders:
         - %appDir%/lang # this is always present unless overwritten with !
     default: en # default language
