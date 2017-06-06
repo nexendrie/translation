@@ -177,7 +177,7 @@ class TranslationExtension extends CompilerExtension {
         $chainResolver->addSetup("addResolver", [$resolverService]);
       }
     }
-    if($config["debugger"] AND interface_exists('Tracy\IBarPanel')) {
+    if($config["debugger"] AND interface_exists(\Tracy\IBarPanel::class)) {
       $builder->addDefinition($this->prefix("panel"))
         ->setClass(TranslationPanel::class);
       $builder->getDefinition("tracy.bar")
