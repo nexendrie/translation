@@ -28,9 +28,8 @@ class MessagesCatalogue extends PhpLoader {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $this->resources = $texts = [];
-    $extension = $this->extension;
-    $lang = $this->lang;
-    $files = Finder::findFiles("catalogue.$lang.$extension")->from($this->folders);
+    $filename = str_replace("*", $this->lang, $this->getLanguageFilenameMask());
+    $files = Finder::findFiles($filename)->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $texts = array_merge($texts, $this->parseFile($file->getPathname()));
