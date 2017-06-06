@@ -6,8 +6,7 @@ namespace Nexendrie\Translation;
 use Nette\Utils\Arrays,
     Nette\Utils\Strings,
     Nette\Localization\ITranslator,
-    Nexendrie\Translation\Loaders\ILoader,
-    Nette\InvalidArgumentException;
+    Nexendrie\Translation\Loaders\ILoader;
 
 /**
  * Translator
@@ -77,10 +76,8 @@ class Translator implements ITranslator {
   protected function multiLevelTrans(array $message, array $texts): string {
     $text = $texts;
     foreach($message as $index => $part) {
-      try {
-        $text = Arrays::get($text, $part);
-      } catch(InvalidArgumentException $e) {
-        $text = "";
+      $text = Arrays::get($text, $part, "");
+      if($text === "") {
         break;
       }
     }
