@@ -30,7 +30,8 @@ use Nette\DI\CompilerExtension,
     Nexendrie\Translation\Bridges\Tracy\TranslationPanel,
     Nexendrie\Translation\CatalogueCompiler,
     Nette\Utils\Arrays,
-    Nette\Application\Application;
+    Nette\Application\Application,
+    Nette\Bridges\ApplicationLatte\ILatteFactory;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -222,6 +223,11 @@ class TranslationExtension extends CompilerExtension {
         ->addSetup("setFolders", [[$folder]]);
       $builder->addDefinition($this->prefix("catalogueCompiler"))
         ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config["compiler"]["languages"]]);
+    }
+    $latteFactoryService = $builder->getByType(ILatteFactory::class) ?? "latte.latteFactory";
+    if($builder->hasDefinition($latteFactoryService)) {
+      $latteFactory = $builder->getDefinition($latteFactoryService);
+      $latteFactory->addSetup("addFilter", ["translate", ["@" . $this->prefix("translator"), "translate"]]);
     }
   }
   
