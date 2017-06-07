@@ -96,7 +96,7 @@ class Translator implements ITranslator {
     foreach($variants as $variant) {
       $interval = Intervals::findInterval($variant);
       if(is_string($interval) AND Intervals::isInInterval($count, $interval)) {
-        return (string) Strings::after($variant, $interval);
+        return Strings::trim(Strings::after($variant, $interval));
       }
     }
     return "";
@@ -132,7 +132,7 @@ class Translator implements ITranslator {
       return $message;
     }
     if(is_string(Intervals::findInterval($text))) {
-      $text = Strings::trim($this->multiChoiceTrans($text, $count));
+      $text = $this->multiChoiceTrans($text, $count);
     }
     $params["count"] = $count;
     foreach($params as $key => $value) {
