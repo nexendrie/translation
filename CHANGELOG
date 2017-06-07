@@ -1,4 +1,4 @@
-Version 0.5.0+dev
+Version 1.0.0-rc1
 - add actual domains to used resources in manually created messages catalogues
 - translator is now registered to Latte when available in Nette DIC container
 - moved IAppRequestAwareLocaleResolver to namespace Nexendrie\Translation\Bridges\NetteApplication
