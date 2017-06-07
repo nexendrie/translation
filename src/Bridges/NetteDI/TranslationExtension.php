@@ -238,6 +238,7 @@ class TranslationExtension extends CompilerExtension {
     if($builder->hasDefinition($latteFactoryService)) {
       $latteFactory = $builder->getDefinition($latteFactoryService);
       $latteFactory->addSetup("addFilter", ["translate", ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "translate"]]);
+      $latteFactory->addSetup("addProvider", ["translator", "@" . $this->prefix(static::SERVICE_TRANSLATOR)]);
     }
   }
   

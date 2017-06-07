@@ -333,6 +333,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $factory = $this->getService(ILatteFactory::class);
     $latte = $factory->create();
     Assert::contains("translate", $latte->getFilters());
+    Assert::true(array_key_exists("translator", $latte->getProviders()));
   }
   
   static function onUntranslated(string $message): void {
