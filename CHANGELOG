@@ -4,11 +4,13 @@ Version 0.5.0+dev
 - moved IAppRequestAwareLocaleResolver to namespace Nexendrie\Translation\Bridges\NetteApplication
 - made it possible to add custom callbacks to Translator::onUntranslated() from Nette DI extension
 - moved InvalidLoaderException and InvalidLocaleResolver to namespace Nexendrie\Translation\Bridges\NetteDI
-- added support for negative infinite in intervals
+- added support for negative numbers/infinite in intervals
 - made validation of config values (arrays) in TranslationExtension stricter
 - %appDir%/lang is always used folders with Nette DI extension
 - fixed appending loader to multiple ILoaderAwareLocaleResolver in Nette DI extension
 - changed default locale resolver to param, session, header in Nette DI extension
+- separated Intervals to package nexendrie/utils
+- added dependency on nexendrie/utils
 
 Version 0.5.0
 - added pluralization
