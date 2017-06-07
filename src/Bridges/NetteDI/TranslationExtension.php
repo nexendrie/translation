@@ -55,7 +55,7 @@ class TranslationExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "localeResolver" => [
-      "session", "header",
+      "param", "session", "header",
     ],
     "folders" => [
       "%appDir%/lang",

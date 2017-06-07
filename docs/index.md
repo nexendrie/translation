@@ -90,6 +90,7 @@ extensions:
 ```yaml
 translation:
     localeResolver: # manual, environment, fallback, session, header or param
+        - param
         - session
         - header
     folders:

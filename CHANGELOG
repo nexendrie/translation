@@ -8,7 +8,7 @@ Version 0.5.0+dev
 - made validation of config values (arrays) in TranslationExtension stricter
 - %appDir%/lang is always used folders with Nette DI extension
 - fixed appending loader to multiple ILoaderAwareLocaleResolver in Nette DI extension
-- changed default locale resolver to session, header in Nette DI extension
+- changed default locale resolver to param, session, header in Nette DI extension
 
 Version 0.5.0
 - added pluralization
