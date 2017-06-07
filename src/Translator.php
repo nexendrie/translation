@@ -61,8 +61,7 @@ class Translator implements ITranslator {
       $domain = "messages";
       $m = $message;
     } else {
-      $domain = Strings::before($message, ".");
-      $m = Strings::after($message, ".");
+      [$domain, $m] = explode(".", $message, 2);
     }
     return [$domain, $m];
   }
