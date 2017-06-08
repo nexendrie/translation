@@ -203,9 +203,9 @@ class TranslationExtension extends CompilerExtension {
   function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    $folders = $this->getFolders();
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
     if(in_array(FileLoader::class, class_parents($loader->class))) {
+      $folders = $this->getFolders();
       $loader->addSetup("setFolders", [$folders]);
     }
     $resolver = $builder->getDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER));
