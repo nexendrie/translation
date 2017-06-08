@@ -158,7 +158,6 @@ class TranslationExtension extends CompilerExtension {
   /**
    * @return void
    * @throws AssertionException
-   * @throws InvalidFolderException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
    */
@@ -199,15 +198,12 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return void
+   * @throws InvalidFolderException
    */
   function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
-    try {
-      $folders = $this->getFolders();
-    } catch(InvalidFolderException $e) {
-      throw $e;
-    }
+    $folders = $this->getFolders();
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
     if(in_array(FileLoader::class, class_parents($loader->class))) {
       $loader->addSetup("setFolders", [$folders]);
