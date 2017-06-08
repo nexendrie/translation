@@ -1,5 +1,6 @@
 Version 1.0.0-rc1
 - folders are now ignored by Nette DI extension if no file loader is used
+- Nette DI container is now regenerated whenever translation files change
 
 Version 1.0.0-rc1
 - add actual domains to used resources in manually created messages catalogues
