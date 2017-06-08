@@ -26,20 +26,21 @@ class ParamLocaleResolverTest extends \Tester\TestCase {
   }
   
   function testResolve() {
-    $callback = function() {
-      return "";
-    };
+    $parameters = [
+      "callback" => function() {
+        return "";
+      }
+    ];
     Assert::null($this->resolver->resolve());
     /** @var Application $application */
     $application = $this->getService(Application::class);
-    $request = new Request("Micro", Request::FORWARD, ["callback" => $callback]);
+    $request = new Request("Micro", Request::FORWARD, $parameters);
     $application->processRequest($request);
     Assert::null($this->resolver->resolve());
-    $request = new Request("Micro", NULL, ["callback" => $callback]);
+    $request->method = NULL;
     $application->processRequest($request);
-    $request = new Request("Micro", NULL, [
-      "callback" => $callback, "locale" => "en"
-    ]);
+    $parameters["locale"] = "en";
+    $request->parameters = $parameters;
     $application->processRequest($request);
     Assert::same("en", $this->resolver->resolve());
   }
