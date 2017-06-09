@@ -78,7 +78,9 @@ class TranslationExtensionTest extends \Tester\TestCase {
   protected function customLoader(string $name, string $class) {
     $config = [
       "translation" => [
-        "loader" => $name
+        "loader" => [
+          "name" => $name
+        ]
       ]
     ];
     $this->refreshContainer($config);
@@ -99,7 +101,9 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testInvalidLoader() {
     $config = [
       "translation" => [
-        "loader" => "invalid"
+        "loader" => [
+          "name" => "invalid"
+        ]
       ]
     ];
     Assert::exception(function() use($config) {
@@ -107,7 +111,9 @@ class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidLoaderException::class, "Invalid translation loader.");
     $config = [
       "translation" => [
-        "loader" => "stdClass"
+        "loader" => [
+          "name" => "stdClass"
+        ]
       ]
     ];
     Assert::exception(function() use($config) {
@@ -214,12 +220,31 @@ class TranslationExtensionTest extends \Tester\TestCase {
   function testInvalidFolder() {
     $config = [
       "translation" => [
-        "folders" => ["/dev/null"]
+        "loader" => [
+          "folders" => [
+            "/dev/null"
+          ]
+        ]
       ]
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
     }, InvalidFolderException::class, "Folder /dev/null does not exist.");
+  }
+  
+  function testLegacyFoldersSetup() {
+    $config = [
+      "translation" => [
+        "folders" => ["/dev/null"]
+      ]
+    ];
+    set_error_handler(function($errno, $errstr, $errfile, $errline) {
+      return ($errno === E_USER_DEPRECATED);
+    });
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidFolderException::class, "Folder /dev/null does not exist.");
+    restore_error_handler();
   }
   
   function testPanel() {
@@ -248,8 +273,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
           "enabled" => true,
           "languages" => [],
         ],
-        "folders" => [
-          "%appDir%/lang", "%appDir%/lang2"
+        "loader" => [
+          "folders" => [
+            "%appDir%/lang", "%appDir%/lang2"
+          ]
         ]
       ]
     ];
@@ -287,8 +314,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
           "enabled" => true,
           "languages" => ["en", "cs", "xyz"],
         ],
-        "folders" => [
-          "%appDir%/lang", "%appDir%/lang2"
+        "loader" => [
+          "folders" => [
+            "%appDir%/lang", "%appDir%/lang2"
+          ]
         ]
       ]
     ];

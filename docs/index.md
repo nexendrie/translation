@@ -93,11 +93,12 @@ translation:
         - param
         - session
         - header
-    folders:
-        - %appDir%/lang # this is always present unless overwritten with !
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
-    loader: neon # neon, ini, json, yaml, php or catalogue
+    loader:
+        name: neon # neon, ini, json, yaml, php or catalogue
+        folders:
+            - %appDir%/lang # this is always present unless overwritten with !
     onUntranslated: # custom callbacks for Translator::onUntranslated()
         - ["@translator", "logUntranslatedMessage"] # this is always present unless overwritten with !
     compiler:

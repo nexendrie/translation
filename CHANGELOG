@@ -3,6 +3,7 @@ Version 1.0.0-rc1+dev
 - Nette DI container is now regenerated whenever translation files change
 - moved InvalidLoaderException and InvalidLocaleResolver back to namespace Nexendrie\Translation
 - parameter for ParamLocaleResolver can be changed now
+- changed format for defining folders for Nette DI extension, deprecated the old one
 
 Version 1.0.0-rc1
 - add actual domains to used resources in manually created messages catalogues

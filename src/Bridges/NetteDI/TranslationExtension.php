@@ -59,12 +59,15 @@ class TranslationExtension extends CompilerExtension {
     "localeResolver" => [
       "param", "session", "header",
     ],
-    "folders" => [
-      "%appDir%/lang",
-    ],
+    "folders" => [],
     "default" => "en",
     "debugger" => "%debugMode%",
-    "loader" => "neon",
+    "loader" => [
+      "name" => "neon",
+      "folders" => [
+        "%appDir%/lang",
+      ],
+    ],
     "onUntranslated" => [],
     "compiler" => [
       "enabled" => false,
@@ -125,8 +128,9 @@ class TranslationExtension extends CompilerExtension {
    */
   protected function resolveLoaderClass(): string {
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "loader", "string");
-    $loaderName = $config["loader"];
+    Validators::assertField($config, "loader", "array");
+    Validators::assertField($config["loader"], "name", "string");
+    $loaderName = $config["loader"]["name"];
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
       return $loader;
@@ -144,7 +148,11 @@ class TranslationExtension extends CompilerExtension {
   protected function getFolders(): array {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "folders", "string[]");
-    $folders = $config["folders"];
+    if(count($config["folders"])) {
+      trigger_error("Section $this->name.folders is deprecated, use $this->name.loader.folders instead", E_USER_DEPRECATED);
+    }
+    Validators::assertField($config["loader"], "folders", "string[]");
+    $folders = $config["folders"] + $config["loader"]["folders"];
     /** @var ITranslationProvider $extension */
     foreach($this->compiler->getExtensions(ITranslationProvider::class) as $extension) {
       $folders = array_merge($folders, array_values($extension->getTranslationResources()));
