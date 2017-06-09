@@ -1,4 +1,4 @@
-Version 1.0.0-rc2
+Version 1.0.0-rc2+dev
 - fixed detection of resolver in FileLoader
 
 Version 1.0.0-rc2
