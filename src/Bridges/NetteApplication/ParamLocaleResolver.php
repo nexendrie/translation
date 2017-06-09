@@ -10,6 +10,7 @@ use Nette\Application\Application,
  * ParamLocaleResolver
  *
  * @author Jakub Konečný
+ * @property string $param
  */
 class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   use \Nette\SmartObject;
@@ -18,6 +19,20 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   protected $request;
   /** @var string */
   protected $param = "locale";
+  
+  /**
+   * @return string
+   */
+  function getParam(): string {
+    return $this->param;
+  }
+  
+  /**
+   * @param string $param
+   */
+  function setParam(string $param) {
+    $this->param = $param;
+  }
   
   /**
    * @param Application $application
