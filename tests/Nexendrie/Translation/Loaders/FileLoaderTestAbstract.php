@@ -141,5 +141,11 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
       $this->loader->getAvailableLanguages();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
+  
+  function testGetResolverName() {
+    $name = $this->loader->getResolverName();
+    Assert::type("string", $name);
+    Assert::same("ManualLocaleResolver", $name);
+  }
 }
 ?>

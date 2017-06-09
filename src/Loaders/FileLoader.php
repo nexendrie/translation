@@ -193,7 +193,7 @@ abstract class FileLoader implements ILoader {
    */
   function getResolverName(): string {
     $class = get_class($this->resolver);
-    return (string) Strings::after($class, '\\');
+    return (string) Strings::after($class, '\\', -1);
   }
   
   /**
