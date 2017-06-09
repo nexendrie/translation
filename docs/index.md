@@ -89,14 +89,14 @@ extensions:
 
 ```yaml
 translation:
-    localeResolver: # manual, environment, fallback, session, header or param
+    localeResolver: # manual, environment, fallback, session, header, param or name of class implementing Nexendrie\Translation\Resolvers\ILocaleResolver
         - param
         - session
         - header
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
     loader:
-        name: neon # neon, ini, json, yaml, php or catalogue
+        name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\Loaders\ILoader
         folders:
             - %appDir%/lang # this is always present unless overwritten with !
     onUntranslated: # custom callbacks for Translator::onUntranslated()
@@ -116,6 +116,13 @@ translation:
         - param
         - session
         - header
+```
+
+. To use just 1 locale resolver, specify it as a string:
+
+```yaml
+translation:
+    localeResolver: header
 ```
 
 .
