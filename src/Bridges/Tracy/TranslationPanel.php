@@ -28,9 +28,8 @@ class TranslationPanel implements IBarPanel {
    */
   function getTab(): string {
     $lang = $this->loader->getLang();
-    ob_start();
-    require __DIR__ . "/TranslationPanel.tab.phtml";
-    return ob_get_clean();
+    $tab = file_get_contents(__DIR__ . "/TranslationPanel.tab.html");
+    return str_replace("%lang%", $lang, $tab);
   }
   
   /**
