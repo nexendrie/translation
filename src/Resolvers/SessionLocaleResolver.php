@@ -21,6 +21,8 @@ class SessionLocaleResolver implements ILocaleResolver {
   protected $session;
   /** @var SessionSection */
   protected $section;
+  /** @var string */
+  protected $varName = "lang";
   
   function __construct(Session $session = NULL) {
     if(is_null($session)) {
@@ -36,14 +38,14 @@ class SessionLocaleResolver implements ILocaleResolver {
    * @return string|NULL
    */
   function getLang(): ?string {
-    if(empty($this->section->lang)) {
+    if(empty($this->section->{$this->varName})) {
       return NULL;
     }
-    return $this->section->lang;
+    return $this->section->{$this->varName};
   }
   
   function setLang(string $lang) {
-    $this->section->lang = $lang;
+    $this->section->{$this->varName} = $lang;
   }
   
   /**
