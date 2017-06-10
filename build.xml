@@ -6,7 +6,7 @@
   <target name="ci-coverage" depends="install,lint,cs,phpstan">
     <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
       <arg value="-p"/>
-      <arg value="phpdbg"/>
+      <arg value="php"/>
       <arg path="tests"/>
       <arg value="--coverage"/>
       <arg path="./coverage.xml"/>
