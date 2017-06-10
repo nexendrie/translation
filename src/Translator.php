@@ -75,7 +75,7 @@ class Translator implements ITranslator {
    */
   protected function multiLevelTrans(array $message, array $texts): string {
     $text = $texts;
-    foreach($message as $index => $part) {
+    foreach($message as $part) {
       $text = Arrays::get($text, $part, "");
       if($text === "") {
         break;
