@@ -31,7 +31,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
     Assert::same(5, $r->count());
-    Assert::same("Untranslated message: 0, loaded resources 0", (string) $r->p);
+    Assert::same("Untranslated messages: 0, loaded resources 0", (string) $r->p);
     Assert::same("Resolved language", (string) $r->div->h1);
     foreach($r->div->table->tr->children() as $i => $td) {
       if($i === 0) {
@@ -63,7 +63,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     $result = $this->panel->getPanel();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
-    Assert::same("Untranslated message: 0, loaded resources 2", (string) $r->p);
+    Assert::same("Untranslated messages: 0, loaded resources 2", (string) $r->p);
   }
   
   function testGetPanelWithMessages() {
@@ -73,7 +73,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     $result = $this->panel->getPanel();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
-    Assert::same("Untranslated message: 1, loaded resources 2", (string) $r->p);
+    Assert::same("Untranslated messages: 1, loaded resources 2", (string) $r->p);
   }
 }
 

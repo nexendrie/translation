@@ -1,4 +1,4 @@
-<p>Untranslated message: <?php echo count($translator->untranslated); ?>, loaded resources <?php echo $resourcesCount; ?></p>
+<p>Untranslated messages: <?php echo count($translator->untranslated); ?>, loaded resources <?php echo $resourcesCount; ?></p>
 <div id="resolvedLanguage">
   <h1>Resolved language</h1>
   <table>
@@ -19,7 +19,7 @@
   </table>
 </div>
 <div id="untranslated">
-  <?php if(count($translator->untranslated)) echo "<h1>Untranslated message</h1>"; ?>
+  <?php if(count($translator->untranslated)) echo "<h1>Untranslated messages</h1>"; ?>
   <?php foreach($translator->untranslated as $message) {
     echo "<p>$message</p>";
   }
