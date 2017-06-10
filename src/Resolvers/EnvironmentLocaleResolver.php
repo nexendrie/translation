@@ -13,13 +13,13 @@ namespace Nexendrie\Translation\Resolvers;
 class EnvironmentLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
   
-  const VARNAME = "TRANSLATOR_LANGUAGE";
+  const VAR_NAME = "TRANSLATOR_LANGUAGE";
   
   /**
    * @return string|NULL
    */
   function getLang(): ?string {
-    $lang = getenv(static::VARNAME);
+    $lang = getenv(static::VAR_NAME);
     if($lang) {
       return $lang;
     } else {
@@ -31,7 +31,7 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
    * @param string $lang
    */
   function setLang(string $lang) {
-    putenv(static::VARNAME . "=$lang");
+    putenv(static::VAR_NAME . "=$lang");
   }
   
   /**
