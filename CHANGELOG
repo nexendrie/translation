@@ -1,4 +1,4 @@
-Version 1.0.0-rc2+dev
+Version 1.0.0-rc3
 - fixed detection of resolver in FileLoader
 - added link to loaded resource in Tracy panel
 - renamed constant EnvironmentLocaleResolver::VARNAME to VAR_NAME
