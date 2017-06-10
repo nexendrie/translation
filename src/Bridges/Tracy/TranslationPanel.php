@@ -27,7 +27,7 @@ class TranslationPanel implements IBarPanel {
    * @return string
    */
   function getTab(): string {
-    $loader = $this->loader;
+    $lang = $this->loader->getLang();
     ob_start();
     require __DIR__ . "/TranslationPanel.tab.phtml";
     return ob_get_clean();
