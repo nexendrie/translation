@@ -13,6 +13,7 @@ use Nette\Http\Session,
  *
  * @author Jakub Konečný
  * @property string|NULL $lang
+ * @property string $varName
  */
 class SessionLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
@@ -46,6 +47,20 @@ class SessionLocaleResolver implements ILocaleResolver {
   
   function setLang(string $lang) {
     $this->section->{$this->varName} = $lang;
+  }
+  
+  /**
+   * @return string
+   */
+  function getVarName(): string {
+    return $this->varName;
+  }
+  
+  /**
+   * @param string $varName
+   */
+  function setVarName(string $varName) {
+    $this->varName = $varName;
   }
   
   /**

@@ -2,6 +2,7 @@ Version 1.0.0-rc2+dev
 - fixed detection of resolver in FileLoader
 - added link to loaded resource in Tracy panel
 - renamed constant EnvironmentLocaleResolver::VARNAME to VAR_NAME
+- variable for SessionLocaleResolver can be changed now
 
 Version 1.0.0-rc2
 - folders are now ignored by Nette DI extension if no file loader is used
