@@ -26,7 +26,6 @@
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master",
-        "codacy/coverage": "^1.1",
         "nette/di": "^2.4",
         "tracy/tracy": "^2.4",
         "latte/latte": "^2.4",
@@ -48,9 +47,6 @@
         "psr-4": {
             "Nexendrie\\Translation\\": "src/"
         }
-    },
-    "replace": {
-        "satooshi/php-coveralls": "*"
     },
     "autoload-dev": {
         "psr-4": {
