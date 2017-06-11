@@ -29,7 +29,8 @@ class MessagesCatalogue extends PhpLoader {
     }
     $this->resources = $texts = [];
     $filename = str_replace("*", $this->lang, $this->getLanguageFilenameMask());
-    $files = Finder::findFiles($filename)->from($this->folders);
+    $files = Finder::findFiles($filename)
+      ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $texts = array_merge($texts, $this->parseFile($file->getPathname()));

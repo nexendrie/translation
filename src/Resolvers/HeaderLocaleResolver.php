@@ -55,7 +55,8 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $s = strtolower($header);  // case insensitive
     $s = strtr($s, '_', '-');  // cs_CZ means cs-CZ
     rsort($langs);             // first more specific
-    preg_match_all('#(' . implode('|', $langs) . ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#', $s, $matches);
+    $pattern = ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#';
+    preg_match_all('#(' . implode('|', $langs) . $pattern, $s, $matches);
     if(!$matches[0]) {
       return NULL;
     }

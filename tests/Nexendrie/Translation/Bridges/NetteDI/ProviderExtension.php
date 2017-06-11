@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
+use Nette\DI\CompilerExtension;
+
 /**
  * ProviderExtension
  *
  * @author Jakub Konečný
  */
-class ProviderExtension extends \Nette\DI\CompilerExtension implements ITranslationProvider {
+class ProviderExtension extends CompilerExtension implements ITranslationProvider {
   /**
    * @return string[]
    */

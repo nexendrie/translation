@@ -137,7 +137,8 @@ abstract class FileLoader implements ILoader {
     $defaultLang = $this->defaultLang;
     $extension = $this->extension;
     $defaultFilename = "$name.$defaultLang.$extension";
-    $files = Finder::findFiles($defaultFilename)->from($this->folders);
+    $files = Finder::findFiles($defaultFilename)
+      ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $default = $this->parseFile($file->getPathname());
@@ -170,7 +171,8 @@ abstract class FileLoader implements ILoader {
     $default = $this->defaultLang;
     $this->resources = $texts = [];
     $extension = $this->extension;
-    $files = Finder::findFiles("*.$default.$extension")->from($this->folders);
+    $files = Finder::findFiles("*.$default.$extension")
+      ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $domain = $file->getBasename(".$default.$extension");
@@ -213,7 +215,8 @@ abstract class FileLoader implements ILoader {
     }
     $languages = [];
     $extension = $this->extension;
-    $files = Finder::findFiles($this->getLanguageFilenameMask())->from($this->folders);
+    $files = Finder::findFiles($this->getLanguageFilenameMask())
+      ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");

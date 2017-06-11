@@ -108,7 +108,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLoaderException::class, "Invalid translation loader.");
+    }, InvalidLoaderException::class);
     $config = [
       "translation" => [
         "loader" => [
@@ -118,7 +118,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLoaderException::class, "Invalid translation loader.");
+    }, InvalidLoaderException::class);
   }
   
   function testDefaultResolver() {
@@ -162,7 +162,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLocaleResolverException::class, "Invalid locale resolver invalid.");
+    }, InvalidLocaleResolverException::class);
     $config = [
       "translation" => [
         "localeResolver" => "stdClass"
@@ -170,7 +170,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidLocaleResolverException::class, "Invalid locale resolver stdClass.");
+    }, InvalidLocaleResolverException::class);
   }
   
   function testChainResolver() {
@@ -229,7 +229,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     ];
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidFolderException::class, "Folder /dev/null does not exist.");
+    }, InvalidFolderException::class);
   }
   
   function testLegacyFoldersSetup() {
@@ -243,7 +243,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
     });
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
-    }, InvalidFolderException::class, "Folder /dev/null does not exist.");
+    }, InvalidFolderException::class);
     restore_error_handler();
   }
   
@@ -284,7 +284,8 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $loader = $this->getService(ILoader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
-    $originalLoader = $this->getContainer()->getService("translation.originalLoader");
+    $originalLoader = $this->getContainer()
+      ->getService("translation.originalLoader");
     Assert::type(NeonLoader::class, $originalLoader);
     $compiler =  $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
@@ -293,17 +294,20 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("Content", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));
-    Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("Param1: value1", $result);
     $translator->lang = "cs";
     Assert::same("Obsah", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("Abc", $translator->translate("abc.multi.abc"));
-    Assert::same("Param2: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("Param2: value1", $result);
     $translator->lang = "xyz";
     Assert::same("book.content", $translator->translate("book.content"));
     Assert::same("book.test", $translator->translate("book.test"));
     Assert::same("abc.multi.abc", $translator->translate("abc.multi.abc"));
-    Assert::same("param", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("param", $result);
   }
   
   function testCompilerWithLanguages() {
@@ -325,7 +329,8 @@ class TranslationExtensionTest extends \Tester\TestCase {
     $loader = $this->getService(ILoader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
-    $originalLoader = $this->getContainer()->getService("translation.originalLoader");
+    $originalLoader = $this->getContainer()
+      ->getService("translation.originalLoader");
     Assert::type(NeonLoader::class, $originalLoader);
     $compiler =  $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
@@ -334,17 +339,20 @@ class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("Content", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));
-    Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("Param1: value1", $result);
     $translator->lang = "cs";
     Assert::same("Obsah", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("Abc", $translator->translate("abc.multi.abc"));
-    Assert::same("Param2: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result =$translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("Param2: value1", $result);
     $translator->lang = "xyz";
     Assert::same("Content", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));
-    Assert::same("Param1: value1", $translator->translate("param", 0, ["param1" => "value1"]));
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
+    Assert::same("Param1: value1", $result);
   }
   
   function testTranslationProvider() {
