@@ -59,7 +59,6 @@ class TranslationExtension extends CompilerExtension {
     "localeResolver" => [
       "param", "session", "header",
     ],
-    "folders" => [],
     "default" => "en",
     "debugger" => "%debugMode%",
     "loader" => [
@@ -147,12 +146,8 @@ class TranslationExtension extends CompilerExtension {
    */
   protected function getFolders(): array {
     $config = $this->getConfig($this->defaults);
-    Validators::assertField($config, "folders", "string[]");
-    if(count($config["folders"])) {
-      trigger_error("Section $this->name.folders is deprecated, use $this->name.loader.folders instead", E_USER_DEPRECATED);
-    }
     Validators::assertField($config["loader"], "folders", "string[]");
-    $folders = $config["folders"] + $config["loader"]["folders"];
+    $folders = $config["loader"]["folders"];
     /** @var ITranslationProvider $extension */
     foreach($this->compiler->getExtensions(ITranslationProvider::class) as $extension) {
       $folders = array_merge($folders, array_values($extension->getTranslationResources()));
@@ -235,7 +230,7 @@ class TranslationExtension extends CompilerExtension {
       $builder->removeDefinition($serviceName);
       $folder = $builder->expand("%tempDir%/catalogues");
       $builder->addDefinition($this->prefix(static::SERVICE_ORIGINAL_LOADER), $loader)
-        ->setFactory($loader->class, [new ManualLocaleResolver, $config["folders"]])
+        ->setFactory($loader->class, [new ManualLocaleResolver, $config["loader"]["folders"]])
         ->setAutowired(false);
       $builder->addDefinition($serviceName)
         ->setClass(MessagesCatalogue::class)

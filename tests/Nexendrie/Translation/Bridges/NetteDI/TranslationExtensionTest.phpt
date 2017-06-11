@@ -232,21 +232,6 @@ class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidFolderException::class);
   }
   
-  function testLegacyFoldersSetup() {
-    $config = [
-      "translation" => [
-        "folders" => ["/dev/null"]
-      ]
-    ];
-    set_error_handler(function($errno, $errstr, $errfile, $errline) {
-      return ($errno === E_USER_DEPRECATED);
-    });
-    Assert::exception(function() use($config) {
-      $this->refreshContainer($config);
-    }, InvalidFolderException::class);
-    restore_error_handler();
-  }
-  
   function testPanel() {
     $panel = $this->getService(TranslationPanel::class);
     Assert::type(TranslationPanel::class, $panel);
