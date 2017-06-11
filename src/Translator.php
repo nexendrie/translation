@@ -58,12 +58,9 @@ class Translator implements ITranslator {
    */
   protected function extractDomainAndMessage(string $message): array {
     if(!Strings::contains($message, ".")) {
-      $domain = "messages";
-      $m = $message;
-    } else {
-      [$domain, $m] = explode(".", $message, 2);
+      return ["messages", $message];
     }
-    return [$domain, $m];
+    return explode(".", $message, 2);
   }
   
   /**

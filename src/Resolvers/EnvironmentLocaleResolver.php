@@ -22,9 +22,8 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
     $lang = getenv(static::VAR_NAME);
     if($lang) {
       return $lang;
-    } else {
-      return NULL;
     }
+    return NULL;
   }
   
   /**

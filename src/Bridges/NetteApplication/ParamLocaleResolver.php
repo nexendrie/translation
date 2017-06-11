@@ -53,11 +53,10 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
    * @return string|NULL
    */
   function resolve(): ?string {
-    if(is_null($this->request)) {
-      return NULL;
-    } else {
+    if(!is_null($this->request)) {
       return $this->request->getParameter($this->param);
     }
+    return NULL;
   }
 }
 ?>
