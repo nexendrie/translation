@@ -134,9 +134,8 @@ class TranslationExtension extends CompilerExtension {
       return $loader;
     } elseif(class_exists($loaderName) AND is_subclass_of($loaderName, ILoader::class)) {
       return $loaderName;
-    } else {
-      throw new InvalidLoaderException("Invalid translation loader.");
     }
+    throw new InvalidLoaderException("Invalid translation loader.");
   }
   
   /**
