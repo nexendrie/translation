@@ -13,8 +13,8 @@ use Nette\Utils\Finder,
  * @author Jakub Konečný
  */
 class MessagesCatalogue extends PhpLoader {
-  protected function loadDomain(string $name) {
-    
+  protected function loadDomain(string $name): array {
+    return [];
   }
   
   protected function loadTexts(): void {

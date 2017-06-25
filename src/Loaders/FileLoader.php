@@ -105,11 +105,8 @@ abstract class FileLoader implements ILoader {
   
   /**
    * Load texts from one text domain
-   *
-   * @param string $name
-   * @return array
    */
-  protected function loadDomain(string $name) {
+  protected function loadDomain(string $name): array {
     $return = [];
     $defaultLang = $this->defaultLang;
     $extension = $this->extension;
