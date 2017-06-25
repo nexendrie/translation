@@ -50,8 +50,7 @@ abstract class FileLoader implements ILoader {
   }
   
   function getLang(): string {
-    $lang = $this->resolver->resolve();
-    return $lang ?? $this->defaultLang;
+    return $this->resolver->resolve() ?? $this->defaultLang;
   }
   
   function setLang(string $lang) {
