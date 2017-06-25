@@ -121,7 +121,6 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @return string
    * @throws AssertionException
    * @throws InvalidLoaderException
    */
@@ -161,7 +160,6 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @return void
    * @throws AssertionException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
@@ -202,7 +200,6 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @return void
    * @throws InvalidFolderException
    */
   function beforeCompile(): void {
@@ -246,10 +243,6 @@ class TranslationExtension extends CompilerExtension {
     }
   }
   
-  /**
-   * @param ClassType $class
-   * @return void
-   */
   function afterCompile(ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     $initialize = $class->methods["initialize"];

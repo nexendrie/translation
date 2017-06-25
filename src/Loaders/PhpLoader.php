@@ -13,12 +13,6 @@ class PhpLoader extends FileLoader {
   /** @var string */
   protected $extension = "php";
   
-  /**
-   * Parse individual file
-   *
-   * @param string $filename
-   * @return array
-   */
   protected function parseFile(string $filename): array {
     return require $filename;
   }

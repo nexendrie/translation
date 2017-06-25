@@ -17,12 +17,6 @@ class MessagesCatalogue extends PhpLoader {
     
   }
   
-  /**
-   * Load all texts
-   *
-   * @return void
-   * @throws FolderNotSetException
-   */
   protected function loadTexts(): void {
     if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
@@ -48,9 +42,6 @@ class MessagesCatalogue extends PhpLoader {
     $this->loadedLang = $this->lang;
   }
   
-  /**
-   * @return string
-   */
   protected function getLanguageFilenameMask(): string {
     return "catalogue.*.$this->extension";
   }

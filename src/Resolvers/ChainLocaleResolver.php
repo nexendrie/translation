@@ -21,11 +21,6 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
     $this[] = $resolver;
   }
   
-  /**
-   * Resolve language
-   *
-   * @return string|NULL
-   */
   function resolve(): ?string {
     foreach($this as $resolver) {
       $lang = $resolver->resolve();

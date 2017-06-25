@@ -15,12 +15,6 @@ class JsonLoader extends FileLoader {
   /** @var string */
   protected $extension = "json";
   
-  /**
-   * Parse individual file
-   *
-   * @param string $filename
-   * @return array
-   */
   protected function parseFile(string $filename): array {
     return Json::decode(file_get_contents($filename), Json::FORCE_ARRAY);
   }

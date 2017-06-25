@@ -11,8 +11,6 @@ use Nexendrie\Translation\Loaders\ILoader;
 interface ILoaderAwareLocaleResolver extends ILocaleResolver {
   /**
    * Inject loader
-   *
-   * @param ILoader $loader
    */
   function setLoader(ILoader $loader);
 }

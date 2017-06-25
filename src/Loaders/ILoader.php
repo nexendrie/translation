@@ -9,39 +9,12 @@ namespace Nexendrie\Translation\Loaders;
  * @author Jakub Konečný
  */
 interface ILoader {
-  /**
-   * @return string
-   */
   function getLang(): string;
-  
-  /**
-   * @param string $lang
-   */
   function setLang(string $lang);
-  
-  /**
-   * @return string
-   */
   function getDefaultLang(): string;
-  
-  /**
-   * @param string $defaultLang
-   */
   function setDefaultLang(string $defaultLang);
-  
-  /**
-   * @return array
-   */
   function getResources(): array;
-  
-  /**
-   * @return array
-   */
   function getTexts(): array;
-  
-  /**
-   * @return string
-   */
   function getResolverName(): string;
   
   /**

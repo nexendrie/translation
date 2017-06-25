@@ -15,12 +15,6 @@ class YamlLoader extends FileLoader {
   /** @var string */
   protected $extension = "yaml";
   
-  /**
-   * Parse individual file
-   *
-   * @param string $filename
-   * @return array
-   */
   protected function parseFile(string $filename): array {
     return Yaml::parse(file_get_contents($filename));
   }

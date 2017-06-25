@@ -23,18 +23,12 @@ class TranslationPanel implements IBarPanel {
     $this->loader = $loader;
   }
   
-  /**
-   * @return string
-   */
   function getTab(): string {
     $lang = $this->loader->getLang();
     $tab = file_get_contents(__DIR__ . "/TranslationPanel.tab.html");
     return str_replace("%lang%", $lang, $tab);
   }
   
-  /**
-   * @return string
-   */
   function getPanel(): string {
     $loader = $this->loader;
     $translator = $this->translator;

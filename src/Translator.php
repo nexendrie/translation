@@ -31,16 +31,10 @@ class Translator implements ITranslator {
     $this->loader = $loader;
   }
   
-  /**
-   * @return string
-   */
   function getLang(): string {
     return $this->loader->getLang();
   }
   
-  /**
-   * @param string $lang
-   */
   function setLang(string $lang) {
     $this->loader->setLang($lang);
   }
@@ -65,10 +59,6 @@ class Translator implements ITranslator {
   
   /**
    * Translate multi-level message
-   *
-   * @param array $message
-   * @param array $texts
-   * @return string
    */
   protected function multiLevelTrans(array $message, array $texts): string {
     $text = $texts;
@@ -83,10 +73,6 @@ class Translator implements ITranslator {
   
   /**
    * Choose correct variant of message depending on $count
-   *
-   * @param string $message
-   * @param int $count
-   * @return string
    */
   protected function multiChoiceTrans(string $message, int $count): string {
     $variants = explode("|", $message);
@@ -99,10 +85,6 @@ class Translator implements ITranslator {
     return "";
   }
   
-  /**
-   * @param string $message
-   * @return void
-   */
   function logUntranslatedMessage(string $message): void {
     $this->untranslated[] = $message;
   }

@@ -39,8 +39,6 @@ class CatalogueCompiler {
   
   /**
    * Compile catalogues
-   *
-   * @return void
    */
   function compile(): void {
     foreach($this->languages as $language) {

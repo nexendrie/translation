@@ -35,9 +35,6 @@ class SessionLocaleResolver implements ILocaleResolver {
     $this->section = $session->getSection(get_class($this));
   }
   
-  /**
-   * @return string|NULL
-   */
   function getLang(): ?string {
     if(empty($this->section->{$this->varName})) {
       return NULL;
@@ -49,24 +46,16 @@ class SessionLocaleResolver implements ILocaleResolver {
     $this->section->{$this->varName} = $lang;
   }
   
-  /**
-   * @return string
-   */
   function getVarName(): string {
     return $this->varName;
   }
   
-  /**
-   * @param string $varName
-   */
   function setVarName(string $varName) {
     $this->varName = $varName;
   }
   
   /**
    * Resolve language
-   *
-   * @return string|NULL
    */
   function resolve(): ?string {
     return $this->getLang();

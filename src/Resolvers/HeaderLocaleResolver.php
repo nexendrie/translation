@@ -28,9 +28,6 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $this->request = $request;
   }
   
-  /**
-   * @param ILoader $loader
-   */
   function setLoader(ILoader $loader) {
     $this->loader = $loader;
   }
@@ -40,8 +37,6 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
    *
    * Taken from Nette\Http\Request::detectLanguage()
    * @author David Grudl
-   *
-   * @return string|NULL
    */
   function resolve(): ?string {
     if(is_null($this->loader)) {

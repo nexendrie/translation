@@ -13,12 +13,6 @@ class IniLoader extends FileLoader {
   /** @var string */
   protected $extension = "ini";
   
-  /**
-   * Parse individual file
-   *
-   * @param string $filename
-   * @return array
-   */
   protected function parseFile(string $filename): array {
     return parse_ini_file($filename, true);
   }

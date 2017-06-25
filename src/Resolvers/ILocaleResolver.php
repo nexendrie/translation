@@ -11,8 +11,6 @@ namespace Nexendrie\Translation\Resolvers;
 interface ILocaleResolver {
   /**
    * Resolve language
-   *
-   * @return string|NULL
    */
   function resolve(): ?string;
 }

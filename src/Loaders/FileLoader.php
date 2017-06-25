@@ -49,33 +49,21 @@ abstract class FileLoader implements ILoader {
     $this->resolver = $resolver ?? new ManualLocaleResolver;
   }
   
-  /**
-   * @return string
-   */
   function getLang(): string {
     $lang = $this->resolver->resolve();
     return $lang ?? $this->defaultLang;
   }
   
-  /**
-   * @param string $lang
-   */
   function setLang(string $lang) {
     if(method_exists($this->resolver, "setLang")) {
       $this->resolver->setLang($lang);
     }
   }
   
-  /**
-   * @return string
-   */
   function getDefaultLang(): string {
     return $this->defaultLang;
   }
   
-  /**
-   * @param string $defaultLang
-   */
   function setDefaultLang(string $defaultLang) {
     $this->defaultLang = $defaultLang;
   }
@@ -100,29 +88,18 @@ abstract class FileLoader implements ILoader {
     }
   }
   
-  /**
-   * @param string $filename
-   * @param string $domain
-   * @return void
-   */
   protected function addResource(string $filename, string $domain): void {
     if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain])) {
       $this->resources[$domain][] = $filename;
     }
   }
   
-  /**
-   * @return array
-   */
   function getResources(): array {
     return $this->resources;
   }
   
   /**
    * Parse individual file
-   * 
-   * @param string $filename
-   * @return array
    */
   abstract protected function parseFile(string $filename): array;
   
@@ -158,7 +135,6 @@ abstract class FileLoader implements ILoader {
   /**
    * Load all texts
    *
-   * @return void
    * @throws FolderNotSetException
    */
   protected function loadTexts(): void {
@@ -182,25 +158,16 @@ abstract class FileLoader implements ILoader {
     $this->loadedLang = $this->lang;
   }
   
-  /**
-   * @return array
-   */
   function getTexts(): array {
     $this->loadTexts();
     return $this->texts;
   }
   
-  /**
-   * @return string
-   */
   function getResolverName(): string {
     $class = get_class($this->resolver);
     return (string) Strings::after($class, '\\', -1);
   }
   
-  /**
-   * @return string
-   */
   protected function getLanguageFilenameMask(): string {
     return "*.$this->extension";
   }
