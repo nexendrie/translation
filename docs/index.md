@@ -46,7 +46,9 @@ A locale resolver has to implement Nexendrie\Translation\Resolvers\ILocaleResolv
 Default loaders
 ---------------
 
-This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php and yaml. You just have to tell where it should look for the files. It is also possible to use compliled (to php) messages catalogues. They contains all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
+This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php and yaml. You just have to tell where it should look for the files. It is also possible to use compiled (to php) messages catalogues. They contains all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
+
+Names of files have to follow certain pattern. In general, it is domain.language.format, for messages catalogues it is catalogue.language.php.
 
 Default locale resolvers
 -----------------
@@ -85,7 +87,7 @@ extensions:
     translation: Nexendrie\Translation\Bridges\NetteDI\TranslationExtension
 ```
 
-. As you see, the extension can work without any configuration as it has got sane default values. But of course, you can customize it to your liking. List of options with their default values follows:
+. The extension can work without any configuration as it has got sane default values. But of course, you can customize it to your liking. List of options with their default values follows:
 
 ```yaml
 translation:
@@ -106,7 +108,7 @@ translation:
         languages: { } # compile catalogues only for these languages
 ``` 
 
-Param locale resolver takes language from presenter's parameter locale, it is not possible to change the paramter's name.
+Param locale resolver takes language from presenter's parameter locale, the parameter's name is stored in property $param which can be changed at will.
 
 If you want to use ChainLocaleResolver, just specify the needed resolvers as elements of array:
 
