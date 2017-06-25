@@ -1608,7 +1608,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-06-14T08:49:22+00:00"
+            "time": "2017-06-14 06:49:22"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1616,12 +1616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "755ebfc687e1c68fa08628edf0f59e1279763707"
+                "reference": "9e87a419fd0a158e5c70091980525beae3d73998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=755ebfc687e1c68fa08628edf0f59e1279763707",
-                "reference": "755ebfc687e1c68fa08628edf0f59e1279763707",
+                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=9e87a419fd0a158e5c70091980525beae3d73998",
+                "reference": "9e87a419fd0a158e5c70091980525beae3d73998",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1670,7 @@
                 "static",
                 "website"
             ],
-            "time": "2017-06-16T13:47:40+00:00"
+            "time": "2017-06-18T11:59:04+00:00"
         },
         {
             "name": "nikic/php-parser",
