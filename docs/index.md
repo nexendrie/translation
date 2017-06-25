@@ -68,7 +68,8 @@ If you want to use multiple ways to resolve the language, use ChainLocaleResolve
 
 ```php
 $resolver = Nexendrie\Translation\Resolvers\ChainLocaleResolver;
-$resolver->addResolver(some resolver);
+$resolver->addResolver(some resolver); //or
+$resolver[] = some resolver;
 ```
 
 It tries all added resolvers (by the order in which they were added) until one returns a string.

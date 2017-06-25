@@ -18,7 +18,7 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
   protected $class = ILocaleResolver::class;
   
   function addResolver(ILocaleResolver $resolver): void {
-    $this->offsetSet(NULL, $resolver);
+    $this[] = $resolver;
   }
   
   /**
@@ -27,7 +27,7 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
    * @return string|NULL
    */
   function resolve(): ?string {
-    foreach($this->items as $resolver) {
+    foreach($this as $resolver) {
       $lang = $resolver->resolve();
       if(!is_null($lang)) {
         return $lang;
