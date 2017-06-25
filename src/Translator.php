@@ -120,10 +120,9 @@ class Translator implements ITranslator {
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);
     if(count($parts) === 1) {
-      $text = Arrays::get($texts, $m, "");
-    } else {
-      $text = $this->multiLevelTrans($parts, $texts);
+      $parts = [$m];
     }
+    $text = $this->multiLevelTrans($parts, $texts);
     if($text === "") {
       $this->onUntranslated($message);
       return $message;
