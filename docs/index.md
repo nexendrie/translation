@@ -60,7 +60,7 @@ $resolver = Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 $resolver->lang = "en";
 ```
 
-. You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses environment variable TRANSLATOR_LANGUAGE as storage.
+. You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses an environment variable as storage (TRANSLATOR_LANGUAGE by default, it is stored in property $varName).
 
 It is possible to detect language from Accept-Language header with HeaderLocaleResolver. There is also SessionLocaleResolver which takes and stores current language in session. These 2 resolvers require package nette/http.
 

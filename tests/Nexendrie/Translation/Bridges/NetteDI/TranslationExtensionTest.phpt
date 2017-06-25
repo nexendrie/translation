@@ -182,10 +182,10 @@ class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
-    putenv(EnvironmentLocaleResolver::VAR_NAME . "=cs");
     /** @var ChainLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
+    $resolver[1]->lang = "cs";
     Assert::same("cs", $resolver->resolve());
   }
   

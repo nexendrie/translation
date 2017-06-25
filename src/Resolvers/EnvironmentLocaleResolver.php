@@ -9,17 +9,19 @@ namespace Nexendrie\Translation\Resolvers;
  *
  * @author Jakub Konečný
  * @property string|NULL $lang
+ * @property string $varName
  */
 class EnvironmentLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
   
-  const VAR_NAME = "TRANSLATOR_LANGUAGE";
+  /** @var string */
+  protected $varName = "TRANSLATOR_LANGUAGE";
   
   /**
    * @return string|NULL
    */
   function getLang(): ?string {
-    $lang = getenv(static::VAR_NAME);
+    $lang = getenv($this->varName);
     if($lang) {
       return $lang;
     }
@@ -30,7 +32,21 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
    * @param string $lang
    */
   function setLang(string $lang) {
-    putenv(static::VAR_NAME . "=$lang");
+    putenv($this->varName . "=$lang");
+  }
+  
+  /**
+   * @return string
+   */
+  function getVarName(): string {
+    return $this->varName;
+  }
+  
+  /**
+   * @param string $varName
+   */
+  function setVarName(string $varName) {
+    $this->varName = $varName;
   }
   
   /**
