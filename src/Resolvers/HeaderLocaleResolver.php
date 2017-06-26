@@ -28,7 +28,7 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $this->request = $request;
   }
   
-  function setLoader(ILoader $loader) {
+  function setLoader(ILoader $loader): void {
     $this->loader = $loader;
   }
   

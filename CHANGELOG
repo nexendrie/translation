@@ -2,7 +2,7 @@ Version 1.0.0-rc3+dev
 - removed support for old format of defining folders for Nette DI extension
 - ChainLocaleResolver now extends Collection from nexendrie/utils
 - replaced constant EnvironmentLocaleResolver::VAR_NAME with property $varName
-- added return type hint for FileLoader::loadDomain()
+- added return type hint for FileLoader::loadDomain() and ILoaderAwareLocaleResolver::setLoader()
 
 Version 1.0.0-rc3
 - fixed detection of resolver in FileLoader
