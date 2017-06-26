@@ -1,4 +1,4 @@
-Version 1.0.0-rc3+dev
+Version 1.0.0
 - removed support for old format of defining folders for Nette DI extension
 - ChainLocaleResolver now extends Collection from nexendrie/utils
 - replaced constant EnvironmentLocaleResolver::VAR_NAME with property $varName
