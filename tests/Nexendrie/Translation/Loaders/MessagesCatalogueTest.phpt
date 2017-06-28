@@ -10,7 +10,7 @@ use Tester\Assert,
 require __DIR__ . "/../../../bootstrap.php";
 
 class MessagesCatalogueTest extends FileLoaderTestAbstract {
-  function setUp() {
+  protected function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $folder = __DIR__ . "/../../../_temp/catalogues";
     $loader = new NeonLoader(new ManualLocaleResolver, $folders);
@@ -19,14 +19,14 @@ class MessagesCatalogueTest extends FileLoaderTestAbstract {
     $this->loader = new MessagesCatalogue(new ManualLocaleResolver, [$folder]);
   }
   
-  function testGetFolders() {
+  public function testGetFolders() {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(1, $folders);
     Assert::same(__DIR__ . "/../../../_temp/catalogues", $folders[0]);
   }
   
-  function testCatalogueWithoutResources() {
+  public function testCatalogueWithoutResources() {
     $folder = __DIR__ . "/../../../catalogue";
     $loader = new MessagesCatalogue(new ManualLocaleResolver, [$folder]);
     $loader->getTexts();

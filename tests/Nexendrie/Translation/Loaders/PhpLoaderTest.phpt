@@ -9,7 +9,7 @@ require __DIR__ . "/../../../bootstrap.php";
 
 
 class PhpLoaderTest extends FileLoaderTestAbstract {
-  function setUp() {
+  protected function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new PhpLoader(new ManualLocaleResolver(), $folders);
   }

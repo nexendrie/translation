@@ -17,11 +17,11 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
   protected $items = [];
   protected $class = ILocaleResolver::class;
   
-  function addResolver(ILocaleResolver $resolver): void {
+  public function addResolver(ILocaleResolver $resolver): void {
     $this[] = $resolver;
   }
   
-  function resolve(): ?string {
+  public function resolve(): ?string {
     foreach($this as $resolver) {
       $lang = $resolver->resolve();
       if(!is_null($lang)) {

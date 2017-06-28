@@ -11,11 +11,11 @@ class ChainLocaleResolverTest extends \Tester\TestCase {
   /** @var ChainLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $this->resolver = new ChainLocaleResolver;
   }
   
-  function testResolve() {
+  public function testResolve() {
     Assert::null($this->resolver->resolve());
     $this->resolver->addResolver(new ManualLocaleResolver);
     Assert::null($this->resolver->resolve());

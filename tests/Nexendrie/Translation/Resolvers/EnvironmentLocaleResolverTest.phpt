@@ -11,11 +11,11 @@ class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   /** @var EnvironmentLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $this->resolver = new EnvironmentLocaleResolver;
   }
   
-  function testResolve() {
+  public function testResolve() {
     $lang = $this->resolver->resolve();
     Assert::type("null", $lang);
     $this->resolver->lang = "cs";
@@ -24,7 +24,7 @@ class EnvironmentLocaleResolverTest extends \Tester\TestCase {
     Assert::same("cs", $lang);
   }
   
-  function testCustomVarName() {
+  public function testCustomVarName() {
     $oldValue = $this->resolver->varName;
     Assert::type("string", $oldValue);
     $this->resolver->varName = "LANGUAGE";

@@ -20,15 +20,15 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   /** @var string */
   protected $param = "locale";
   
-  function getParam(): string {
+  public function getParam(): string {
     return $this->param;
   }
   
-  function setParam(string $param) {
+  public function setParam(string $param) {
     $this->param = $param;
   }
   
-  function onRequest(Application $application, Request $request): void {
+  public function onRequest(Application $application, Request $request): void {
     $locale = $request->getParameter($this->param);
     if($request->method === Request::FORWARD AND is_null($locale)) {
       return;
@@ -39,7 +39,7 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   /**
    * Resolve language
    */
-  function resolve(): ?string {
+  public function resolve(): ?string {
     if(!is_null($this->request)) {
       return $this->request->getParameter($this->param);
     }

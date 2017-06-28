@@ -11,11 +11,11 @@ class FallbackLocaleResolverTest extends \Tester\TestCase {
   /** @var FallbackLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $this->resolver = new FallbackLocaleResolver;
   }
   
-  function testResolve() {
+  public function testResolve() {
     $lang = $this->resolver->resolve();
     Assert::type("null", $lang);
   }

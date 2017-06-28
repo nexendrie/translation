@@ -18,14 +18,14 @@ class TranslatorTest extends \Tester\TestCase {
   /** @var Translator */
   private $translator;
   
-  function setUp() {
+  public function setUp() {
     $loader = new Loaders\NeonLoader;
     $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
     $this->translator = new Translator($loader);
     $this->translator->onUntranslated[] = [$this->translator, "logUntranslatedMessage"];
   }
   
-  function testTranslateEn() {
+  public function testTranslateEn() {
     Assert::count(0, $this->translator->untranslated);
     Assert::same("en", $this->translator->lang);
     // non-existing string
@@ -63,7 +63,7 @@ class TranslatorTest extends \Tester\TestCase {
     Assert::count(5, $this->translator->untranslated);
   }
   
-  function testTranslateCs() {
+  public function testTranslateCs() {
     Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "cs";
     Assert::same("cs", $this->translator->lang);
@@ -106,7 +106,7 @@ class TranslatorTest extends \Tester\TestCase {
   /**
    * Test non-existing language
    */
-  function testTranslateX() {
+  public function testTranslateX() {
     Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "x";
     Assert::same("x", $this->translator->lang);

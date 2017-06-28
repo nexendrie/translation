@@ -16,15 +16,15 @@ class ManualLocaleResolver implements ILocaleResolver {
   /** @var string|NULL */
   protected $lang = NULL;
   
-  function getLang(): ?string {
+  public function getLang(): ?string {
     return $this->lang;
   }
   
-  function setLang(string $lang) {
+  public function setLang(string $lang) {
     $this->lang = $lang;
   }
   
-  function resolve(): ?string {
+  public function resolve(): ?string {
     return $this->getLang();
   }
 }

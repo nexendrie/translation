@@ -44,33 +44,33 @@ abstract class FileLoader implements ILoader {
    * @param ILocaleResolver $resolver
    * @param string[] $folders
    */
-  function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {
+  public function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {
     $this->setFolders($folders);
     $this->resolver = $resolver ?? new ManualLocaleResolver;
   }
   
-  function getLang(): string {
+  public function getLang(): string {
     return $this->resolver->resolve() ?? $this->defaultLang;
   }
   
-  function setLang(string $lang) {
+  public function setLang(string $lang) {
     if(method_exists($this->resolver, "setLang")) {
       $this->resolver->setLang($lang);
     }
   }
   
-  function getDefaultLang(): string {
+  public function getDefaultLang(): string {
     return $this->defaultLang;
   }
   
-  function setDefaultLang(string $defaultLang) {
+  public function setDefaultLang(string $defaultLang) {
     $this->defaultLang = $defaultLang;
   }
   
   /**
    * @return string[]
    */
-  function getFolders(): array {
+  public function getFolders(): array {
     return $this->folders;
   }
   
@@ -78,7 +78,7 @@ abstract class FileLoader implements ILoader {
    * @param string[] $folders
    * @throws InvalidFolderException
    */
-  function setFolders(array $folders) {
+  public function setFolders(array $folders) {
     foreach($folders as $folder) {
       if(!is_dir($folder)) {
         throw new InvalidFolderException("Folder $folder does not exist.");
@@ -93,7 +93,7 @@ abstract class FileLoader implements ILoader {
     }
   }
   
-  function getResources(): array {
+  public function getResources(): array {
     return $this->resources;
   }
   
@@ -154,12 +154,12 @@ abstract class FileLoader implements ILoader {
     $this->loadedLang = $this->lang;
   }
   
-  function getTexts(): array {
+  public function getTexts(): array {
     $this->loadTexts();
     return $this->texts;
   }
   
-  function getResolverName(): string {
+  public function getResolverName(): string {
     $class = get_class($this->resolver);
     return (string) Strings::after($class, '\\', -1);
   }
@@ -172,7 +172,7 @@ abstract class FileLoader implements ILoader {
    * @return string[]
    * @throws FolderNotSetException
    */
-  function getAvailableLanguages(): array {
+  public function getAvailableLanguages(): array {
     if(!count($this->folders)) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }

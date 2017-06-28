@@ -18,18 +18,18 @@ class TranslationPanel implements IBarPanel {
   /** @var ILoader */
   protected $loader;
   
-  function __construct(Translator $translator, ILoader $loader) {
+  public function __construct(Translator $translator, ILoader $loader) {
     $this->translator = $translator;
     $this->loader = $loader;
   }
   
-  function getTab(): string {
+  public function getTab(): string {
     $lang = $this->loader->getLang();
     $tab = file_get_contents(__DIR__ . "/TranslationPanel.tab.html");
     return str_replace("%lang%", $lang, $tab);
   }
   
-  function getPanel(): string {
+  public function getPanel(): string {
     $loader = $this->loader;
     $translator = $this->translator;
     $resourcesCount = count($loader->getResources(), COUNT_RECURSIVE) - count($loader->getResources());

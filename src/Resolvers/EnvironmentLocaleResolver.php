@@ -17,7 +17,7 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
   /** @var string */
   protected $varName = "TRANSLATOR_LANGUAGE";
   
-  function getLang(): ?string {
+  public function getLang(): ?string {
     $lang = getenv($this->varName);
     if($lang) {
       return $lang;
@@ -25,19 +25,19 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
     return NULL;
   }
   
-  function setLang(string $lang) {
+  public function setLang(string $lang) {
     putenv($this->varName . "=$lang");
   }
   
-  function getVarName(): string {
+  public function getVarName(): string {
     return $this->varName;
   }
   
-  function setVarName(string $varName) {
+  public function setVarName(string $varName) {
     $this->varName = $varName;
   }
   
-  function resolve(): ?string {
+  public function resolve(): ?string {
     return $this->getLang();
   }
 }

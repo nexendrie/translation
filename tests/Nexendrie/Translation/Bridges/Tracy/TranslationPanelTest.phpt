@@ -14,11 +14,11 @@ class TranslationPanelTest extends \Tester\TestCase {
   /** @var TranslationPanel */
   protected $panel;
   
-  function setUp() {
+  protected function setUp() {
     $this->panel = $this->getService(TranslationPanel::class);
   }
   
-  function testGetTab() {
+  public function testGetTab() {
     $result = $this->panel->getTab();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement($result);
@@ -26,7 +26,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     Assert::contains("en", (string) $r);
   }
   
-  function testGetPanel() {
+  public function testGetPanel() {
     $result = $this->panel->getPanel();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
@@ -57,7 +57,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     }
   }
   
-  function testGetPanelResources() {
+  public function testGetPanelResources() {
     /** @var Translator $translator */
     $translator = $this->getService(Translator::class);
     $translator->translate("xyz");
@@ -68,7 +68,7 @@ class TranslationPanelTest extends \Tester\TestCase {
     Assert::same("Untranslated messages: 0, loaded resources 2", $text);
   }
   
-  function testGetPanelWithMessages() {
+  public function testGetPanelWithMessages() {
     /** @var Translator $translator */
     $translator = $this->getService(Translator::class);
     $translator->translate("abcd");

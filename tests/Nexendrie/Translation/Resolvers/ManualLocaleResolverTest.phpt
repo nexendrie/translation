@@ -11,11 +11,11 @@ class ManualLocaleResolverTest extends \Tester\TestCase {
   /** @var ManualLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $this->resolver = new ManualLocaleResolver;
   }
   
-  function testResolve() {
+  public function testResolve() {
     $lang = $this->resolver->resolve();
     Assert::type("null", $lang);
     $this->resolver->lang = "cs";

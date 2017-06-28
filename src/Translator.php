@@ -27,22 +27,22 @@ class Translator implements ITranslator {
   /** @var callable[] */
   public $onUntranslated = [];
   
-  function __construct(ILoader $loader) {
+  public function __construct(ILoader $loader) {
     $this->loader = $loader;
   }
   
-  function getLang(): string {
+  public function getLang(): string {
     return $this->loader->getLang();
   }
   
-  function setLang(string $lang) {
+  public function setLang(string $lang) {
     $this->loader->setLang($lang);
   }
   
   /**
    * @return string[]
    */
-  function getUntranslated(): array {
+  public function getUntranslated(): array {
     return $this->untranslated;
   }
   
@@ -85,7 +85,7 @@ class Translator implements ITranslator {
     return "";
   }
   
-  function logUntranslatedMessage(string $message): void {
+  public function logUntranslatedMessage(string $message): void {
     $this->untranslated[] = $message;
   }
   
@@ -97,7 +97,7 @@ class Translator implements ITranslator {
    * @param array $params
    * @return string
    */
-  function translate($message, $count = 0, $params = []) {
+  public function translate($message, $count = 0, $params = []) {
     list($domain, $m) = $this->extractDomainAndMessage($message);
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);

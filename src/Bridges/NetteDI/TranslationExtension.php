@@ -163,7 +163,7 @@ class TranslationExtension extends CompilerExtension {
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
    */
-  function loadConfiguration(): void {
+  public function loadConfiguration(): void {
     $this->defaults["onUntranslated"][] = ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "logUntranslatedMessage"];
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
@@ -201,7 +201,7 @@ class TranslationExtension extends CompilerExtension {
   /**
    * @throws InvalidFolderException
    */
-  function beforeCompile(): void {
+  public function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
@@ -242,7 +242,7 @@ class TranslationExtension extends CompilerExtension {
     }
   }
   
-  function afterCompile(ClassType $class): void {
+  public function afterCompile(ClassType $class): void {
     $config = $this->getConfig($this->defaults);
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(static::SERVICE_TRANSLATOR)]);

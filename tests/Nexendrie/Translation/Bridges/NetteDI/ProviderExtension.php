@@ -14,7 +14,7 @@ class ProviderExtension extends CompilerExtension implements ITranslationProvide
   /**
    * @return string[]
    */
-  function getTranslationResources(): array {
+  public function getTranslationResources(): array {
     return [__DIR__ . "/../../../../_temp"];
   }
 }

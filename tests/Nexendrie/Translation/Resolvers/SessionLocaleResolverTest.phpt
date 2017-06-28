@@ -13,17 +13,17 @@ class SessionLocaleResolverTest extends \Tester\TestCase {
   /** @var SessionLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $this->resolver = new SessionLocaleResolver;
   }
   
-  function testResolver() {
+  public function testResolver() {
     Assert::null($this->resolver->resolve());
     $this->resolver->lang = "en";
     Assert::same("en", $this->resolver->resolve());
   }
   
-  function testCustomVarName() {
+  public function testCustomVarName() {
     $this->resolver->varName = "locale";
     Assert::same("locale", $this->resolver->varName);
     $this->resolver->lang = "en";

@@ -15,7 +15,7 @@ class ParamLocaleResolverTest extends \Tester\TestCase {
   /** @var ParamLocaleResolver */
   protected $resolver;
   
-  function setUp() {
+  protected function setUp() {
     $config = [
       "translation" => [
         "localeResolver" => "param"
@@ -25,7 +25,7 @@ class ParamLocaleResolverTest extends \Tester\TestCase {
     $this->resolver = $this->getService(ParamLocaleResolver::class);
   }
   
-  function testResolve() {
+  public function testResolve() {
     $parameters = [
       "callback" => function() {
         return "";
@@ -44,7 +44,7 @@ class ParamLocaleResolverTest extends \Tester\TestCase {
     Assert::same("en", $this->resolver->resolve());
   }
   
-  function testCustomParamName() {
+  public function testCustomParamName() {
     $this->resolver->param = "language";
     Assert::same("language", $this->resolver->param);
     $parameters = [

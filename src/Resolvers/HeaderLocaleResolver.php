@@ -21,14 +21,14 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   /** @var IRequest */
   protected $request;
   
-  function __construct(IRequest $request = NULL) {
+  public function __construct(IRequest $request = NULL) {
     if(is_null($request)) {
       $request = (new RequestFactory)->createHttpRequest();
     }
     $this->request = $request;
   }
   
-  function setLoader(ILoader $loader): void {
+  public function setLoader(ILoader $loader): void {
     $this->loader = $loader;
   }
   
@@ -38,7 +38,7 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
    * Taken from Nette\Http\Request::detectLanguage()
    * @author David Grudl
    */
-  function resolve(): ?string {
+  public function resolve(): ?string {
     if(is_null($this->loader)) {
       throw new LoaderNotSetException("Loader is not available, cannot detect possible languages.");
     }
