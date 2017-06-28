@@ -34,6 +34,9 @@
         "phpstan/phpstan-nette": "^0.7",
         "nexendrie/site-generator": "^1.0"
     },
+    "replace": {
+        "codacy/coverage": "*"
+    },
     "suggest": {
         "nette/di": "For easier integration to Nette applications",
         "tracy/tracy": "For debugger panel",
