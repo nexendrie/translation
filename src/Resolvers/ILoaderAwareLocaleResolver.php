@@ -9,9 +9,6 @@ use Nexendrie\Translation\Loaders\ILoader;
  * @author Jakub Konečný
  */
 interface ILoaderAwareLocaleResolver extends ILocaleResolver {
-  /**
-   * Inject loader
-   */
   public function setLoader(ILoader $loader): void;
 }
 ?>

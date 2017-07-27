@@ -36,9 +36,6 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
     $this->request = $request;
   }
   
-  /**
-   * Resolve language
-   */
   public function resolve(): ?string {
     if(!is_null($this->request)) {
       return $this->request->getParameter($this->param);

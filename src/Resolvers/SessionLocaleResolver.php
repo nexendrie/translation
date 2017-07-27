@@ -54,9 +54,6 @@ class SessionLocaleResolver implements ILocaleResolver {
     $this->varName = $varName;
   }
   
-  /**
-   * Resolve language
-   */
   public function resolve(): ?string {
     return $this->getLang();
   }
