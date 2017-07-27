@@ -12,6 +12,6 @@ interface ILocaleResolver {
   /**
    * Resolve language
    */
-  function resolve(): ?string;
+  public function resolve(): ?string;
 }
 ?>

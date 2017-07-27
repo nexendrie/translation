@@ -12,6 +12,6 @@ interface ILoaderAwareLocaleResolver extends ILocaleResolver {
   /**
    * Inject loader
    */
-  function setLoader(ILoader $loader): void;
+  public function setLoader(ILoader $loader): void;
 }
 ?>

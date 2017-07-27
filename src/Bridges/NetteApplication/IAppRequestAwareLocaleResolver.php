@@ -11,6 +11,6 @@ use Nexendrie\Translation\Resolvers\ILocaleResolver,
  * @author Jakub Konečný
  */
 interface IAppRequestAwareLocaleResolver extends ILocaleResolver {
-  function onRequest(Application $application, Request $request);
+  public function onRequest(Application $application, Request $request);
 }
 ?>
