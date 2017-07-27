@@ -1434,12 +1434,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "aef15cb81da1209d056ae26baf6150fe97646a2f"
+                "reference": "df5e87ffef69c546a67dfada20977b4e0504119d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/aef15cb81da1209d056ae26baf6150fe97646a2f",
-                "reference": "aef15cb81da1209d056ae26baf6150fe97646a2f",
+                "url": "https://api.github.com/repos/nette/tester/zipball/df5e87ffef69c546a67dfada20977b4e0504119d",
+                "reference": "df5e87ffef69c546a67dfada20977b4e0504119d",
                 "shasum": ""
             },
             "require": {
@@ -1488,7 +1488,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2017-07-23 17:35:28"
+            "time": "2017-07-24 14:21:38"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1530,7 +1530,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-07-24T09:53:01+00:00"
+            "time": "2017-07-24 07:53:01"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1538,12 +1538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "16fd0b996cae3255328d40931ecacddfea160e53"
+                "reference": "965ec3cb6747b417e8da0f828da704230691b7df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=16fd0b996cae3255328d40931ecacddfea160e53",
-                "reference": "16fd0b996cae3255328d40931ecacddfea160e53",
+                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=965ec3cb6747b417e8da0f828da704230691b7df",
+                "reference": "965ec3cb6747b417e8da0f828da704230691b7df",
                 "shasum": ""
             },
             "require": {
@@ -1593,7 +1593,7 @@
                 "static",
                 "website"
             ],
-            "time": "2017-07-05 12:41:39"
+            "time": "2017-07-24 08:46:07"
         },
         {
             "name": "nikic/php-parser",
