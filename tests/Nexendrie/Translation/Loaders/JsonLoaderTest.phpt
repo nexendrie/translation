@@ -14,6 +14,6 @@ class JsonLoaderTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new JsonLoaderTest;
+$test = new JsonLoaderTest();
 $test->run();
 ?>

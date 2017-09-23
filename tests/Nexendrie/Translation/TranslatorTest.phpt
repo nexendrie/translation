@@ -141,6 +141,6 @@ class TranslatorTest extends \Tester\TestCase {
   }
 }
 
-$test = new TranslatorTest;
+$test = new TranslatorTest();
 $test->run();
 ?>

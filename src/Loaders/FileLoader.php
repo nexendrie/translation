@@ -46,7 +46,7 @@ abstract class FileLoader implements ILoader {
    */
   public function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {
     $this->setFolders($folders);
-    $this->resolver = $resolver ?? new ManualLocaleResolver;
+    $this->resolver = $resolver ?? new ManualLocaleResolver();
   }
   
   public function getLang(): string {

@@ -15,6 +15,6 @@ class PhpLoaderTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new PhpLoaderTest;
+$test = new PhpLoaderTest();
 $test->run();
 ?>

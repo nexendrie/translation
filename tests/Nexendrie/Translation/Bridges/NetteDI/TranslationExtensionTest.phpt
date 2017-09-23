@@ -381,6 +381,6 @@ class TranslationExtensionTest extends \Tester\TestCase {
   }
 }
 
-$test = new TranslationExtensionTest;
+$test = new TranslationExtensionTest();
 $test->run();
 ?>

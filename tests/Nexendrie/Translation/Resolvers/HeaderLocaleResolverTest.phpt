@@ -39,6 +39,6 @@ class HeaderLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new HeaderLocaleResolverTest;
+$test = new HeaderLocaleResolverTest();
 $test->run();
 ?>

@@ -12,7 +12,7 @@ class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   protected function setUp() {
-    $this->resolver = new EnvironmentLocaleResolver;
+    $this->resolver = new EnvironmentLocaleResolver();
   }
   
   public function testResolve() {
@@ -36,6 +36,6 @@ class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new EnvironmentLocaleResolverTest;
+$test = new EnvironmentLocaleResolverTest();
 $test->run();
 ?>

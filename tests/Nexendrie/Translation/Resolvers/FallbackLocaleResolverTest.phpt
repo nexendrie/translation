@@ -12,7 +12,7 @@ class FallbackLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   protected function setUp() {
-    $this->resolver = new FallbackLocaleResolver;
+    $this->resolver = new FallbackLocaleResolver();
   }
   
   public function testResolve() {
@@ -21,6 +21,6 @@ class FallbackLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new FallbackLocaleResolverTest;
+$test = new FallbackLocaleResolverTest();
 $test->run();
 ?>

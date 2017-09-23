@@ -60,6 +60,6 @@ class ParamLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new ParamLocaleResolverTest;
+$test = new ParamLocaleResolverTest();
 $test->run();
 ?>

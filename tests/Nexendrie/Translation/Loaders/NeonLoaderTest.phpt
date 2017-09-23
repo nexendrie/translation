@@ -14,6 +14,6 @@ class NeonLoaderTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new NeonLoaderTest;
+$test = new NeonLoaderTest();
 $test->run();
 ?>

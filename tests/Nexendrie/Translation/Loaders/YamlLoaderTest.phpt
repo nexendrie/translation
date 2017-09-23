@@ -14,6 +14,6 @@ class YamlLoaderTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new YamlLoaderTest;
+$test = new YamlLoaderTest();
 $test->run();
 ?>

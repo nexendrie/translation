@@ -12,20 +12,20 @@ class ChainLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   protected function setUp() {
-    $this->resolver = new ChainLocaleResolver;
+    $this->resolver = new ChainLocaleResolver();
   }
   
   public function testResolve() {
     Assert::null($this->resolver->resolve());
     $this->resolver->addResolver(new ManualLocaleResolver);
     Assert::null($this->resolver->resolve());
-    $resolver = new ManualLocaleResolver;
+    $resolver = new ManualLocaleResolver();
     $this->resolver->addResolver($resolver);
     $resolver->lang = "en";
     Assert::same("en", $this->resolver->resolve());
   }
 }
 
-$test = new ChainLocaleResolverTest;
+$test = new ChainLocaleResolverTest();
 $test->run();
 ?>

@@ -14,6 +14,6 @@ class IniLoaderTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new IniLoaderTest;
+$test = new IniLoaderTest();
 $test->run();
 ?>

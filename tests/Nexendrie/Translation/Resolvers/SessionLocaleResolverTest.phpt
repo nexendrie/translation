@@ -14,7 +14,7 @@ class SessionLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   protected function setUp() {
-    $this->resolver = new SessionLocaleResolver;
+    $this->resolver = new SessionLocaleResolver();
   }
   
   public function testResolver() {
@@ -31,6 +31,6 @@ class SessionLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new SessionLocaleResolverTest;
+$test = new SessionLocaleResolverTest();
 $test->run();
 ?>

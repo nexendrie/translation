@@ -12,7 +12,7 @@ class ManualLocaleResolverTest extends \Tester\TestCase {
   protected $resolver;
   
   protected function setUp() {
-    $this->resolver = new ManualLocaleResolver;
+    $this->resolver = new ManualLocaleResolver();
   }
   
   public function testResolve() {
@@ -25,6 +25,6 @@ class ManualLocaleResolverTest extends \Tester\TestCase {
   }
 }
 
-$test = new ManualLocaleResolverTest;
+$test = new ManualLocaleResolverTest();
 $test->run();
 ?>

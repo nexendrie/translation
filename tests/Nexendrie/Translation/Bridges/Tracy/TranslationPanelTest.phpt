@@ -80,6 +80,6 @@ class TranslationPanelTest extends \Tester\TestCase {
   }
 }
 
-$test = new TranslationPanelTest;
+$test = new TranslationPanelTest();
 $test->run();
 ?>

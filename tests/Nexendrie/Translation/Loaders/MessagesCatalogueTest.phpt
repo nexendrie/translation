@@ -34,6 +34,6 @@ class MessagesCatalogueTest extends FileLoaderTestAbstract {
   }
 }
 
-$test = new MessagesCatalogueTest;
+$test = new MessagesCatalogueTest();
 $test->run();
 ?>

@@ -28,7 +28,7 @@ class SessionLocaleResolver implements ILocaleResolver {
   public function __construct(Session $session = NULL) {
     if(is_null($session)) {
       $request = (new RequestFactory)->createHttpRequest();
-      $response = new Response;
+      $response = new Response();
       $session = new Session($request, $response);
     }
     $this->session = $session;
