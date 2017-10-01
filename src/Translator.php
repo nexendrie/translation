@@ -47,7 +47,6 @@ class Translator implements ITranslator {
   }
   
   /**
-   * @param string $message
    * @return string[]
    */
   protected function extractDomainAndMessage(string $message): array {

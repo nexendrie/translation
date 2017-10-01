@@ -41,7 +41,6 @@ abstract class FileLoader implements ILoader {
   protected $extension;
   
   /**
-   * @param ILocaleResolver $resolver
    * @param string[] $folders
    */
   public function __construct(ILocaleResolver $resolver = NULL, array $folders = []) {

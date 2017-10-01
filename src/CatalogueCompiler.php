@@ -24,8 +24,6 @@ class CatalogueCompiler {
   protected $folder = "";
   
   /**
-   * @param ILoader $loader
-   * @param string $folder
    * @param string[] $languages
    */
   public function __construct(ILoader $loader, string $folder, array $languages = []) {
