@@ -42,17 +42,17 @@ use Nette\DI\CompilerExtension,
  */
 class TranslationExtension extends CompilerExtension {
   /** @internal */
-  const SERVICE_TRANSLATOR = "translator";
+  public const SERVICE_TRANSLATOR = "translator";
   /** @internal */
-  const SERVICE_LOADER = "loader";
+  public const SERVICE_LOADER = "loader";
   /** @internal */
-  const SERVICE_LOCALE_RESOLVER = "localeResolver";
+  public const SERVICE_LOCALE_RESOLVER = "localeResolver";
   /** @internal */
-  const SERVICE_PANEL = "panel";
+  public const SERVICE_PANEL = "panel";
   /** @internal */
-  const SERVICE_CATALOGUE_COMPILER = "catalogueCompiler";
+  public const SERVICE_CATALOGUE_COMPILER = "catalogueCompiler";
   /** @internal */
-  const SERVICE_ORIGINAL_LOADER = "originalLoader";
+  public const SERVICE_ORIGINAL_LOADER = "originalLoader";
   
   /** @var array */
   protected $defaults = [
