@@ -173,26 +173,26 @@ class TranslationExtension extends CompilerExtension {
     $resolvers = $this->resolveResolverClass();
     $loader = $this->resolveLoaderClass();
     $builder->addDefinition($this->prefix(static::SERVICE_TRANSLATOR))
-      ->setClass(Translator::class);
+      ->setType(Translator::class);
     $builder->addDefinition($this->prefix(static::SERVICE_LOADER))
-      ->setClass($loader)
+      ->setType($loader)
       ->addSetup("setDefaultLang", [$config["default"]]);
     if(count($resolvers) === 1) {
       $builder->addDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER))
-        ->setClass($resolvers[0]);
+        ->setType($resolvers[0]);
     } else {
       $chainResolver = $builder->addDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER))
-        ->setClass(ChainLocaleResolver::class);
+        ->setType(ChainLocaleResolver::class);
       foreach($resolvers as $index => $resolver) {
         $resolverService = $builder->addDefinition($this->prefix("resolver.$index"))
-          ->setClass($resolver)
+          ->setType($resolver)
           ->setAutowired(false);
         $chainResolver->addSetup("addResolver", [$resolverService]);
       }
     }
     if($config["debugger"] AND interface_exists(\Tracy\IBarPanel::class)) {
       $builder->addDefinition($this->prefix(static::SERVICE_PANEL))
-        ->setClass(TranslationPanel::class);
+        ->setType(TranslationPanel::class);
       $builder->getDefinition("tracy.bar")
         ->addSetup("addPanel", ["@" . $this->prefix(static::SERVICE_PANEL), "translation"]);
     }
@@ -229,7 +229,7 @@ class TranslationExtension extends CompilerExtension {
         ->setFactory($loader->class, [new ManualLocaleResolver, $config["loader"]["folders"]])
         ->setAutowired(false);
       $builder->addDefinition($serviceName)
-        ->setClass(MessagesCatalogue::class)
+        ->setType(MessagesCatalogue::class)
         ->addSetup("setFolders", [[$folder]]);
       $builder->addDefinition($this->prefix(static::SERVICE_CATALOGUE_COMPILER))
         ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config["compiler"]["languages"]]);
