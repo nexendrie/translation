@@ -205,7 +205,7 @@ class TranslationExtensionTest extends \Tester\TestCase {
   public function testAppRequestAwareResolver() {
     /** @var Application $application */
     $application = $this->getService(Application::class);
-    $count = count($application->onRequest);
+    $count = (is_null($application->onRequest) ? 0 : count($application->onRequest));
     $config = [
       "translation" => [
         "localeResolver" => "param"
