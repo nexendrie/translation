@@ -11,7 +11,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class HeaderLocaleResolverTest extends \Tester\TestCase {
+final class HeaderLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   protected function prepareRequest(string $language): Request {

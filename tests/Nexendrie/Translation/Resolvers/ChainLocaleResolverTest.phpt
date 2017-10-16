@@ -7,7 +7,7 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class ChainLocaleResolverTest extends \Tester\TestCase {
+final class ChainLocaleResolverTest extends \Tester\TestCase {
   /** @var ChainLocaleResolver */
   protected $resolver;
   

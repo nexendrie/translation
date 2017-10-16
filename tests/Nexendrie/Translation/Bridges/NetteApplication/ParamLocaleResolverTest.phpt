@@ -9,7 +9,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../../bootstrap.php";
 
-class ParamLocaleResolverTest extends \Tester\TestCase {
+final class ParamLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   /** @var ParamLocaleResolver */

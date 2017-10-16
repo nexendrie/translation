@@ -35,7 +35,7 @@ use Nette\Localization\ITranslator,
 
 require __DIR__ . "/../../../../bootstrap.php";
 
-class TranslationExtensionTest extends \Tester\TestCase {
+final class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   static public $messages = [];

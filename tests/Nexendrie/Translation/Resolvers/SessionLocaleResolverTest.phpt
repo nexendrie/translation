@@ -7,7 +7,7 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class SessionLocaleResolverTest extends \Tester\TestCase {
+final class SessionLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   /** @var SessionLocaleResolver */

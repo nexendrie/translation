@@ -8,7 +8,7 @@ use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 require __DIR__ . "/../../../bootstrap.php";
 
 
-class PhpLoaderTest extends FileLoaderTestAbstract {
+final class PhpLoaderTest extends FileLoaderTestAbstract {
   protected function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $this->loader = new PhpLoader(new ManualLocaleResolver(), $folders);

@@ -8,7 +8,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../../../bootstrap.php";
 
-class TranslationPanelTest extends \Tester\TestCase {
+final class TranslationPanelTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   /** @var TranslationPanel */

@@ -7,7 +7,7 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
-class FallbackLocaleResolverTest extends \Tester\TestCase {
+final class FallbackLocaleResolverTest extends \Tester\TestCase {
   /** @var FallbackLocaleResolver */
   protected $resolver;
   
