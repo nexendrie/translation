@@ -7,6 +7,7 @@ use Nette\Utils\Finder,
     Nette\Utils\Strings,
     Nexendrie\Translation\Resolvers\ILocaleResolver,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
+    Nexendrie\Translation\Resolvers\ISettableLocaleResolver,
     Nexendrie\Translation\InvalidFolderException,
     Nexendrie\Translation\FolderNotSetException;
 
@@ -53,7 +54,7 @@ abstract class FileLoader implements ILoader {
   }
   
   public function setLang(string $lang) {
-    if(method_exists($this->resolver, "setLang")) {
+    if(is_a($this->resolver, ISettableLocaleResolver::class)) {
       $this->resolver->setLang($lang);
     }
   }

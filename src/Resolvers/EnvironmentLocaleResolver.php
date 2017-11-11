@@ -11,7 +11,7 @@ namespace Nexendrie\Translation\Resolvers;
  * @property string|NULL $lang
  * @property string $varName
  */
-class EnvironmentLocaleResolver implements ILocaleResolver {
+class EnvironmentLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var string */
@@ -25,7 +25,7 @@ class EnvironmentLocaleResolver implements ILocaleResolver {
     return NULL;
   }
   
-  public function setLang(string $lang) {
+  public function setLang(string $lang): void {
     putenv($this->varName . "=$lang");
   }
   

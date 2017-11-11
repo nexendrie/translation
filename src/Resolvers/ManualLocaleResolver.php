@@ -10,7 +10,7 @@ namespace Nexendrie\Translation\Resolvers;
  * @author Jakub Konečný
  * @property string|NULL $lang
  */
-class ManualLocaleResolver implements ILocaleResolver {
+class ManualLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var string|NULL */
@@ -20,7 +20,7 @@ class ManualLocaleResolver implements ILocaleResolver {
     return $this->lang;
   }
   
-  public function setLang(string $lang) {
+  public function setLang(string $lang): void {
     $this->lang = $lang;
   }
   
