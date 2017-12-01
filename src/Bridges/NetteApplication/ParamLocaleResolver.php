@@ -15,8 +15,8 @@ use Nette\Application\Application,
 class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   use \Nette\SmartObject;
   
-  /** @var Request */
-  protected $request;
+  /** @var Request|NULL */
+  protected $request = NULL;
   /** @var string */
   protected $param = "locale";
   
