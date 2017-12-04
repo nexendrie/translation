@@ -12,6 +12,7 @@ use Nexendrie\Translation\Loaders\ILoader,
  * Compiles messages catalogues from resources found by loader
  *
  * @author Jakub Konečný
+ * @method void onCompile(CatalogueCompiler $compiler, string $language)
  */
 class CatalogueCompiler {
   use \Nette\SmartObject;
@@ -22,6 +23,8 @@ class CatalogueCompiler {
   protected $languages = [];
   /** @var string */
   protected $folder = "";
+  /** @var callable[] */
+  public $onCompile = [];
   
   /**
    * @param string[] $languages
@@ -48,6 +51,7 @@ return " . Helpers::dump($texts) . ";
 ?>";
       $filename = $this->folder . "/catalogue.$language.php";
       FileSystem::write($filename, $content);
+      $this->onCompile($this, $language);
     }
   }
 }
