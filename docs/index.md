@@ -17,21 +17,23 @@ The best way to install it is via Composer. Just add **nexendrie/translation** t
 General info
 ------------
 
-Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional paramters. Only message id is required.
+Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional parameters. Only message id is required.
 
-The translate method searches for message id in list of known texts, replaces passed parameters in found text and returns the result. If nothing is found, empty string is returned. Example of message with parameters: "blah blah %param1%". 
+The translate method searches for message id in list of known texts, replaces passed parameters in found text and returns the result. If the message is not found, empty string is returned. Example of message with parameters: "blah blah %param1%". Count can be also used in the message itself as it is added to parameters (as %count%).
 
-The translator contains variable $onUntranslated which is an array of callbacks that are called when it encounters an unknown message id. By default, it is empty but some integrations may fill it with own or user-defined callbacks.
+The translator contains variable $onUntranslated which is an array of callbacks that are called when an unknown message id is encountered. By default, it is empty but some integrations may fill it with their own or user-defined callbacks.
 
 Pluralization
 -------------
 
 Pluralization in messages is supported. You can define multiple variations for the message, the translator will choose the correct one depending on count. The variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}) or use inclusive range ([0,5] for 0 - 5), exclusive range (]0,5] for 1 - 4) or combination of exclusive and inclusive range. It is possible to pass -Inf/+Inf instead of number.
 
+Package nexendrie/utils is used for handling intervals, see its documentation for details: https://nexendrie.gitlab.io/utils/. 
+
 Message domain and sub-domains
 ------------------------------
 
-You can divide your texts to domains, by default domain messages is used. You can also use unlimited number of subdomains. Domain and subdomains are separated by dots in message id. Example: domain.subdomain1.subdomain2.id. 
+You can divide your texts to domains, if you do not specify any, "messages" is assumed. You can also use unlimited number of subdomains. Domain and subdomains are separated by dots in message id. Example: domain.subdomain1.subdomain2.id. 
 
 Loaders
 -----------
@@ -60,7 +62,7 @@ $resolver = Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 $resolver->lang = "en";
 ```
 
-. You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses an environment variable as storage (TRANSLATOR_LANGUAGE by default, it is stored in property $varName).
+. You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses an environment variable as storage (it is stored in property $varName, default value is TRANSLATOR_LANGUAGE).
 
 It is possible to detect language from Accept-Language header with HeaderLocaleResolver. There is also SessionLocaleResolver which takes and stores current language in session. These 2 resolvers require package nette/http.
 
@@ -79,7 +81,7 @@ There are also other resolvers in the library but they are available only for ce
 Translating Nette applications
 ------------------------------
 
-This library contains a good integration to Nette Framework. There is extension for DIC container, panel for Tracy and additional locale resolvers.
+This library contains a good integration to Nette Framework. There is extension for DI container, panel for Tracy and additional locale resolvers.
 
 Start by registering the extension:
 
@@ -100,13 +102,13 @@ translation:
     debugger: %debugMode% # adds panel for Tracy if true
     loader:
         name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\Loaders\ILoader
-        folders:
+        folders: # folders where files with translations are located
             - %appDir%/lang # this is always present unless overwritten with !
     onUntranslated: # custom callbacks for Translator::onUntranslated()
         - ["@translator", "logUntranslatedMessage"] # this is always present unless overwritten with !
     compiler:
         enabled: false # should we compile messages catalogues?
-        languages: { } # compile catalogues only for these languages
+        languages: { } # compile catalogues only for these languages. if you do not specify any language, catalogues will compiled for ALL languages
 ``` 
 
 Param locale resolver takes language from presenter's parameter locale, the parameter's name is stored in property $param which can be changed at will.
