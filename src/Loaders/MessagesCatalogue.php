@@ -18,7 +18,7 @@ class MessagesCatalogue extends PhpLoader {
   }
   
   protected function loadTexts(): void {
-    if(!count($this->folders)) {
+    if(count($this->folders) === 0) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $this->resources = $texts = [];

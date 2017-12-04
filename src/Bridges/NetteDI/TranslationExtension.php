@@ -207,7 +207,7 @@ class TranslationExtension extends CompilerExtension {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig($this->defaults);
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
-    if(in_array(FileLoader::class, class_parents($loader->class))) {
+    if(in_array(FileLoader::class, class_parents($loader->class), true)) {
       $folders = $this->getFolders();
       $loader->addSetup("setFolders", [$folders]);
       foreach($folders as $folder) {
@@ -215,7 +215,7 @@ class TranslationExtension extends CompilerExtension {
       }
     }
     $resolver = $builder->getDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER));
-    if(in_array(IAppRequestAwareLocaleResolver::class, class_implements($resolver->class))) {
+    if(in_array(IAppRequestAwareLocaleResolver::class, class_implements($resolver->class), true)) {
       $applicationService = $builder->getByType(Application::class) ?? "application";
       if($builder->hasDefinition($applicationService)) {
         $builder->getDefinition($applicationService)

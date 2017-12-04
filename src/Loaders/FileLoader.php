@@ -88,7 +88,7 @@ abstract class FileLoader implements ILoader {
   }
   
   protected function addResource(string $filename, string $domain): void {
-    if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain])) {
+    if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain], true)) {
       $this->resources[$domain][] = $filename;
     }
   }
@@ -137,7 +137,7 @@ abstract class FileLoader implements ILoader {
     if($this->lang === $this->loadedLang) {
       return;
     }
-    if(!count($this->folders)) {
+    if(count($this->folders) === 0) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $default = $this->defaultLang;
@@ -173,7 +173,7 @@ abstract class FileLoader implements ILoader {
    * @throws FolderNotSetException
    */
   public function getAvailableLanguages(): array {
-    if(!count($this->folders)) {
+    if(count($this->folders) === 0) {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $languages = [];
@@ -184,7 +184,7 @@ abstract class FileLoader implements ILoader {
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");
       $lang = Strings::after($filename, ".");
-      if(!in_array($lang, $languages)) {
+      if(!in_array($lang, $languages, true)) {
         $languages[] = $lang;
       }
     }

@@ -31,7 +31,7 @@ class CatalogueCompiler {
    */
   public function __construct(ILoader $loader, string $folder, array $languages = []) {
     $this->loader = $loader;
-    if(!count($languages)) {
+    if(count($languages) === 0) {
       $languages = $loader->getAvailableLanguages();
     }
     $this->languages = $languages;
