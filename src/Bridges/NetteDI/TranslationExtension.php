@@ -140,6 +140,7 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @return string[]
+   * @throws AssertionException
    * @throws InvalidFolderException
    */
   protected function getFolders(): array {
@@ -199,6 +200,7 @@ class TranslationExtension extends CompilerExtension {
   }
   
   /**
+   * @throws AssertionException
    * @throws InvalidFolderException
    */
   public function beforeCompile(): void {

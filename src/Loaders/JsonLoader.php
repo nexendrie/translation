@@ -15,6 +15,9 @@ class JsonLoader extends FileLoader {
   /** @var string */
   protected $extension = "json";
   
+  /**
+   * @throws \Nette\Utils\JsonException
+   */
   protected function parseFile(string $filename): array {
     return Json::decode(file_get_contents($filename), Json::FORCE_ARRAY);
   }
