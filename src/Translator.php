@@ -20,6 +20,9 @@ use Nette\Utils\Arrays,
 class Translator implements ITranslator {
   use \Nette\SmartObject;
   
+  /** @internal */
+  public const DEFAULT_DOMAIN = "messages";
+  
   /** @var ILoader */
   protected $loader;
   /** @var string[] */
@@ -51,7 +54,7 @@ class Translator implements ITranslator {
    */
   protected function extractDomainAndMessage(string $message): array {
     if(!Strings::contains($message, ".")) {
-      return ["messages", $message];
+      return [static::DEFAULT_DOMAIN, $message];
     }
     return explode(".", $message, 2);
   }
