@@ -6,8 +6,7 @@ namespace Nexendrie\Translation;
 use Nette\Utils\Arrays,
     Nette\Utils\Strings,
     Nette\Localization\ITranslator,
-    Nexendrie\Translation\Loaders\ILoader,
-    Nexendrie\Utils\Intervals;
+    Nexendrie\Translation\Loaders\ILoader;
 
 /**
  * Translator
@@ -25,13 +24,16 @@ class Translator implements ITranslator {
   
   /** @var ILoader */
   protected $loader;
+  /** @var IMessageSelector */
+  protected $messageSelector;
   /** @var string[] */
   protected $untranslated = [];
   /** @var callable[] */
   public $onUntranslated = [];
   
-  public function __construct(ILoader $loader) {
+  public function __construct(ILoader $loader, IMessageSelector $messageSelector = NULL) {
     $this->loader = $loader;
+    $this->messageSelector = $messageSelector ?? new MessageSelector();
   }
   
   public function getLang(): string {
@@ -73,20 +75,6 @@ class Translator implements ITranslator {
     return $text;
   }
   
-  /**
-   * Choose correct variant of message depending on $count
-   */
-  protected function multiChoiceTrans(string $message, int $count): string {
-    $variants = explode("|", $message);
-    foreach($variants as $variant) {
-      $interval = Intervals::findInterval($variant);
-      if(is_string($interval) AND Intervals::isInInterval($count, $interval)) {
-        return Strings::trim(Strings::after($variant, $interval));
-      }
-    }
-    return "";
-  }
-  
   public function logUntranslatedMessage(string $message): void {
     $this->untranslated[] = $message;
   }
@@ -111,8 +99,8 @@ class Translator implements ITranslator {
       $this->onUntranslated($message);
       return $message;
     }
-    if(is_string(Intervals::findInterval($text))) {
-      $text = $this->multiChoiceTrans($text, $count);
+    if($this->messageSelector->isMultiChoice($text)) {
+      $text = $this->messageSelector->choose($text, $count);
     }
     $params["count"] = $count;
     foreach($params as $key => $value) {

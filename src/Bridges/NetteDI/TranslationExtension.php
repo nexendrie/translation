@@ -33,7 +33,10 @@ use Nette\DI\CompilerExtension,
     Nette\Application\Application,
     Nette\Bridges\ApplicationLatte\ILatteFactory,
     Nette\Utils\AssertionException,
-    Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver;
+    Nexendrie\Translation\Resolvers\ILoaderAwareLocaleResolver,
+    Nexendrie\Translation\IMessageSelector,
+    Nexendrie\Translation\MessageSelector,
+    Nexendrie\Translation\InvalidMessageSelectorException;
 
 /**
  * TranslationExtension for Nette DI Container
@@ -53,6 +56,8 @@ class TranslationExtension extends CompilerExtension {
   public const SERVICE_CATALOGUE_COMPILER = "catalogueCompiler";
   /** @internal */
   public const SERVICE_ORIGINAL_LOADER = "originalLoader";
+  /** @internal */
+  public const SERVICE_MESSAGE_SELECTOR = "messageSelector";
   
   /** @var array */
   protected $defaults = [
@@ -72,6 +77,7 @@ class TranslationExtension extends CompilerExtension {
       "enabled" => false,
       "languages" => [],
     ],
+    "messageSelector" => MessageSelector::class,
   ];
   
   /** @var string[] */
@@ -161,8 +167,22 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @throws AssertionException
+   */
+  protected function resolveMessageSelector(): string {
+    $config = $this->getConfig($this->defaults);
+    Validators::assertField($config, "messageSelector", "string");
+    $messageSelector = $config["messageSelector"];
+    if(class_exists($messageSelector) AND is_subclass_of($messageSelector, IMessageSelector::class)) {
+      return $messageSelector;
+    }
+    throw new InvalidMessageSelectorException("Invalid message selector.");
+  }
+  
+  /**
+   * @throws AssertionException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
+   * @throws InvalidMessageSelectorException
    */
   public function loadConfiguration(): void {
     $this->defaults["onUntranslated"][] = ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "logUntranslatedMessage"];
@@ -178,6 +198,9 @@ class TranslationExtension extends CompilerExtension {
     $builder->addDefinition($this->prefix(static::SERVICE_LOADER))
       ->setType($loader)
       ->addSetup("setDefaultLang", [$config["default"]]);
+    $messageSelector = $this->resolveMessageSelector();
+    $builder->addDefinition($this->prefix(static::SERVICE_MESSAGE_SELECTOR))
+      ->setType($messageSelector);
     if(count($resolvers) === 1) {
       $builder->addDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER))
         ->setType($resolvers[0]);

@@ -1,6 +1,7 @@
 Version 1.0.0+dev
 - added ISettableLocaleResolver interface
 - added event onCompile to CatalogueCompiler
+- added message selector
 
 Version 1.0.0
 - removed support for old format of defining folders for Nette DI extension

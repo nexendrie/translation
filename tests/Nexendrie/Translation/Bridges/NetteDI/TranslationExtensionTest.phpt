@@ -31,7 +31,11 @@ use Nette\Localization\ITranslator,
     Nette\DI\MissingServiceException,
     Tester\Assert,
     Nette\Application\Application,
-    Nette\Bridges\ApplicationLatte\ILatteFactory;
+    Nette\Bridges\ApplicationLatte\ILatteFactory,
+    Nexendrie\Translation\IMessageSelector,
+    Nexendrie\Translation\MessageSelector,
+    Nexendrie\Translation\CustomMessageSelector,
+    Nexendrie\Translation\InvalidMessageSelectorException;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
@@ -230,6 +234,43 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::exception(function() use($config) {
       $this->refreshContainer($config);
     }, InvalidFolderException::class);
+  }
+  
+  public function testDefaultMessageSelector() {
+    /** @var MessageSelector $resolver */
+    $resolver = $this->getService(IMessageSelector::class);
+    Assert::type(MessageSelector::class, $resolver);
+  }
+  
+  public function testCustomMessageSelector() {
+    $config = [
+      "translation" => [
+        "messageSelector" => CustomMessageSelector::class
+      ]
+    ];
+    $this->refreshContainer($config);
+    /** @var CustomMessageSelector $resolver */
+    $resolver = $this->getService(IMessageSelector::class);
+    Assert::type(CustomMessageSelector::class, $resolver);
+  }
+  
+  public function testInvalidMessageSelector() {
+    $config = [
+      "translation" => [
+        "messageSelector" => "invalid"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidMessageSelectorException::class);
+    $config = [
+      "translation" => [
+        "messageSelector" => "stdClass"
+      ]
+    ];
+    Assert::exception(function() use($config) {
+      $this->refreshContainer($config);
+    }, InvalidMessageSelectorException::class);
   }
   
   public function testPanel() {
