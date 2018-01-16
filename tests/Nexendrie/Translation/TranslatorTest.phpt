@@ -14,7 +14,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @author Jakub Konečný
  * @testCase
  */
-class TranslatorTest extends \Tester\TestCase {
+final class TranslatorTest extends \Tester\TestCase {
   /** @var Translator */
   private $translator;
   

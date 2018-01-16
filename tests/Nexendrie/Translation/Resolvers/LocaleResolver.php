@@ -8,7 +8,7 @@ namespace Nexendrie\Translation\Resolvers;
  *
  * @author Jakub Konečný
  */
-class LocaleResolver extends FallbackLocaleResolver {
+final class LocaleResolver extends FallbackLocaleResolver {
   
 }
 ?>
