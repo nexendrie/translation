@@ -3,6 +3,7 @@ Version 1.0.0+dev
 - added event onCompile to CatalogueCompiler
 - added message selector
 - symfony/yaml 4 is supported
+- added events onLanguageChange, onFoldersChange and onLoad to FileLoader
 
 Version 1.0.0
 - removed support for old format of defining folders for Nette DI extension

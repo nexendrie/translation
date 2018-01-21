@@ -22,6 +22,9 @@ use Nette\Utils\Finder,
  * @property array $texts
  * @property string[] $folders
  * @property-read array $resources
+ * @method void onLanguageChange(FileLoader $loader, string $oldLang, string $newLang)
+ * @method void onFoldersChange(FileLoader $loader, string[] $folders)
+ * @method void onLoad(FileLoader $loader, string $lang)
  */
 abstract class FileLoader implements ILoader {
   use \Nette\SmartObject;
@@ -40,6 +43,12 @@ abstract class FileLoader implements ILoader {
   protected $resources = [];
   /** @var string */
   protected $extension;
+  /** @var callable[] */
+  public $onLanguageChange = [];
+  /** @var callable[] */
+  public $onFoldersChange = [];
+  /** @var callable[] */
+  public $onLoad = [];
   
   /**
    * @param string[] $folders
@@ -55,7 +64,9 @@ abstract class FileLoader implements ILoader {
   
   public function setLang(string $lang) {
     if(is_a($this->resolver, ISettableLocaleResolver::class)) {
+      $oldLang = $this->lang;
       $this->resolver->setLang($lang);
+      $this->onLanguageChange($this, $oldLang, $lang);
     }
   }
   
@@ -85,6 +96,7 @@ abstract class FileLoader implements ILoader {
       }
       $this->folders[] = $folder;
     }
+    $this->onFoldersChange($this, $folders);
   }
   
   protected function addResource(string $filename, string $domain): void {
@@ -152,6 +164,7 @@ abstract class FileLoader implements ILoader {
     }
     $this->texts = $texts;
     $this->loadedLang = $this->lang;
+    $this->onLoad($this, $this->lang);
   }
   
   public function getTexts(): array {
