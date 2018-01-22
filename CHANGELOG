@@ -1,4 +1,5 @@
 Version 1.0.0+dev
+- raised minimal required version of nette/di to 2.4.10
 - added ISettableLocaleResolver interface
 - added event onCompile to CatalogueCompiler
 - added message selector
