@@ -38,6 +38,28 @@ class CatalogueCompiler {
     $this->folder = $folder;
   }
   
+  protected function getCatalogueFilename(string $language): string {
+    return $this->folder . "/catalogue.$language.php";
+  }
+  
+  protected function isCatalogueExpired(string $language): bool {
+    $catalogueFilename = $this->getCatalogueFilename($language);
+    if(!is_file($catalogueFilename)) {
+      return true;
+    }
+    $catalogueInfo = new \SplFileInfo($catalogueFilename);
+    $lastGenerated = $catalogueInfo->getCTime();
+    foreach($this->loader->getResources() as $domain) {
+      foreach($domain as $filename) {
+        $fileinfo = new \SplFileInfo($filename);
+        if($fileinfo->getMTime() > $lastGenerated) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  
   /**
    * Compile catalogues
    */
@@ -45,11 +67,14 @@ class CatalogueCompiler {
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
+      if(!$this->isCatalogueExpired($language)) {
+        continue;
+      }
       $texts["__resources"] = $this->loader->getResources();
       $content = "<?php
 return " . Helpers::dump($texts) . ";
 ?>";
-      $filename = $this->folder . "/catalogue.$language.php";
+      $filename = $this->getCatalogueFilename($language);
       FileSystem::write($filename, $content);
       $this->onCompile($this, $language);
     }
