@@ -13,7 +13,7 @@ use Nexendrie\Utils\Intervals,
  */
 final class MessageSelector implements IMessageSelector {
   public function isMultiChoice(string $message): bool {
-    return is_string(Intervals::findInterval($message));
+    return is_string(Intervals::findInterval($message)) AND Strings::contains($message, "|");
   }
   
   public function choose(string $message, int $count): string {
