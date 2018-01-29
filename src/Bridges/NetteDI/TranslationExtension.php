@@ -167,6 +167,7 @@ class TranslationExtension extends CompilerExtension {
   
   /**
    * @throws AssertionException
+   * @throws InvalidMessageSelectorException
    */
   protected function resolveMessageSelector(): string {
     $config = $this->getConfig($this->defaults);
