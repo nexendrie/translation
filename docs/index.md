@@ -26,9 +26,11 @@ The translator contains variable $onUntranslated which is an array of callbacks 
 Pluralization
 -------------
 
-Pluralization in messages is supported. You can define multiple variations for the message, the translator will choose the correct one depending on count. The variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}) or use inclusive range ([0,5] for 0 - 5), exclusive range (]0,5] for 1 - 4) or combination of exclusive and inclusive range. It is possible to pass -Inf/+Inf instead of number.
+Pluralization in messages is supported. You can define multiple variations for the message, the translator (with help of message selector) will choose the correct one depending on count. For the default message selector, the variations have to be separated by pipe (|) and you have to specify interval for every variant. You can list the values explicitly ({0,5,10} or {0}) or use inclusive range ([0,5] for 0 - 5), exclusive range (]0,5] for 1 - 4) or combination of exclusive and inclusive range. It is possible to pass -Inf/+Inf instead of number.
 
 Package nexendrie/utils is used for handling intervals, see its documentation for details: https://nexendrie.gitlab.io/utils/. 
+
+You can use a different message selector, it just has to implement Nexendrie\Translation\IMessageSelector interface.
 
 Message domain and sub-domains
 ------------------------------
@@ -100,6 +102,7 @@ translation:
         - header
     default: en # default language
     debugger: %debugMode% # adds panel for Tracy if true
+    messageSelector: Nexendrie\Translation\MessageSelector # class for message selector, has to implement Nexendrie\Translation\IMessageSelector
     loader:
         name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\Loaders\ILoader
         folders: # folders where files with translations are located
