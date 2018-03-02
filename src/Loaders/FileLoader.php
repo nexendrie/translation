@@ -9,7 +9,8 @@ use Nette\Utils\Finder,
     Nexendrie\Translation\Resolvers\ManualLocaleResolver,
     Nexendrie\Translation\Resolvers\ISettableLocaleResolver,
     Nexendrie\Translation\InvalidFolderException,
-    Nexendrie\Translation\FolderNotSetException;
+    Nexendrie\Translation\FolderNotSetException,
+    Nette\Utils\Arrays;
 
 /**
  * Generic file translations loader
@@ -135,7 +136,7 @@ abstract class FileLoader implements ILoader {
         $lang = $this->parseFile($filename);
         $this->addResource($filename, $name);
       }
-      $return = array_merge($return, $default, $lang);
+      $return = Arrays::mergeTree($return, Arrays::mergeTree($lang, $default));
     }
     return $return;
   }

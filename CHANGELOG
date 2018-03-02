@@ -1,5 +1,6 @@
 Version 1.1.0+dev
 - CatalogueCompiler now compiles catalogues only when source files has changed
+- fixed numeric subdomains being renamed (to start with 0)
 
 Version 1.1.0
 - raised minimal required version of nette/di to 2.4.10
