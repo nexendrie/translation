@@ -3,4 +3,3 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
     ignoreErrors:
-        - '#Parameter \#2 \$interval of static method Nexendrie\\Utils\\Intervals::isInInterval\(\) expects string, string\|null given#'
