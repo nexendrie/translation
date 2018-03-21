@@ -1,4 +1,4 @@
-Version 1.1.0+dev
+Version 1.1.1
 - CatalogueCompiler now compiles catalogues only when source files has changed
 - fixed numeric subdomains being renamed (to start with 0)
 
