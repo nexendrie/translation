@@ -12,7 +12,7 @@
     <th><td>Domain</td><td>Filename</td></th>
     <?php foreach($loader->getResources() as $domain => $files) {
       foreach($files as $filename) {
-        echo "<tr><td></td><td>$domain</td><td>" . \Tracy\Helpers::editorLink($filename) . "</td></tr>";
+        echo "<tr><td></td><td>$domain</td><td>" . $this->renderLink($filename) . "</td></tr>";
       }
     }
     ?>

@@ -37,5 +37,12 @@ class TranslationPanel implements IBarPanel {
     require __DIR__ . "/TranslationPanel.panel.phtml";
     return ob_get_clean();
   }
+  
+  protected function renderLink(string $resource): string {
+    if(is_file($resource)) {
+      return \Tracy\Helpers::editorLink($resource);
+    }
+    return $resource;
+  }
 }
 ?>

@@ -1,3 +1,6 @@
+Version 1.1.1+dev
+- improved handling of non-file resources in Tracy panel
+
 Version 1.1.1
 - CatalogueCompiler now compiles catalogues only when source files has changed
 - fixed numeric subdomains being renamed (to start with 0)
