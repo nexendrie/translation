@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
-use Nette\Utils\Finder,
-    Nexendrie\Translation\FolderNotSetException;
+use Nette\Utils\Finder;
+use Nexendrie\Translation\FolderNotSetException;
 
 /**
  * MessagesCatalogue

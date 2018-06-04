@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nexendrie\Translation\Loaders\ILoader,
-    Nette\PhpGenerator\Helpers,
-    Nette\Utils\FileSystem;
+use Nexendrie\Translation\Loaders\ILoader;
+use Nette\PhpGenerator\Helpers;
+use Nette\Utils\FileSystem;
 
 /**
  * CatalogueCompiler

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Tester\Assert,
-    Nexendrie\Translation\Translator;
+use Tester\Assert;
+use Nexendrie\Translation\Translator;
 
 require __DIR__ . "/../../../../bootstrap.php";
 

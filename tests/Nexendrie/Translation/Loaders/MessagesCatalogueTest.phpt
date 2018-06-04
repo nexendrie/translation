@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
-use Tester\Assert,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
-    Nexendrie\Translation\CatalogueCompiler;
+use Tester\Assert;
+use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+use Nexendrie\Translation\CatalogueCompiler;
 
 require __DIR__ . "/../../../bootstrap.php";
 

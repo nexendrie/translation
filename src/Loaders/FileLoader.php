@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
-use Nette\Utils\Finder,
-    Nette\Utils\Strings,
-    Nexendrie\Translation\Resolvers\ILocaleResolver,
-    Nexendrie\Translation\Resolvers\ManualLocaleResolver,
-    Nexendrie\Translation\Resolvers\ISettableLocaleResolver,
-    Nexendrie\Translation\InvalidFolderException,
-    Nexendrie\Translation\FolderNotSetException,
-    Nette\Utils\Arrays;
+use Nette\Utils\Finder;
+use Nette\Utils\Strings;
+use Nexendrie\Translation\Resolvers\ILocaleResolver;
+use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+use Nexendrie\Translation\Resolvers\ISettableLocaleResolver;
+use Nexendrie\Translation\InvalidFolderException;
+use Nexendrie\Translation\FolderNotSetException;
+use Nette\Utils\Arrays;
 
 /**
  * Generic file translations loader

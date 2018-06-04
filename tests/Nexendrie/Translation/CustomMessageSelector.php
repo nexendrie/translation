@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nexendrie\Utils\Intervals,
-    Nette\Utils\Strings;
-
+use Nexendrie\Utils\Intervals;
+use Nette\Utils\Strings;
 
 /**
  * CustomMessageSelector

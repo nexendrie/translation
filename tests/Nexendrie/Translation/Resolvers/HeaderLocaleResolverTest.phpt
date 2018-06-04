@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Tester\Assert,
-    Nette\Http\Request,
-    Nette\Http\UrlScript,
-    Nexendrie\Translation\Loaders\ILoader,
-    Nexendrie\Translation\LoaderNotSetException;
+use Tester\Assert;
+use Nette\Http\Request;
+use Nette\Http\UrlScript;
+use Nexendrie\Translation\Loaders\ILoader;
+use Nexendrie\Translation\LoaderNotSetException;
 
 require __DIR__ . "/../../../bootstrap.php";
 

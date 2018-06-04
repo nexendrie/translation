@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Nexendrie\Translation\Loaders\ILoader,
-    Nexendrie\Translation\Translator,
-    Tracy\IBarPanel;
+use Nexendrie\Translation\Loaders\ILoader;
+use Nexendrie\Translation\Translator;
+use Tracy\IBarPanel;
 
 /**
  * Debugger panel for Tracy

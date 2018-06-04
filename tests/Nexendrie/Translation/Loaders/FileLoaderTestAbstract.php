@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
-use Tester\Assert,
-    Nexendrie\Translation\InvalidFolderException,
-    Nexendrie\Translation\FolderNotSetException;
+use Tester\Assert;
+use Nexendrie\Translation\InvalidFolderException;
+use Nexendrie\Translation\FolderNotSetException;
 
 /**
  * General test suit for file loaders

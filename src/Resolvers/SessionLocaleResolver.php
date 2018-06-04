@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nette\Http\Session,
-    Nette\Http\SessionSection,
-    Nette\Http\RequestFactory,
-    Nette\Http\Response;
+use Nette\Http\Session;
+use Nette\Http\SessionSection;
+use Nette\Http\RequestFactory;
+use Nette\Http\Response;
 
 /**
  * SessionLocaleResolver

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nette\Utils\Arrays,
-    Nette\Utils\Strings,
-    Nette\Localization\ITranslator,
-    Nexendrie\Translation\Loaders\ILoader;
+use Nette\Utils\Arrays;
+use Nette\Utils\Strings;
+use Nette\Localization\ITranslator;
+use Nexendrie\Translation\Loaders\ILoader;
 
 /**
  * Translator

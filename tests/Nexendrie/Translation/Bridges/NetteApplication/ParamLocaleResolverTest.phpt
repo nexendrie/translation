@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteApplication;
 
-use Tester\Assert,
-    Nette\Application\Request,
-    Nette\Application\Application;
+use Tester\Assert;
+use Nette\Application\Request;
+use Nette\Application\Application;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
