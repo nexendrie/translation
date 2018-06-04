@@ -31,7 +31,7 @@ class Translator implements ITranslator {
   /** @var callable[] */
   public $onUntranslated = [];
   
-  public function __construct(ILoader $loader, IMessageSelector $messageSelector = NULL) {
+  public function __construct(ILoader $loader, IMessageSelector $messageSelector = null) {
     $this->loader = $loader;
     $this->messageSelector = $messageSelector ?? new MessageSelector();
   }

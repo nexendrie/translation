@@ -12,7 +12,7 @@ use Nette\Http\Session,
  * SessionLocaleResolver
  *
  * @author Jakub Konečný
- * @property string|NULL $lang
+ * @property string|null $lang
  * @property string $varName
  */
 class SessionLocaleResolver implements ISettableLocaleResolver {
@@ -25,7 +25,7 @@ class SessionLocaleResolver implements ISettableLocaleResolver {
   /** @var string */
   protected $varName = "lang";
   
-  public function __construct(Session $session = NULL) {
+  public function __construct(Session $session = null) {
     if(is_null($session)) {
       $request = (new RequestFactory)->createHttpRequest();
       $response = new Response();
@@ -37,7 +37,7 @@ class SessionLocaleResolver implements ISettableLocaleResolver {
   
   public function getLang(): ?string {
     if(empty($this->section->{$this->varName})) {
-      return NULL;
+      return null;
     }
     return $this->section->{$this->varName};
   }

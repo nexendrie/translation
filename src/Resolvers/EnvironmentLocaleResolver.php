@@ -8,7 +8,7 @@ namespace Nexendrie\Translation\Resolvers;
  * Reads current language from an environment variable
  *
  * @author Jakub Konečný
- * @property string|NULL $lang
+ * @property string|null $lang
  * @property string $varName
  */
 class EnvironmentLocaleResolver implements ISettableLocaleResolver {
@@ -22,7 +22,7 @@ class EnvironmentLocaleResolver implements ISettableLocaleResolver {
     if($lang) {
       return $lang;
     }
-    return NULL;
+    return null;
   }
   
   public function setLang(string $lang): void {

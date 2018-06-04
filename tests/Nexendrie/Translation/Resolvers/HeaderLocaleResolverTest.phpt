@@ -18,7 +18,7 @@ final class HeaderLocaleResolverTest extends \Tester\TestCase {
     $headers = [
       "Accept-Language" => $language
     ];
-    return new Request(new UrlScript, NULL, NULL, NULL, NULL, $headers);
+    return new Request(new UrlScript, null, null, null, null, $headers);
   }
   
   public function testResolve() {

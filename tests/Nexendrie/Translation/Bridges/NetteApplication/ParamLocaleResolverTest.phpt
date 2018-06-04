@@ -36,7 +36,7 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
     $application = $this->getService(Application::class);
     $request = new Request("Micro", Request::FORWARD, $parameters);
     Assert::null($this->resolver->resolve());
-    $request->method = NULL;
+    $request->method = null;
     $application->processRequest($request);
     $parameters["locale"] = "en";
     $request->parameters = $parameters;
@@ -54,7 +54,7 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
     ];
     /** @var Application $application */
     $application = $this->getService(Application::class);
-    $request = new Request("Micro", NULL, $parameters);
+    $request = new Request("Micro", null, $parameters);
     $application->processRequest($request);
     Assert::same("en", $this->resolver->resolve());
   }

@@ -16,12 +16,12 @@ use Nexendrie\Translation\Loaders\ILoader,
 class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   use \Nette\SmartObject;
   
-  /** @var ILoader|NULL */
-  protected $loader = NULL;
+  /** @var ILoader|null */
+  protected $loader = null;
   /** @var IRequest */
   protected $request;
   
-  public function __construct(IRequest $request = NULL) {
+  public function __construct(IRequest $request = null) {
     if(is_null($request)) {
       $request = (new RequestFactory)->createHttpRequest();
     }
@@ -45,7 +45,7 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $header = $this->request->getHeader("Accept-Language");
     $langs = $this->loader->getAvailableLanguages();
     if(is_null($header)) {
-      return NULL;
+      return null;
     }
     $s = strtolower($header);  // case insensitive
     $s = strtr($s, '_', '-');  // cs_CZ means cs-CZ
@@ -53,10 +53,10 @@ class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $pattern = ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#';
     preg_match_all('#(' . implode('|', $langs) . $pattern, $s, $matches);
     if(!$matches[0]) {
-      return NULL;
+      return null;
     }
     $max = 0;
-    $lang = NULL;
+    $lang = null;
     foreach($matches[1] as $key => $value) {
       $q = ($matches[2][$key] === '') ? 1.0 : (float) $matches[2][$key];
       if($q > $max) {

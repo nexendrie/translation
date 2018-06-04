@@ -8,13 +8,13 @@ namespace Nexendrie\Translation\Resolvers;
  * Allows you to manually specify current language
  *
  * @author Jakub Konečný
- * @property string|NULL $lang
+ * @property string|null $lang
  */
 class ManualLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
-  /** @var string|NULL */
-  protected $lang = NULL;
+  /** @var string|null */
+  protected $lang = null;
   
   public function getLang(): ?string {
     return $this->lang;

@@ -26,7 +26,7 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
         return $lang;
       }
     }
-    return NULL;
+    return null;
   }
 }
 ?>

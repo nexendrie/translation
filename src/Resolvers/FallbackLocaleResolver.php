@@ -16,10 +16,10 @@ class FallbackLocaleResolver implements ILocaleResolver {
   /**
    * Resolve language
    *
-   * @return NULL
+   * @return null
    */
   public function resolve(): ?string {
-    return NULL;
+    return null;
   }
 }
 ?>
