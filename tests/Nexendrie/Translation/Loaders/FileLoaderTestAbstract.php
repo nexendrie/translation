@@ -124,7 +124,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
   public function testNoFolder() {
     Assert::exception(function() {
       $class = get_class($this->loader);
-      $this->loader = new $class;
+      $this->loader = new $class();
       $this->loader->getTexts();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
@@ -137,7 +137,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::contains("cs", $result);
     Assert::exception(function() {
       $class = get_class($this->loader);
-      $this->loader = new $class;
+      $this->loader = new $class();
       $this->loader->getAvailableLanguages();
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }

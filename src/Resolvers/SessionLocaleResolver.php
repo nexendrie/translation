@@ -27,7 +27,7 @@ class SessionLocaleResolver implements ISettableLocaleResolver {
   
   public function __construct(Session $session = null) {
     if(is_null($session)) {
-      $request = (new RequestFactory)->createHttpRequest();
+      $request = (new RequestFactory())->createHttpRequest();
       $response = new Response();
       $session = new Session($request, $response);
     }

@@ -19,7 +19,7 @@ final class TranslatorTest extends \Tester\TestCase {
   private $translator;
   
   public function setUp() {
-    $loader = new Loaders\NeonLoader;
+    $loader = new Loaders\NeonLoader();
     $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
     $this->translator = new Translator($loader);
     $this->translator->onUntranslated[] = [$this->translator, "logUntranslatedMessage"];

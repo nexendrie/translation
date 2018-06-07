@@ -371,7 +371,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("Obsah", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("Abc", $translator->translate("abc.multi.abc"));
-    $result =$translator->translate("param", 0, ["param1" => "value1"]);
+    $result = $translator->translate("param", 0, ["param1" => "value1"]);
     Assert::same("Param2: value1", $result);
     $translator->lang = "xyz";
     Assert::same("Content", $translator->translate("book.content"));

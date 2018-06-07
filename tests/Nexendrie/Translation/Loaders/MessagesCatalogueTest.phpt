@@ -13,10 +13,10 @@ final class MessagesCatalogueTest extends FileLoaderTestAbstract {
   protected function setUp() {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $folder = __DIR__ . "/../../../_temp/catalogues";
-    $loader = new NeonLoader(new ManualLocaleResolver, $folders);
+    $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
     $compiler = new CatalogueCompiler($loader, $folder, ["en", "cs"]);
     $compiler->compile();
-    $this->loader = new MessagesCatalogue(new ManualLocaleResolver, [$folder]);
+    $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
   }
   
   public function testGetFolders() {
@@ -28,7 +28,7 @@ final class MessagesCatalogueTest extends FileLoaderTestAbstract {
   
   public function testCatalogueWithoutResources() {
     $folder = __DIR__ . "/../../../catalogue";
-    $loader = new MessagesCatalogue(new ManualLocaleResolver, [$folder]);
+    $loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
     $loader->getTexts();
     Assert::count(3, $loader->resources);
   }

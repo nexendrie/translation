@@ -252,7 +252,7 @@ class TranslationExtension extends CompilerExtension {
       $builder->removeDefinition($serviceName);
       $folder = $builder->expand("%tempDir%/catalogues");
       $builder->addDefinition($this->prefix(static::SERVICE_ORIGINAL_LOADER), $loader)
-        ->setFactory($loader->class, [new ManualLocaleResolver, $config["loader"]["folders"]])
+        ->setFactory($loader->class, [new ManualLocaleResolver(), $config["loader"]["folders"]])
         ->setAutowired(false);
       $builder->addDefinition($serviceName)
         ->setType(MessagesCatalogue::class)
