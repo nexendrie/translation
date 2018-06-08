@@ -1,27 +1,29 @@
 <p>Untranslated messages: <?php echo count($translator->untranslated); ?>, loaded resources <?php echo $resourcesCount; ?></p>
-<div id="resolvedLanguage">
-  <h1>Resolved language</h1>
-  <table>
-    <tr><td><?php echo $loader->getResolverName(); ?></td><td><?php echo $loader->lang; ?></td></tr>
-  </table>
-</div>
-<br/>
-<div id="resources">
-  <h1>Loaded resources</h1>
-  <table>
-    <th><td>Domain</td><td>Filename</td></th>
-    <?php foreach($loader->getResources() as $domain => $files) {
-      foreach($files as $filename) {
-        echo "<tr><td></td><td>$domain</td><td>" . $this->renderLink($filename) . "</td></tr>";
+<div class="tracy-inner">
+  <div id="resolvedLanguage">
+    <h1>Resolved language</h1>
+    <table>
+      <tr><td><?php echo $loader->getResolverName(); ?></td><td><?php echo $loader->lang; ?></td></tr>
+    </table>
+  </div>
+  <br/>
+  <div id="resources">
+    <h1>Loaded resources</h1>
+    <table>
+      <th><td>Domain</td><td>Filename</td></th>
+      <?php foreach($loader->getResources() as $domain => $files) {
+        foreach($files as $filename) {
+          echo "<tr><td></td><td>$domain</td><td>" . \Tracy\Helpers::editorLink($filename) . "</td></tr>";
+        }
       }
+      ?>
+    </table>
+  </div>
+  <div id="untranslated">
+    <?php if(count($translator->untranslated)) echo "<h1>Untranslated messages</h1>"; ?>
+    <?php foreach($translator->untranslated as $message) {
+      echo "<p>$message</p>";
     }
     ?>
-  </table>
-</div>
-<div id="untranslated">
-  <?php if(count($translator->untranslated)) echo "<h1>Untranslated messages</h1>"; ?>
-  <?php foreach($translator->untranslated as $message) {
-    echo "<p>$message</p>";
-  }
-  ?>
+  </div>
 </div>

@@ -1,5 +1,6 @@
 Version 1.1.1+dev
 - improved handling of non-file resources in Tracy panel
+- fixed scrolling in Tracy panel if list of resources is too long
 
 Version 1.1.1
 - CatalogueCompiler now compiles catalogues only when source files has changed
