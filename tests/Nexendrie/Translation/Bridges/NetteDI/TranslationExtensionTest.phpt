@@ -288,7 +288,6 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       $panel = $this->getService(TranslationPanel::class);
       Assert::type(TranslationPanel::class, $panel);
     }, MissingServiceException::class);
-    
   }
   
   public function testCompiler() {
