@@ -30,11 +30,11 @@ final class TranslationPanelTest extends \Tester\TestCase {
     $result = $this->panel->getPanel();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
-    Assert::same(5, $r->count());
+    Assert::same(2, $r->count());
     $text = (string) $r->p;
     Assert::same("Untranslated messages: 0, loaded resources 0", $text);
-    Assert::same("Resolved language", (string) $r->div->h1);
-    foreach($r->div->table->tr->children() as $i => $td) {
+    Assert::same("Resolved language", (string) $r->div->div->h1);
+    foreach($r->div->div->table->tr->children() as $i => $td) {
       if($i === 0) {
         Assert::same("ManualLocaleResolver", (string) $td);
       } elseif($i === 1) {
