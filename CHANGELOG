@@ -1,4 +1,4 @@
-Version 1.1.1+dev
+Version 1.1.2
 - improved handling of non-file resources in Tracy panel
 - fixed scrolling in Tracy panel if list of resources is too long
 - fixed columns in table Loaded resources in Tracy panel
