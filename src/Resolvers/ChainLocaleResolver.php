@@ -12,7 +12,8 @@ use Nexendrie\Utils\Collection;
  */
 class ChainLocaleResolver extends Collection implements ILocaleResolver {
   use \Nette\SmartObject;
-  
+
+  /** @var string */
   protected $class = ILocaleResolver::class;
   
   public function addResolver(ILocaleResolver $resolver): void {

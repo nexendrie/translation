@@ -197,7 +197,7 @@ abstract class FileLoader implements ILoader {
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");
-      $lang = Strings::after($filename, ".");
+      $lang = (string) Strings::after($filename, ".");
       if(!in_array($lang, $languages, true)) {
         $languages[] = $lang;
       }

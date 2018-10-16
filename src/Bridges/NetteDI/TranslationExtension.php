@@ -139,7 +139,7 @@ class TranslationExtension extends CompilerExtension {
     if($loader !== "") {
       return $loader;
     } elseif(class_exists($loaderName) AND is_subclass_of($loaderName, ILoader::class)) {
-      return $loaderName;
+      return (string) $loaderName;
     }
     throw new InvalidLoaderException("Invalid translation loader.");
   }
@@ -174,7 +174,7 @@ class TranslationExtension extends CompilerExtension {
     Validators::assertField($config, "messageSelector", "string");
     $messageSelector = $config["messageSelector"];
     if(class_exists($messageSelector) AND is_subclass_of($messageSelector, IMessageSelector::class)) {
-      return $messageSelector;
+      return (string) $messageSelector;
     }
     throw new InvalidMessageSelectorException("Invalid message selector.");
   }

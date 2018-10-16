@@ -16,33 +16,33 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
   /** @var FileLoader */
   protected $loader;
   
-  public function testGetLang() {
+  public function testGetLang(): void {
     $lang = $this->loader->lang;
     Assert::type("string", $lang);
     Assert::same("en", $lang);
   }
   
-  public function testSetLang() {
+  public function testSetLang(): void {
     $this->loader->lang = "cs";
     $lang = $this->loader->lang;
     Assert::type("string", $lang);
     Assert::same("cs", $lang);
   }
   
-  public function testGetDefaultLang() {
+  public function testGetDefaultLang(): void {
     $lang = $this->loader->defaultLang;
     Assert::type("string", $lang);
     Assert::same("en", $lang);
   }
   
-  public function testSetDefaultLang() {
+  public function testSetDefaultLang(): void {
     $this->loader->defaultLang = "cs";
     $lang = $this->loader->defaultLang;
     Assert::type("string", $lang);
     Assert::same("cs", $lang);
   }
   
-  public function testGetFolders() {
+  public function testGetFolders(): void {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(2, $folders);
@@ -50,13 +50,13 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
   }
   
-  public function testSetFolders() {
+  public function testSetFolders(): void {
     Assert::exception(function() {
       $this->loader->folders = [""];
     }, InvalidFolderException::class, "Folder  does not exist.");
   }
   
-  public function testGetResources() {
+  public function testGetResources(): void {
     // texts were not loaded yet so there are no resources
     $resources = $this->loader->resources;
     Assert::type("array", $resources);
@@ -92,7 +92,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::count(1, $resources["abc"]);
   }
   
-  public function testGetTexts() {
+  public function testGetTexts(): void {
     $texts = $this->loader->getTexts();
     Assert::type("array", $texts);
     Assert::count(3, $texts);
@@ -121,7 +121,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::count(5, $texts["book"]);
   }
   
-  public function testNoFolder() {
+  public function testNoFolder(): void {
     Assert::exception(function() {
       $class = get_class($this->loader);
       $this->loader = new $class();
@@ -129,7 +129,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
   
-  public function testGetAvailableLanguages() {
+  public function testGetAvailableLanguages(): void {
     $result = $this->loader->getAvailableLanguages();
     Assert::type("array", $result);
     Assert::count(2, $result);
@@ -142,7 +142,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     }, FolderNotSetException::class, "Folder for translations was not set.");
   }
   
-  public function testGetResolverName() {
+  public function testGetResolverName(): void {
     $name = $this->loader->getResolverName();
     Assert::type("string", $name);
     Assert::same("ManualLocaleResolver", $name);

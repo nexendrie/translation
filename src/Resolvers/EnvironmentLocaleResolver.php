@@ -19,7 +19,7 @@ class EnvironmentLocaleResolver implements ISettableLocaleResolver {
   
   public function getLang(): ?string {
     $lang = getenv($this->varName);
-    if($lang) {
+    if(is_string($lang)) {
       return $lang;
     }
     return null;

@@ -10,7 +10,7 @@ use Nexendrie\Translation\CatalogueCompiler;
 require __DIR__ . "/../../../bootstrap.php";
 
 final class MessagesCatalogueTest extends FileLoaderTestAbstract {
-  protected function setUp() {
+  protected function setUp(): void {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
     $folder = __DIR__ . "/../../../_temp/catalogues";
     $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
@@ -19,14 +19,14 @@ final class MessagesCatalogueTest extends FileLoaderTestAbstract {
     $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
   }
   
-  public function testGetFolders() {
+  public function testGetFolders(): void {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);
     Assert::count(1, $folders);
     Assert::same(__DIR__ . "/../../../_temp/catalogues", $folders[0]);
   }
   
-  public function testCatalogueWithoutResources() {
+  public function testCatalogueWithoutResources(): void {
     $folder = __DIR__ . "/../../../catalogue";
     $loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
     $loader->getTexts();
