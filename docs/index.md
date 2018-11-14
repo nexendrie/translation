@@ -60,8 +60,10 @@ Default locale resolvers
 There are a few locale resolvers available. The simplest one is FallbackLocaleResolvers which always returns NULL. There is also ManualLocaleResolvers which lets you select the language by yourself. Just use:
 
 ```php
-$resolver = Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+<?php
+$resolver = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
 $resolver->lang = "en";
+?>
 ```
 
 . You can also use EnvironmentLocaleResolver in a similar fashion, the only difference is that the latter uses an environment variable as storage (it is stored in property $varName, default value is TRANSLATOR_LANGUAGE).
@@ -71,9 +73,11 @@ It is possible to detect language from Accept-Language header with HeaderLocaleR
 If you want to use multiple ways to resolve the language, use ChainLocaleResolver.
 
 ```php
-$resolver = Nexendrie\Translation\Resolvers\ChainLocaleResolver;
-$resolver->addResolver(some resolver); //or
-$resolver[] = some resolver;
+<?php
+$resolver = new Nexendrie\Translation\Resolvers\ChainLocaleResolver();
+$resolver->addResolver(new Nexendrie\Translation\Resolvers\ManualLocaleResolver()); //or
+$resolver[] = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
+?>
 ```
 
 It tries all added resolvers (by the order in which they were added) until one returns a string.
