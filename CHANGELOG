@@ -1,3 +1,6 @@
+Version 1.1.2+dev
+- raised minimal version of PHP to 7.2
+
 Version 1.1.2
 - improved handling of non-file resources in Tracy panel
 - fixed scrolling in Tracy panel if list of resources is too long
