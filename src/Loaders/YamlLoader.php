@@ -12,7 +12,6 @@ use Symfony\Component\Yaml\Yaml;
  * @author Jakub Konečný
  */
 class YamlLoader extends FileLoader {
-  /** @var string */
   protected $extension = "yaml";
   
   protected function parseFile(string $filename): array {

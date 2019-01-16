@@ -12,7 +12,6 @@ use Nette\Neon\Neon;
  * @author Jakub Konečný
  */
 class NeonLoader extends FileLoader {
-  /** @var string */
   protected $extension = "neon";
   
   protected function parseFile(string $filename): array {

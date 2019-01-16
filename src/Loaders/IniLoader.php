@@ -10,7 +10,6 @@ namespace Nexendrie\Translation\Loaders;
  * @author Jakub Konečný
  */
 class IniLoader extends FileLoader {
-  /** @var string */
   protected $extension = "ini";
   
   protected function parseFile(string $filename): array {
