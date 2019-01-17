@@ -75,7 +75,6 @@ If you want to use multiple ways to resolve the language, use ChainLocaleResolve
 ```php
 <?php
 $resolver = new Nexendrie\Translation\Resolvers\ChainLocaleResolver();
-$resolver->addResolver(new Nexendrie\Translation\Resolvers\ManualLocaleResolver()); //or
 $resolver[] = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
 ?>
 ```

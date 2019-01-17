@@ -212,7 +212,7 @@ class TranslationExtension extends CompilerExtension {
         $resolverService = $builder->addDefinition($this->prefix("resolver.$index"))
           ->setType($resolver)
           ->setAutowired(false);
-        $chainResolver->addSetup("addResolver", [$resolverService]);
+        $chainResolver->addSetup('$service[] = ?', [$resolverService]);
       }
     }
     if($config["debugger"] AND interface_exists(\Tracy\IBarPanel::class)) {
