@@ -70,6 +70,8 @@ $resolver->lang = "en";
 
 It is possible to detect language from Accept-Language header with HeaderLocaleResolver. There is also SessionLocaleResolver which takes and stores current language in session. These 2 resolvers require package nette/http.
 
+If you want to always use the default language, use FallbackLocaleResolver.
+
 If you want to use multiple ways to resolve the language, use ChainLocaleResolver.
 
 ```php
