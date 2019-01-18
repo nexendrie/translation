@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Nexendrie\Translation\Loaders\ILoader;
+use Nexendrie\Translation\ILoader;
 use Nexendrie\Translation\Translator;
 use Tracy\IBarPanel;
 
