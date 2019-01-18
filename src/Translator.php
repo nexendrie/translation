@@ -6,7 +6,6 @@ namespace Nexendrie\Translation;
 use Nette\Utils\Arrays;
 use Nette\Utils\Strings;
 use Nette\Localization\ITranslator;
-use Nexendrie\Translation\Loaders\ILoader;
 
 /**
  * Translator

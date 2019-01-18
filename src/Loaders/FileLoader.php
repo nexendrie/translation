@@ -5,9 +5,9 @@ namespace Nexendrie\Translation\Loaders;
 
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
-use Nexendrie\Translation\Resolvers\ILocaleResolver;
+use Nexendrie\Translation\ILocaleResolver;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
-use Nexendrie\Translation\Resolvers\ISettableLocaleResolver;
+use Nexendrie\Translation\ISettableLocaleResolver;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 use Nette\Utils\Arrays;

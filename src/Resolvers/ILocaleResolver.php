@@ -7,11 +7,9 @@ namespace Nexendrie\Translation\Resolvers;
  * ILocaleResolver
  *
  * @author Jakub Konečný
+ * @deprecated
  */
-interface ILocaleResolver {
-  /**
-   * Resolve language
-   */
-  public function resolve(): ?string;
+interface ILocaleResolver extends \Nexendrie\Translation\ILocaleResolver {
+
 }
 ?>

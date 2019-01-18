@@ -1,6 +1,7 @@
 Version 1.2.0-dev
 - raised minimal version of PHP to 7.2
 - deprecated method ChainLocaleResolver::addResolver()
+- moved interfaces for loaders and locale resolvers to Nexendrie\Translation namespace, deprecated old versions
 
 Version 1.1.2
 - improved handling of non-file resources in Tracy panel

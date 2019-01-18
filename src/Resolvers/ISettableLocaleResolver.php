@@ -7,8 +7,9 @@ namespace Nexendrie\Translation\Resolvers;
  * ISettableLocaleResolver
  *
  * @author Jakub Konečný
+ * @deprecated
  */
-interface ISettableLocaleResolver extends ILocaleResolver {
-  public function setLang(string $lang): void;
+interface ISettableLocaleResolver extends ILocaleResolver, \Nexendrie\Translation\ISettableLocaleResolver {
+
 }
 ?>

@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\Loaders\ILoader;
-
 /**
  * ILoaderAwareLocaleResolver
  *
  * @author Jakub Konečný
+ * @deprecated
  */
-interface ILoaderAwareLocaleResolver extends ILocaleResolver {
-  public function setLoader(ILoader $loader): void;
+interface ILoaderAwareLocaleResolver extends ILocaleResolver, \Nexendrie\Translation\ILoaderAwareLocaleResolver {
+
 }
 ?>

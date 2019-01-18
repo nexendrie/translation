@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\Loaders\ILoader;
+use Nexendrie\Translation\ILoader;
 use Nette\Http\IRequest;
 use Nexendrie\Translation\LoaderNotSetException;
 use Nette\Http\RequestFactory;
