@@ -1,4 +1,4 @@
-Version 1.2.0-dev
+Version 1.2.0
 - raised minimal version of PHP to 7.2
 - deprecated method ChainLocaleResolver::addResolver()
 - moved interfaces for loaders and locale resolvers to Nexendrie\Translation namespace, deprecated old versions
