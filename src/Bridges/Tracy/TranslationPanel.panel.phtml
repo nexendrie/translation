@@ -9,7 +9,7 @@
   <br/>
   <div id="resources">
     <h1>Loaded resources</h1>
-    <table>
+    <table class="tracy-sortable">
       <tr><th>Domain</th><th>Filename</th></tr>
       <?php foreach($loader->getResources() as $domain => $files) {
         foreach($files as $filename) {
