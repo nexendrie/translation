@@ -40,12 +40,12 @@ You can divide your texts to domains, if you do not specify any, "messages" is a
 Loaders
 -----------
 
-The translator is not responsible for loading texts, this task is delegated to a loader. This library contains a good number of default loaders but you can write your own one by implementing the Nexendrie\Translation\Loaders\ILoader interface. While the interface has methods getLang and setLang, it is a good idea to let a locale resolve handle resolving/changing the language.
+The translator is not responsible for loading texts, this task is delegated to a loader. This library contains a good number of default loaders but you can write your own one by implementing the Nexendrie\Translation\ILoader interface. While the interface has methods getLang and setLang, it is a good idea to let a locale resolve handle resolving/changing the language.
 
 Resolvers
 -------------
 
-A locale resolver has to implement Nexendrie\Translation\Resolvers\ILocaleResolver interface which has just 1 method resolve. It should return a string which represents current language or NULL if it could not resolve language. It that case, default language is used.
+A locale resolver has to implement Nexendrie\Translation\ILocaleResolver interface which has just 1 method resolve. It should return a string which represents current language or NULL if it could not resolve language. It that case, default language is used.
 
 Default loaders
 ---------------
@@ -101,7 +101,7 @@ extensions:
 
 ```yaml
 translation:
-    localeResolver: # manual, environment, fallback, session, header, param or name of class implementing Nexendrie\Translation\Resolvers\ILocaleResolver
+    localeResolver: # manual, environment, fallback, session, header, param or name of class implementing Nexendrie\Translation\ILocaleResolver
         - param
         - session
         - header
@@ -109,7 +109,7 @@ translation:
     debugger: %debugMode% # adds panel for Tracy if true
     messageSelector: Nexendrie\Translation\MessageSelector # class for message selector, has to implement Nexendrie\Translation\IMessageSelector
     loader:
-        name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\Loaders\ILoader
+        name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\ILoader
         folders: # folders where files with translations are located
             - %appDir%/lang # this is always present unless overwritten with !
     onUntranslated: # custom callbacks for Translator::onUntranslated()

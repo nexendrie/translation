@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
+use Nexendrie\Translation\ISettableLocaleResolver;
+
 /**
  * EnvironmentResolver
  * Reads current language from an environment variable

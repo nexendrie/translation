@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
+use Nexendrie\Translation\ILocaleResolver;
+
 /**
  * FallbackLocaleResolver
  * Fallback resolver when nothing else can be used

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
+use Nexendrie\Translation\ISettableLocaleResolver;
+
 /**
  * ManualLocaleResolver
  * Allows you to manually specify current language

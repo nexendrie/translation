@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Resolvers;
 
 use Nexendrie\Utils\Collection;
+use Nexendrie\Translation\ILocaleResolver;
 
 /**
  * ChainResolver
@@ -14,12 +15,12 @@ class ChainLocaleResolver extends Collection implements ILocaleResolver {
   use \Nette\SmartObject;
 
   /** @var string */
-  protected $class = \Nexendrie\Translation\ILocaleResolver::class;
+  protected $class = ILocaleResolver::class;
 
   /**
    * @deprecated
    */
-  public function addResolver(\Nexendrie\Translation\ILocaleResolver $resolver): void {
+  public function addResolver(ILocaleResolver $resolver): void {
     $this[] = $resolver;
   }
   

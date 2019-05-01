@@ -11,6 +11,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 use Nette\Utils\Arrays;
+use Nexendrie\Translation\ILoader;
 
 /**
  * Generic file translations loader

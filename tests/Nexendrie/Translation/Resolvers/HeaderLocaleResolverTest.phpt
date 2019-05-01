@@ -6,7 +6,7 @@ namespace Nexendrie\Translation\Resolvers;
 use Tester\Assert;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
-use Nexendrie\Translation\Loaders\ILoader;
+use Nexendrie\Translation\ILoader;
 use Nexendrie\Translation\LoaderNotSetException;
 
 require __DIR__ . "/../../../bootstrap.php";

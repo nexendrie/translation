@@ -7,6 +7,7 @@ use Nette\Http\Session;
 use Nette\Http\SessionSection;
 use Nette\Http\RequestFactory;
 use Nette\Http\Response;
+use Nexendrie\Translation\ISettableLocaleResolver;
 
 /**
  * SessionLocaleResolver

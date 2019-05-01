@@ -7,6 +7,7 @@ use Nexendrie\Translation\ILoader;
 use Nette\Http\IRequest;
 use Nexendrie\Translation\LoaderNotSetException;
 use Nette\Http\RequestFactory;
+use Nexendrie\Translation\ILoaderAwareLocaleResolver;
 
 /**
  * HeaderLocaleResolver
