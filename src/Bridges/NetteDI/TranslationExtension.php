@@ -134,12 +134,13 @@ class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "loader", "array");
     Validators::assertField($config["loader"], "name", "string");
+    /** @var string $loaderName */
     $loaderName = $config["loader"]["name"];
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
       return $loader;
     } elseif(class_exists($loaderName) AND is_subclass_of($loaderName, ILoader::class)) {
-      return (string) $loaderName;
+      return $loaderName;
     }
     throw new InvalidLoaderException("Invalid translation loader.");
   }
@@ -172,9 +173,10 @@ class TranslationExtension extends CompilerExtension {
   protected function resolveMessageSelector(): string {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "messageSelector", "string");
+    /** @var string $messageSelector */
     $messageSelector = $config["messageSelector"];
     if(class_exists($messageSelector) AND is_subclass_of($messageSelector, IMessageSelector::class)) {
-      return (string) $messageSelector;
+      return $messageSelector;
     }
     throw new InvalidMessageSelectorException("Invalid message selector.");
   }
