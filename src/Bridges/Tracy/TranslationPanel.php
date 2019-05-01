@@ -25,6 +25,7 @@ final class TranslationPanel implements IBarPanel {
   
   public function getTab(): string {
     $lang = $this->loader->getLang();
+    /** @var string $tab */
     $tab = file_get_contents(__DIR__ . "/TranslationPanel.tab.html");
     return str_replace("%lang%", $lang, $tab);
   }
