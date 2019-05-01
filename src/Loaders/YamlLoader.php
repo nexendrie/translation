@@ -13,9 +13,12 @@ use Symfony\Component\Yaml\Yaml;
  */
 final class YamlLoader extends FileLoader {
   protected $extension = "yaml";
-  
+
+  /**
+   * @throws \Symfony\Component\Yaml\Exception\ParseException
+   */
   protected function parseFile(string $filename): array {
-    return Yaml::parse(file_get_contents($filename));
+    return Yaml::parseFile($filename);
   }
 }
 ?>

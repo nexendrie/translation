@@ -7,7 +7,6 @@ parameters:
         - '#Method Nexendrie\\Translation\\Bridges\\Tracy\\TranslationPanel::getPanel\(\) should return string but returns string\|false#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
         - '#Parameter \#1 \$input of static method Nette\\Neon\\Neon::decode\(\) expects string, string\|false given#'
-        - '#Parameter \#1 \$input of static method Symfony\\Component\\Yaml\\Yaml::parse\(\) expects string, string\|false given#'
         - '#Parameter \#2 \$domain of method Nexendrie\\Translation\\Loaders\\FileLoader::addResource\(\) expects string, int\|string given#'
         - '#Method Nexendrie\\Translation\\Loaders\\IniLoader::parseFile\(\) should return array but returns array\|false#'
         - '#Variable property access on Nette\\Http\\SessionSection#'
