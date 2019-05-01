@@ -10,9 +10,9 @@ namespace Nexendrie\Translation;
  */
 interface ILoader {
   public function getLang(): string;
-  public function setLang(string $lang);
+  public function setLang(string $lang): void;
   public function getDefaultLang(): string;
-  public function setDefaultLang(string $defaultLang);
+  public function setDefaultLang(string $defaultLang): void;
   public function getResources(): array;
   public function getTexts(): array;
   public function getResolverName(): string;

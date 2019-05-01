@@ -6,8 +6,6 @@ parameters:
         - '#Parameter \#3 \$subject of function str_replace expects array\|string, string\|false given#'
         - '#Method Nexendrie\\Translation\\Bridges\\Tracy\\TranslationPanel::getPanel\(\) should return string but returns string\|false#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
-        # this cannot be fixed until next major release
-        - '#Method Nexendrie\\Translation\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9_]+\(\) has no return typehint specified#'
         - '#Parameter \#1 \$input of static method Nette\\Neon\\Neon::decode\(\) expects string, string\|false given#'
         - '#Parameter \#1 \$input of static method Symfony\\Component\\Yaml\\Yaml::parse\(\) expects string, string\|false given#'
         - '#Parameter \#2 \$domain of method Nexendrie\\Translation\\Loaders\\FileLoader::addResource\(\) expects string, int\|string given#'

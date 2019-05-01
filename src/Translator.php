@@ -39,7 +39,7 @@ class Translator implements ITranslator {
     return $this->loader->getLang();
   }
   
-  public function setLang(string $lang) {
+  public function setLang(string $lang): void {
     $this->loader->setLang($lang);
   }
   

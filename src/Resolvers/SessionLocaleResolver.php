@@ -51,7 +51,7 @@ class SessionLocaleResolver implements ISettableLocaleResolver {
     return $this->varName;
   }
   
-  public function setVarName(string $varName) {
+  public function setVarName(string $varName): void {
     $this->varName = $varName;
   }
   

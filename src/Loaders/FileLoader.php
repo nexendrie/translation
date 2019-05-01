@@ -64,7 +64,7 @@ abstract class FileLoader implements ILoader {
     return $this->resolver->resolve() ?? $this->defaultLang;
   }
   
-  public function setLang(string $lang) {
+  public function setLang(string $lang): void {
     if(is_a($this->resolver, ISettableLocaleResolver::class)) {
       $oldLang = $this->lang;
       $this->resolver->setLang($lang);
@@ -76,7 +76,7 @@ abstract class FileLoader implements ILoader {
     return $this->defaultLang;
   }
   
-  public function setDefaultLang(string $defaultLang) {
+  public function setDefaultLang(string $defaultLang): void {
     $this->defaultLang = $defaultLang;
   }
   
@@ -91,7 +91,7 @@ abstract class FileLoader implements ILoader {
    * @param string[] $folders
    * @throws InvalidFolderException
    */
-  public function setFolders(array $folders) {
+  public function setFolders(array $folders): void {
     foreach($folders as $folder) {
       if(!is_dir($folder)) {
         throw new InvalidFolderException("Folder $folder does not exist.");

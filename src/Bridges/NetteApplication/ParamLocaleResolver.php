@@ -24,7 +24,7 @@ class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
     return $this->param;
   }
   
-  public function setParam(string $param) {
+  public function setParam(string $param): void {
     $this->param = $param;
   }
   

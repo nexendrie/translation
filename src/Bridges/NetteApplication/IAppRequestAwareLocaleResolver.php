@@ -13,6 +13,6 @@ use Nette\Application\Request;
  * @author Jakub Konečný
  */
 interface IAppRequestAwareLocaleResolver extends ILocaleResolver {
-  public function onRequest(Application $application, Request $request);
+  public function onRequest(Application $application, Request $request): void;
 }
 ?>
