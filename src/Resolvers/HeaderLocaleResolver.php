@@ -14,7 +14,7 @@ use Nexendrie\Translation\ILoaderAwareLocaleResolver;
  *
  * @author Jakub Konečný
  */
-class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
+final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var ILoader|null */

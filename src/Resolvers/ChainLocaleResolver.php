@@ -11,7 +11,7 @@ use Nexendrie\Translation\ILocaleResolver;
  *
  * @author Jakub Konečný
  */
-class ChainLocaleResolver extends Collection implements ILocaleResolver {
+final class ChainLocaleResolver extends Collection implements ILocaleResolver {
   use \Nette\SmartObject;
 
   /** @var string */

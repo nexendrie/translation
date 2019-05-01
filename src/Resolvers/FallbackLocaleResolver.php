@@ -12,7 +12,7 @@ use Nexendrie\Translation\ILocaleResolver;
  *
  * @author Jakub Konečný
  */
-class FallbackLocaleResolver implements ILocaleResolver {
+final class FallbackLocaleResolver implements ILocaleResolver {
   use \Nette\SmartObject;
   
   /**

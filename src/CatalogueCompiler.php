@@ -13,7 +13,7 @@ use Nette\Utils\FileSystem;
  * @author Jakub Konečný
  * @method void onCompile(CatalogueCompiler $compiler, string $language)
  */
-class CatalogueCompiler {
+final class CatalogueCompiler {
   use \Nette\SmartObject;
   
   /** @var ILoader */

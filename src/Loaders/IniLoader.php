@@ -9,7 +9,7 @@ namespace Nexendrie\Translation\Loaders;
  *
  * @author Jakub Konečný
  */
-class IniLoader extends FileLoader {
+final class IniLoader extends FileLoader {
   protected $extension = "ini";
   
   protected function parseFile(string $filename): array {

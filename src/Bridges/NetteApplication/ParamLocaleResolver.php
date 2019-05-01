@@ -12,7 +12,7 @@ use Nette\Application\Request;
  * @author Jakub Konečný
  * @property string $param
  */
-class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
+final class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var Request|null */

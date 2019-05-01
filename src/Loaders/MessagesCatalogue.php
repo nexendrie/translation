@@ -12,7 +12,7 @@ use Nexendrie\Translation\FolderNotSetException;
  *
  * @author Jakub Konečný
  */
-class MessagesCatalogue extends PhpLoader {
+final class MessagesCatalogue extends PhpLoader {
   protected function loadDomain(string $name): array {
     return [];
   }

@@ -11,7 +11,7 @@ use Nette\Utils\Json;
  *
  * @author Jakub Konečný
  */
-class JsonLoader extends FileLoader {
+final class JsonLoader extends FileLoader {
   protected $extension = "json";
   
   /**

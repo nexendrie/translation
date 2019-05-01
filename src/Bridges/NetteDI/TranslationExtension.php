@@ -46,7 +46,7 @@ use Nette\DI\Helpers;
  *
  * @author Jakub Konečný
  */
-class TranslationExtension extends CompilerExtension {
+final class TranslationExtension extends CompilerExtension {
   /** @internal */
   public const SERVICE_TRANSLATOR = "translator";
   /** @internal */

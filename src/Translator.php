@@ -15,7 +15,7 @@ use Nette\Localization\ITranslator;
  * @property-read string[] $untranslated
  * @method void onUntranslated(string $message)
  */
-class Translator implements ITranslator {
+final class Translator implements ITranslator {
   use \Nette\SmartObject;
   
   /** @internal */

@@ -16,7 +16,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * @property string|null $lang
  * @property string $varName
  */
-class SessionLocaleResolver implements ISettableLocaleResolver {
+final class SessionLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var Session */

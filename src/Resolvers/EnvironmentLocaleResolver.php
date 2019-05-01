@@ -13,7 +13,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * @property string|null $lang
  * @property string $varName
  */
-class EnvironmentLocaleResolver implements ISettableLocaleResolver {
+final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var string */

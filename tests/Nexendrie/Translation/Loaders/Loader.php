@@ -8,7 +8,7 @@ namespace Nexendrie\Translation\Loaders;
  *
  * @author Jakub Konečný
  */
-final class Loader extends NeonLoader {
-  
+final class Loader extends PhpLoader {
+
 }
 ?>

@@ -12,7 +12,7 @@ use Tracy\IBarPanel;
  *
  * @author Jakub Konečný
  */
-class TranslationPanel implements IBarPanel {
+final class TranslationPanel implements IBarPanel {
   /** @var Translator */
   protected $translator;
   /** @var ILoader */

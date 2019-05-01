@@ -12,7 +12,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * @author Jakub Konečný
  * @property string|null $lang
  */
-class ManualLocaleResolver implements ISettableLocaleResolver {
+final class ManualLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
   
   /** @var string|null */
