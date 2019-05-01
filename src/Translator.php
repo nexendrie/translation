@@ -82,11 +82,10 @@ class Translator implements ITranslator {
    * Translate the string
    *
    * @param string $message
-   * @param int $count
-   * @param array $params
-   * @return string
    */
-  public function translate($message, $count = 0, $params = []) {
+  public function translate($message, ... $parameters): string {
+    $count = $parameters[0] ?? 0;
+    $params = $parameters[1] ?? [];
     list($domain, $m) = $this->extractDomainAndMessage($message);
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);

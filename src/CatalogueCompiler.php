@@ -63,6 +63,7 @@ class CatalogueCompiler {
    * Compile catalogues
    */
   public function compile(): void {
+    $lang = $this->loader->getLang();
     foreach($this->languages as $language) {
       $this->loader->setLang($language);
       $texts = $this->loader->getTexts();
@@ -77,6 +78,7 @@ return " . Helpers::dump($texts) . ";
       FileSystem::write($filename, $content);
       $this->onCompile($this, $language);
     }
+    $this->loader->setLang($lang);
   }
 }
 ?>

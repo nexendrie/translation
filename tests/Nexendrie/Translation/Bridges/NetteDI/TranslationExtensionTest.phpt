@@ -116,7 +116,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $config = [
       "translation" => [
         "loader" => [
-          "name" => "stdClass"
+          "name" => \stdClass::class
         ]
       ]
     ];
@@ -169,7 +169,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidLocaleResolverException::class);
     $config = [
       "translation" => [
-        "localeResolver" => "stdClass"
+        "localeResolver" => \stdClass::class
       ]
     ];
     Assert::exception(function() use($config) {
@@ -257,15 +257,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
   public function testInvalidMessageSelector() {
     $config = [
       "translation" => [
-        "messageSelector" => "invalid"
-      ]
-    ];
-    Assert::exception(function() use($config) {
-      $this->refreshContainer($config);
-    }, InvalidMessageSelectorException::class);
-    $config = [
-      "translation" => [
-        "messageSelector" => "stdClass"
+        "messageSelector" => \stdClass::class
       ]
     ];
     Assert::exception(function() use($config) {
@@ -306,6 +298,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
+    /** @var MessagesCatalogue $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
@@ -351,6 +344,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
+    /** @var ILoader $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
@@ -373,11 +367,11 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $result = $translator->translate("param", 0, ["param1" => "value1"]);
     Assert::same("Param2: value1", $result);
     $translator->lang = "xyz";
-    Assert::same("Content", $translator->translate("book.content"));
-    Assert::same("Test", $translator->translate("book.test"));
-    Assert::same("ABC", $translator->translate("abc.multi.abc"));
+    Assert::same("book.content", $translator->translate("book.content"));
+    Assert::same("book.test", $translator->translate("book.test"));
+    Assert::same("abc.multi.abc", $translator->translate("abc.multi.abc"));
     $result = $translator->translate("param", 0, ["param1" => "value1"]);
-    Assert::same("Param1: value1", $result);
+    Assert::same("param", $result);
   }
   
   public function testTranslationProvider() {
