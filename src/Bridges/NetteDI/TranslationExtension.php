@@ -17,7 +17,7 @@ use Nexendrie\Translation\Resolvers\HeaderLocaleResolver;
 use Nexendrie\Translation\Bridges\NetteApplication\ParamLocaleResolver;
 use Nexendrie\Translation\Translator;
 use Nexendrie\Translation\ILoader;
-use Nexendrie\Translation\Loaders\FileLoader;
+use Nexendrie\Translation\IFileLoader;
 use Nexendrie\Translation\Loaders\NeonLoader;
 use Nexendrie\Translation\Loaders\IniLoader;
 use Nexendrie\Translation\Loaders\JsonLoader;
@@ -231,7 +231,7 @@ final class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig();
     /** @var ServiceDefinition $loader */
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
-    if(in_array(FileLoader::class, class_parents((string) $loader->class), true)) {
+    if(in_array(IFileLoader::class, class_implements((string) $loader->class), true)) {
       $folders = $this->getFolders();
       $loader->addSetup("setFolders", [$folders]);
       foreach($folders as $folder) {

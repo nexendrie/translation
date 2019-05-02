@@ -11,7 +11,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 use Nette\Utils\Arrays;
-use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\IFileLoader;
 
 /**
  * Generic file translations loader
@@ -28,7 +28,7 @@ use Nexendrie\Translation\ILoader;
  * @method void onFoldersChange(FileLoader $loader, string[] $folders)
  * @method void onLoad(FileLoader $loader, string $lang)
  */
-abstract class FileLoader implements ILoader {
+abstract class FileLoader implements IFileLoader {
   use \Nette\SmartObject;
   
   /** @var string */

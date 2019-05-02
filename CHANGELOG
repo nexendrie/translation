@@ -3,6 +3,7 @@ Version 2.0.0-dev
 - dropped support for Nette 2.4
 - marked almost all classes as final
 - removed method ChainLocaleResolver::addResolver()
+- added IFileLoader interface
 
 Version 1.2.0
 - raised minimal version of PHP to 7.2
