@@ -22,7 +22,7 @@ final class MessagesCatalogue extends PhpLoader {
       throw new FolderNotSetException("Folder for translations was not set.");
     }
     $this->resources = $texts = [];
-    $filename = str_replace("*", $this->lang, $this->getLanguageFilenameMask());
+    $filename = str_replace(static::LANGUAGE_MASK, $this->lang, $this->getLanguageFilenameMask());
     $files = Finder::findFiles($filename)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
@@ -42,9 +42,9 @@ final class MessagesCatalogue extends PhpLoader {
     $this->texts = $texts;
     $this->loadedLang = $this->lang;
   }
-  
+
   protected function getLanguageFilenameMask(): string {
-    return "catalogue.*.$this->extension";
+    return "catalogue." . static::LANGUAGE_MASK . "." . $this->extension;
   }
 }
 ?>

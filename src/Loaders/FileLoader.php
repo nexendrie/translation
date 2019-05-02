@@ -30,6 +30,9 @@ use Nexendrie\Translation\IFileLoader;
  */
 abstract class FileLoader implements IFileLoader {
   use \Nette\SmartObject;
+
+  protected const DOMAIN_MASK = "%domain%";
+  protected const LANGUAGE_MASK = "%language%";
   
   /** @var string */
   protected $defaultLang = "en";
@@ -156,12 +159,13 @@ abstract class FileLoader implements IFileLoader {
     }
     $default = $this->defaultLang;
     $this->resources = $texts = [];
-    $extension = $this->extension;
-    $files = Finder::findFiles("*.$default.$extension")
+    $mask = $this->getLanguageFilenameMask();
+    $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], ["*", $default,], $mask);
+    $files = Finder::findFiles($mask)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
-      $domain = $file->getBasename(".$default.$extension");
+      $domain = $file->getBasename((string) Strings::after($mask, "*"));
       $texts[$domain] = $this->loadDomain($domain);
     }
     $this->texts = $texts;
@@ -178,9 +182,9 @@ abstract class FileLoader implements IFileLoader {
     $class = get_class($this->resolver);
     return (string) Strings::after($class, '\\', -1);
   }
-  
+
   protected function getLanguageFilenameMask(): string {
-    return "*.$this->extension";
+    return static::DOMAIN_MASK . "." . static::LANGUAGE_MASK . "." . $this->extension;
   }
   
   /**
@@ -193,7 +197,9 @@ abstract class FileLoader implements IFileLoader {
     }
     $languages = [];
     $extension = $this->extension;
-    $files = Finder::findFiles($this->getLanguageFilenameMask())
+    $mask = $this->getLanguageFilenameMask();
+    $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], "*", $mask);
+    $files = Finder::findFiles($mask)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {

@@ -4,6 +4,7 @@ Version 2.0.0-dev
 - marked almost all classes as final
 - removed method ChainLocaleResolver::addResolver()
 - added IFileLoader interface
+- changed meaning of result of FileLoader::getLanguageFilenameMask()
 
 Version 1.2.0
 - raised minimal version of PHP to 7.2
