@@ -125,8 +125,8 @@ abstract class FileLoader implements IFileLoader {
   protected function loadDomain(string $name): array {
     $return = [];
     $defaultLang = $this->defaultLang;
-    $extension = $this->extension;
-    $defaultFilename = "$name.$defaultLang.$extension";
+    $defaultFilename = $this->getLanguageFilenameMask();
+    $defaultFilename = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], [$name, $defaultLang,], $defaultFilename);
     $files = Finder::findFiles($defaultFilename)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
@@ -134,7 +134,7 @@ abstract class FileLoader implements IFileLoader {
       $default = $this->parseFile($file->getPathname());
       $this->addResource($file->getPathname(), $name);
       $lang = [];
-      $filename = "$name.$this->lang.$extension";
+      $filename = str_replace($defaultLang, $this->lang, $defaultFilename);
       $filename = str_replace($defaultFilename, $filename, $file->getPathname());
       if($this->lang != $defaultLang AND is_file($filename)) {
         $lang = $this->parseFile($filename);
