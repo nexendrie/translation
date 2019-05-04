@@ -15,10 +15,15 @@ final class JsonLoader extends FileLoader {
   protected $extension = "json";
   
   /**
+   * @throws \RuntimeException
    * @throws \Nette\Utils\JsonException
    */
   protected function parseFile(string $filename): array {
-    return Json::decode(file_get_contents($filename), Json::FORCE_ARRAY);
+    $content = file_get_contents($filename);
+    if($content === false) {
+      throw new \RuntimeException("File $filename does not exist or cannot be read.");
+    }
+    return Json::decode($content, Json::FORCE_ARRAY);
   }
 }
 ?>

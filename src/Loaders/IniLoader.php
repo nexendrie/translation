@@ -11,9 +11,16 @@ namespace Nexendrie\Translation\Loaders;
  */
 final class IniLoader extends FileLoader {
   protected $extension = "ini";
-  
+
+  /**
+   * @throws \RuntimeException
+   */
   protected function parseFile(string $filename): array {
-    return parse_ini_file($filename, true);
+    $result = parse_ini_file($filename, true);
+    if($result === false) {
+      throw new \RuntimeException("File $filename does not exist or cannot be read.");
+    }
+    return $result;
   }
 }
 ?>

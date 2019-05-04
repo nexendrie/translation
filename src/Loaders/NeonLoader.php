@@ -13,9 +13,16 @@ use Nette\Neon\Neon;
  */
 final class NeonLoader extends FileLoader {
   protected $extension = "neon";
-  
+
+  /**
+   * @throws \RuntimeException
+   */
   protected function parseFile(string $filename): array {
-    return Neon::decode(file_get_contents($filename));
+    $content = file_get_contents($filename);
+    if($content === false) {
+      throw new \RuntimeException("File $filename does not exist or cannot be read.");
+    }
+    return Neon::decode($content);
   }
 }
 ?>
