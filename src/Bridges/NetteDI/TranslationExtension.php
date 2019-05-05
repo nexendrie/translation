@@ -90,7 +90,7 @@ final class TranslationExtension extends CompilerExtension {
       "debugger" => Expect::bool(Helpers::expand("%debugMode%", $params)),
       "loader" => Expect::structure([
         "name" => Expect::string("neon"),
-        "folders" => Expect::arrayOf("string")->default([Helpers::expand("%appDir%/lang", $params)]),
+        "folders" => Expect::array()->default([Helpers::expand("%appDir%/lang", $params)]),
       ])->castTo("array"),
       "onUntranslated" => Expect::array()->default([
         ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "logUntranslatedMessage"]

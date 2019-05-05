@@ -1,3 +1,6 @@
+Version 2.0.0+dev
+- fixed overriding default folders in Nette DIC extension
+
 Version 2.0.0
 - removed old interfaces for loaders and locale resolvers
 - dropped support for Nette 2.4
