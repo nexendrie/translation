@@ -8,7 +8,11 @@ namespace Nexendrie\Translation\Loaders;
  *
  * @author Jakub Konečný
  */
-final class Loader extends PhpLoader {
+final class Loader extends FileLoader {
+  protected $extension = "php";
 
+  protected function parseFile(string $filename): array {
+    return require $filename;
+  }
 }
 ?>
