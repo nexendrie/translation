@@ -31,7 +31,7 @@
         "latte/latte": "^3.0",
         "symfony/yaml": "^3.4 || ^4.0",
         "nette/neon": "^3.0",
-        "nexendrie/site-generator": "^1.0"
+        "nexendrie/site-generator": "^0.5"
     },
     "suggest": {
         "nette/di": "For easier integration to Nette applications",
