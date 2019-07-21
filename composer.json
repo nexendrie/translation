@@ -27,7 +27,7 @@
     "require-dev": {
         "nexendrie/code-quality": "dev-master",
         "nette/di": "^3.0",
-        "tracy/tracy": "^3.0",
+        "tracy/tracy": "^2.6 || ^3.0",
         "latte/latte": "^3.0",
         "symfony/yaml": "^3.4 || ^4.0",
         "nette/neon": "^3.0",
