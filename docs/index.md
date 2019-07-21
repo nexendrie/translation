@@ -19,6 +19,18 @@ General info
 
 Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional parameters. Only message id is required.
 
+Examples:
+
+```php
+<?php
+$translator = new \Nexendrie\Translation\Translator(...);
+$translator->translate("messages.abc");
+$translator->translate("messages.abc", 5);
+$translator->translate("messages.abc", 5, ["param1" => "value1"]);
+$translator->translate("messages.abc", ["count" => 5, "param1" => "value1"]);
+?>
+```
+
 The translate method searches for message id in list of known texts, replaces passed parameters in found text and returns the result. If the message is not found, empty string is returned. Example of message with parameters: "blah blah %param1%". Count can be also used in the message itself as it is added to parameters (as %count%).
 
 The translator contains variable $onUntranslated which is an array of callbacks that are called when an unknown message id is encountered. By default, it is empty but some integrations may fill it with their own or user-defined callbacks.
@@ -148,4 +160,5 @@ You can also translate texts in Latte templates, as the extension automatically 
 {_"messages.abc"}
 {_"messages.abc", 5}
 {_"messages.abc", 5, ["param1" => "value1"]}
+{_"messages.abc", ["count" => 5, "param1" => "value1"]}
 ```

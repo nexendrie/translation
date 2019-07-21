@@ -59,6 +59,9 @@ final class TranslatorTest extends \Tester\TestCase {
     Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
     Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
     Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+    // new style count
+    Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+    Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
     // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }
@@ -99,6 +102,9 @@ final class TranslatorTest extends \Tester\TestCase {
     Assert::same("Je tu jedno jablko.", $this->translator->translate("abc.multi.pluralSimple", 1));
     Assert::same("Je tu 0 jablek.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
     Assert::same("Je tu 1 jablko.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+    // new style count
+    Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+    Assert::same("Param2: value1", $this->translator->translate("param", ["param1" => "value1"]));
     // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }
@@ -136,6 +142,9 @@ final class TranslatorTest extends \Tester\TestCase {
     Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
     Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
     Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+    // new style count
+    Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+    Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
       // test untranslated messages
     Assert::count(5, $this->translator->untranslated);
   }

@@ -84,8 +84,13 @@ final class Translator implements ITranslator {
    * @param string $message
    */
   public function translate($message, ... $parameters): string {
-    $count = $parameters[0] ?? 0;
-    $params = $parameters[1] ?? [];
+    if(count($parameters) === 1 AND is_array($parameters[0])) {
+      $count = $parameters[0]["count"] ?? 0;
+      $params = $parameters[0];
+    } else {
+      $params = $parameters[1] ?? [];
+      $params["count"] = $count = $parameters[0] ?? 0;
+    }
     list($domain, $m) = $this->extractDomainAndMessage($message);
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);
@@ -100,7 +105,6 @@ final class Translator implements ITranslator {
     if($this->messageSelector->isMultiChoice($text)) {
       $text = $this->messageSelector->choose($text, $count);
     }
-    $params["count"] = $count;
     foreach($params as $key => $value) {
       $text = str_replace("%$key%", $value, $text);
     }
