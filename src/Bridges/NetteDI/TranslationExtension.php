@@ -85,7 +85,7 @@ final class TranslationExtension extends CompilerExtension {
   public function getConfigSchema(): \Nette\Schema\Schema {
     $params = $this->getContainerBuilder()->parameters;
     return Expect::structure([
-      "localeResolver" => Expect::anyOf(Expect::string(), Expect::arrayOf("string"))->default(["param", "session", "header",]),
+      "localeResolver" => Expect::anyOf(Expect::string(), Expect::arrayOf("string"))->default(["param", "session", "header", ]),
       "default" => Expect::string("en"),
       "debugger" => Expect::bool(Helpers::expand("%debugMode%", $params)),
       "loader" => Expect::structure([

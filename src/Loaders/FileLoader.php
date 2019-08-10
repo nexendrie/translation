@@ -126,7 +126,7 @@ abstract class FileLoader implements IFileLoader {
     $return = [];
     $defaultLang = $this->defaultLang;
     $defaultFilename = $this->getLanguageFilenameMask();
-    $defaultFilename = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], [$name, $defaultLang,], $defaultFilename);
+    $defaultFilename = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], [$name, $defaultLang, ], $defaultFilename);
     $files = Finder::findFiles($defaultFilename)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
@@ -160,7 +160,7 @@ abstract class FileLoader implements IFileLoader {
     $default = $this->defaultLang;
     $this->resources = $texts = [];
     $mask = $this->getLanguageFilenameMask();
-    $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], ["*", $default,], $mask);
+    $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], ["*", $default, ], $mask);
     $files = Finder::findFiles($mask)
       ->from($this->folders);
     /** @var \SplFileInfo $file */
