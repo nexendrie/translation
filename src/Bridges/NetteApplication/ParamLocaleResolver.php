@@ -30,14 +30,14 @@ final class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   
   public function onRequest(Application $application, Request $request): void {
     $locale = $request->getParameter($this->param);
-    if($request->method === Request::FORWARD AND is_null($locale)) {
+    if($request->method === Request::FORWARD AND $locale === null) {
       return;
     }
     $this->request = $request;
   }
   
   public function resolve(): ?string {
-    if(!is_null($this->request)) {
+    if($this->request !== null) {
       return $this->request->getParameter($this->param);
     }
     return null;

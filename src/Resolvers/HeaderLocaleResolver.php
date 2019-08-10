@@ -23,7 +23,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   protected $request;
   
   public function __construct(IRequest $request = null) {
-    if(is_null($request)) {
+    if($request === null) {
       $request = (new RequestFactory())->createHttpRequest();
     }
     $this->request = $request;
@@ -45,7 +45,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     }
     $header = $this->request->getHeader("Accept-Language");
     $langs = $this->loader->getAvailableLanguages();
-    if(is_null($header)) {
+    if($header === null) {
       return null;
     }
     $s = strtolower($header);  // case insensitive

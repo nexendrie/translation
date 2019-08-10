@@ -20,7 +20,7 @@ final class ChainLocaleResolver extends Collection implements ILocaleResolver {
   public function resolve(): ?string {
     foreach($this as $resolver) {
       $lang = $resolver->resolve();
-      if(!is_null($lang)) {
+      if($lang !== null) {
         return $lang;
       }
     }
