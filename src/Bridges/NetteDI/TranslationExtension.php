@@ -119,7 +119,7 @@ final class TranslationExtension extends CompilerExtension {
       $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
       if($resolver !== "") {
         $return[] = $resolver;
-      } elseif(class_exists($resolverName) AND is_subclass_of($resolverName, ILocaleResolver::class)) {
+      } elseif(class_exists($resolverName) && is_subclass_of($resolverName, ILocaleResolver::class)) {
         $return[] = $resolverName;
       } else {
         throw new InvalidLocaleResolverException("Invalid locale resolver $resolverName.");
@@ -139,7 +139,7 @@ final class TranslationExtension extends CompilerExtension {
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
       return $loader;
-    } elseif(class_exists($loaderName) AND is_subclass_of($loaderName, ILoader::class)) {
+    } elseif(class_exists($loaderName) && is_subclass_of($loaderName, ILoader::class)) {
       return $loaderName;
     }
     throw new InvalidLoaderException("Invalid translation loader $loaderName.");
@@ -173,7 +173,7 @@ final class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig();
     /** @var string $messageSelector */
     $messageSelector = $config->messageSelector;
-    if(class_exists($messageSelector) AND is_subclass_of($messageSelector, IMessageSelector::class)) {
+    if(class_exists($messageSelector) && is_subclass_of($messageSelector, IMessageSelector::class)) {
       return $messageSelector;
     }
     throw new InvalidMessageSelectorException("Invalid message selector $messageSelector.");
@@ -212,7 +212,7 @@ final class TranslationExtension extends CompilerExtension {
         $chainResolver->addSetup('$service[] = ?', [$resolverService]);
       }
     }
-    if($config->debugger AND interface_exists(\Tracy\IBarPanel::class)) {
+    if($config->debugger && interface_exists(\Tracy\IBarPanel::class)) {
       $builder->addDefinition($this->prefix(static::SERVICE_PANEL))
         ->setType(TranslationPanel::class);
       /** @var ServiceDefinition $tracy */

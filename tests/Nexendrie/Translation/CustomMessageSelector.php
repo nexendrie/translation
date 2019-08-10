@@ -23,7 +23,7 @@ final class CustomMessageSelector implements IMessageSelector {
     $variants = explode("|", $message);
     foreach($variants as $variant) {
       $interval = Intervals::findInterval($variant);
-      if(is_string($interval) AND Intervals::isInInterval($count, $interval)) {
+      if(is_string($interval) && Intervals::isInInterval($count, $interval)) {
         return Strings::trim(Strings::after($variant, $interval));
       }
     }

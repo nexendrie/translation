@@ -105,7 +105,7 @@ abstract class FileLoader implements IFileLoader {
   }
   
   protected function addResource(string $filename, string $domain): void {
-    if(!isset($this->resources[$domain]) OR !in_array($filename, $this->resources[$domain], true)) {
+    if(!isset($this->resources[$domain]) || !in_array($filename, $this->resources[$domain], true)) {
       $this->resources[$domain][] = $filename;
     }
   }
@@ -136,7 +136,7 @@ abstract class FileLoader implements IFileLoader {
       $lang = [];
       $filename = str_replace($defaultLang, $this->lang, $defaultFilename);
       $filename = str_replace($defaultFilename, $filename, $file->getPathname());
-      if($this->lang != $defaultLang AND is_file($filename)) {
+      if($this->lang != $defaultLang && is_file($filename)) {
         $lang = $this->parseFile($filename);
         $this->addResource($filename, $name);
       }

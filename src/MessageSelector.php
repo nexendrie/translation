@@ -13,7 +13,7 @@ use Nette\Utils\Strings;
  */
 final class MessageSelector implements IMessageSelector {
   public function isMultiChoice(string $message): bool {
-    return is_string(Intervals::findInterval($message)) AND Strings::contains($message, "|");
+    return is_string(Intervals::findInterval($message)) && Strings::contains($message, "|");
   }
   
   public function choose(string $message, int $count): string {
@@ -23,7 +23,7 @@ final class MessageSelector implements IMessageSelector {
     $variants = explode("|", $message);
     foreach($variants as $variant) {
       $interval = Intervals::findInterval($variant);
-      if(is_string($interval) AND Intervals::isInInterval($count, $interval)) {
+      if(is_string($interval) && Intervals::isInInterval($count, $interval)) {
         return Strings::trim((string) Strings::after($variant, $interval));
       }
     }

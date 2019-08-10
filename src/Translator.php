@@ -84,7 +84,7 @@ final class Translator implements ITranslator {
    * @param string $message
    */
   public function translate($message, ... $parameters): string {
-    if(count($parameters) === 1 AND is_array($parameters[0])) {
+    if(count($parameters) === 1 && is_array($parameters[0])) {
       $count = $parameters[0]["count"] ?? 0;
       $params = $parameters[0];
     } else {
