@@ -27,8 +27,12 @@ final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
     return null;
   }
   
-  public function setLang(string $lang): void {
-    putenv($this->varName . "=$lang");
+  public function setLang(?string $lang): void {
+    if($lang === null) {
+      putenv($this->varName);
+    } else {
+      putenv($this->varName . "=$lang");
+    }
   }
   
   public function getVarName(): string {

@@ -21,6 +21,8 @@ final class SessionLocaleResolverTest extends \Tester\TestCase {
     Assert::null($this->resolver->resolve());
     $this->resolver->lang = "en";
     Assert::same("en", $this->resolver->resolve());
+    $this->resolver->lang = null;
+    Assert::null($this->resolver->resolve());
   }
   
   public function testCustomVarName() {

@@ -22,7 +22,7 @@ final class ManualLocaleResolver implements ISettableLocaleResolver {
     return $this->lang;
   }
   
-  public function setLang(string $lang): void {
+  public function setLang(?string $lang): void {
     $this->lang = $lang;
   }
   

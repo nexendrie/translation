@@ -16,12 +16,11 @@ final class ManualLocaleResolverTest extends \Tester\TestCase {
   }
   
   public function testResolve() {
-    $lang = $this->resolver->resolve();
-    Assert::type("null", $lang);
+    Assert::null($this->resolver->resolve());
     $this->resolver->lang = "cs";
-    $lang = $this->resolver->resolve();
-    Assert::type("string", $lang);
-    Assert::same("cs", $lang);
+    Assert::same("cs", $this->resolver->resolve());
+    $this->resolver->lang = null;
+    Assert::null($this->resolver->resolve());
   }
 }
 
