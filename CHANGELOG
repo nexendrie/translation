@@ -1,4 +1,4 @@
-Version 2.1.0-dev
+Version 2.1.0
 - count can be passed together with other parameters to Translator::translate()
 - symfony/yaml 5 is supported, dropped support for 3
 - re-added support for nette/finder 2.5
