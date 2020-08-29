@@ -9,6 +9,10 @@ use Nexendrie\Translation\CatalogueCompiler;
 
 require __DIR__ . "/../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class MessagesCatalogueTest extends FileLoaderTestAbstract {
   protected function setUp(): void {
     $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];

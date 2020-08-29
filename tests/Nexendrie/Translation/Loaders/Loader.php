@@ -7,6 +7,7 @@ namespace Nexendrie\Translation\Loaders;
  * Loader
  *
  * @author Jakub Konečný
+ * @testCase
  */
 final class Loader extends FileLoader {
   protected $extension = "php";

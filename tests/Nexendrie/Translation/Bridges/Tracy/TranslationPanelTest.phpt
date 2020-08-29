@@ -8,6 +8,10 @@ use Nexendrie\Translation\Translator;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class TranslationPanelTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   

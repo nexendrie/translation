@@ -9,6 +9,10 @@ use Nette\Application\Application;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class ParamLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
