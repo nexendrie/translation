@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nette\PhpGenerator\Helpers;
+use Nette\PhpGenerator\Dumper;
 use Nette\Utils\FileSystem;
 
 /**
@@ -72,7 +72,7 @@ final class CatalogueCompiler {
       }
       $texts["__resources"] = $this->loader->getResources();
       $content = "<?php
-return " . Helpers::dump($texts) . ";
+return " . (new Dumper())->dump($texts) . ";
 ?>";
       $filename = $this->getCatalogueFilename($language);
       FileSystem::write($filename, $content);
