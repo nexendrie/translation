@@ -3,8 +3,5 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
     ignoreErrors:
-        - '#Method Nexendrie\\Translation\\Bridges\\Tracy\\TranslationPanel::getPanel\(\) should return string but returns string\|false#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
         - '#Variable property access on Nette\\Http\\SessionSection#'
-        - '#Parameter \#1 \$message \(string\) of method Nexendrie\\Translation\\Translator::translate\(\) should be contravariant with parameter \$message \(mixed\) of method Nette\\Localization\\ITranslator::translate\(\)#'
-        - '#Method Nexendrie\\Translation\\Translator::translate\(\) has parameter \$parameters with no typehint specified#'

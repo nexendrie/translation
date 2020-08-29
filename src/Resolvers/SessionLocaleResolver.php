@@ -37,10 +37,11 @@ final class SessionLocaleResolver implements ISettableLocaleResolver {
   }
   
   public function getLang(): ?string {
-    if(empty($this->section->{$this->varName})) {
+    $lang = $this->section->{$this->varName};
+    if(empty($lang)) {
       return null;
     }
-    return $this->section->{$this->varName};
+    return $lang;
   }
   
   public function setLang(?string $lang): void {

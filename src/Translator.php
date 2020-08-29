@@ -77,13 +77,16 @@ final class Translator implements ITranslator {
   public function logUntranslatedMessage(string $message): void {
     $this->untranslated[] = $message;
   }
-  
+
   /**
    * Translate the string
    *
-   * @param string $message
+   * @param mixed $message
+   * @param mixed ...$parameters
+   * @return string
    */
   public function translate($message, ... $parameters): string {
+    $message = (string) $message;
     if(count($parameters) === 1 && is_array($parameters[0])) {
       $count = $parameters[0]["count"] ?? 0;
       $params = $parameters[0];
@@ -91,7 +94,7 @@ final class Translator implements ITranslator {
       $params = $parameters[1] ?? [];
       $params["count"] = $count = $parameters[0] ?? 0;
     }
-    list($domain, $m) = $this->extractDomainAndMessage($message);
+    [$domain, $m] = $this->extractDomainAndMessage($message);
     $texts = Arrays::get($this->loader->getTexts(), $domain, []);
     $parts = explode(".", $m);
     if(count($parts) === 1) {

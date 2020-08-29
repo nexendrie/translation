@@ -36,7 +36,7 @@ final class TranslationPanel implements IBarPanel {
     $resourcesCount = count($loader->getResources(), COUNT_RECURSIVE) - count($loader->getResources());
     ob_start();
     require __DIR__ . "/TranslationPanel.panel.phtml";
-    return ob_get_clean();
+    return (string) ob_get_clean();
   }
   
   protected function renderLink(string $resource): string {
