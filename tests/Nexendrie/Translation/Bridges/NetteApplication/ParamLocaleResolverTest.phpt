@@ -49,18 +49,18 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
   }
 
   public function testCustomParamName() {
-    /*$this->resolver->param = "language";
+    $this->resolver->param = "language";
     Assert::same("language", $this->resolver->param);
     $parameters = [
       "callback" => function() {
         return "";
       }, "language" => "en",
-    ];*/
+    ];
     /** @var Application $application */
-    /*$application = $this->getService(Application::class);
+    $application = $this->getService(Application::class);
     $request = new Request("Micro", "GET", $parameters);
     $application->processRequest($request);
-    Assert::same("en", $this->resolver->resolve());*/
+    Assert::same("en", $this->resolver->resolve());
   }
 }
 
