@@ -32,7 +32,6 @@ use Nexendrie\Translation\CatalogueCompiler;
 use Nette\Utils\Arrays;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\ILatteFactory;
-use Nette\Utils\AssertionException;
 use Nexendrie\Translation\ILoaderAwareLocaleResolver;
 use Nexendrie\Translation\IMessageSelector;
 use Nexendrie\Translation\MessageSelector;
@@ -45,6 +44,7 @@ use Nette\DI\Helpers;
  * TranslationExtension for Nette DI Container
  *
  * @author Jakub Konečný
+ * @method \stdClass getConfig()
  */
 final class TranslationExtension extends CompilerExtension {
   /** @internal */
@@ -108,7 +108,6 @@ final class TranslationExtension extends CompilerExtension {
    * @throws InvalidLocaleResolverException
    */
   protected function resolveResolverClass(): array {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     $return = [];
     $resolvers = $config->localeResolver;
@@ -132,7 +131,6 @@ final class TranslationExtension extends CompilerExtension {
    * @throws InvalidLoaderException
    */
   protected function resolveLoaderClass(): string {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     /** @var string $loaderName */
     $loaderName = $config->loader["name"];
@@ -150,7 +148,6 @@ final class TranslationExtension extends CompilerExtension {
    * @throws InvalidFolderException
    */
   protected function getFolders(): array {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     $folders = $config->loader["folders"];
     /** @var ITranslationProvider $extension */
@@ -169,7 +166,6 @@ final class TranslationExtension extends CompilerExtension {
    * @throws InvalidMessageSelectorException
    */
   protected function resolveMessageSelector(): string {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     /** @var string $messageSelector */
     $messageSelector = $config->messageSelector;
@@ -180,14 +176,12 @@ final class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @throws AssertionException
    * @throws InvalidLocaleResolverException
    * @throws InvalidLoaderException
    * @throws InvalidMessageSelectorException
    */
   public function loadConfiguration(): void {
     $builder = $this->getContainerBuilder();
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     $resolvers = $this->resolveResolverClass();
     $loader = $this->resolveLoaderClass();
@@ -222,12 +216,10 @@ final class TranslationExtension extends CompilerExtension {
   }
   
   /**
-   * @throws AssertionException
    * @throws InvalidFolderException
    */
   public function beforeCompile(): void {
     $builder = $this->getContainerBuilder();
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     /** @var ServiceDefinition $loader */
     $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
@@ -273,7 +265,6 @@ final class TranslationExtension extends CompilerExtension {
   }
   
   public function afterCompile(ClassType $class): void {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     $initialize = $class->methods["initialize"];
     $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(static::SERVICE_TRANSLATOR)]);
