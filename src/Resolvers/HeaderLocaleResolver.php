@@ -40,7 +40,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
    * @author David Grudl
    */
   public function resolve(): ?string {
-    if(is_null($this->loader)) {
+    if($this->loader === null) {
       throw new LoaderNotSetException("Loader is not available, cannot detect possible languages.");
     }
     $header = $this->request->getHeader("Accept-Language");
