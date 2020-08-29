@@ -24,7 +24,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   
   public function __construct(IRequest $request = null) {
     if($request === null) {
-      $request = (new RequestFactory())->createHttpRequest();
+      $request = (new RequestFactory())->fromGlobals();
     }
     $this->request = $request;
   }
