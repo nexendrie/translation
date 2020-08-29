@@ -23,6 +23,8 @@ Examples:
 
 ```php
 <?php
+declare(strict_types=1);
+
 $translator = new \Nexendrie\Translation\Translator(...);
 $translator->translate("messages.abc");
 $translator->translate("messages.abc", 5);
@@ -73,6 +75,8 @@ There are a few locale resolvers available. The simplest one is FallbackLocaleRe
 
 ```php
 <?php
+declare(strict_types=1);
+
 $resolver = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
 $resolver->lang = "en";
 ?>
@@ -88,6 +92,8 @@ If you want to use multiple ways to resolve the language, use ChainLocaleResolve
 
 ```php
 <?php
+declare(strict_types=1);
+
 $resolver = new Nexendrie\Translation\Resolvers\ChainLocaleResolver();
 $resolver[] = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
 ?>
