@@ -5,3 +5,4 @@ parameters:
     ignoreErrors:
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
         - '#Variable property access on Nette\\Http\\SessionSection#'
+        - '#Parameter \#1 ...\$paths of method Nette\\Utils\\Finder::from\(\) expects array\<string\>\|string, array given#'

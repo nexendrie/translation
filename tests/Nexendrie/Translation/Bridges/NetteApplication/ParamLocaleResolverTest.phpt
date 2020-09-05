@@ -15,9 +15,8 @@ require __DIR__ . "/../../../../bootstrap.php";
  */
 final class ParamLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  
-  /** @var ParamLocaleResolver */
-  protected $resolver;
+
+  protected ParamLocaleResolver $resolver;
   
   protected function setUp() {
     $config = [

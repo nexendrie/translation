@@ -14,9 +14,8 @@ require __DIR__ . "/../../../../bootstrap.php";
  */
 final class TranslationPanelTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  
-  /** @var TranslationPanel */
-  protected $panel;
+
+  protected TranslationPanel $panel;
   
   protected function setUp() {
     $this->panel = $this->getService(TranslationPanel::class);

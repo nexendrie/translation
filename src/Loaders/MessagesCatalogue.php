@@ -13,7 +13,7 @@ use Nexendrie\Translation\FolderNotSetException;
  * @author Jakub Konečný
  */
 final class MessagesCatalogue extends FileLoader {
-  protected $extension = "php";
+  protected string $extension = "php";
 
   protected function parseFile(string $filename): array {
     return require $filename;

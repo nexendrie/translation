@@ -14,11 +14,10 @@ use Nette\Application\Request;
  */
 final class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
   use \Nette\SmartObject;
-  
-  /** @var Request|null */
-  protected $request = null;
+
+  protected ?Request $request = null;
   /** @var string */
-  protected $param = "locale";
+  protected string $param = "locale";
   
   public function getParam(): string {
     return $this->param;

@@ -15,8 +15,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class TranslatorTest extends \Tester\TestCase {
-  /** @var Translator */
-  private $translator;
+  private Translator $translator;
   
   public function setUp() {
     $loader = new Loaders\NeonLoader();

@@ -14,8 +14,7 @@ use Tester\Assert;
  * @testCase
  */
 final class MessageSelectorTest extends \Tester\TestCase {
-  /** @var MessageSelector */
-  protected $messageSelector;
+  protected MessageSelector $messageSelector;
   
   public function setUp() {
     $this->messageSelector = new MessageSelector();

@@ -46,7 +46,7 @@ require __DIR__ . "/../../../../bootstrap.php";
 final class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
-  public static $messages = [];
+  public static array $messages = [];
   
   protected function setUp() {
     $this->refreshContainer();

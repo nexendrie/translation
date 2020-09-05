@@ -10,7 +10,7 @@ namespace Nexendrie\Translation\Loaders;
  * @author Jakub Konečný
  */
 final class IniLoader extends FileLoader {
-  protected $extension = "ini";
+  protected string $extension = "ini";
 
   /**
    * @throws \RuntimeException

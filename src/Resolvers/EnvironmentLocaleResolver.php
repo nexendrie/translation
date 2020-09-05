@@ -15,9 +15,8 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  */
 final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
-  
-  /** @var string */
-  protected $varName = "TRANSLATOR_LANGUAGE";
+
+  protected string $varName = "TRANSLATOR_LANGUAGE";
   
   public function getLang(): ?string {
     $lang = getenv($this->varName);

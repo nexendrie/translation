@@ -12,8 +12,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class ChainLocaleResolverTest extends \Tester\TestCase {
-  /** @var ChainLocaleResolver */
-  protected $resolver;
+  protected ChainLocaleResolver $resolver;
   
   protected function setUp() {
     $this->resolver = new ChainLocaleResolver();

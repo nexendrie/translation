@@ -14,8 +14,7 @@ use Nexendrie\Translation\ILocaleResolver;
 final class ChainLocaleResolver extends Collection implements ILocaleResolver {
   use \Nette\SmartObject;
 
-  /** @var string */
-  protected $class = ILocaleResolver::class;
+  protected string $class = ILocaleResolver::class;
   
   public function resolve(): ?string {
     foreach($this as $resolver) {

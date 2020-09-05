@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
  * @author Jakub Konečný
  */
 final class YamlLoader extends FileLoader {
-  protected $extension = "yaml";
+  protected string $extension = "yaml";
 
   /**
    * @throws \Symfony\Component\Yaml\Exception\ParseException

@@ -14,9 +14,8 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  */
 final class ManualLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
-  
-  /** @var string|null */
-  protected $lang = null;
+
+  protected ?string $lang = null;
   
   public function getLang(): ?string {
     return $this->lang;

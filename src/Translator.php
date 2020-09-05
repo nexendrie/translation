@@ -19,15 +19,13 @@ final class Translator implements ITranslator {
   
   /** @internal */
   public const DEFAULT_DOMAIN = "messages";
-  
-  /** @var ILoader */
-  protected $loader;
-  /** @var IMessageSelector */
-  protected $messageSelector;
+
+  protected ILoader $loader;
+  protected IMessageSelector $messageSelector;
   /** @var string[] */
-  protected $untranslated = [];
+  protected array $untranslated = [];
   /** @var callable[] */
-  public $onUntranslated = [];
+  public array $onUntranslated = [];
   
   public function __construct(ILoader $loader, IMessageSelector $messageSelector = null) {
     $this->loader = $loader;

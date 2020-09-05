@@ -13,9 +13,8 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class SessionLocaleResolverTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  
-  /** @var SessionLocaleResolver */
-  protected $resolver;
+
+  protected SessionLocaleResolver $resolver;
   
   protected function setUp() {
     $this->resolver = new SessionLocaleResolver();

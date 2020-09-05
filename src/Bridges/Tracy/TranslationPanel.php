@@ -13,10 +13,8 @@ use Tracy\IBarPanel;
  * @author Jakub Konečný
  */
 final class TranslationPanel implements IBarPanel {
-  /** @var Translator */
-  protected $translator;
-  /** @var ILoader */
-  protected $loader;
+  protected Translator $translator;
+  protected ILoader $loader;
   
   public function __construct(Translator $translator, ILoader $loader) {
     $this->translator = $translator;

@@ -12,7 +12,7 @@ use Nette\Neon\Neon;
  * @author Jakub Konečný
  */
 final class NeonLoader extends FileLoader {
-  protected $extension = "neon";
+  protected string $extension = "neon";
 
   /**
    * @throws \RuntimeException

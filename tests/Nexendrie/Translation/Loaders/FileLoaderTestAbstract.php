@@ -13,8 +13,7 @@ use Nexendrie\Translation\FolderNotSetException;
  * @author Jakub Konečný
  */
 abstract class FileLoaderTestAbstract extends \Tester\TestCase {
-  /** @var FileLoader */
-  protected $loader;
+  protected FileLoader $loader;
   
   public function testGetLang(): void {
     $lang = $this->loader->lang;

@@ -12,8 +12,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class FallbackLocaleResolverTest extends \Tester\TestCase {
-  /** @var FallbackLocaleResolver */
-  protected $resolver;
+  protected FallbackLocaleResolver $resolver;
   
   protected function setUp() {
     $this->resolver = new FallbackLocaleResolver();

@@ -33,27 +33,20 @@ abstract class FileLoader implements IFileLoader {
 
   protected const DOMAIN_MASK = "%domain%";
   protected const LANGUAGE_MASK = "%language%";
-  
-  /** @var string */
-  protected $defaultLang = "en";
-  /** @var string|null */
-  protected $loadedLang = null;
-  /** @var array */
-  protected $texts = [];
-  /** @var string[] */
-  protected $folders = [];
-  /** @var ILocaleResolver */
-  protected $resolver;
-  /** @var array */
-  protected $resources = [];
-  /** @var string */
-  protected $extension;
+
+  protected string $defaultLang = "en";
+  protected ?string $loadedLang = null;
+  protected array $texts = [];
+  protected array $folders = [];
+  protected ILocaleResolver $resolver;
+  protected array $resources = [];
+  protected string $extension;
   /** @var callable[] */
-  public $onLanguageChange = [];
+  public array $onLanguageChange = [];
   /** @var callable[] */
-  public $onFoldersChange = [];
+  public array $onFoldersChange = [];
   /** @var callable[] */
-  public $onLoad = [];
+  public array $onLoad = [];
   
   /**
    * @param string[] $folders

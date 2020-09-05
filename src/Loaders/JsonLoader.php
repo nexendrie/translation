@@ -12,7 +12,7 @@ use Nette\Utils\Json;
  * @author Jakub Konečný
  */
 final class JsonLoader extends FileLoader {
-  protected $extension = "json";
+  protected string $extension = "json";
   
   /**
    * @throws \RuntimeException

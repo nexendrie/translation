@@ -12,8 +12,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class EnvironmentLocaleResolverTest extends \Tester\TestCase {
-  /** @var EnvironmentLocaleResolver */
-  protected $resolver;
+  protected EnvironmentLocaleResolver $resolver;
   
   protected function setUp() {
     $this->resolver = new EnvironmentLocaleResolver();
