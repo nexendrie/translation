@@ -1,4 +1,4 @@
-Version 2.2.0-dev
+Version 2.2.0
 - raised minimal version of PHP to 7.3
 
 Version 2.1.0
