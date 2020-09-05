@@ -22,7 +22,7 @@
         "php": ">=7.3.0",
         "nette/utils": "^3.0",
         "nette/finder": "^2.5.2 ||  ^3.0",
-        "nexendrie/utils": "^1.6.1"
+        "nexendrie/utils": "^1.7"
     },
     "require-dev": {
         "ext-simplexml": "*",
