@@ -19,7 +19,7 @@
         "docs": "https://nexendrie.gitlab.io/translation"
     },
     "require": {
-        "php": ">=7.3.0",
+        "php": ">=7.4.0",
         "nette/utils": "^3.0",
         "nette/finder": "^2.5.2 ||  ^3.0",
         "nexendrie/utils": "^1.7",
