@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays;
-use Nette\Utils\Strings;
 use Nette\Localization\ITranslator;
 
 /**
@@ -54,7 +53,7 @@ final class Translator implements ITranslator {
    * @return string[]
    */
   protected function extractDomainAndMessage(string $message): array {
-    if(!Strings::contains($message, ".")) {
+    if(!str_contains($message, ".")) {
       return [static::DEFAULT_DOMAIN, $message];
     }
     return explode(".", $message, 2);
