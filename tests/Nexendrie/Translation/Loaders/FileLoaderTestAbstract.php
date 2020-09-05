@@ -28,19 +28,6 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::same("cs", $lang);
   }
   
-  public function testGetDefaultLang(): void {
-    $lang = $this->loader->defaultLang;
-    Assert::type("string", $lang);
-    Assert::same("en", $lang);
-  }
-  
-  public function testSetDefaultLang(): void {
-    $this->loader->defaultLang = "cs";
-    $lang = $this->loader->defaultLang;
-    Assert::type("string", $lang);
-    Assert::same("cs", $lang);
-  }
-  
   public function testGetFolders(): void {
     $folders = $this->loader->folders;
     Assert::type("array", $folders);

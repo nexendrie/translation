@@ -19,9 +19,8 @@ use Nexendrie\Translation\IFileLoader;
  * You need to define method parseFile() which processes individual file
  *
  * @author Jakub Konečný
- * @property string $defaultLang
  * @property string $lang
- * @property array $texts
+ * @property-read array $texts
  * @property string[] $folders
  * @property-read array $resources
  * @method void onLanguageChange(FileLoader $loader, string $oldLang, string $newLang)
@@ -34,7 +33,7 @@ abstract class FileLoader implements IFileLoader {
   protected const DOMAIN_MASK = "%domain%";
   protected const LANGUAGE_MASK = "%language%";
 
-  protected string $defaultLang = "en";
+  public string $defaultLang = "en";
   protected ?string $loadedLang = null;
   protected array $texts = [];
   protected array $folders = [];
@@ -55,11 +54,17 @@ abstract class FileLoader implements IFileLoader {
     $this->setFolders($folders);
     $this->resolver = $resolver ?? new ManualLocaleResolver();
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getLang(): string {
     return $this->resolver->resolve() ?? $this->defaultLang;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setLang(string $lang): void {
     if(is_a($this->resolver, ISettableLocaleResolver::class)) {
       $oldLang = $this->lang;
@@ -67,17 +72,24 @@ abstract class FileLoader implements IFileLoader {
       $this->onLanguageChange($this, $oldLang, $lang);
     }
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getDefaultLang(): string {
     return $this->defaultLang;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setDefaultLang(string $defaultLang): void {
     $this->defaultLang = $defaultLang;
   }
   
   /**
    * @return string[]
+   * @deprecated Access the property directly
    */
   public function getFolders(): array {
     return $this->folders;
@@ -86,6 +98,7 @@ abstract class FileLoader implements IFileLoader {
   /**
    * @param string[] $folders
    * @throws InvalidFolderException
+   * @deprecated Access the property directly
    */
   public function setFolders(array $folders): void {
     foreach($folders as $folder) {
@@ -102,7 +115,10 @@ abstract class FileLoader implements IFileLoader {
       $this->resources[$domain][] = $filename;
     }
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getResources(): array {
     return $this->resources;
   }
@@ -165,7 +181,10 @@ abstract class FileLoader implements IFileLoader {
     $this->loadedLang = $this->lang;
     $this->onLoad($this, $this->lang);
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getTexts(): array {
     $this->loadTexts();
     return $this->texts;

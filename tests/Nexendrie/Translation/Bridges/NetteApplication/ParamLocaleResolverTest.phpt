@@ -49,7 +49,6 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
 
   public function testCustomParamName() {
     $this->resolver->param = "language";
-    Assert::same("language", $this->resolver->param);
     $parameters = [
       "callback" => function() {
         return "";

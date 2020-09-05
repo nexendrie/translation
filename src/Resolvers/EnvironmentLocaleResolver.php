@@ -11,13 +11,15 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  *
  * @author Jakub Konečný
  * @property string|null $lang
- * @property string $varName
  */
 final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
 
-  protected string $varName = "TRANSLATOR_LANGUAGE";
-  
+  public string $varName = "TRANSLATOR_LANGUAGE";
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getLang(): ?string {
     $lang = getenv($this->varName);
     if(is_string($lang)) {
@@ -25,7 +27,10 @@ final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
     }
     return null;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setLang(?string $lang): void {
     if($lang === null) {
       putenv($this->varName);
@@ -33,11 +38,17 @@ final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
       putenv($this->varName . "=$lang");
     }
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getVarName(): string {
     return $this->varName;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setVarName(string $varName): void {
     $this->varName = $varName;
   }

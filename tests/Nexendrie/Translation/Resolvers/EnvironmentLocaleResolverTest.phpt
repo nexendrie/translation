@@ -28,7 +28,6 @@ final class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   
   public function testCustomVarName() {
     $oldValue = $this->resolver->varName;
-    Assert::type("string", $oldValue);
     $this->resolver->varName = "LANGUAGE";
     $this->resolver->lang = "cs";
     Assert::same("cs", $this->resolver->resolve());

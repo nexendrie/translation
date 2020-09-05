@@ -14,14 +14,13 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  *
  * @author Jakub Konečný
  * @property string|null $lang
- * @property string $varName
  */
 final class SessionLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
 
   protected Session $session;
   protected SessionSection $section;
-  protected string $varName = "lang";
+  public string $varName = "lang";
   
   public function __construct(Session $session = null) {
     if($session === null) {
@@ -32,7 +31,10 @@ final class SessionLocaleResolver implements ISettableLocaleResolver {
     $this->session = $session;
     $this->section = $session->getSection(get_class($this));
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getLang(): ?string {
     $lang = $this->section->{$this->varName};
     if(empty($lang)) {
@@ -40,15 +42,24 @@ final class SessionLocaleResolver implements ISettableLocaleResolver {
     }
     return $lang;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setLang(?string $lang): void {
     $this->section->{$this->varName} = $lang;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getVarName(): string {
     return $this->varName;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setVarName(string $varName): void {
     $this->varName = $varName;
   }

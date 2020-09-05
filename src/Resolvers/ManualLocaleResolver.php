@@ -10,23 +10,28 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * Allows you to manually specify current language
  *
  * @author Jakub Konečný
- * @property string|null $lang
  */
 final class ManualLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
 
-  protected ?string $lang = null;
-  
+  public ?string $lang = null;
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function getLang(): ?string {
     return $this->lang;
   }
-  
+
+  /**
+   * @deprecated Access the property directly
+   */
   public function setLang(?string $lang): void {
     $this->lang = $lang;
   }
   
   public function resolve(): ?string {
-    return $this->getLang();
+    return $this->lang;
   }
 }
 ?>
