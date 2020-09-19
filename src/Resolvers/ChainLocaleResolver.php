@@ -17,7 +17,8 @@ final class ChainLocaleResolver extends Collection implements ILocaleResolver {
   protected string $class = ILocaleResolver::class;
   
   public function resolve(): ?string {
-    foreach($this as $resolver) {
+    /** @var ILocaleResolver $resolver */
+    foreach($this->items as $resolver) {
       $lang = $resolver->resolve();
       if($lang !== null) {
         return $lang;
