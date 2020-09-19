@@ -36,6 +36,7 @@ abstract class FileLoader implements IFileLoader {
   public string $defaultLang = "en";
   protected ?string $loadedLang = null;
   protected array $texts = [];
+  /** @var string[] */
   protected array $folders = [];
   protected ILocaleResolver $resolver;
   protected array $resources = [];

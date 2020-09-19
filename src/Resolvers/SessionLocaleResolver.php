@@ -36,8 +36,8 @@ final class SessionLocaleResolver implements ISettableLocaleResolver {
    * @deprecated Access the property directly
    */
   public function getLang(): ?string {
-    $lang = $this->section->{$this->varName};
-    if(empty($lang)) {
+    $lang = (string) $this->section->{$this->varName};
+    if($lang === '') {
       return null;
     }
     return $lang;

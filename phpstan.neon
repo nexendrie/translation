@@ -2,7 +2,6 @@ includes:
     - vendor/nexendrie/code-quality/phpstan.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
+    universalObjectCratesClasses:
+        - Nette\Http\SessionSection
     ignoreErrors:
-        - '#Construct empty\(\) is not allowed. Use more strict comparison#'
-        - '#Variable property access on Nette\\Http\\SessionSection#'
-        - '#Parameter \#1 ...\$paths of method Nette\\Utils\\Finder::from\(\) expects array\<string\>\|string, array given#'
