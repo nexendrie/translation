@@ -62,7 +62,7 @@ final class TranslationExtension extends CompilerExtension {
   /** @internal */
   public const SERVICE_MESSAGE_SELECTOR = "messageSelector";
 
-  protected array $resolvers = [
+  private array $resolvers = [
     "environment" => EnvironmentLocaleResolver::class,
     "manual" => ManualLocaleResolver::class,
     "fallback" => FallbackLocaleResolver::class,
@@ -71,7 +71,7 @@ final class TranslationExtension extends CompilerExtension {
     "param" => ParamLocaleResolver::class
   ];
 
-  protected array $loaders = [
+  private array $loaders = [
     "neon" => NeonLoader::class,
     "ini" => IniLoader::class,
     "json" => JsonLoader::class,

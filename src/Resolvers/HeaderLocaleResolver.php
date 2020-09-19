@@ -17,8 +17,8 @@ use Nexendrie\Translation\ILoaderAwareLocaleResolver;
 final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
   use \Nette\SmartObject;
 
-  protected ?ILoader $loader = null;
-  protected IRequest $request;
+  private ?ILoader $loader = null;
+  private IRequest $request;
   
   public function __construct(IRequest $request = null) {
     if($request === null) {

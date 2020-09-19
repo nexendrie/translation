@@ -20,10 +20,10 @@ final class Translator implements ITranslator {
   /** @internal */
   public const DEFAULT_DOMAIN = "messages";
 
-  protected ILoader $loader;
-  protected IMessageSelector $messageSelector;
+  private ILoader $loader;
+  private IMessageSelector $messageSelector;
   /** @var string[] */
-  protected array $untranslated = [];
+  private array $untranslated = [];
   /** @var callable[] */
   public array $onUntranslated = [];
   

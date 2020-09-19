@@ -16,10 +16,10 @@ use Nette\Utils\FileSystem;
 final class CatalogueCompiler {
   use \Nette\SmartObject;
 
-  protected ILoader $loader;
+  private ILoader $loader;
   /** @var string[] */
-  protected array $languages = [];
-  protected string $folder = "";
+  private array $languages = [];
+  private string $folder = "";
   /** @var callable[] */
   public array $onCompile = [];
   
