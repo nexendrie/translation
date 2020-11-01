@@ -37,7 +37,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
   }
   
   public function testSetFolders(): void {
-    Assert::exception(function() {
+    Assert::exception(function(): void {
       $this->loader->folders = [""];
     }, InvalidFolderException::class, "Folder  does not exist.");
   }
@@ -108,7 +108,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
   }
   
   public function testNoFolder(): void {
-    Assert::exception(function() {
+    Assert::exception(function(): void {
       $class = get_class($this->loader);
       $this->loader = new $class();
       $this->loader->getTexts();
@@ -121,7 +121,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase {
     Assert::count(2, $result);
     Assert::contains("en", $result);
     Assert::contains("cs", $result);
-    Assert::exception(function() {
+    Assert::exception(function(): void {
       $class = get_class($this->loader);
       $this->loader = new $class();
       $this->loader->getAvailableLanguages();
