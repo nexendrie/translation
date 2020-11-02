@@ -106,7 +106,7 @@ final class Translator implements ITranslator {
       $text = $this->messageSelector->choose($text, $count);
     }
     foreach($params as $key => $value) {
-      $text = str_replace("%$key%", $value, $text);
+      $text = str_replace("%$key%", (string) $value, $text);
     }
     return $text;
   }
