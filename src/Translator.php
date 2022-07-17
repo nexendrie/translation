@@ -68,6 +68,7 @@ final class Translator implements ITranslator {
         break;
       }
     }
+    /** @var string $text */
     return $text;
   }
   
