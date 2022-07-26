@@ -264,7 +264,7 @@ final class TranslationExtension extends CompilerExtension {
   
   public function afterCompile(ClassType $class): void {
     $config = $this->getConfig();
-    $initialize = $class->methods["initialize"];
+    $initialize = $this->initialization;
     $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(static::SERVICE_TRANSLATOR)]);
     foreach($config->onUntranslated as &$task) {
       if(!is_array($task)) {

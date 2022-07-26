@@ -1,3 +1,6 @@
+Version 2.3.1+dev
+- fixed compatibility with nette/php-generator 4
+
 Version 2.3.1
 - fixed compatibility with PHP 8.0
 
