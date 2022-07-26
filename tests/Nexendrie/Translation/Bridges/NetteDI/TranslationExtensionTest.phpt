@@ -41,7 +41,6 @@ require __DIR__ . "/../../../../bootstrap.php";
 
 /**
  * @author Jakub Konečný
- * @testCase
  */
 final class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
