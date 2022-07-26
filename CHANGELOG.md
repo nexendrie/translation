@@ -1,4 +1,4 @@
-Version 2.3.1+dev
+Version 2.3.2
 - fixed compatibility with nette/php-generator 4
 
 Version 2.3.1
