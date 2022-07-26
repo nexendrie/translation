@@ -4,6 +4,5 @@ includes:
 parameters:
     universalObjectCratesClasses:
         - Nette\Http\SessionSection
-    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Parameter \#2 \$haystack of function in_array expects array, array\<string, string\>\|false given#'
