@@ -51,7 +51,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     rsort($langs);             // first more specific
     $pattern = ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#';
     preg_match_all('#(' . implode('|', $langs) . $pattern, $s, $matches);
-    if(!$matches[0]) {
+    if(!isset($matches[0])) {
       return null;
     }
     $max = 0;

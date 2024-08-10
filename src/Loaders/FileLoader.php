@@ -138,7 +138,7 @@ abstract class FileLoader implements IFileLoader {
     $defaultFilename = $this->getLanguageFilenameMask();
     $defaultFilename = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], [$name, $defaultLang, ], $defaultFilename);
     $files = Finder::findFiles($defaultFilename)
-      ->from($this->folders);
+      ->from(...$this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $default = $this->parseFile($file->getPathname());
@@ -172,7 +172,7 @@ abstract class FileLoader implements IFileLoader {
     $mask = $this->getLanguageFilenameMask();
     $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], ["*", $default, ], $mask);
     $files = Finder::findFiles($mask)
-      ->from($this->folders);
+      ->from(...$this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $domain = $file->getBasename((string) Strings::after($mask, "*"));
@@ -213,7 +213,7 @@ abstract class FileLoader implements IFileLoader {
     $mask = $this->getLanguageFilenameMask();
     $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK, ], "*", $mask);
     $files = Finder::findFiles($mask)
-      ->from($this->folders);
+      ->from(...$this->folders);
     /** @var \SplFileInfo $file */
     foreach($files as $file) {
       $filename = $file->getBasename(".$extension");
