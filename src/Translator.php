@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nexendrie\Translation;
 
 use Nette\Utils\Arrays;
-use Nette\Localization\ITranslator;
 
 /**
  * Translator
@@ -14,7 +13,7 @@ use Nette\Localization\ITranslator;
  * @property-read string[] $untranslated
  * @method void onUntranslated(string $message)
  */
-final class Translator implements ITranslator {
+final class Translator implements \Nette\Localization\Translator {
   use \Nette\SmartObject;
   
   /** @internal */
