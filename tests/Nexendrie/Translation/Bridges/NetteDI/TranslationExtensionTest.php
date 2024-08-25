@@ -41,7 +41,7 @@ require __DIR__ . "/../../../../bootstrap.php";
 
 /**
  * @author Jakub Konečný
- * @testCase
+ * This class cannot have @testCase annotation because for some reason it causes failures on PHP 8.0+
  */
 final class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
