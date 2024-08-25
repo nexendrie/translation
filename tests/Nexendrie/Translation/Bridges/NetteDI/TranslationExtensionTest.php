@@ -41,24 +41,25 @@ require __DIR__ . "/../../../../bootstrap.php";
 
 /**
  * @author Jakub Konečný
+ * @testCase
  */
 final class TranslationExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   public static array $messages = [];
   
-  protected function setUp() {
+  protected function setUp(): void {
     $this->refreshContainer();
   }
   
-  public function testTranslator() {
+  public function testTranslator(): void {
     /** @var Translator $translator */
     $translator = $this->getService(ITranslator::class);
     Assert::type(Translator::class, $translator);
     Assert::same("XYZ", $translator->translate("xyz"));
   }
   
-  public function testDefaultLoader() {
+  public function testDefaultLoader(): void {
     /** @var NeonLoader $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(NeonLoader::class, $loader);
@@ -71,18 +72,14 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
+    /** @var NeonLoader $loader */
     $loader = $this->getService(ILoader::class);
     Assert::type(NeonLoader::class, $loader);
     Assert::type("string", $loader->getDefaultLang());
     Assert::same("cs", $loader->getDefaultLang());
   }
-  
-  /**
-   * @param string $name
-   * @param string $class
-   * @return void
-   */
-  protected function customLoader(string $name, string $class) {
+
+  protected function customLoader(string $name, string $class): void {
     $config = [
       "translation" => [
         "loader" => [
@@ -96,7 +93,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type($class, $loader);
   }
   
-  public function testCustomLoader() {
+  public function testCustomLoader(): void {
     $this->customLoader("ini", IniLoader::class);
     $this->customLoader("json", JsonLoader::class);
     $this->customLoader("yaml", YamlLoader::class);
@@ -105,7 +102,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $this->customLoader(Loader::class, Loader::class);
   }
   
-  public function testInvalidLoader() {
+  public function testInvalidLoader(): void {
     $config = [
       "translation" => [
         "loader" => [
@@ -128,7 +125,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidLoaderException::class);
   }
   
-  public function testDefaultResolver() {
+  public function testDefaultResolver(): void {
     /** @var ChainLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
@@ -140,7 +137,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
    * @param string $class
    * @return void
    */
-  protected function customResolver(string $name, string $class) {
+  protected function customResolver(string $name, string $class): void {
     $config = [
       "translation" => [
         "localeResolver" => $name
@@ -152,7 +149,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type($class, $resolver);
   }
   
-  public function testCustomResolver() {
+  public function testCustomResolver(): void {
     $this->customResolver("environment", EnvironmentLocaleResolver::class);
     $this->customResolver("fallback", FallbackLocaleResolver::class);
     $this->customResolver("session", SessionLocaleResolver::class);
@@ -161,7 +158,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $this->customResolver(LocaleResolver::class, LocaleResolver::class);
   }
   
-  public function testInvalidResolver() {
+  public function testInvalidResolver(): void {
     $config = [
       "translation" => [
         "localeResolver" => "invalid"
@@ -180,7 +177,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidLocaleResolverException::class);
   }
   
-  public function testChainResolver() {
+  public function testChainResolver(): void {
     $config = [
       "translation" => [
         "localeResolver" => [
@@ -192,11 +189,15 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     /** @var ChainLocaleResolver $resolver */
     $resolver = $this->getService(ILocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
-    $resolver[1]->lang = "cs";
+    Assert::type(FallbackLocaleResolver::class, $resolver[0]);
+    Assert::type(EnvironmentLocaleResolver::class, $resolver[1]);
+    /** @var EnvironmentLocaleResolver $environmentResolver */
+    $environmentResolver = $resolver[1];
+    $environmentResolver->lang = "cs";
     Assert::same("cs", $resolver->resolve());
   }
   
-  public function testLoaderAwareResolver() {
+  public function testLoaderAwareResolver(): void {
     $config = [
       "translation" => [
         "localeResolver" => "header"
@@ -209,7 +210,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::null($resolver->resolve());
   }
   
-  public function testAppRequestAwareResolver() {
+  public function testAppRequestAwareResolver(): void {
     /** @var Application $application */
     $application = $this->getService(Application::class);
     $count = (is_null($application->onRequest) ? 0 : count($application->onRequest));
@@ -224,7 +225,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::count($count + 1, $application->onRequest);
   }
   
-  public function testInvalidFolder() {
+  public function testInvalidFolder(): void {
     $config = [
       "translation" => [
         "loader" => [
@@ -239,13 +240,13 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidFolderException::class);
   }
   
-  public function testDefaultMessageSelector() {
+  public function testDefaultMessageSelector(): void {
     /** @var MessageSelector $resolver */
     $resolver = $this->getService(IMessageSelector::class);
     Assert::type(MessageSelector::class, $resolver);
   }
   
-  public function testCustomMessageSelector() {
+  public function testCustomMessageSelector(): void {
     $config = [
       "translation" => [
         "messageSelector" => CustomMessageSelector::class
@@ -257,7 +258,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::type(CustomMessageSelector::class, $resolver);
   }
   
-  public function testInvalidMessageSelector() {
+  public function testInvalidMessageSelector(): void {
     $config = [
       "translation" => [
         "messageSelector" => \stdClass::class
@@ -268,7 +269,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, InvalidMessageSelectorException::class);
   }
   
-  public function testPanel() {
+  public function testPanel(): void {
     $panel = $this->getService(TranslationPanel::class);
     Assert::type(TranslationPanel::class, $panel);
     $panel = \Tracy\Debugger::getBar()->getPanel("translation");
@@ -285,7 +286,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     }, MissingServiceException::class);
   }
   
-  public function testCompiler() {
+  public function testCompiler(): void {
     $config = [
       "translation" => [
         "localeResolver" => "manual",
@@ -331,7 +332,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("param", $result);
   }
   
-  public function testCompilerWithLanguages() {
+  public function testCompilerWithLanguages(): void {
     $config = [
       "translation" => [
         "localeResolver" => "manual",
@@ -377,7 +378,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::same("param", $result);
   }
   
-  public function testTranslationProvider() {
+  public function testTranslationProvider(): void {
     $config = [
       "extensions" => [
         "provider" => ProviderExtension::class
@@ -389,7 +390,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     Assert::contains(__DIR__ . "/../../../../_temp", $loader->getFolders());
   }
   
-  public function testLatte() {
+  public function testLatte(): void {
     /** @var ILatteFactory $factory */
     $factory = $this->getService(ILatteFactory::class);
     $latte = $factory->create();
@@ -401,7 +402,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     static::$messages[] = $message;
   }
   
-  public function testOnUntranslated() {
+  public function testOnUntranslated(): void {
     $config = [
       "translation" => [
         "onUntranslated" => [

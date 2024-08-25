@@ -16,11 +16,11 @@ final class SessionLocaleResolverTest extends \Tester\TestCase {
 
   protected SessionLocaleResolver $resolver;
   
-  protected function setUp() {
+  protected function setUp(): void {
     $this->resolver = new SessionLocaleResolver();
   }
   
-  public function testResolver() {
+  public function testResolver(): void {
     Assert::null($this->resolver->resolve());
     $this->resolver->lang = "en";
     Assert::same("en", $this->resolver->resolve());
@@ -28,7 +28,7 @@ final class SessionLocaleResolverTest extends \Tester\TestCase {
     Assert::null($this->resolver->resolve());
   }
   
-  public function testCustomVarName() {
+  public function testCustomVarName(): void {
     $this->resolver->varName = "locale";
     $this->resolver->lang = "en";
     Assert::same("en", $this->resolver->resolve());

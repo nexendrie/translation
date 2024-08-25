@@ -25,7 +25,7 @@ final class HeaderLocaleResolverTest extends \Tester\TestCase {
     return new Request(new UrlScript(), null, null, null, $headers);
   }
   
-  public function testResolve() {
+  public function testResolve(): void {
     $resolver = new HeaderLocaleResolver();
     Assert::exception(function() use($resolver) {
       $resolver->resolve();

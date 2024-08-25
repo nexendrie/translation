@@ -17,14 +17,14 @@ require __DIR__ . "/../../bootstrap.php";
 final class TranslatorTest extends \Tester\TestCase {
   private Translator $translator;
   
-  public function setUp() {
+  public function setUp(): void {
     $loader = new Loaders\NeonLoader();
     $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
     $this->translator = new Translator($loader);
     $this->translator->onUntranslated[] = [$this->translator, "logUntranslatedMessage"];
   }
   
-  public function testTranslateEn() {
+  public function testTranslateEn(): void {
     Assert::count(0, $this->translator->untranslated);
     Assert::same("en", $this->translator->lang);
     // non-existing string
@@ -65,7 +65,7 @@ final class TranslatorTest extends \Tester\TestCase {
     Assert::count(5, $this->translator->untranslated);
   }
   
-  public function testTranslateCs() {
+  public function testTranslateCs(): void {
     Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "cs";
     Assert::same("cs", $this->translator->lang);
@@ -111,7 +111,7 @@ final class TranslatorTest extends \Tester\TestCase {
   /**
    * Test non-existing language
    */
-  public function testTranslateX() {
+  public function testTranslateX(): void {
     Assert::count(0, $this->translator->untranslated);
     $this->translator->lang = "x";
     Assert::same("x", $this->translator->lang);

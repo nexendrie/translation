@@ -18,17 +18,17 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
 
   protected ParamLocaleResolver $resolver;
   
-  protected function setUp() {
+  protected function setUp(): void {
     $config = [
       "translation" => [
         "localeResolver" => "param"
       ]
     ];
     $this->refreshContainer($config);
-    $this->resolver = $this->getService(ParamLocaleResolver::class);
+    $this->resolver = $this->getService(ParamLocaleResolver::class); // @phpstan-ignore assign.propertyType
   }
   
-  public function testResolve() {
+  public function testResolve(): void {
     $parameters = [
       "callback" => function() {
         return "";
@@ -47,7 +47,7 @@ final class ParamLocaleResolverTest extends \Tester\TestCase {
     Assert::same("en", $this->resolver->resolve());
   }
 
-  public function testCustomParamName() {
+  public function testCustomParamName(): void {
     $this->resolver->param = "language";
     $parameters = [
       "callback" => function() {

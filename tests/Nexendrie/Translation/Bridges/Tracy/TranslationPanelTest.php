@@ -17,11 +17,11 @@ final class TranslationPanelTest extends \Tester\TestCase {
 
   protected TranslationPanel $panel;
   
-  protected function setUp() {
-    $this->panel = $this->getService(TranslationPanel::class);
+  protected function setUp(): void {
+    $this->panel = $this->getService(TranslationPanel::class); // @phpstan-ignore assign.propertyType
   }
   
-  public function testGetTab() {
+  public function testGetTab(): void {
     $result = $this->panel->getTab();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement($result);
@@ -29,7 +29,7 @@ final class TranslationPanelTest extends \Tester\TestCase {
     Assert::contains("en", (string) $r);
   }
   
-  public function testGetPanel() {
+  public function testGetPanel(): void {
     $result = $this->panel->getPanel();
     Assert::type("string", $result);
     $r = new \SimpleXMLElement("<root>$result</root>");
@@ -60,7 +60,7 @@ final class TranslationPanelTest extends \Tester\TestCase {
     }
   }
   
-  public function testGetPanelResources() {
+  public function testGetPanelResources(): void {
     /** @var Translator $translator */
     $translator = $this->getService(Translator::class);
     $translator->translate("xyz");
@@ -71,7 +71,7 @@ final class TranslationPanelTest extends \Tester\TestCase {
     Assert::same("Untranslated messages: 0, loaded resources 2", $text);
   }
   
-  public function testGetPanelWithMessages() {
+  public function testGetPanelWithMessages(): void {
     /** @var Translator $translator */
     $translator = $this->getService(Translator::class);
     $translator->translate("abcd");

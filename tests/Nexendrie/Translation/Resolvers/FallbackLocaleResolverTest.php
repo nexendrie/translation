@@ -14,11 +14,11 @@ require __DIR__ . "/../../../bootstrap.php";
 final class FallbackLocaleResolverTest extends \Tester\TestCase {
   protected FallbackLocaleResolver $resolver;
   
-  protected function setUp() {
+  protected function setUp(): void {
     $this->resolver = new FallbackLocaleResolver();
   }
   
-  public function testResolve() {
+  public function testResolve(): void {
     $lang = $this->resolver->resolve();
     Assert::type("null", $lang);
   }

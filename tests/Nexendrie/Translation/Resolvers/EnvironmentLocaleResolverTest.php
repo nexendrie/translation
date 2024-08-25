@@ -14,11 +14,11 @@ require __DIR__ . "/../../../bootstrap.php";
 final class EnvironmentLocaleResolverTest extends \Tester\TestCase {
   protected EnvironmentLocaleResolver $resolver;
   
-  protected function setUp() {
+  protected function setUp(): void {
     $this->resolver = new EnvironmentLocaleResolver();
   }
   
-  public function testResolve() {
+  public function testResolve(): void {
     Assert::null($this->resolver->resolve());
     $this->resolver->lang = "cs";
     Assert::same("cs", $this->resolver->resolve());
@@ -26,7 +26,7 @@ final class EnvironmentLocaleResolverTest extends \Tester\TestCase {
     Assert::null($this->resolver->resolve());
   }
   
-  public function testCustomVarName() {
+  public function testCustomVarName(): void {
     $oldValue = $this->resolver->varName;
     $this->resolver->varName = "LANGUAGE";
     $this->resolver->lang = "cs";
