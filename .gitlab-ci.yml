@@ -14,10 +14,6 @@ before_script:
   script:
   - phing test
 
-test:php74:
-  <<: *test_job
-  image: nexendrie/php:7.4
-
 test:php8.0:
   <<: *test_job
   image: nexendrie/php:8.0
@@ -28,11 +24,11 @@ test:php8.1:
 
 test:cc:
   <<: *test_job
-  image: nexendrie/php:7.4
+  image: nexendrie/php:8.0
   coverage: '/(\d+\%) covered/'
 
 pages:
-  image: nexendrie/php:7.4
+  image: nexendrie/php:8.0
   stage: deploy
   environment:
     name: documentation

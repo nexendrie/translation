@@ -1,3 +1,6 @@
+Version 2.4.0-dev
+- raised minimal version of PHP to 8.0
+
 Version 2.3.2
 - fixed compatibility with nette/php-generator 4
 
