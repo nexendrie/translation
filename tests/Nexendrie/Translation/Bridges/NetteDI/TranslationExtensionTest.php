@@ -31,7 +31,7 @@ use Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nette\DI\MissingServiceException;
 use Tester\Assert;
 use Nette\Application\Application;
-use Nette\Bridges\ApplicationLatte\ILatteFactory;
+use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\IMessageSelector;
 use Nexendrie\Translation\MessageSelector;
 use Nexendrie\Translation\CustomMessageSelector;
@@ -391,8 +391,8 @@ final class TranslationExtensionTest extends \Tester\TestCase {
   }
   
   public function testLatte(): void {
-    /** @var ILatteFactory $factory */
-    $factory = $this->getService(ILatteFactory::class);
+    /** @var LatteFactory $factory */
+    $factory = $this->getService(LatteFactory::class);
     $latte = $factory->create();
     Assert::contains("translate", $latte->getFilters());
     Assert::true(array_key_exists("translator", $latte->getProviders()));

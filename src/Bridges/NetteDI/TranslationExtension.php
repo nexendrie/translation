@@ -31,7 +31,7 @@ use Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nexendrie\Translation\CatalogueCompiler;
 use Nette\Utils\Arrays;
 use Nette\Application\Application;
-use Nette\Bridges\ApplicationLatte\ILatteFactory;
+use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\ILoaderAwareLocaleResolver;
 use Nexendrie\Translation\IMessageSelector;
 use Nexendrie\Translation\MessageSelector;
@@ -253,7 +253,7 @@ final class TranslationExtension extends CompilerExtension {
       $builder->addDefinition($this->prefix(static::SERVICE_CATALOGUE_COMPILER))
         ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config->compiler["languages"]]);
     }
-    $latteFactoryService = $builder->getByType(ILatteFactory::class) ?? "latte.latteFactory";
+    $latteFactoryService = $builder->getByType(LatteFactory::class) ?? "latte.latteFactory";
     if($builder->hasDefinition($latteFactoryService)) {
       /** @var FactoryDefinition $latteFactory */
       $latteFactory = $builder->getDefinition($latteFactoryService);
