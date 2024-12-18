@@ -68,7 +68,7 @@ final class Translator implements \Nette\Localization\Translator {
       }
     }
     /** @var string $text */
-    return $text;
+    return $text; // @phpstan-ignore varTag.type
   }
   
   public function logUntranslatedMessage(string $message): void {

@@ -146,7 +146,7 @@ abstract class FileLoader implements IFileLoader {
       $lang = [];
       $filename = str_replace($defaultLang, $this->lang, $defaultFilename);
       $filename = str_replace($defaultFilename, $filename, $file->getPathname());
-      if($this->lang != $defaultLang && is_file($filename)) {
+      if($this->lang !== $defaultLang && is_file($filename)) {
         $lang = $this->parseFile($filename);
         $this->addResource($filename, $name);
       }
