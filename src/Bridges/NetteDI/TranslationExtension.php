@@ -269,7 +269,7 @@ final class TranslationExtension extends CompilerExtension {
     foreach($config->onUntranslated as &$task) {
       if(!is_array($task)) {
         $task = explode("::", $task);
-      } elseif(substr($task[0], 0, 1) === "@") {
+      } elseif(str_starts_with($task[0], "@")) {
         $initialize->addBody('$translator->onUntranslated[] = [$this->getService(?), ?];', [substr($task[0], 1), $task[1]]);
         continue;
       }

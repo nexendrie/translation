@@ -18,8 +18,8 @@ use Nexendrie\Translation\ISettableLocaleResolver;
 final class SessionLocaleResolver implements ISettableLocaleResolver {
   use \Nette\SmartObject;
 
-  private Session $session;
-  private SessionSection $section;
+  private readonly Session $session;
+  private readonly SessionSection $section;
   public string $varName = "lang";
   
   public function __construct(Session $session = null) {

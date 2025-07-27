@@ -38,7 +38,6 @@ abstract class FileLoader implements IFileLoader {
   protected array $texts = [];
   /** @var string[] */
   protected array $folders = [];
-  protected ILocaleResolver $resolver;
   protected array $resources = [];
   protected string $extension;
   /** @var callable[] */
@@ -51,9 +50,8 @@ abstract class FileLoader implements IFileLoader {
   /**
    * @param string[] $folders
    */
-  public function __construct(ILocaleResolver $resolver = null, array $folders = []) {
+  public function __construct(protected ILocaleResolver $resolver = new ManualLocaleResolver(), array $folders = []) {
     $this->setFolders($folders);
-    $this->resolver = $resolver ?? new ManualLocaleResolver();
   }
 
   /**

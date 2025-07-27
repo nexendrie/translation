@@ -13,12 +13,7 @@ use Tracy\IBarPanel;
  * @author Jakub Konečný
  */
 final class TranslationPanel implements IBarPanel {
-  private Translator $translator;
-  private ILoader $loader;
-  
-  public function __construct(Translator $translator, ILoader $loader) {
-    $this->translator = $translator;
-    $this->loader = $loader;
+  public function __construct(private readonly Translator $translator, private readonly ILoader $loader) {
   }
   
   public function getTab(): string {

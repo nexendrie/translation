@@ -16,23 +16,19 @@ use Nette\Utils\FileSystem;
 final class CatalogueCompiler {
   use \Nette\SmartObject;
 
-  private ILoader $loader;
   /** @var string[] */
-  private array $languages = [];
-  private string $folder = "";
+  private readonly array $languages;
   /** @var callable[] */
   public array $onCompile = [];
   
   /**
    * @param string[] $languages
    */
-  public function __construct(ILoader $loader, string $folder, array $languages = []) {
-    $this->loader = $loader;
+  public function __construct(private readonly ILoader $loader, private readonly string $folder, array $languages = []) {
     if(count($languages) === 0) {
       $languages = $loader->getAvailableLanguages();
     }
     $this->languages = $languages;
-    $this->folder = $folder;
   }
   
   protected function getCatalogueFilename(string $language): string {

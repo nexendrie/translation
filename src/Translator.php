@@ -19,16 +19,12 @@ final class Translator implements \Nette\Localization\Translator {
   /** @internal */
   public const DEFAULT_DOMAIN = "messages";
 
-  private ILoader $loader;
-  private IMessageSelector $messageSelector;
   /** @var string[] */
   private array $untranslated = [];
   /** @var callable[] */
   public array $onUntranslated = [];
   
-  public function __construct(ILoader $loader, IMessageSelector $messageSelector = null) {
-    $this->loader = $loader;
-    $this->messageSelector = $messageSelector ?? new MessageSelector();
+  public function __construct(private readonly ILoader $loader, private readonly IMessageSelector $messageSelector = new MessageSelector()) {
   }
   
   public function getLang(): string {
