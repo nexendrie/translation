@@ -3,20 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-/**
- * IFileLoader
- *
- * @author Jakub Konečný
- */
-interface IFileLoader extends ILoader {
-  /**
-   * @return string[]
-   */
-  public function getFolders(): array;
-
-  /**
-   * @param string[] $folders
-   */
-  public function setFolders(array $folders): void;
+if(false) { // @phpstan-ignore if.alwaysFalse
+  /** @deprecated Use FileLoader */
+  interface IFileLoader extends FileLoader {
+  }
+} elseif(!interface_exists(IFileLoader::class)) {
+  class_alias(FileLoader::class, IFileLoader::class);
 }
 ?>

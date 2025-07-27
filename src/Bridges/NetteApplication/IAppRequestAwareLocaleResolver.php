@@ -3,16 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteApplication;
 
-use Nexendrie\Translation\ILocaleResolver;
-use Nette\Application\Application;
-use Nette\Application\Request;
-
-/**
- * IAppRequestAwareLocaleResolver
- *
- * @author Jakub Konečný
- */
-interface IAppRequestAwareLocaleResolver extends ILocaleResolver {
-  public function onRequest(Application $application, Request $request): void;
+if(false) { // @phpstan-ignore if.alwaysFalse
+  /** @deprecated Use AppRequestAwareLocaleResolver */
+  interface IAppRequestAwareLocaleResolver extends AppRequestAwareLocaleResolver {
+  }
+} elseif(!interface_exists(IAppRequestAwareLocaleResolver::class)) {
+  class_alias(AppRequestAwareLocaleResolver::class, IAppRequestAwareLocaleResolver::class);
 }
 ?>

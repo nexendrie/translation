@@ -6,7 +6,7 @@ namespace Nexendrie\Translation\Resolvers;
 use Tester\Assert;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
-use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\LoaderNotSetException;
 
 require __DIR__ . "/../../../bootstrap.php";
@@ -30,8 +30,8 @@ final class HeaderLocaleResolverTest extends \Tester\TestCase {
     Assert::exception(function() use($resolver) {
       $resolver->resolve();
     }, LoaderNotSetException::class);
-    /** @var ILoader $loader */
-    $loader = $this->getService(ILoader::class);
+    /** @var Loader $loader */
+    $loader = $this->getService(Loader::class);
     $resolver->setLoader($loader);
     Assert::null($resolver->resolve());
     $resolver = new HeaderLocaleResolver($this->prepareRequest("zh"));

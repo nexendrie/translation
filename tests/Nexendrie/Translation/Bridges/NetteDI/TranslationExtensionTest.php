@@ -5,7 +5,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Nette\Localization\ITranslator;
 use Nexendrie\Translation\Translator;
-use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\Loaders\FileLoader;
 use Nexendrie\Translation\Loaders\NeonLoader;
 use Nexendrie\Translation\Loaders\IniLoader;
@@ -13,12 +13,10 @@ use Nexendrie\Translation\Loaders\JsonLoader;
 use Nexendrie\Translation\Loaders\YamlLoader;
 use Nexendrie\Translation\Loaders\PhpLoader;
 use Nexendrie\Translation\Loaders\MessagesCatalogue;
-use Nexendrie\Translation\Loaders\Loader;
-use Nexendrie\Translation\ILocaleResolver;
-use Nexendrie\Translation\ILoaderAwareLocaleResolver;
+use Nexendrie\Translation\LocaleResolver;
+use Nexendrie\Translation\LoaderAwareLocaleResolver;
 use Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver;
 use Nexendrie\Translation\Resolvers\FallbackLocaleResolver;
-use Nexendrie\Translation\Resolvers\LocaleResolver;
 use Nexendrie\Translation\Resolvers\ChainLocaleResolver;
 use Nexendrie\Translation\Resolvers\SessionLocaleResolver;
 use Nexendrie\Translation\Resolvers\HeaderLocaleResolver;
@@ -61,7 +59,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
   
   public function testDefaultLoader(): void {
     /** @var NeonLoader $loader */
-    $loader = $this->getService(ILoader::class);
+    $loader = $this->getService(Loader::class);
     Assert::type(NeonLoader::class, $loader);
     Assert::type("string", $loader->getDefaultLang());
     Assert::same("en", $loader->getDefaultLang());
@@ -73,7 +71,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     ];
     $this->refreshContainer($config);
     /** @var NeonLoader $loader */
-    $loader = $this->getService(ILoader::class);
+    $loader = $this->getService(Loader::class);
     Assert::type(NeonLoader::class, $loader);
     Assert::type("string", $loader->getDefaultLang());
     Assert::same("cs", $loader->getDefaultLang());
@@ -88,8 +86,8 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
-    $loader = $this->getService(ILoader::class);
-    /** @var ILoader $loader */
+    $loader = $this->getService(Loader::class);
+    /** @var Loader $loader */
     Assert::type($class, $loader);
   }
   
@@ -99,7 +97,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $this->customLoader("yaml", YamlLoader::class);
     $this->customLoader("php", PhpLoader::class);
     $this->customLoader("catalogue", MessagesCatalogue::class);
-    $this->customLoader(Loader::class, Loader::class);
+    $this->customLoader(\Nexendrie\Translation\Loaders\Loader::class, \Nexendrie\Translation\Loaders\Loader::class);
   }
   
   public function testInvalidLoader(): void {
@@ -127,7 +125,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
   
   public function testDefaultResolver(): void {
     /** @var ChainLocaleResolver $resolver */
-    $resolver = $this->getService(ILocaleResolver::class);
+    $resolver = $this->getService(LocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
     Assert::null($resolver->resolve());
   }
@@ -144,8 +142,8 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
-    $resolver = $this->getService(ILocaleResolver::class);
-    /** @var ILocaleResolver $resolver */
+    $resolver = $this->getService(LocaleResolver::class);
+    /** @var LocaleResolver $resolver */
     Assert::type($class, $resolver);
   }
   
@@ -155,7 +153,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $this->customResolver("session", SessionLocaleResolver::class);
     $this->customResolver("header", HeaderLocaleResolver::class);
     $this->customResolver("param", ParamLocaleResolver::class);
-    $this->customResolver(LocaleResolver::class, LocaleResolver::class);
+    $this->customResolver(\Nexendrie\Translation\Resolvers\LocaleResolver::class, \Nexendrie\Translation\Resolvers\LocaleResolver::class);
   }
   
   public function testInvalidResolver(): void {
@@ -187,7 +185,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     ];
     $this->refreshContainer($config);
     /** @var ChainLocaleResolver $resolver */
-    $resolver = $this->getService(ILocaleResolver::class);
+    $resolver = $this->getService(LocaleResolver::class);
     Assert::type(ChainLocaleResolver::class, $resolver);
     Assert::type(FallbackLocaleResolver::class, $resolver[0]);
     Assert::type(EnvironmentLocaleResolver::class, $resolver[1]);
@@ -205,8 +203,8 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     ];
     $this->refreshContainer($config);
     /** @var HeaderLocaleResolver $resolver */
-    $resolver = $this->getService(ILocaleResolver::class);
-    Assert::type(ILoaderAwareLocaleResolver::class, $resolver);
+    $resolver = $this->getService(LocaleResolver::class);
+    Assert::type(LoaderAwareLocaleResolver::class, $resolver);
     Assert::null($resolver->resolve());
   }
   
@@ -303,7 +301,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     ];
     $this->refreshContainer($config);
     /** @var MessagesCatalogue $loader */
-    $loader = $this->getService(ILoader::class);
+    $loader = $this->getService(Loader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
     $originalLoader = $this->getContainer()
@@ -348,8 +346,8 @@ final class TranslationExtensionTest extends \Tester\TestCase {
       ]
     ];
     $this->refreshContainer($config);
-    /** @var ILoader $loader */
-    $loader = $this->getService(ILoader::class);
+    /** @var Loader $loader */
+    $loader = $this->getService(Loader::class);
     Assert::type(MessagesCatalogue::class, $loader);
     /** @var NeonLoader $originalLoader */
     $originalLoader = $this->getContainer()

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\Tracy;
 
-use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\Translator;
 use Tracy\IBarPanel;
 
@@ -13,7 +13,7 @@ use Tracy\IBarPanel;
  * @author Jakub Konečný
  */
 final class TranslationPanel implements IBarPanel {
-  public function __construct(private readonly Translator $translator, private readonly ILoader $loader) {
+  public function __construct(private readonly Translator $translator, private readonly Loader $loader) {
   }
   
   public function getTab(): string {

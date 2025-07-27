@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\ILocaleResolver;
+use Nexendrie\Translation\LocaleResolver;
 
 /**
  * FallbackLocaleResolver
@@ -12,7 +12,7 @@ use Nexendrie\Translation\ILocaleResolver;
  *
  * @author Jakub Konečný
  */
-final class FallbackLocaleResolver implements ILocaleResolver {
+final class FallbackLocaleResolver implements LocaleResolver {
   use \Nette\SmartObject;
   
   /**

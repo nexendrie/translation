@@ -24,7 +24,7 @@ final class Translator implements \Nette\Localization\Translator {
   /** @var callable[] */
   public array $onUntranslated = [];
   
-  public function __construct(private readonly ILoader $loader, private readonly IMessageSelector $messageSelector = new MessageSelector()) {
+  public function __construct(private readonly Loader $loader, private readonly IMessageSelector $messageSelector = new MessageSelector()) {
   }
    /**
    * @deprecated Access the property directly

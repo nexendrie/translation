@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-/**
- * ISettableLocaleResolver
- *
- * @author Jakub Konečný
- */
-interface ISettableLocaleResolver extends ILocaleResolver {
-  public function setLang(string $lang): void;
+if(false) { // @phpstan-ignore if.alwaysFalse
+  /** @deprecated Use SettableLocaleResolver */
+  interface ISettableLocaleResolver extends SettableLocaleResolver {
+  }
+} elseif(!interface_exists(ISettableLocaleResolver::class)) {
+  class_alias(SettableLocaleResolver::class, ISettableLocaleResolver::class);
 }
 ?>

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\ISettableLocaleResolver;
+use Nexendrie\Translation\SettableLocaleResolver;
 
 /**
  * EnvironmentResolver
@@ -12,7 +12,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * @author Jakub Konečný
  * @property string|null $lang
  */
-final class EnvironmentLocaleResolver implements ISettableLocaleResolver {
+final class EnvironmentLocaleResolver implements SettableLocaleResolver {
   use \Nette\SmartObject;
 
   public string $varName = "TRANSLATOR_LANGUAGE";

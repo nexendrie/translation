@@ -6,8 +6,8 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\FactoryDefinition;
 use Nette\PhpGenerator\ClassType;
-use Nexendrie\Translation\ILocaleResolver;
-use Nexendrie\Translation\Bridges\NetteApplication\IAppRequestAwareLocaleResolver;
+use Nexendrie\Translation\LocaleResolver;
+use Nexendrie\Translation\Bridges\NetteApplication\AppRequestAwareLocaleResolver;
 use Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 use Nexendrie\Translation\Resolvers\FallbackLocaleResolver;
@@ -16,8 +16,8 @@ use Nexendrie\Translation\Resolvers\SessionLocaleResolver;
 use Nexendrie\Translation\Resolvers\HeaderLocaleResolver;
 use Nexendrie\Translation\Bridges\NetteApplication\ParamLocaleResolver;
 use Nexendrie\Translation\Translator;
-use Nexendrie\Translation\ILoader;
-use Nexendrie\Translation\IFileLoader;
+use Nexendrie\Translation\Loader;
+use Nexendrie\Translation\FileLoader;
 use Nexendrie\Translation\Loaders\NeonLoader;
 use Nexendrie\Translation\Loaders\IniLoader;
 use Nexendrie\Translation\Loaders\JsonLoader;
@@ -32,7 +32,7 @@ use Nexendrie\Translation\CatalogueCompiler;
 use Nette\Utils\Arrays;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
-use Nexendrie\Translation\ILoaderAwareLocaleResolver;
+use Nexendrie\Translation\LoaderAwareLocaleResolver;
 use Nexendrie\Translation\IMessageSelector;
 use Nexendrie\Translation\MessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
@@ -116,7 +116,7 @@ final class TranslationExtension extends CompilerExtension {
       $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
       if($resolver !== "") {
         $return[] = $resolver;
-      } elseif(class_exists($resolverName) && is_subclass_of($resolverName, ILocaleResolver::class)) {
+      } elseif(class_exists($resolverName) && is_subclass_of($resolverName, LocaleResolver::class)) {
         $return[] = $resolverName;
       } else {
         throw new InvalidLocaleResolverException("Invalid locale resolver $resolverName.");
@@ -135,7 +135,7 @@ final class TranslationExtension extends CompilerExtension {
     $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
     if($loader !== "") {
       return $loader;
-    } elseif(class_exists($loaderName) && is_subclass_of($loaderName, ILoader::class)) {
+    } elseif(class_exists($loaderName) && is_subclass_of($loaderName, Loader::class)) {
       return $loaderName;
     }
     throw new InvalidLoaderException("Invalid translation loader $loaderName.");
@@ -148,8 +148,8 @@ final class TranslationExtension extends CompilerExtension {
   private function getFolders(): array {
     $config = $this->getConfig();
     $folders = $config->loader["folders"];
-    /** @var ITranslationProvider $extension */
-    foreach($this->compiler->getExtensions(ITranslationProvider::class) as $extension) {
+    /** @var TranslationProvider $extension */
+    foreach($this->compiler->getExtensions(TranslationProvider::class) as $extension) {
       $folders = array_merge($folders, array_values($extension->getTranslationResources()));
     }
     foreach($folders as $folder) {
@@ -221,7 +221,7 @@ final class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig();
     /** @var ServiceDefinition $loader */
     $loader = $builder->getDefinition($this->prefix(self::SERVICE_LOADER));
-    if(in_array(IFileLoader::class, class_implements((string) $loader->class), true)) {
+    if(in_array(FileLoader::class, class_implements((string) $loader->class), true)) {
       $folders = $this->getFolders();
       $loader->addSetup("setFolders", [$folders]);
       foreach($folders as $folder) {
@@ -230,7 +230,7 @@ final class TranslationExtension extends CompilerExtension {
     }
     /** @var ServiceDefinition $resolver */
     $resolver = $builder->getDefinition($this->prefix(self::SERVICE_LOCALE_RESOLVER));
-    if(in_array(IAppRequestAwareLocaleResolver::class, class_implements((string) $resolver->class), true)) {
+    if(in_array(AppRequestAwareLocaleResolver::class, class_implements((string) $resolver->class), true)) {
       $applicationService = $builder->getByType(Application::class) ?? "application";
       if($builder->hasDefinition($applicationService)) {
         /** @var ServiceDefinition $application */
@@ -276,7 +276,7 @@ final class TranslationExtension extends CompilerExtension {
       $initialize->addBody('$translator->onUntranslated[] = [?, ?];', [$task[0], $task[1]]);
     }
     $initialize->addBody('$resolvers = $this->findByType(?);
-foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [ILoaderAwareLocaleResolver::class, $this->prefix(self::SERVICE_LOADER)]);
+foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [LoaderAwareLocaleResolver::class, $this->prefix(self::SERVICE_LOADER)]);
     if($config->compiler["enabled"]) {
       $initialize->addBody('$this->getService(?)->compile();', [$this->prefix(self::SERVICE_CATALOGUE_COMPILER)]);
     }

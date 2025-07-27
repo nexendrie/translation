@@ -5,13 +5,12 @@ namespace Nexendrie\Translation\Loaders;
 
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
-use Nexendrie\Translation\ILocaleResolver;
+use Nexendrie\Translation\LocaleResolver;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
-use Nexendrie\Translation\ISettableLocaleResolver;
+use Nexendrie\Translation\SettableLocaleResolver;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 use Nette\Utils\Arrays;
-use Nexendrie\Translation\IFileLoader;
 
 /**
  * Generic file translations loader
@@ -27,7 +26,7 @@ use Nexendrie\Translation\IFileLoader;
  * @method void onFoldersChange(FileLoader $loader, string[] $folders)
  * @method void onLoad(FileLoader $loader, string $lang)
  */
-abstract class FileLoader implements IFileLoader {
+abstract class FileLoader implements \Nexendrie\Translation\FileLoader {
   use \Nette\SmartObject;
 
   protected const DOMAIN_MASK = "%domain%";
@@ -50,7 +49,7 @@ abstract class FileLoader implements IFileLoader {
   /**
    * @param string[] $folders
    */
-  public function __construct(protected ILocaleResolver $resolver = new ManualLocaleResolver(), array $folders = []) {
+  public function __construct(protected LocaleResolver $resolver = new ManualLocaleResolver(), array $folders = []) {
     $this->setFolders($folders);
   }
 
@@ -65,7 +64,7 @@ abstract class FileLoader implements IFileLoader {
    * @deprecated Access the property directly
    */
   public function setLang(string $lang): void {
-    if(is_a($this->resolver, ISettableLocaleResolver::class)) {
+    if(is_a($this->resolver, SettableLocaleResolver::class)) {
       $oldLang = $this->lang;
       $this->resolver->setLang($lang);
       $this->onLanguageChange($this, $oldLang, $lang);

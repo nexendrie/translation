@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\ILocaleResolver;
-
 /**
  * LocaleResolver
  *
  * @author Jakub Konečný
  */
-final class LocaleResolver implements ILocaleResolver {
+final class LocaleResolver implements \Nexendrie\Translation\LocaleResolver {
   use \Nette\SmartObject;
 
   /**

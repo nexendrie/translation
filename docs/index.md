@@ -54,12 +54,12 @@ You can divide your texts to domains, if you do not specify any, "messages" is a
 Loaders
 -----------
 
-The translator is not responsible for loading texts, this task is delegated to a loader. This library contains a good number of default loaders but you can write your own one by implementing the Nexendrie\Translation\ILoader interface. While the interface has methods getLang and setLang, it is a good idea to let a locale resolve handle resolving/changing the language.
+The translator is not responsible for loading texts, this task is delegated to a loader. This library contains a good number of default loaders but you can write your own one by implementing the Nexendrie\Translation\Loader interface. While the interface has methods getLang and setLang, it is a good idea to let a locale resolve handle resolving/changing the language.
 
 Resolvers
 -------------
 
-A locale resolver has to implement Nexendrie\Translation\ILocaleResolver interface which has just 1 method resolve. It should return a string which represents current language or NULL if it could not resolve language. It that case, default language is used.
+A locale resolver has to implement Nexendrie\Translation\LocaleResolver interface which has just 1 method resolve. It should return a string which represents current language or NULL if it could not resolve language. It that case, default language is used.
 
 Default loaders
 ---------------

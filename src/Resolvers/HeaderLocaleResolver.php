@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Nexendrie\Translation\ILoader;
+use Nexendrie\Translation\Loader;
 use Nette\Http\IRequest;
 use Nexendrie\Translation\LoaderNotSetException;
 use Nette\Http\RequestFactory;
-use Nexendrie\Translation\ILoaderAwareLocaleResolver;
+use Nexendrie\Translation\LoaderAwareLocaleResolver;
 
 /**
  * HeaderLocaleResolver
  *
  * @author Jakub Konečný
  */
-final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
+final class HeaderLocaleResolver implements LoaderAwareLocaleResolver {
   use \Nette\SmartObject;
 
-  private ?ILoader $loader = null;
+  private ?Loader $loader = null;
   private IRequest $request;
   
   public function __construct(IRequest $request = null) {
@@ -27,7 +27,7 @@ final class HeaderLocaleResolver implements ILoaderAwareLocaleResolver {
     $this->request = $request;
   }
   
-  public function setLoader(ILoader $loader): void {
+  public function setLoader(Loader $loader): void {
     $this->loader = $loader;
   }
   

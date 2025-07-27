@@ -7,7 +7,7 @@ use Nette\Http\Session;
 use Nette\Http\SessionSection;
 use Nette\Http\RequestFactory;
 use Nette\Http\Response;
-use Nexendrie\Translation\ISettableLocaleResolver;
+use Nexendrie\Translation\SettableLocaleResolver;
 
 /**
  * SessionLocaleResolver
@@ -15,7 +15,7 @@ use Nexendrie\Translation\ISettableLocaleResolver;
  * @author Jakub Konečný
  * @property string|null $lang
  */
-final class SessionLocaleResolver implements ISettableLocaleResolver {
+final class SessionLocaleResolver implements SettableLocaleResolver {
   use \Nette\SmartObject;
 
   private readonly Session $session;

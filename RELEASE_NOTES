@@ -2,4 +2,6 @@ A new version of Translation is out. It requires PHP 8.1 and uses some of its ne
 
 Once again, some getters were deprecated. We want to make getters and setters generally protected and/or internal in next major version (or preferably use property hooks on PHP 8.4).
 
+We are removing prefix I from interfaces' names, the previous names are deprecated and will work until next major version. The only exception is IMessageSelector for which there is no version without the prefix.
+
 For complete list of changes since previous version, see CHANGELOG.md.

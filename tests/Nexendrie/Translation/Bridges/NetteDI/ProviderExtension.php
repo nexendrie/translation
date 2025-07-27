@@ -10,7 +10,7 @@ use Nette\DI\CompilerExtension;
  *
  * @author Jakub Konečný
  */
-final class ProviderExtension extends CompilerExtension implements ITranslationProvider {
+final class ProviderExtension extends CompilerExtension implements TranslationProvider {
   /**
    * @return string[]
    */

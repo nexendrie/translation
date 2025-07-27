@@ -11,7 +11,7 @@ use Nette\Application\Request;
  *
  * @author Jakub Konečný
  */
-final class ParamLocaleResolver implements IAppRequestAwareLocaleResolver {
+final class ParamLocaleResolver implements AppRequestAwareLocaleResolver {
   use \Nette\SmartObject;
 
   private ?Request $request = null;

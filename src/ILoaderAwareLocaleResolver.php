@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-/**
- * ILoaderAwareLocaleResolver
- *
- * @author Jakub Konečný
- */
-interface ILoaderAwareLocaleResolver extends ILocaleResolver {
-  public function setLoader(ILoader $loader): void;
+if(false) { // @phpstan-ignore if.alwaysFalse
+  /** @deprecated Use LoaderAwareLocaleResolver */
+  interface ILoaderAwareLocaleResolver extends LoaderAwareLocaleResolver {
+  }
+} elseif(!interface_exists(ILoaderAwareLocaleResolver::class)) {
+  class_alias(LoaderAwareLocaleResolver::class, ILoaderAwareLocaleResolver::class);
 }
 ?>

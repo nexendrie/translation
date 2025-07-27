@@ -24,7 +24,7 @@ final class CatalogueCompiler {
   /**
    * @param string[] $languages
    */
-  public function __construct(private readonly ILoader $loader, private readonly string $folder, array $languages = []) {
+  public function __construct(private readonly Loader $loader, private readonly string $folder, array $languages = []) {
     if(count($languages) === 0) {
       $languages = $loader->getAvailableLanguages();
     }

@@ -3,17 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
-/**
- * ITranslationProvider
- *
- * @author Jakub Konečný
- */
-interface ITranslationProvider {
-  /**
-   * Return list of folders that contains translations
-   *
-   * @return string[]
-   */
-  public function getTranslationResources(): array;
+if(false) { // @phpstan-ignore if.alwaysFalse
+  /** @deprecated Use TranslationProvider */
+  interface ITranslationProvider extends TranslationProvider {
+  }
+} elseif(!interface_exists(ITranslationProvider::class)) {
+  class_alias(TranslationProvider::class, ITranslationProvider::class);
 }
 ?>
