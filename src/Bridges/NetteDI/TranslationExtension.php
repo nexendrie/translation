@@ -91,7 +91,7 @@ final class TranslationExtension extends CompilerExtension {
         "folders" => Expect::array()->default([Helpers::expand("%appDir%/lang", $params)]),
       ])->castTo("array"),
       "onUntranslated" => Expect::array()->default([
-        ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "logUntranslatedMessage"]
+        ["@" . $this->prefix(self::SERVICE_TRANSLATOR), "logUntranslatedMessage"]
       ]),
       "compiler" => Expect::structure([
         "enabled" => Expect::bool(false),
@@ -105,7 +105,7 @@ final class TranslationExtension extends CompilerExtension {
    * @return string[]
    * @throws InvalidLocaleResolverException
    */
-  protected function resolveResolverClass(): array {
+  private function resolveResolverClass(): array {
     $config = $this->getConfig();
     $return = [];
     $resolvers = $config->localeResolver;
@@ -128,7 +128,7 @@ final class TranslationExtension extends CompilerExtension {
   /**
    * @throws InvalidLoaderException
    */
-  protected function resolveLoaderClass(): string {
+  private function resolveLoaderClass(): string {
     $config = $this->getConfig();
     /** @var string $loaderName */
     $loaderName = $config->loader["name"];
@@ -145,7 +145,7 @@ final class TranslationExtension extends CompilerExtension {
    * @return string[]
    * @throws InvalidFolderException
    */
-  protected function getFolders(): array {
+  private function getFolders(): array {
     $config = $this->getConfig();
     $folders = $config->loader["folders"];
     /** @var ITranslationProvider $extension */
@@ -163,7 +163,7 @@ final class TranslationExtension extends CompilerExtension {
   /**
    * @throws InvalidMessageSelectorException
    */
-  protected function resolveMessageSelector(): string {
+  private function resolveMessageSelector(): string {
     $config = $this->getConfig();
     /** @var string $messageSelector */
     $messageSelector = $config->messageSelector;
@@ -183,19 +183,19 @@ final class TranslationExtension extends CompilerExtension {
     $config = $this->getConfig();
     $resolvers = $this->resolveResolverClass();
     $loader = $this->resolveLoaderClass();
-    $builder->addDefinition($this->prefix(static::SERVICE_TRANSLATOR))
+    $builder->addDefinition($this->prefix(self::SERVICE_TRANSLATOR))
       ->setType(Translator::class);
-    $builder->addDefinition($this->prefix(static::SERVICE_LOADER))
+    $builder->addDefinition($this->prefix(self::SERVICE_LOADER))
       ->setType($loader)
       ->addSetup("setDefaultLang", [$config->default]);
     $messageSelector = $this->resolveMessageSelector();
-    $builder->addDefinition($this->prefix(static::SERVICE_MESSAGE_SELECTOR))
+    $builder->addDefinition($this->prefix(self::SERVICE_MESSAGE_SELECTOR))
       ->setType($messageSelector);
     if(count($resolvers) === 1) {
-      $builder->addDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER))
+      $builder->addDefinition($this->prefix(self::SERVICE_LOCALE_RESOLVER))
         ->setType($resolvers[0]);
     } else {
-      $chainResolver = $builder->addDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER))
+      $chainResolver = $builder->addDefinition($this->prefix(self::SERVICE_LOCALE_RESOLVER))
         ->setType(ChainLocaleResolver::class);
       foreach($resolvers as $index => $resolver) {
         $resolverService = $builder->addDefinition($this->prefix("resolver.$index"))
@@ -205,11 +205,11 @@ final class TranslationExtension extends CompilerExtension {
       }
     }
     if($config->debugger && interface_exists(\Tracy\IBarPanel::class)) {
-      $builder->addDefinition($this->prefix(static::SERVICE_PANEL))
+      $builder->addDefinition($this->prefix(self::SERVICE_PANEL))
         ->setType(TranslationPanel::class);
       /** @var ServiceDefinition $tracy */
       $tracy = $builder->getDefinition("tracy.bar");
-      $tracy->addSetup("addPanel", ["@" . $this->prefix(static::SERVICE_PANEL), "translation"]);
+      $tracy->addSetup("addPanel", ["@" . $this->prefix(self::SERVICE_PANEL), "translation"]);
     }
   }
   
@@ -220,7 +220,7 @@ final class TranslationExtension extends CompilerExtension {
     $builder = $this->getContainerBuilder();
     $config = $this->getConfig();
     /** @var ServiceDefinition $loader */
-    $loader = $builder->getDefinition($this->prefix(static::SERVICE_LOADER));
+    $loader = $builder->getDefinition($this->prefix(self::SERVICE_LOADER));
     if(in_array(IFileLoader::class, class_implements((string) $loader->class), true)) {
       $folders = $this->getFolders();
       $loader->addSetup("setFolders", [$folders]);
@@ -229,7 +229,7 @@ final class TranslationExtension extends CompilerExtension {
       }
     }
     /** @var ServiceDefinition $resolver */
-    $resolver = $builder->getDefinition($this->prefix(static::SERVICE_LOCALE_RESOLVER));
+    $resolver = $builder->getDefinition($this->prefix(self::SERVICE_LOCALE_RESOLVER));
     if(in_array(IAppRequestAwareLocaleResolver::class, class_implements((string) $resolver->class), true)) {
       $applicationService = $builder->getByType(Application::class) ?? "application";
       if($builder->hasDefinition($applicationService)) {
@@ -239,10 +239,10 @@ final class TranslationExtension extends CompilerExtension {
       }
     }
     if($config->compiler["enabled"]) {
-      $serviceName = $this->prefix(static::SERVICE_LOADER);
+      $serviceName = $this->prefix(self::SERVICE_LOADER);
       /** @var ServiceDefinition $loader */
       $loader = $builder->getDefinition($serviceName);
-      $builder->addDefinition($this->prefix(static::SERVICE_ORIGINAL_LOADER))
+      $builder->addDefinition($this->prefix(self::SERVICE_ORIGINAL_LOADER))
         ->setFactory((string) $loader->class, [new ManualLocaleResolver(), $config->loader["folders"]])
         ->addSetup("setDefaultLang", [$config->default])
         ->setAutowired(false);
@@ -250,22 +250,22 @@ final class TranslationExtension extends CompilerExtension {
       $loader->setFactory(MessagesCatalogue::class);
       $loader->setType(MessagesCatalogue::class);
       $loader->addSetup("setFolders", [[$folder]]);
-      $builder->addDefinition($this->prefix(static::SERVICE_CATALOGUE_COMPILER))
+      $builder->addDefinition($this->prefix(self::SERVICE_CATALOGUE_COMPILER))
         ->setFactory(CatalogueCompiler::class, [$loader, $folder, $config->compiler["languages"]]);
     }
     $latteFactoryService = $builder->getByType(LatteFactory::class) ?? "latte.latteFactory";
     if($builder->hasDefinition($latteFactoryService)) {
       /** @var FactoryDefinition $latteFactory */
       $latteFactory = $builder->getDefinition($latteFactoryService);
-      $latteFactory->getResultDefinition()->addSetup("addFilter", ["translate", ["@" . $this->prefix(static::SERVICE_TRANSLATOR), "translate"]]);
-      $latteFactory->getResultDefinition()->addSetup("addProvider", ["translator", "@" . $this->prefix(static::SERVICE_TRANSLATOR)]);
+      $latteFactory->getResultDefinition()->addSetup("addFilter", ["translate", ["@" . $this->prefix(self::SERVICE_TRANSLATOR), "translate"]]);
+      $latteFactory->getResultDefinition()->addSetup("addProvider", ["translator", "@" . $this->prefix(self::SERVICE_TRANSLATOR)]);
     }
   }
   
   public function afterCompile(ClassType $class): void {
     $config = $this->getConfig();
     $initialize = $this->initialization;
-    $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(static::SERVICE_TRANSLATOR)]);
+    $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(self::SERVICE_TRANSLATOR)]);
     foreach($config->onUntranslated as &$task) {
       if(!is_array($task)) {
         $task = explode("::", $task);
@@ -276,9 +276,9 @@ final class TranslationExtension extends CompilerExtension {
       $initialize->addBody('$translator->onUntranslated[] = [?, ?];', [$task[0], $task[1]]);
     }
     $initialize->addBody('$resolvers = $this->findByType(?);
-foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [ILoaderAwareLocaleResolver::class, $this->prefix(static::SERVICE_LOADER)]);
+foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [ILoaderAwareLocaleResolver::class, $this->prefix(self::SERVICE_LOADER)]);
     if($config->compiler["enabled"]) {
-      $initialize->addBody('$this->getService(?)->compile();', [$this->prefix(static::SERVICE_CATALOGUE_COMPILER)]);
+      $initialize->addBody('$this->getService(?)->compile();', [$this->prefix(self::SERVICE_CATALOGUE_COMPILER)]);
     }
   }
 }

@@ -31,11 +31,11 @@ final class CatalogueCompiler {
     $this->languages = $languages;
   }
   
-  protected function getCatalogueFilename(string $language): string {
+  private function getCatalogueFilename(string $language): string {
     return $this->folder . "/catalogue.$language.php";
   }
   
-  protected function isCatalogueExpired(string $language): bool {
+  private function isCatalogueExpired(string $language): bool {
     $catalogueFilename = $this->getCatalogueFilename($language);
     if(!is_file($catalogueFilename)) {
       return true;

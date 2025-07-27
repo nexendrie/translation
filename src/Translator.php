@@ -45,9 +45,9 @@ final class Translator implements \Nette\Localization\Translator {
   /**
    * @return string[]
    */
-  protected function extractDomainAndMessage(string $message): array {
+  private function extractDomainAndMessage(string $message): array {
     if(!str_contains($message, ".")) {
-      return [static::DEFAULT_DOMAIN, $message];
+      return [self::DEFAULT_DOMAIN, $message];
     }
     return explode(".", $message, 2);
   }
@@ -55,7 +55,7 @@ final class Translator implements \Nette\Localization\Translator {
   /**
    * Translate multi-level message
    */
-  protected function multiLevelTrans(array $message, array $texts): string {
+  private function multiLevelTrans(array $message, array $texts): string {
     $text = $texts;
     foreach($message as $part) {
       $text = Arrays::get($text, $part, "");
