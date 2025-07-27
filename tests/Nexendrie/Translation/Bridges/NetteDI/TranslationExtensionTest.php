@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
-use Nette\Localization\ITranslator;
 use Nexendrie\Translation\Translator;
 use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\Loaders\FileLoader;
@@ -52,7 +51,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
   
   public function testTranslator(): void {
     /** @var Translator $translator */
-    $translator = $this->getService(ITranslator::class);
+    $translator = $this->getService(\Nette\Localization\Translator::class);
     Assert::type(Translator::class, $translator);
     Assert::same("XYZ", $translator->translate("xyz"));
   }
@@ -310,7 +309,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $compiler =  $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
     /** @var Translator $translator */
-    $translator = $this->getService(ITranslator::class);
+    $translator = $this->getService(\Nette\Localization\Translator::class);
     Assert::same("Content", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));
@@ -356,7 +355,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $compiler =  $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
     /** @var Translator $translator */
-    $translator = $this->getService(ITranslator::class);
+    $translator = $this->getService(\Nette\Localization\Translator::class);
     Assert::same("Content", $translator->translate("book.content"));
     Assert::same("Test", $translator->translate("book.test"));
     Assert::same("ABC", $translator->translate("abc.multi.abc"));

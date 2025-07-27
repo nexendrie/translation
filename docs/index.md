@@ -17,7 +17,7 @@ The best way to install it is via Composer. Just add **nexendrie/translation** t
 General info
 ------------
 
-Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\ITranslator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional parameters. Only message id is required.
+Core part of this package is Nexendrie\Translation\Translator class. It implements Nette\Localization\Translator interface which makes it usable in Nette applications. Its entry point is method translate which takes message id, count and additional parameters. Only message id is required.
 
 Examples:
 
@@ -158,7 +158,7 @@ translation:
 
 .
 
-After registering and configuring the extension, you can require Nexendrie\Translation\Translator (or better Nette\Localization\ITranslator) in other services.
+After registering and configuring the extension, you can require Nexendrie\Translation\Translator (or better Nette\Localization\Translator) in other services.
 
 You can also translate texts in Latte templates, as the extension automatically register the translator. It is possible to use count and other parameters. Examples:
 
