@@ -26,16 +26,21 @@ final class Translator implements \Nette\Localization\Translator {
   
   public function __construct(private readonly ILoader $loader, private readonly IMessageSelector $messageSelector = new MessageSelector()) {
   }
-  
+   /**
+   * @deprecated Access the property directly
+   */
   public function getLang(): string {
     return $this->loader->getLang();
   }
-  
+   /**
+   * @deprecated Access the property directly
+   */
   public function setLang(string $lang): void {
     $this->loader->setLang($lang);
   }
   
   /**
+   * @deprecated Access the property directly
    * @return string[]
    */
   public function getUntranslated(): array {
