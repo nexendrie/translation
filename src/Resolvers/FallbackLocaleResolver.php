@@ -13,8 +13,6 @@ use Nexendrie\Translation\LocaleResolver;
  * @author Jakub Konečný
  */
 final class FallbackLocaleResolver implements LocaleResolver {
-  use \Nette\SmartObject;
-  
   /**
    * Resolve language
    *

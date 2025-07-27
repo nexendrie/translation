@@ -12,8 +12,6 @@ use Nexendrie\Translation\SettableLocaleResolver;
  * @author Jakub Konečný
  */
 final class ManualLocaleResolver implements SettableLocaleResolver {
-  use \Nette\SmartObject;
-
   public ?string $lang = null;
 
   /**

@@ -12,8 +12,6 @@ use Nexendrie\Translation\LocaleResolver;
  * @author Jakub Konečný
  */
 final class ChainLocaleResolver extends Collection implements LocaleResolver {
-  use \Nette\SmartObject;
-
   protected string $class = LocaleResolver::class;
   
   public function resolve(): ?string {

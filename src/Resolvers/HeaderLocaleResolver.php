@@ -15,8 +15,6 @@ use Nexendrie\Translation\LoaderAwareLocaleResolver;
  * @author Jakub Konečný
  */
 final class HeaderLocaleResolver implements LoaderAwareLocaleResolver {
-  use \Nette\SmartObject;
-
   private ?Loader $loader = null;
   private IRequest $request;
   
