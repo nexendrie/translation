@@ -13,6 +13,8 @@ before_script:
   stage: test
   script:
   - phing test
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 test:php8.0:
   <<: *test_job
