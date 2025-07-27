@@ -1,6 +1,6 @@
 Version 2.4.0-dev
 - raised minimal version of PHP to 8.1
-- added support for symfony/yaml 6
+- added support for symfony/yaml 6, dropped support for 5
 
 Version 2.3.2
 - fixed compatibility with nette/php-generator 4
