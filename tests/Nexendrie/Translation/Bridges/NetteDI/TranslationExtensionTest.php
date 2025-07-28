@@ -306,7 +306,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $originalLoader = $this->getContainer()
       ->getService("translation.originalLoader");
     Assert::type(NeonLoader::class, $originalLoader);
-    $compiler =  $this->getService(CatalogueCompiler::class);
+    $compiler = $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
     /** @var Translator $translator */
     $translator = $this->getService(\Nette\Localization\Translator::class);
@@ -352,7 +352,7 @@ final class TranslationExtensionTest extends \Tester\TestCase {
     $originalLoader = $this->getContainer()
       ->getService("translation.originalLoader");
     Assert::type(NeonLoader::class, $originalLoader);
-    $compiler =  $this->getService(CatalogueCompiler::class);
+    $compiler = $this->getService(CatalogueCompiler::class);
     Assert::type(CatalogueCompiler::class, $compiler);
     /** @var Translator $translator */
     $translator = $this->getService(\Nette\Localization\Translator::class);
