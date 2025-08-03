@@ -1,4 +1,4 @@
-Version 2.4.0-dev
+Version 2.4.0
 - raised minimal version of PHP to 8.1
 - added support for symfony/yaml 6, dropped support for 5
 - deprecated some getters
