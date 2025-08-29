@@ -5,4 +5,3 @@ parameters:
     universalObjectCratesClasses:
         - Nette\Http\SessionSection
     ignoreErrors:
-        - '#Parameter \#2 \$haystack of function in_array expects array, array\<string, class-string\>\|false given#'
