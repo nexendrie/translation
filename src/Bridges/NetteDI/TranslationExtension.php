@@ -85,7 +85,10 @@ final class TranslationExtension extends CompilerExtension
     {
         $params = $this->getContainerBuilder()->parameters;
         return Expect::structure([
-            "localeResolver" => Expect::anyOf(Expect::string(), Expect::arrayOf("string"))->default(["param", "session", "header",]),
+            "localeResolver" => Expect::anyOf(
+                Expect::string(),
+                Expect::arrayOf("string")
+            )->default(["param", "session", "header",]),
             "default" => Expect::string("en"),
             "debugger" => Expect::bool(Helpers::expand("%debugMode%", $params)),
             "loader" => Expect::structure([
@@ -265,8 +268,14 @@ final class TranslationExtension extends CompilerExtension
         if ($builder->hasDefinition($latteFactoryService)) {
             /** @var FactoryDefinition $latteFactory */
             $latteFactory = $builder->getDefinition($latteFactoryService);
-            $latteFactory->getResultDefinition()->addSetup("addFilter", ["translate", ["@" . $this->prefix(self::SERVICE_TRANSLATOR), "translate"]]);
-            $latteFactory->getResultDefinition()->addSetup("addProvider", ["translator", "@" . $this->prefix(self::SERVICE_TRANSLATOR)]);
+            $latteFactory->getResultDefinition()->addSetup(
+                "addFilter",
+                ["translate", ["@" . $this->prefix(self::SERVICE_TRANSLATOR), "translate"]]
+            );
+            $latteFactory->getResultDefinition()->addSetup(
+                "addProvider",
+                ["translator", "@" . $this->prefix(self::SERVICE_TRANSLATOR)]
+            );
         }
     }
 
@@ -279,13 +288,18 @@ final class TranslationExtension extends CompilerExtension
             if (!is_array($task)) {
                 $task = explode("::", $task);
             } elseif (str_starts_with($task[0], "@")) {
-                $initialize->addBody('$translator->onUntranslated[] = [$this->getService(?), ?];', [substr($task[0], 1), $task[1]]);
+                $initialize->addBody(
+                    '$translator->onUntranslated[] = [$this->getService(?), ?];',
+                    [substr($task[0], 1), $task[1]]
+                );
                 continue;
             }
             $initialize->addBody('$translator->onUntranslated[] = [?, ?];', [$task[0], $task[1]]);
         }
         $initialize->addBody('$resolvers = $this->findByType(?);
-foreach($resolvers as $resolver) $this->getService($resolver)->setLoader($this->getService(?));', [LoaderAwareLocaleResolver::class, $this->prefix(self::SERVICE_LOADER)]);
+foreach($resolvers as $resolver) {
+    $this->getService($resolver)->setLoader($this->getService(?));
+}', [LoaderAwareLocaleResolver::class, $this->prefix(self::SERVICE_LOADER)]);
         if ($config->compiler["enabled"]) {
             $initialize->addBody('$this->getService(?)->compile();', [$this->prefix(self::SERVICE_CATALOGUE_COMPILER)]);
         }

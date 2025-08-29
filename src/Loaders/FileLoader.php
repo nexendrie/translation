@@ -144,7 +144,11 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         $return = [];
         $defaultLang = $this->defaultLang;
         $defaultFilename = $this->getLanguageFilenameMask();
-        $defaultFilename = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], [$name, $defaultLang,], $defaultFilename);
+        $defaultFilename = str_replace(
+            [static::DOMAIN_MASK, static::LANGUAGE_MASK,],
+            [$name, $defaultLang,],
+            $defaultFilename
+        );
         $files = Finder::findFiles($defaultFilename)
             ->from(...$this->folders);
         /** @var \SplFileInfo $file */

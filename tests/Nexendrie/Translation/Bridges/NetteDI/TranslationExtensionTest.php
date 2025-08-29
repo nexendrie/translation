@@ -162,7 +162,10 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->customResolver("session", SessionLocaleResolver::class);
         $this->customResolver("header", HeaderLocaleResolver::class);
         $this->customResolver("param", ParamLocaleResolver::class);
-        $this->customResolver(\Nexendrie\Translation\Resolvers\LocaleResolver::class, \Nexendrie\Translation\Resolvers\LocaleResolver::class);
+        $this->customResolver(
+            \Nexendrie\Translation\Resolvers\LocaleResolver::class,
+            \Nexendrie\Translation\Resolvers\LocaleResolver::class
+        );
     }
 
     public function testInvalidResolver(): void
