@@ -8,15 +8,15 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-interface FileLoader extends Loader {
-  /**
-   * @return string[]
-   */
-  public function getFolders(): array;
+interface FileLoader extends Loader
+{
+    /**
+     * @return string[]
+     */
+    public function getFolders(): array;
 
-  /**
-   * @param string[] $folders
-   */
-  public function setFolders(array $folders): void;
+    /**
+     * @param string[] $folders
+     */
+    public function setFolders(array $folders): void;
 }
-?>

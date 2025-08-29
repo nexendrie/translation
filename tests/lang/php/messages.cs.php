@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 return [
-  "xyz" => "xyz",
-  "param" => "Param2: %param1%",
+    "xyz" => "xyz",
+    "param" => "Param2: %param1%",
 ];
-?>

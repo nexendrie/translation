@@ -12,7 +12,7 @@ use Nette\Application\Request;
  *
  * @author Jakub Konečný
  */
-interface AppRequestAwareLocaleResolver extends LocaleResolver {
-  public function onRequest(Application $application, Request $request): void;
+interface AppRequestAwareLocaleResolver extends LocaleResolver
+{
+    public function onRequest(Application $application, Request $request): void;
 }
-?>

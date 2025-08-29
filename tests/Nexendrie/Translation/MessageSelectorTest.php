@@ -13,25 +13,28 @@ use Tester\Assert;
  * @author Jakub Konečný
  * @testCase
  */
-final class MessageSelectorTest extends \Tester\TestCase {
-  protected MessageSelector $messageSelector;
-  
-  public function setUp(): void {
-    $this->messageSelector = new MessageSelector();
-  }
-  
-  public function testIsMultiChoice(): void {
-    Assert::false($this->messageSelector->isMultiChoice("abc"));
-    Assert::true($this->messageSelector->isMultiChoice("{0}abc|{1}def"));
-  }
-  
-  public function testChoose(): void {
-    $message = "abc";
-    Assert::same($message, $this->messageSelector->choose($message, 0));
-    Assert::same("abc", $this->messageSelector->choose("{0}abc|{1}def", 0));
-  }
+final class MessageSelectorTest extends \Tester\TestCase
+{
+    protected MessageSelector $messageSelector;
+
+    public function setUp(): void
+    {
+        $this->messageSelector = new MessageSelector();
+    }
+
+    public function testIsMultiChoice(): void
+    {
+        Assert::false($this->messageSelector->isMultiChoice("abc"));
+        Assert::true($this->messageSelector->isMultiChoice("{0}abc|{1}def"));
+    }
+
+    public function testChoose(): void
+    {
+        $message = "abc";
+        Assert::same($message, $this->messageSelector->choose($message, 0));
+        Assert::same("abc", $this->messageSelector->choose("{0}abc|{1}def", 0));
+    }
 }
 
 $test = new MessageSelectorTest();
 $test->run();
-?>

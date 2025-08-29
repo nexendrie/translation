@@ -8,16 +8,17 @@ namespace Nexendrie\Translation\Resolvers;
  *
  * @author Jakub Konečný
  */
-final class LocaleResolver implements \Nexendrie\Translation\LocaleResolver {
-  use \Nette\SmartObject;
+final class LocaleResolver implements \Nexendrie\Translation\LocaleResolver
+{
+    use \Nette\SmartObject;
 
-  /**
-   * Resolve language
-   *
-   * @return null
-   */
-  public function resolve(): ?string {
-    return null;
-  }
+    /**
+     * Resolve language
+     *
+     * @return null
+     */
+    public function resolve(): ?string
+    {
+        return null;
+    }
 }
-?>

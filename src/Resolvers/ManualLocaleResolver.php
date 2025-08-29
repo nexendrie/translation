@@ -11,25 +11,28 @@ use Nexendrie\Translation\SettableLocaleResolver;
  *
  * @author Jakub Konečný
  */
-final class ManualLocaleResolver implements SettableLocaleResolver {
-  public ?string $lang = null;
+final class ManualLocaleResolver implements SettableLocaleResolver
+{
+    public ?string $lang = null;
 
-  /**
-   * @deprecated Access the property directly
-   */
-  public function getLang(): ?string {
-    return $this->lang;
-  }
+    /**
+     * @deprecated Access the property directly
+     */
+    public function getLang(): ?string
+    {
+        return $this->lang;
+    }
 
-  /**
-   * @deprecated Access the property directly
-   */
-  public function setLang(?string $lang): void {
-    $this->lang = $lang;
-  }
-  
-  public function resolve(): ?string {
-    return $this->lang;
-  }
+    /**
+     * @deprecated Access the property directly
+     */
+    public function setLang(?string $lang): void
+    {
+        $this->lang = $lang;
+    }
+
+    public function resolve(): ?string
+    {
+        return $this->lang;
+    }
 }
-?>

@@ -11,13 +11,14 @@ require __DIR__ . "/../../../bootstrap.php";
  * @author Jakub Konečný
  * @testCase
  */
-final class IniLoaderTest extends FileLoaderTestAbstract {
-  protected function setUp() {
-    $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-    $this->loader = new IniLoader(new ManualLocaleResolver(), $folders);
-  }
+final class IniLoaderTest extends FileLoaderTestAbstract
+{
+    protected function setUp()
+    {
+        $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
+        $this->loader = new IniLoader(new ManualLocaleResolver(), $folders);
+    }
 }
 
 $test = new IniLoaderTest();
 $test->run();
-?>

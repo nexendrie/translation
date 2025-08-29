@@ -11,19 +11,20 @@ use Nette\Utils\Json;
  *
  * @author Jakub Konečný
  */
-final class JsonLoader extends FileLoader {
-  protected string $extension = "json";
-  
-  /**
-   * @throws \RuntimeException
-   * @throws \Nette\Utils\JsonException
-   */
-  protected function parseFile(string $filename): array {
-    $content = file_get_contents($filename);
-    if($content === false) {
-      throw new \RuntimeException("File $filename does not exist or cannot be read.");
+final class JsonLoader extends FileLoader
+{
+    protected string $extension = "json";
+
+    /**
+     * @throws \RuntimeException
+     * @throws \Nette\Utils\JsonException
+     */
+    protected function parseFile(string $filename): array
+    {
+        $content = file_get_contents($filename);
+        if ($content === false) {
+            throw new \RuntimeException("File $filename does not exist or cannot be read.");
+        }
+        return Json::decode($content, Json::FORCE_ARRAY);
     }
-    return Json::decode($content, Json::FORCE_ARRAY);
-  }
 }
-?>

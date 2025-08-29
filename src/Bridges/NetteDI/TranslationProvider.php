@@ -8,12 +8,12 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
  *
  * @author Jakub Konečný
  */
-interface TranslationProvider {
-  /**
-   * Return list of folders that contains translations
-   *
-   * @return string[]
-   */
-  public function getTranslationResources(): array;
+interface TranslationProvider
+{
+    /**
+     * Return list of folders that contains translations
+     *
+     * @return string[]
+     */
+    public function getTranslationResources(): array;
 }
-?>

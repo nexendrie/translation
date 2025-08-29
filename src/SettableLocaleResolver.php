@@ -8,7 +8,7 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-interface SettableLocaleResolver extends LocaleResolver {
-  public function setLang(string $lang): void;
+interface SettableLocaleResolver extends LocaleResolver
+{
+    public function setLang(string $lang): void;
 }
-?>

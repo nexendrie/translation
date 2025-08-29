@@ -11,35 +11,39 @@ use Nette\Application\Request;
  *
  * @author Jakub Konečný
  */
-final class ParamLocaleResolver implements AppRequestAwareLocaleResolver {
-  private ?Request $request = null;
-  /** @var string */
-  public string $param = "locale";
+final class ParamLocaleResolver implements AppRequestAwareLocaleResolver
+{
+    private ?Request $request = null;
+    /** @var string */
+    public string $param = "locale";
 
-  /**
-   * @deprecated Access the property directly
-   */
-  public function getParam(): string {
-    return $this->param;
-  }
-
-  /**
-   * @deprecated Access the property directly
-   */
-  public function setParam(string $param): void {
-    $this->param = $param;
-  }
-  
-  public function onRequest(Application $application, Request $request): void {
-    $locale = $request->getParameter($this->param);
-    if($request->method === Request::FORWARD && $locale === null) {
-      return;
+    /**
+     * @deprecated Access the property directly
+     */
+    public function getParam(): string
+    {
+        return $this->param;
     }
-    $this->request = $request;
-  }
-  
-  public function resolve(): ?string {
-    return $this->request?->getParameter($this->param);
-  }
+
+    /**
+     * @deprecated Access the property directly
+     */
+    public function setParam(string $param): void
+    {
+        $this->param = $param;
+    }
+
+    public function onRequest(Application $application, Request $request): void
+    {
+        $locale = $request->getParameter($this->param);
+        if ($request->method === Request::FORWARD && $locale === null) {
+            return;
+        }
+        $this->request = $request;
+    }
+
+    public function resolve(): ?string
+    {
+        return $this->request?->getParameter($this->param);
+    }
 }
-?>

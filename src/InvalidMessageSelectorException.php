@@ -8,7 +8,6 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-class InvalidMessageSelectorException extends InvalidStateException {
-  
+class InvalidMessageSelectorException extends InvalidStateException
+{
 }
-?>

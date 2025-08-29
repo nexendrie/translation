@@ -10,12 +10,13 @@ use Nette\DI\CompilerExtension;
  *
  * @author Jakub Konečný
  */
-final class ProviderExtension extends CompilerExtension implements TranslationProvider {
-  /**
-   * @return string[]
-   */
-  public function getTranslationResources(): array {
-    return [__DIR__ . "/../../../../_temp"];
-  }
+final class ProviderExtension extends CompilerExtension implements TranslationProvider
+{
+    /**
+     * @return string[]
+     */
+    public function getTranslationResources(): array
+    {
+        return [__DIR__ . "/../../../../_temp"];
+    }
 }
-?>

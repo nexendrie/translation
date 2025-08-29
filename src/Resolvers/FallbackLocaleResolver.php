@@ -12,14 +12,15 @@ use Nexendrie\Translation\LocaleResolver;
  *
  * @author Jakub Konečný
  */
-final class FallbackLocaleResolver implements LocaleResolver {
-  /**
-   * Resolve language
-   *
-   * @return null
-   */
-  public function resolve(): ?string {
-    return null;
-  }
+final class FallbackLocaleResolver implements LocaleResolver
+{
+    /**
+     * Resolve language
+     *
+     * @return null
+     */
+    public function resolve(): ?string
+    {
+        return null;
+    }
 }
-?>

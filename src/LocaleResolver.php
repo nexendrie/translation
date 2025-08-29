@@ -8,10 +8,10 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-interface LocaleResolver {
-  /**
-   * Resolve language
-   */
-  public function resolve(): ?string;
+interface LocaleResolver
+{
+    /**
+     * Resolve language
+     */
+    public function resolve(): ?string;
 }
-?>

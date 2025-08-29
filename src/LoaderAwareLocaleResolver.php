@@ -8,7 +8,7 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-interface LoaderAwareLocaleResolver extends LocaleResolver {
-  public function setLoader(Loader $loader): void;
+interface LoaderAwareLocaleResolver extends LocaleResolver
+{
+    public function setLoader(Loader $loader): void;
 }
-?>

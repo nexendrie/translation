@@ -8,15 +8,15 @@ namespace Nexendrie\Translation;
  *
  * @author Jakub Konečný
  */
-interface IMessageSelector {
-  /**
-   * Does the message contain multiple variants?
-   */
-  public function isMultiChoice(string $message): bool;
-  
-  /**
-   * Choose correct variant of message depending on $count
-   */
-  public function choose(string $message, int $count): string;
+interface IMessageSelector
+{
+    /**
+     * Does the message contain multiple variants?
+     */
+    public function isMultiChoice(string $message): bool;
+
+    /**
+     * Choose correct variant of message depending on $count
+     */
+    public function choose(string $message, int $count): string;
 }
-?>

@@ -11,22 +11,24 @@ require __DIR__ . "/../../../bootstrap.php";
  * @author Jakub Konečný
  * @testCase
  */
-final class ManualLocaleResolverTest extends \Tester\TestCase {
-  protected ManualLocaleResolver $resolver;
-  
-  protected function setUp(): void {
-    $this->resolver = new ManualLocaleResolver();
-  }
-  
-  public function testResolve(): void {
-    Assert::null($this->resolver->resolve());
-    $this->resolver->lang = "cs";
-    Assert::same("cs", $this->resolver->resolve());
-    $this->resolver->lang = null;
-    Assert::null($this->resolver->resolve());
-  }
+final class ManualLocaleResolverTest extends \Tester\TestCase
+{
+    protected ManualLocaleResolver $resolver;
+
+    protected function setUp(): void
+    {
+        $this->resolver = new ManualLocaleResolver();
+    }
+
+    public function testResolve(): void
+    {
+        Assert::null($this->resolver->resolve());
+        $this->resolver->lang = "cs";
+        Assert::same("cs", $this->resolver->resolve());
+        $this->resolver->lang = null;
+        Assert::null($this->resolver->resolve());
+    }
 }
 
 $test = new ManualLocaleResolverTest();
 $test->run();
-?>

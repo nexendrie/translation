@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="Nexendrie Standard">
+    <rule ref="./vendor/nexendrie/code-quality/phpcs.xml"/>
+    <exclude-pattern>*/src/ILoader.php</exclude-pattern>
+    <exclude-pattern>*/src/ILocaleResolver.php</exclude-pattern>
+    <exclude-pattern>*/src/IFileLoader.php</exclude-pattern>
+    <exclude-pattern>*/src/Bridges/NetteApplication/IAppRequestAwareLocaleResolver.php</exclude-pattern>
+    <exclude-pattern>*/src/Bridges/NetteDI/ITranslationProvider.php</exclude-pattern>
+    <exclude-pattern>*/src/ISettableLocaleResolver.php</exclude-pattern>
+    <exclude-pattern>*/src/ILoaderAwareLocaleResolver.php</exclude-pattern>
+</ruleset>

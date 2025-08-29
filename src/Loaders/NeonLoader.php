@@ -11,18 +11,19 @@ use Nette\Neon\Neon;
  *
  * @author Jakub Konečný
  */
-final class NeonLoader extends FileLoader {
-  protected string $extension = "neon";
+final class NeonLoader extends FileLoader
+{
+    protected string $extension = "neon";
 
-  /**
-   * @throws \RuntimeException
-   */
-  protected function parseFile(string $filename): array {
-    $content = file_get_contents($filename);
-    if($content === false) {
-      throw new \RuntimeException("File $filename does not exist or cannot be read.");
+    /**
+     * @throws \RuntimeException
+     */
+    protected function parseFile(string $filename): array
+    {
+        $content = file_get_contents($filename);
+        if ($content === false) {
+            throw new \RuntimeException("File $filename does not exist or cannot be read.");
+        }
+        return Neon::decode($content);
     }
-    return Neon::decode($content);
-  }
 }
-?>
