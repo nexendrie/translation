@@ -29,7 +29,6 @@ use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\InvalidLoaderException;
 use Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nexendrie\Translation\CatalogueCompiler;
-use Nette\Utils\Arrays;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\LoaderAwareLocaleResolver;
@@ -119,7 +118,7 @@ final class TranslationExtension extends CompilerExtension
             $resolvers = [$resolvers];
         }
         foreach ($resolvers as $resolverName) {
-            $resolver = Arrays::get($this->resolvers, strtolower($resolverName), "");
+            $resolver = $this->resolvers[strtolower($resolverName)] ?? "";
             if ($resolver !== "") {
                 $return[] = $resolver;
             } elseif (class_exists($resolverName) && is_subclass_of($resolverName, LocaleResolver::class)) {
@@ -139,7 +138,7 @@ final class TranslationExtension extends CompilerExtension
         $config = $this->getConfig();
         /** @var string $loaderName */
         $loaderName = $config->loader["name"];
-        $loader = Arrays::get($this->loaders, strtolower($loaderName), "");
+        $loader = $this->loaders[strtolower($loaderName)] ?? "";
         if ($loader !== "") {
             return $loader;
         } elseif (class_exists($loaderName) && is_subclass_of($loaderName, Loader::class)) {

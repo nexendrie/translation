@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nette\Utils\Arrays;
-
 /**
  * Translator
  *
@@ -74,13 +72,13 @@ final class Translator implements \Nette\Localization\Translator
     {
         $text = $texts;
         foreach ($message as $part) {
-            $text = Arrays::get($text, $part, "");
+            $text = $text[$part] ?? "";
             if ($text === "") {
                 break;
             }
         }
         /** @var string $text */
-        return $text; // @phpstan-ignore varTag.type
+        return $text;
     }
 
     public function logUntranslatedMessage(string $message): void
@@ -106,7 +104,7 @@ final class Translator implements \Nette\Localization\Translator
             $params["count"] = $count = $parameters[0] ?? 0;
         }
         [$domain, $m] = $this->extractDomainAndMessage($message);
-        $texts = Arrays::get($this->loader->getTexts(), $domain, []);
+        $texts = $this->loader->getTexts()[$domain] ?? [];
         $parts = explode(".", $m);
         if (count($parts) === 1) {
             $parts = [$m];
