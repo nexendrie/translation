@@ -11,12 +11,9 @@ use Nette\Utils\FileSystem;
  * Compiles messages catalogues from resources found by loader
  *
  * @author Jakub Konečný
- * @method void onCompile(CatalogueCompiler $compiler, string $language)
  */
 final class CatalogueCompiler
 {
-    use \Nette\SmartObject;
-
     /** @var string[] */
     private readonly array $languages;
     /** @var callable[] */
@@ -55,6 +52,13 @@ final class CatalogueCompiler
             }
         }
         return false;
+    }
+
+    public function onCompile(self $compiler, string $language): void
+    {
+        foreach ($this->onCompile as $callback) {
+            $callback($compiler, $language);
+        }
     }
 
     /**

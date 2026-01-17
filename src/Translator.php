@@ -9,7 +9,6 @@ namespace Nexendrie\Translation;
  * @author Jakub Konečný
  * @property string $lang
  * @property-read string[] $untranslated
- * @method void onUntranslated(string $message)
  */
 final class Translator implements \Nette\Localization\Translator
 {
@@ -84,6 +83,13 @@ final class Translator implements \Nette\Localization\Translator
     public function logUntranslatedMessage(string $message): void
     {
         $this->untranslated[] = $message;
+    }
+
+    public function onUntranslated(string $message): void
+    {
+        foreach ($this->onUntranslated as $callback) {
+            $callback($message);
+        }
     }
 
     /**
