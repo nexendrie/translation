@@ -33,7 +33,7 @@
         "latte/latte": "^2.8",
         "symfony/yaml": "^6.0",
         "nette/neon": "^3.4.1",
-        "nexendrie/site-generator": "^0.8",
+        "nexendrie/site-generator": "^0.9",
         "nette/application": "^3.1.5"
     },
     "suggest": {
