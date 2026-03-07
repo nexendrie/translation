@@ -7,7 +7,7 @@ Links
 -----
 
 Primary repository: https://gitlab.com/nexendrie/translation
-Github repository: https://github.com/nexendrie/translation
+GitHub repository: https://github.com/nexendrie/translation
 Packagist: https://packagist.org/packages/nexendrie/translation
 
 Installation
@@ -64,7 +64,7 @@ A locale resolver has to implement Nexendrie\Translation\LocaleResolver interfac
 Default loaders
 ---------------
 
-This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php and yaml. You just have to tell where it should look for the files. It is also possible to use compiled (to php) messages catalogues. They contains all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
+This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php and yaml. You just have to tell where it should look for the files. It is also possible to use compiled (to php) messages catalogues. They contain all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
 
 Names of files have to follow certain pattern. In general, it is domain.language.format, for messages catalogues it is catalogue.language.php.
 
@@ -101,7 +101,7 @@ $resolver[] = new Nexendrie\Translation\Resolvers\ManualLocaleResolver();
 
 It tries all added resolvers (by the order in which they were added) until one returns a string.
 
-There are also other resolvers in the library but they are available only for certain frameworks.
+There are other resolvers in the library but they are available only for certain frameworks.
 
 Translating Nette applications
 ------------------------------
@@ -134,7 +134,7 @@ translation:
         - ["@translator", "logUntranslatedMessage"] # this is always present unless overwritten with !
     compiler:
         enabled: false # should we compile messages catalogues?
-        languages: { } # compile catalogues only for these languages. if you do not specify any language, catalogues will compiled for ALL languages
+        languages: { } # compile catalogues only for these languages. if you do not specify any language, catalogues will be compiled for ALL languages
 ``` 
 
 Param locale resolver takes language from presenter's parameter locale, the parameter's name is stored in property $param which can be changed at will.

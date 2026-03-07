@@ -2,7 +2,7 @@ Version 2.4.0
 - raised minimal version of PHP to 8.1
 - added support for symfony/yaml 6, dropped support for 5
 - deprecated some getters
-- removed prefix I from all interfaces's names except IMessageSelector, deprecated the previous names
+- removed prefix I from all interfaces' names except IMessageSelector, deprecated the previous names
 
 Version 2.3.2
 - fixed compatibility with nette/php-generator 4
