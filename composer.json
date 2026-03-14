@@ -14,8 +14,6 @@
         }
     ],
     "support": {
-        "source": "https://gitlab.com/nexendrie/translation/",
-        "issues": "https://gitlab.com/nexendrie/translation/issues",
         "docs": "https://nexendrie.gitlab.io/translation"
     },
     "require": {
