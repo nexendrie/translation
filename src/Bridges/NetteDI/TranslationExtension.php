@@ -6,6 +6,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\FactoryDefinition;
 use Nette\PhpGenerator\ClassType;
+use Nexendrie\Translation\Loaders\TomlLoader;
 use Nexendrie\Translation\LocaleResolver;
 use Nexendrie\Translation\Bridges\NetteApplication\AppRequestAwareLocaleResolver;
 use Nexendrie\Translation\Resolvers\EnvironmentLocaleResolver;
@@ -77,6 +78,7 @@ final class TranslationExtension extends CompilerExtension
         "json" => JsonLoader::class,
         "yaml" => YamlLoader::class,
         "php" => PhpLoader::class,
+        "toml" => TomlLoader::class,
         "catalogue" => MessagesCatalogue::class,
     ];
 

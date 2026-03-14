@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
+use Nexendrie\Translation\Loaders\TomlLoader;
 use Nexendrie\Translation\Translator;
 use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\Loaders\FileLoader;
@@ -101,6 +102,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->customLoader("json", JsonLoader::class);
         $this->customLoader("yaml", YamlLoader::class);
         $this->customLoader("php", PhpLoader::class);
+        $this->customLoader("toml", TomlLoader::class);
         $this->customLoader("catalogue", MessagesCatalogue::class);
         $this->customLoader(\Nexendrie\Translation\Loaders\Loader::class, \Nexendrie\Translation\Loaders\Loader::class);
     }

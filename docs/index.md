@@ -64,7 +64,7 @@ A locale resolver has to implement Nexendrie\Translation\LocaleResolver interfac
 Default loaders
 ---------------
 
-This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php and yaml. You just have to tell where it should look for the files. It is also possible to use compiled (to php) messages catalogues. They contain all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
+This library contains loaders which are able to load texts from files of many formats: ini, json, neon, php, yaml and toml. You just have to tell where it should look for the files. It is also possible to use compiled (to php) messages catalogues. They contain all texts for the language in one file. Be aware that some loaders may require additional packages/PHP extensions to be installed. Consult composer.json for more details.
 
 Names of files have to follow certain pattern. In general, it is domain.language.format, for messages catalogues it is catalogue.language.php.
 
@@ -127,7 +127,7 @@ translation:
     debugger: %debugMode% # adds panel for Tracy if true
     messageSelector: Nexendrie\Translation\MessageSelector # class for message selector, has to implement Nexendrie\Translation\IMessageSelector
     loader:
-        name: neon # neon, ini, json, yaml, php, catalogue or name of class implementing Nexendrie\Translation\ILoader
+        name: neon # neon, ini, json, yaml, php, catalogue, toml or name of class implementing Nexendrie\Translation\ILoader
         folders: # folders where files with translations are located
             - %appDir%/lang # this is always present unless overwritten with !
     onUntranslated: # custom callbacks for Translator::onUntranslated()

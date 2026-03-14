@@ -2,7 +2,7 @@
     "name": "nexendrie/translation",
     "description": "Easy translating of PHP applications",
     "keywords": [
-      "translation", "translating", "localization", "nette", "neon", "json", "ini", "yaml"
+      "translation", "translating", "localization", "nette", "neon", "json", "ini", "yaml", "toml"
     ],
     "license": "BSD-3-Clause",
     "homepage": "https://nexendrie.gitlab.io",
@@ -33,7 +33,8 @@
         "latte/latte": "^2.8",
         "symfony/yaml": "^6.0",
         "nette/neon": "^3.4.1",
-        "nette/application": "^3.1.5"
+        "nette/application": "^3.1.5",
+        "devium/toml": "^1.0"
     },
     "suggest": {
         "nette/di": "For easier integration to Nette applications",
@@ -42,7 +43,8 @@
         "ext-json": "To use JsonLoader",
         "symfony/yaml": "To use YamlLoader",
         "nette/application": "To use param locale resolver in Nette applications",
-        "nette/http": "To use session and header locale resolvers"
+        "nette/http": "To use session and header locale resolvers",
+        "devium/toml": "To use TomlLoader"
     },
     "autoload": {
         "psr-4": {
@@ -59,7 +61,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.4.x-dev"
+            "dev-master": "2.5.x-dev"
         }
     },
     "minimum-stability": "dev",

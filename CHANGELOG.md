@@ -1,3 +1,6 @@
+Version 2.5.0-dev
+- added TomlLoader
+
 Version 2.4.0
 - raised minimal version of PHP to 8.1
 - added support for symfony/yaml 6, dropped support for 5
