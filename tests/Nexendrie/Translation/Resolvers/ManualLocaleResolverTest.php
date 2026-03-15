@@ -24,9 +24,9 @@ final class ManualLocaleResolverTest extends \MyTester\TestCase
         $this->assertNull($this->resolver->resolve());
         $this->resolver->lang = "cs";
         $this->assertSame("cs", $this->resolver->resolve());
-        $this->assertSame("cs", $this->resolver->getLang());
+        $this->assertSame("cs", $this->resolver->lang);
         $this->resolver->lang = null;
         $this->assertNull($this->resolver->resolve());
-        $this->assertNull($this->resolver->getLang());
+        $this->assertNull($this->resolver->lang);
     }
 }

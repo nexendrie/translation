@@ -30,9 +30,9 @@ final class EnvironmentLocaleResolverTest extends \MyTester\TestCase
 
     public function testCustomVarName(): void
     {
-        $oldValue = $this->resolver->getVarName();
-        $this->resolver->setVarName("LANGUAGE");
-        $this->assertSame("LANGUAGE", $this->resolver->getVarName());
+        $oldValue = $this->resolver->varName;
+        $this->resolver->varName = "LANGUAGE";
+        $this->assertSame("LANGUAGE", $this->resolver->varName);
         $this->resolver->lang = "cs";
         $this->assertSame("cs", $this->resolver->resolve());
         $this->resolver->varName = $oldValue;

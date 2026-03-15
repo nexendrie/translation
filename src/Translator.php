@@ -36,27 +36,17 @@ final class Translator implements \Nette\Localization\Translator
     ) {
     }
 
-    /**
-     * @deprecated Access the property directly
-     */
-    public function getLang(): string
+    protected function getLang(): string
     {
         return $this->loader->getLang();
     }
 
-    /**
-     * @deprecated Access the property directly
-     */
-    public function setLang(string $lang): void
+    protected function setLang(string $lang): void
     {
         $this->loader->setLang($lang);
     }
 
-    /**
-     * @return string[]
-     * @deprecated Access the property directly
-     */
-    public function getUntranslated(): array
+    protected function getUntranslated(): array
     {
         return $this->untranslated;
     }

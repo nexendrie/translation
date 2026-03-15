@@ -20,12 +20,6 @@ final class CatalogueCompiler
     private readonly array $languages;
 
     /**
-     * @var callable[]
-     * @deprecated Use a PSR-14 event dispatcher
-     */
-    public array $onCompile = [];
-
-    /**
      * @param string[] $languages
      */
     public function __construct(
@@ -65,16 +59,6 @@ final class CatalogueCompiler
     }
 
     /**
-     * @deprecated Use a PSR-14 event dispatcher
-     */
-    public function onCompile(self $compiler, string $language): void
-    {
-        foreach ($this->onCompile as $callback) {
-            $callback($compiler, $language);
-        }
-    }
-
-    /**
      * Compile catalogues
      */
     public function compile(): void
@@ -93,7 +77,6 @@ return " . (new Dumper())->dump($texts) . ";
             $filename = $this->getCatalogueFilename($language);
             FileSystem::write($filename, $content);
             $this->eventDispatcher?->dispatch(new CatalogueCompiled($this, $language));
-            $this->onCompile($this, $language);
         }
         $this->loader->setLang($lang);
     }

@@ -34,10 +34,7 @@ final class SessionLocaleResolver implements SettableLocaleResolver
         $this->section = $session->getSection(get_class($this));
     }
 
-    /**
-     * @deprecated Access the property directly
-     */
-    public function getLang(): ?string
+    protected function getLang(): ?string
     {
         $lang = (string) $this->section->{$this->varName};
         if ($lang === '') {
@@ -52,22 +49,6 @@ final class SessionLocaleResolver implements SettableLocaleResolver
     public function setLang(?string $lang): void
     {
         $this->section->{$this->varName} = $lang;
-    }
-
-    /**
-     * @deprecated Access the property directly
-     */
-    public function getVarName(): string
-    {
-        return $this->varName;
-    }
-
-    /**
-     * @deprecated Access the property directly
-     */
-    public function setVarName(string $varName): void
-    {
-        $this->varName = $varName;
     }
 
     public function resolve(): ?string

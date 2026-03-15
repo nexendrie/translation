@@ -17,22 +17,6 @@ final class ParamLocaleResolver implements AppRequestAwareLocaleResolver
     /** @var string */
     public string $param = "locale";
 
-    /**
-     * @deprecated Access the property directly
-     */
-    public function getParam(): string
-    {
-        return $this->param;
-    }
-
-    /**
-     * @deprecated Access the property directly
-     */
-    public function setParam(string $param): void
-    {
-        $this->param = $param;
-    }
-
     public function onRequest(Application $application, Request $request): void
     {
         $locale = $request->getParameter($this->param);

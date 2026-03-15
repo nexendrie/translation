@@ -33,8 +33,8 @@ final class SessionLocaleResolverTest extends \MyTester\TestCase
 
     public function testCustomVarName(): void
     {
-        $this->resolver->setVarName("locale");
-        $this->assertSame("locale", $this->resolver->getVarName());
+        $this->resolver->varName = "locale";
+        $this->assertSame("locale", $this->resolver->varName);
         $this->resolver->lang = "en";
         $this->assertSame("en", $this->resolver->resolve());
     }

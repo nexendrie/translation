@@ -18,14 +18,6 @@ final class ManualLocaleResolver implements SettableLocaleResolver
     /**
      * @deprecated Access the property directly
      */
-    public function getLang(): ?string
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @deprecated Access the property directly
-     */
     public function setLang(?string $lang): void
     {
         $this->lang = $lang;

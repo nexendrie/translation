@@ -27,9 +27,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  * @property-read array $texts
  * @property string[] $folders
  * @property-read array $resources
- * @method void onLanguageChange(FileLoader $loader, string $oldLang, string $newLang)
- * @method void onFoldersChange(FileLoader $loader, string[] $folders)
- * @method void onLoad(FileLoader $loader, string $lang)
  */
 abstract class FileLoader implements \Nexendrie\Translation\FileLoader
 {
@@ -45,21 +42,6 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
     protected array $folders = [];
     protected array $resources = [];
     protected string $extension;
-    /**
-     * @var callable[]
-     * @deprecated Use a PSR-14 event dispatcher
-     */
-    public array $onLanguageChange = [];
-    /**
-     * @var callable[]
-     * @deprecated Use a PSR-14 event dispatcher
-     */
-    public array $onFoldersChange = [];
-    /**
-     * @var callable[]
-     * @deprecated Use a PSR-14 event dispatcher
-     */
-    public array $onLoad = [];
 
     /**
      * @param string[] $folders
@@ -89,7 +71,6 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
             $oldLang = $this->lang;
             $this->resolver->setLang($lang);
             $this->eventDispatcher?->dispatch(new LanguageChanged($this, $oldLang, $lang));
-            $this->onLanguageChange($this, $oldLang, $lang);
         }
     }
 
@@ -132,7 +113,6 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
             $this->folders[] = $folder;
         }
         $this->eventDispatcher?->dispatch(new FoldersChanged($folders));
-        $this->onFoldersChange($this, $folders);
     }
 
     protected function addResource(string $filename, string $domain): void
@@ -213,7 +193,6 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         $this->texts = $texts;
         $this->loadedLang = $this->lang;
         $this->eventDispatcher?->dispatch(new LanguageLoaded($this, $this->lang));
-        $this->onLoad($this, $this->lang);
     }
 
     /**

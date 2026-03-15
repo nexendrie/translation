@@ -10,12 +10,12 @@ use MyTester\Attributes\TestSuite;
 #[TestSuite("IntervalsMessageSelector")]
 final class IntervalsMessageSelectorTest extends \MyTester\TestCase
 {
-    protected MessageSelector $messageSelector;
+    protected IntervalsMessageSelector $messageSelector;
 
     #[BeforeTest]
     public function setUp(): void
     {
-        $this->messageSelector = new MessageSelector();
+        $this->messageSelector = new IntervalsMessageSelector();
     }
 
     public function testIsMultiChoice(): void
