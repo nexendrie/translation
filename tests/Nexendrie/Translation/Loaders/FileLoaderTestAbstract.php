@@ -9,8 +9,6 @@ use Nexendrie\Translation\Events\FoldersChanged;
 use Nexendrie\Translation\Events\LanguageChanged;
 use Nexendrie\Translation\Events\LanguageLoaded;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use ReflectionMethod;
-use RuntimeException;
 use Tester\Assert;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
