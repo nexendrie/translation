@@ -2,4 +2,6 @@ A new version of Translation is out. It adds added TomlLoader.
 
 It is now possible to use a PSR-14 event dispatcher. Nette style events are deprecated and support for them will be removed in the next major version.
 
+Nette DIC extension should now work with Latte 3. This is not easy to test so please report any issues.
+
 For complete list of changes since previous version, see CHANGELOG.md.

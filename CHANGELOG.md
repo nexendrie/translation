@@ -2,6 +2,7 @@ Version 2.5.0-dev
 - added TomlLoader
 - added support for PSR-14 event dispatcher
 - deprecated Nette style events
+- added experimental support for Latte 3
 
 Version 2.4.0
 - raised minimal version of PHP to 8.1

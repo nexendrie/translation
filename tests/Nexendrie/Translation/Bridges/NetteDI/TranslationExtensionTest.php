@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
+use Latte\Engine;
 use Nexendrie\Translation\Loaders\TomlLoader;
 use Nexendrie\Translation\Translator;
 use Nexendrie\Translation\Loader;
@@ -416,6 +417,9 @@ final class TranslationExtensionTest extends \Tester\TestCase
 
     public function testLatte(): void
     {
+        if (version_compare(Engine::VERSION, "3", ">=")) {
+            $this->skip("Latte 3 support cannot be tested at the moment.");
+        }
         /** @var LatteFactory $factory */
         $factory = $this->getService(LatteFactory::class);
         $latte = $factory->create();
