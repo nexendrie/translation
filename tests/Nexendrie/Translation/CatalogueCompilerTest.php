@@ -23,7 +23,7 @@ final class CatalogueCompilerTest extends \Tester\TestCase
 {
     public function testEvent(): void
     {
-        $folder = __DIR__ . "/../../../_temp/catalogues";
+        $folder = __DIR__ . "/../../_temp/catalogues";
         FileSystem::delete($folder);
         FileSystem::createDir($folder);
         $folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2",];
