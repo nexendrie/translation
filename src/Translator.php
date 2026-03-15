@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
+use Nexendrie\Translation\Events\UntranslatedMessage;
+use Psr\EventDispatcher\EventDispatcherInterface;
+
 /**
  * Translator
  *
@@ -19,12 +22,17 @@ final class Translator implements \Nette\Localization\Translator
 
     /** @var string[] */
     private array $untranslated = [];
-    /** @var callable[] */
+
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onUntranslated = [];
 
     public function __construct(
         private readonly Loader $loader,
-        private readonly IMessageSelector $messageSelector = new MessageSelector()
+        private readonly IMessageSelector $messageSelector = new MessageSelector(),
+        private readonly ?EventDispatcherInterface $eventDispatcher = null
     ) {
     }
 
@@ -80,11 +88,17 @@ final class Translator implements \Nette\Localization\Translator
         return $text;
     }
 
-    public function logUntranslatedMessage(string $message): void
+    public function logUntranslatedMessage(string|UntranslatedMessage $message): void
     {
+        if ($message instanceof UntranslatedMessage) {
+            $message = $message->message;
+        }
         $this->untranslated[] = $message;
     }
 
+    /**
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public function onUntranslated(string $message): void
     {
         foreach ($this->onUntranslated as $callback) {
@@ -117,6 +131,7 @@ final class Translator implements \Nette\Localization\Translator
         }
         $text = $this->multiLevelTrans($parts, $texts);
         if ($text === "") {
+            $this->eventDispatcher?->dispatch(new UntranslatedMessage($message));
             $this->onUntranslated($message);
             return $message;
         }

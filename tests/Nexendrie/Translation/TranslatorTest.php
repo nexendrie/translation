@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
+use Circli\EventDispatcher\EventDispatcher;
+use Circli\EventDispatcher\ListenerProvider\DefaultProvider;
+use Nexendrie\Translation\Events\UntranslatedMessage;
 use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
@@ -21,8 +24,11 @@ final class TranslatorTest extends \Tester\TestCase
     {
         $loader = new Loaders\NeonLoader();
         $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
-        $this->translator = new Translator($loader);
-        $this->translator->onUntranslated[] = [$this->translator, "logUntranslatedMessage"];
+        $provider = new DefaultProvider();
+        $dispatcher = new EventDispatcher($provider);
+        $this->translator = new Translator($loader, eventDispatcher: $dispatcher);
+        $provider->listen(UntranslatedMessage::class, $this->translator->logUntranslatedMessage(...));
+        $this->translator->onUntranslated[] = $this->translator->logUntranslatedMessage(...);
     }
 
     public function testTranslateEn(): void
@@ -43,7 +49,7 @@ final class TranslatorTest extends \Tester\TestCase
         // string existing only in default translation
         Assert::type("string", $this->translator->translate("test"));
         Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(2, $this->translator->untranslated);
+        Assert::count(4, $this->translator->untranslated);
         // multi-level message
         Assert::type("string", $this->translator->translate("abc.multi.abc"));
         Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
@@ -64,7 +70,7 @@ final class TranslatorTest extends \Tester\TestCase
         Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
         Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(5, $this->translator->untranslated);
+        Assert::count(10, $this->translator->untranslated);
     }
 
     public function testTranslateCs(): void
@@ -75,7 +81,7 @@ final class TranslatorTest extends \Tester\TestCase
         // non-existing string
         Assert::type("string", $this->translator->translate("abc"));
         Assert::same("abc", $this->translator->translate("abc"));
-        Assert::count(2, $this->translator->untranslated);
+        Assert::count(4, $this->translator->untranslated);
         // existing string
         Assert::type("string", $this->translator->translate("book.content"));
         Assert::same("Obsah", $this->translator->translate("book.content"));
@@ -87,7 +93,7 @@ final class TranslatorTest extends \Tester\TestCase
         // string existing only in default translation
         Assert::type("string", $this->translator->translate("test"));
         Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(2, $this->translator->untranslated);
+        Assert::count(4, $this->translator->untranslated);
         // multi-level message
         Assert::type("string", $this->translator->translate("abc.multi.abc"));
         Assert::same("Abc", $this->translator->translate("abc.multi.abc"));
@@ -108,7 +114,7 @@ final class TranslatorTest extends \Tester\TestCase
         Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
         Assert::same("Param2: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(5, $this->translator->untranslated);
+        Assert::count(10, $this->translator->untranslated);
     }
 
     /**
@@ -128,7 +134,7 @@ final class TranslatorTest extends \Tester\TestCase
         // string existing only in default translation
         Assert::type("string", $this->translator->translate("test"));
         Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(2, $this->translator->untranslated);
+        Assert::count(4, $this->translator->untranslated);
         // multi-level message
         Assert::type("string", $this->translator->translate("abc.multi.abc"));
         Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
@@ -149,7 +155,7 @@ final class TranslatorTest extends \Tester\TestCase
         Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
         Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(5, $this->translator->untranslated);
+        Assert::count(10, $this->translator->untranslated);
     }
 }
 

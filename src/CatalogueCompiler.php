@@ -5,6 +5,8 @@ namespace Nexendrie\Translation;
 
 use Nette\PhpGenerator\Dumper;
 use Nette\Utils\FileSystem;
+use Nexendrie\Translation\Events\CatalogueCompiled;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * CatalogueCompiler
@@ -16,14 +18,22 @@ final class CatalogueCompiler
 {
     /** @var string[] */
     private readonly array $languages;
-    /** @var callable[] */
+
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onCompile = [];
 
     /**
      * @param string[] $languages
      */
-    public function __construct(private readonly Loader $loader, private readonly string $folder, array $languages = [])
-    {
+    public function __construct(
+        private readonly Loader $loader,
+        private readonly string $folder,
+        array $languages = [],
+        private readonly ?EventDispatcherInterface $eventDispatcher = null
+    ) {
         if (count($languages) === 0) {
             $languages = $loader->getAvailableLanguages();
         }
@@ -54,6 +64,9 @@ final class CatalogueCompiler
         return false;
     }
 
+    /**
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public function onCompile(self $compiler, string $language): void
     {
         foreach ($this->onCompile as $callback) {
@@ -79,6 +92,7 @@ return " . (new Dumper())->dump($texts) . ";
 ";
             $filename = $this->getCatalogueFilename($language);
             FileSystem::write($filename, $content);
+            $this->eventDispatcher?->dispatch(new CatalogueCompiled($this, $language));
             $this->onCompile($this, $language);
         }
         $this->loader->setLang($lang);

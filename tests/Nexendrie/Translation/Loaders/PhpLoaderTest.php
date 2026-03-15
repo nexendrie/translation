@@ -14,10 +14,11 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class PhpLoaderTest extends FileLoaderTestAbstract
 {
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-        $this->loader = new PhpLoader(new ManualLocaleResolver(), $folders);
+        $this->loader = new PhpLoader(new ManualLocaleResolver(), $folders, $this->eventDispatcher);
     }
 }
 

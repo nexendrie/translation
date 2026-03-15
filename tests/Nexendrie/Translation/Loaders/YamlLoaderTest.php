@@ -13,10 +13,11 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class YamlLoaderTest extends FileLoaderTestAbstract
 {
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-        $this->loader = new YamlLoader(new ManualLocaleResolver(), $folders);
+        $this->loader = new YamlLoader(new ManualLocaleResolver(), $folders, $this->eventDispatcher);
     }
 }
 

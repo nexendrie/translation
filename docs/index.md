@@ -35,7 +35,7 @@ $translator->translate("messages.abc", ["count" => 5, "param1" => "value1"]);
 
 The translate method searches for message id in list of known texts, replaces passed parameters in found text and returns the result. If the message is not found, empty string is returned. Example of message with parameters: "blah blah %param1%". Count can be also used in the message itself as it is added to parameters (as %count%).
 
-The translator contains variable $onUntranslated which is an array of callbacks that are called when an unknown message id is encountered. By default, it is empty but some integrations may fill it with their own or user-defined callbacks.
+The translator supports [PSR-14](https://www.php-fig.org/psr/psr-14/) event dispatchers, just pass an object implementing Psr\EventDispatcher\EventDispatcherInterface to constructor. Event Nexendrie\Translation\Events\UntranslatedMessage is supported, it is triggered when an unknown message id is encountered.
 
 Pluralization
 -------------

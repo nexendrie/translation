@@ -17,12 +17,13 @@ final class MessagesCatalogueTest extends FileLoaderTestAbstract
 {
     protected function setUp(): void
     {
+        parent::setUp();
         $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
         $folder = __DIR__ . "/../../../_temp/catalogues";
         $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
         $compiler = new CatalogueCompiler($loader, $folder, ["en", "cs"]);
         $compiler->compile();
-        $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder]);
+        $this->loader = new MessagesCatalogue(new ManualLocaleResolver(), [$folder], $this->eventDispatcher);
     }
 
     public function testGetFolders(): void

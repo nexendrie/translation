@@ -13,10 +13,11 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class TomlLoaderTest extends FileLoaderTestAbstract
 {
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
-        $this->loader = new TomlLoader(new ManualLocaleResolver(), $folders);
+        $this->loader = new TomlLoader(new ManualLocaleResolver(), $folders, $this->eventDispatcher);
     }
 }
 

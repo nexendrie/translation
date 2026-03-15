@@ -18,6 +18,7 @@
     },
     "require": {
         "php": ">=8.1.0",
+        "psr/event-dispatcher": "^1.0",
         "nette/utils": "^3.2.10",
         "nette/finder": "^2.6",
         "nexendrie/utils": "^1.9",
@@ -33,7 +34,8 @@
         "symfony/yaml": "^6.0",
         "nette/neon": "^3.4.1",
         "nette/application": "^3.1.5",
-        "devium/toml": "^1.0"
+        "devium/toml": "^1.0",
+        "circli/event-dispatcher": "^3.0"
     },
     "suggest": {
         "nette/di": "For easier integration to Nette applications",

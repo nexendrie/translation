@@ -5,12 +5,16 @@ namespace Nexendrie\Translation\Loaders;
 
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
+use Nexendrie\Translation\Events\FoldersChanged;
+use Nexendrie\Translation\Events\LanguageChanged;
+use Nexendrie\Translation\Events\LanguageLoaded;
 use Nexendrie\Translation\LocaleResolver;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 use Nexendrie\Translation\SettableLocaleResolver;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 use Nette\Utils\Arrays;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Generic file translations loader
@@ -50,8 +54,11 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
     /**
      * @param string[] $folders
      */
-    public function __construct(protected LocaleResolver $resolver = new ManualLocaleResolver(), array $folders = [])
-    {
+    public function __construct(
+        protected LocaleResolver $resolver = new ManualLocaleResolver(),
+        array $folders = [],
+        protected readonly ?EventDispatcherInterface $eventDispatcher = null
+    ) {
         $this->setFolders($folders);
     }
 
@@ -71,6 +78,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         if (is_a($this->resolver, SettableLocaleResolver::class)) {
             $oldLang = $this->lang;
             $this->resolver->setLang($lang);
+            $this->eventDispatcher?->dispatch(new LanguageChanged($this, $oldLang, $lang));
             $this->onLanguageChange($this, $oldLang, $lang);
         }
     }
@@ -113,6 +121,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
             }
             $this->folders[] = $folder;
         }
+        $this->eventDispatcher?->dispatch(new FoldersChanged($folders));
         $this->onFoldersChange($this, $folders);
     }
 
@@ -193,6 +202,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         }
         $this->texts = $texts;
         $this->loadedLang = $this->lang;
+        $this->eventDispatcher?->dispatch(new LanguageLoaded($this, $this->lang));
         $this->onLoad($this, $this->lang);
     }
 
