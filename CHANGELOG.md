@@ -1,4 +1,4 @@
-Version 2.5.0-dev
+Version 2.5.0
 - added TomlLoader
 - added support for PSR-14 event dispatcher
 - deprecated Nette style events
