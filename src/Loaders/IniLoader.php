@@ -18,7 +18,7 @@ final class IniLoader extends FileLoader
      */
     protected function parseFile(string $filename): array
     {
-        $result = parse_ini_file($filename, true);
+        $result = @parse_ini_file($filename, true); // phpcs:ignore Generic.PHP.NoSilencedErrors
         if ($result === false) {
             throw new \RuntimeException("File $filename does not exist or cannot be read.");
         }

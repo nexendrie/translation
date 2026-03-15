@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Loaders;
 
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
+use ReflectionMethod;
+use RuntimeException;
+use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
@@ -18,6 +21,14 @@ final class NeonLoaderTest extends FileLoaderTestAbstract
         parent::setUp();
         $folders = [__DIR__ . "/../../../lang", __DIR__ . "/../../../lang2"];
         $this->loader = new NeonLoader(new ManualLocaleResolver(), $folders, $this->eventDispatcher);
+    }
+
+    public function testParseNonExistingFile(): void
+    {
+        Assert::exception(function () {
+            $rm = new ReflectionMethod($this->loader, "parseFile");
+            $rm->invoke($this->loader, "/non-existing");
+        }, RuntimeException::class);
     }
 }
 

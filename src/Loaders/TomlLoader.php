@@ -22,7 +22,7 @@ final class TomlLoader extends FileLoader
      */
     protected function parseFile(string $filename): array
     {
-        $content = @file_get_contents($filename);
+        $content = @file_get_contents($filename); // phpcs:ignore Generic.PHP.NoSilencedErrors
         if ($content === false) {
             throw new \RuntimeException("File $filename does not exist or cannot be read.");
         }
