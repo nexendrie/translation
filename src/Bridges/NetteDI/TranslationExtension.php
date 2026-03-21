@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
-use Latte\Engine;
 use Latte\Essential\TranslatorExtension;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\FactoryDefinition;
@@ -280,20 +279,9 @@ final class TranslationExtension extends CompilerExtension
         if ($builder->hasDefinition($latteFactoryService)) {
             /** @var FactoryDefinition $latteFactory */
             $latteFactory = $builder->getDefinition($latteFactoryService);
-            if (version_compare(Engine::VERSION, "3", "<")) {
-                $latteFactory->getResultDefinition()->addSetup(
-                    "addFilter",
-                    ["translate", ["@" . $this->prefix(self::SERVICE_TRANSLATOR), "translate"]]
-                );
-                $latteFactory->getResultDefinition()->addSetup(
-                    "addProvider",
-                    ["translator", "@" . $this->prefix(self::SERVICE_TRANSLATOR)]
-                );
-            } else {
-                $latteExtension = $builder->addDefinition($this->prefix(self::SERVICE_LATTE_EXTENSION))
-                    ->setFactory(TranslatorExtension::class, ["@" . $this->prefix(self::SERVICE_TRANSLATOR)]);
-                $latteFactory->getResultDefinition()->addSetup("addExtension", [$latteExtension,]);
-            }
+            $latteExtension = $builder->addDefinition($this->prefix(self::SERVICE_LATTE_EXTENSION))
+                ->setFactory(TranslatorExtension::class, ["@" . $this->prefix(self::SERVICE_TRANSLATOR)]);
+            $latteFactory->getResultDefinition()->addSetup("addExtension", [$latteExtension,]);
         }
     }
 
