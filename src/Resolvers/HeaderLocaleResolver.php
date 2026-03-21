@@ -48,11 +48,10 @@ final class HeaderLocaleResolver implements LoaderAwareLocaleResolver
         if ($header === null) {
             return null;
         }
-        $s = strtolower($header);  // case insensitive
-        $s = strtr($s, '_', '-');  // cs_CZ means cs-CZ
-        rsort($langs);             // first more specific
-        $pattern = ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#';
-        preg_match_all('#(' . implode('|', $langs) . $pattern, $s, $matches);
+        $s = strtolower($header); // case insensitive
+        $s = strtr($s, '_', '-'); // cs_CZ means cs-CZ
+        rsort($langs); // first more specific
+        preg_match_all('#(' . implode('|', $langs) . ')(?:-[^\s,;=]+)?\s*(?:;\s*q=([0-9.]+))?#', $s, $matches);
         if (!isset($matches[0])) {
             return null;
         }
