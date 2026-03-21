@@ -33,14 +33,33 @@ final class HeaderLocaleResolverTest extends \Tester\TestCase
         Assert::exception(function () use ($resolver) {
             $resolver->resolve();
         }, LoaderNotSetException::class);
+
         /** @var Loader $loader */
         $loader = $this->getService(Loader::class);
         $resolver->setLoader($loader);
         Assert::null($resolver->resolve());
+
         $resolver = new HeaderLocaleResolver($this->prepareRequest("zh"));
         $resolver->setLoader($loader);
         Assert::null($resolver->resolve());
+
         $resolver = new HeaderLocaleResolver($this->prepareRequest("en"));
+        $resolver->setLoader($loader);
+        Assert::same("en", $resolver->resolve());
+
+        $resolver = new HeaderLocaleResolver($this->prepareRequest("zh,en"));
+        $resolver->setLoader($loader);
+        Assert::same("en", $resolver->resolve());
+
+        $resolver = new HeaderLocaleResolver($this->prepareRequest("cs,en"));
+        $resolver->setLoader($loader);
+        Assert::same("cs", $resolver->resolve());
+
+        $resolver = new HeaderLocaleResolver($this->prepareRequest("zh,en;q=0.8"));
+        $resolver->setLoader($loader);
+        Assert::same("en", $resolver->resolve());
+
+        $resolver = new HeaderLocaleResolver($this->prepareRequest("cs;q=0.7,en;q=0.8"));
         $resolver->setLoader($loader);
         Assert::same("en", $resolver->resolve());
     }
