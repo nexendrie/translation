@@ -38,9 +38,6 @@ final class TranslationPanel implements IBarPanel
 
     protected function renderLink(string $resource): string
     {
-        if (is_file($resource)) {
-            return \Tracy\Helpers::editorLink($resource);
-        }
-        return $resource;
+        return is_file($resource) ? \Tracy\Helpers::editorLink($resource) : $resource;
     }
 }
