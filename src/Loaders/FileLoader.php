@@ -44,11 +44,20 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
     protected array $folders = [];
     protected array $resources = [];
     protected string $extension;
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onLanguageChange = [];
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onFoldersChange = [];
-    /** @var callable[] */
+    /**
+     * @var callable[]
+     * @deprecated Use a PSR-14 event dispatcher
+     */
     public array $onLoad = [];
 
     /**

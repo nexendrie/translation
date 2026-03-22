@@ -1,3 +1,3 @@
-A new version of Translation is out.
+A new version of Translation is out. on* properties of FileLoader were marked as deprecated, it was the intent in previous version, they just did not get the appropriate phpDoc.
 
 For complete list of changes since previous version, see CHANGELOG.md.

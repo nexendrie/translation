@@ -1,3 +1,6 @@
+Version 2.5.0+dev
+- marked on* properties of FileLoader as deprecated
+
 Version 2.5.0
 - added TomlLoader
 - added support for PSR-14 event dispatcher
