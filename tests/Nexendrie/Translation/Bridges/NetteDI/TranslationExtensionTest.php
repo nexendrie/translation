@@ -33,7 +33,7 @@ use Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nette\DI\MissingServiceException;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
-use Nexendrie\Translation\IMessageSelector;
+use Nexendrie\Translation\MessageSelector;
 use Nexendrie\Translation\IntervalsMessageSelector;
 use Nexendrie\Translation\CustomMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
@@ -253,7 +253,7 @@ final class TranslationExtensionTest extends \MyTester\TestCase
     public function testDefaultMessageSelector(): void
     {
         /** @var IntervalsMessageSelector $resolver */
-        $resolver = $this->getService(IMessageSelector::class);
+        $resolver = $this->getService(MessageSelector::class);
         $this->assertType(IntervalsMessageSelector::class, $resolver);
     }
 
@@ -266,7 +266,7 @@ final class TranslationExtensionTest extends \MyTester\TestCase
         ];
         $this->refreshContainer($config);
         /** @var CustomMessageSelector $resolver */
-        $resolver = $this->getService(IMessageSelector::class);
+        $resolver = $this->getService(MessageSelector::class);
         $this->assertType(CustomMessageSelector::class, $resolver);
     }
 

@@ -31,7 +31,7 @@ final class Translator implements \Nette\Localization\Translator
 
     public function __construct(
         private readonly Loader $loader,
-        private readonly IMessageSelector $messageSelector = new IntervalsMessageSelector(),
+        private readonly MessageSelector $messageSelector = new IntervalsMessageSelector(),
         private readonly ?EventDispatcherInterface $eventDispatcher = null
     ) {
     }

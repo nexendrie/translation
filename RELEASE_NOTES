@@ -1,5 +1,5 @@
 A new version of Translation is out. It removes support for nexendrie/utils 1 and Latte 2.
 
-It removes deprecated interfaces.
+It removes deprecated interfaces, IMessageSelector was renamed to MessageSelector.
 
 For complete list of changes since previous version, see CHANGELOG.md.

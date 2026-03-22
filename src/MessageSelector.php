@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Nexendrie\Translation;
 
 /**
- * IMessageSelector
+ * MessageSelector
  *
  * @author Jakub Konečný
  */
-interface IMessageSelector
+interface MessageSelector
 {
     /**
      * Does the message contain multiple variants?

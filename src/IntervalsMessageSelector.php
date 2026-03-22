@@ -10,7 +10,7 @@ use Nexendrie\Utils\Intervals;
  *
  * @author Jakub Konečný
  */
-final class IntervalsMessageSelector implements IMessageSelector
+final class IntervalsMessageSelector implements MessageSelector
 {
     public function isMultiChoice(string $message): bool
     {

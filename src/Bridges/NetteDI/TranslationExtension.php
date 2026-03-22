@@ -34,7 +34,7 @@ use Nexendrie\Translation\CatalogueCompiler;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\LoaderAwareLocaleResolver;
-use Nexendrie\Translation\IMessageSelector;
+use Nexendrie\Translation\MessageSelector;
 use Nexendrie\Translation\IntervalsMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
 use Nette\Schema\Expect;
@@ -183,7 +183,7 @@ final class TranslationExtension extends CompilerExtension
         $config = $this->getConfig();
         /** @var string $messageSelector */
         $messageSelector = $config->messageSelector;
-        if (class_exists($messageSelector) && is_subclass_of($messageSelector, IMessageSelector::class)) {
+        if (class_exists($messageSelector) && is_subclass_of($messageSelector, MessageSelector::class)) {
             return $messageSelector;
         }
         throw new InvalidMessageSelectorException("Invalid message selector $messageSelector.");

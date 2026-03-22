@@ -11,7 +11,7 @@ use Nette\Utils\Strings;
  *
  * @author Jakub Konečný
  */
-final class CustomMessageSelector implements IMessageSelector
+final class CustomMessageSelector implements MessageSelector
 {
     public function isMultiChoice(string $message): bool
     {

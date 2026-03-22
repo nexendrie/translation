@@ -2,6 +2,7 @@ Version 3.0.0-dev
 - dropped support for nexendrie/utils 1
 - dropped support for Latte 2
 - BC break: removed IAppRequestAwareLocaleResolver, ITranslationProvider, IFileLoader, IFileLoader, ILoaderAwareLocaleResolver, ILocaleResolver, ISettableLocaleResolver
+- BC break: renamed IMessageSelector to MessageSelector
 
 Version 2.7.1
 - removed implicitly nullable parameters (they are deprecated in PHP 8.4)
