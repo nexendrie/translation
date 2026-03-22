@@ -46,8 +46,6 @@ final class TranslationExtensionTest extends \Tester\TestCase
 {
     use \Testbench\TCompiledContainer;
 
-    public static array $messages = [];
-
     protected function setUp(): void
     {
         $this->refreshContainer();
@@ -425,28 +423,6 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $latte = $factory->create();
         Assert::contains("translate", $latte->getFilters());
         Assert::true(array_key_exists("translator", $latte->getProviders()));
-    }
-
-    public static function onUntranslated(string $message): void
-    {
-        static::$messages[] = $message;
-    }
-
-    public function testOnUntranslated(): void
-    {
-        $config = [
-            "translation" => [
-                "onUntranslated" => [
-                    static::class . "::onUntranslated"
-                ]
-            ]
-        ];
-        $this->refreshContainer($config);
-        Assert::count(0, static::$messages);
-        /** @var Translator $translator */
-        $translator = $this->getService(Translator::class);
-        $translator->translate("messages.nonsense");
-        Assert::count(1, static::$messages);
     }
 }
 

@@ -1,5 +1,6 @@
 Version 2.5.0+dev
 - marked on* properties of FileLoader as deprecated
+- option onUntranslated of Nette DIC extension throws a deprecation warning with non-default values
 
 Version 2.5.0
 - added TomlLoader

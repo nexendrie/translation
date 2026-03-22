@@ -295,6 +295,12 @@ final class TranslationExtension extends CompilerExtension
         $config = $this->getConfig();
         $initialize = $this->initialization;
         $initialize->addBody('$translator = $this->getService(?);', [$this->prefix(self::SERVICE_TRANSLATOR)]);
+        if ($config->onUntranslated !== [["@" . $this->prefix(self::SERVICE_TRANSLATOR), "logUntranslatedMessage"]]) {
+            trigger_error(
+                "Item onUntranslated is deprecated, use a PSR-14 event dispatcher instead.",
+                E_USER_DEPRECATED
+            );
+        }
         foreach ($config->onUntranslated as &$task) {
             if (!is_array($task)) {
                 $task = explode("::", $task);
