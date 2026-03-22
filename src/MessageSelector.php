@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nexendrie\Translation;
 
 use Nexendrie\Utils\Intervals;
-use Nette\Utils\Strings;
 
 /**
  * MessageSelector
@@ -27,7 +26,7 @@ final class MessageSelector implements IMessageSelector
         foreach ($variants as $variant) {
             $interval = Intervals::findInterval($variant);
             if (is_string($interval) && Intervals::isInInterval($count, $interval)) {
-                return mb_trim((string) Strings::after($variant, $interval));
+                return mb_trim((string) str_replace($interval, "", $variant));
             }
         }
         return "";

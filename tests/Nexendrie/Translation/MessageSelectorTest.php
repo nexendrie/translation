@@ -33,6 +33,7 @@ final class MessageSelectorTest extends \Tester\TestCase
         $message = "abc";
         Assert::same($message, $this->messageSelector->choose($message, 0));
         Assert::same("abc", $this->messageSelector->choose("{0}abc|{1}def", 0));
+        Assert::same("Číh", $this->messageSelector->choose("{0}Číh|{1}def", 0));
     }
 }
 
