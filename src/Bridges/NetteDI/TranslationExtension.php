@@ -36,7 +36,7 @@ use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\LoaderAwareLocaleResolver;
 use Nexendrie\Translation\IMessageSelector;
-use Nexendrie\Translation\MessageSelector;
+use Nexendrie\Translation\IntervalsMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
 use Nette\Schema\Expect;
 use Nette\DI\Definitions\ServiceDefinition;
@@ -107,7 +107,7 @@ final class TranslationExtension extends CompilerExtension
                 "enabled" => Expect::bool(false),
                 "languages" => Expect::arrayOf("string")->default([]),
             ])->castTo("array"),
-            "messageSelector" => Expect::type("class")->default(MessageSelector::class),
+            "messageSelector" => Expect::type("class")->default(IntervalsMessageSelector::class),
         ]);
     }
 

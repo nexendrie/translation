@@ -3,32 +3,23 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Nexendrie\Utils\Intervals;
-
-/**
- * MessageSelector
- *
- * @author Jakub Konečný
- */
-final class MessageSelector implements IMessageSelector
-{
-    public function isMultiChoice(string $message): bool
+if (false) { // @phpstan-ignore if.alwaysFalse
+    /**
+     * @deprecated Use IntervalsMessageSelector
+     */
+    final class MessageSelector implements IMessageSelector
     {
-        return is_string(Intervals::findInterval($message)) && str_contains($message, "|");
-    }
+        public function isMultiChoice(string $message): bool
+        {
+            return false;
+        }
 
-    public function choose(string $message, int $count): string
-    {
-        if (!$this->isMultiChoice($message)) {
+        public function choose(string $message, int $count): string
+        {
             return $message;
         }
-        $variants = explode("|", $message);
-        foreach ($variants as $variant) {
-            $interval = Intervals::findInterval($variant);
-            if (is_string($interval) && Intervals::isInInterval($count, $interval)) {
-                return mb_trim((string) str_replace($interval, "", $variant));
-            }
-        }
-        return "";
+
     }
+} else {
+    class_alias(IntervalsMessageSelector::class, MessageSelector::class);
 }

@@ -8,4 +8,5 @@
     <exclude-pattern>*/src/Bridges/NetteDI/ITranslationProvider.php</exclude-pattern>
     <exclude-pattern>*/src/ISettableLocaleResolver.php</exclude-pattern>
     <exclude-pattern>*/src/ILoaderAwareLocaleResolver.php</exclude-pattern>
+    <exclude-pattern>*/src/MessageSelector.php</exclude-pattern>
 </ruleset>

@@ -32,7 +32,7 @@ use Tester\Assert;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\IMessageSelector;
-use Nexendrie\Translation\MessageSelector;
+use Nexendrie\Translation\IntervalsMessageSelector;
 use Nexendrie\Translation\CustomMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
 
@@ -258,9 +258,9 @@ final class TranslationExtensionTest extends \Tester\TestCase
 
     public function testDefaultMessageSelector(): void
     {
-        /** @var MessageSelector $resolver */
+        /** @var IntervalsMessageSelector $resolver */
         $resolver = $this->getService(IMessageSelector::class);
-        Assert::type(MessageSelector::class, $resolver);
+        Assert::type(IntervalsMessageSelector::class, $resolver);
     }
 
     public function testCustomMessageSelector(): void

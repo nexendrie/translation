@@ -8,12 +8,12 @@ require __DIR__ . "/../../bootstrap.php";
 use Tester\Assert;
 
 /**
- * MessageSelectorTest
+ * IntervalsMessageSelectorTest
  *
  * @author Jakub Konečný
  * @testCase
  */
-final class MessageSelectorTest extends \Tester\TestCase
+final class IntervalsMessageSelectorTest extends \Tester\TestCase
 {
     protected MessageSelector $messageSelector;
 
@@ -37,5 +37,5 @@ final class MessageSelectorTest extends \Tester\TestCase
     }
 }
 
-$test = new MessageSelectorTest();
+$test = new IntervalsMessageSelectorTest();
 $test->run();
