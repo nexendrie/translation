@@ -294,13 +294,12 @@ final class TranslationExtensionTest extends \Tester\TestCase
         Assert::type(TranslationPanel::class, $panel);
         $panel = \Tracy\Debugger::getBar()->getPanel("translation");
         Assert::type(TranslationPanel::class, $panel);
-        $config = [
-            "translation" => [
-                "debugger" => false
-            ]
-        ];
-        Assert::exception(function () use ($config) {
-            $this->refreshContainer($config);
+        Assert::exception(function () {
+            $this->refreshContainer([
+                "translation" => [
+                    "debugger" => false
+                ]
+            ]);
             $panel = $this->getService(TranslationPanel::class);
             Assert::type(TranslationPanel::class, $panel);
         }, MissingServiceException::class);
