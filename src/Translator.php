@@ -18,7 +18,7 @@ final class Translator implements \Nette\Localization\Translator
     use \Nette\SmartObject;
 
     /** @internal */
-    public const DEFAULT_DOMAIN = "messages";
+    public const string DEFAULT_DOMAIN = "messages";
 
     /** @var string[] */
     private array $untranslated = [];

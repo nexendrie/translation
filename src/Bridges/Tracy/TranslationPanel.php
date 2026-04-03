@@ -12,9 +12,9 @@ use Tracy\IBarPanel;
  *
  * @author Jakub Konečný
  */
-final class TranslationPanel implements IBarPanel
+final readonly class TranslationPanel implements IBarPanel
 {
-    public function __construct(private readonly Translator $translator, private readonly Loader $loader)
+    public function __construct(private Translator $translator, private Loader $loader)
     {
     }
 

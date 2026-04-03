@@ -51,21 +51,21 @@ use Nette\DI\Helpers;
 final class TranslationExtension extends CompilerExtension
 {
     /** @internal */
-    public const SERVICE_TRANSLATOR = "translator";
+    public const string SERVICE_TRANSLATOR = "translator";
     /** @internal */
-    public const SERVICE_LOADER = "loader";
+    public const string SERVICE_LOADER = "loader";
     /** @internal */
-    public const SERVICE_LOCALE_RESOLVER = "localeResolver";
+    public const string SERVICE_LOCALE_RESOLVER = "localeResolver";
     /** @internal */
-    public const SERVICE_PANEL = "panel";
+    public const string SERVICE_PANEL = "panel";
     /** @internal */
-    public const SERVICE_CATALOGUE_COMPILER = "catalogueCompiler";
+    public const string SERVICE_CATALOGUE_COMPILER = "catalogueCompiler";
     /** @internal */
-    public const SERVICE_ORIGINAL_LOADER = "originalLoader";
+    public const string SERVICE_ORIGINAL_LOADER = "originalLoader";
     /** @internal */
-    public const SERVICE_MESSAGE_SELECTOR = "messageSelector";
+    public const string SERVICE_MESSAGE_SELECTOR = "messageSelector";
     /** @internal */
-    public const SERVICE_LATTE_EXTENSION = "latteExtension";
+    public const string SERVICE_LATTE_EXTENSION = "latteExtension";
 
     private array $resolvers = [
         "environment" => EnvironmentLocaleResolver::class,

@@ -5,9 +5,9 @@ namespace Nexendrie\Translation\Events;
 
 use Nexendrie\Translation\Loaders\FileLoader;
 
-final class LanguageLoaded
+final readonly class LanguageLoaded
 {
-    public function __construct(public readonly FileLoader $loader, public readonly string $language)
+    public function __construct(public FileLoader $loader, public string $language)
     {
     }
 }

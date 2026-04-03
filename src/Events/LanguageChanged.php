@@ -5,12 +5,12 @@ namespace Nexendrie\Translation\Events;
 
 use Nexendrie\Translation\Loaders\FileLoader;
 
-final class LanguageChanged
+final readonly class LanguageChanged
 {
     public function __construct(
-        public readonly FileLoader $loader,
-        public readonly string $oldLanguage,
-        public readonly string $newLanguage
+        public FileLoader $loader,
+        public string $oldLanguage,
+        public string $newLanguage
     ) {
     }
 }
