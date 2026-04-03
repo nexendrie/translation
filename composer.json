@@ -19,8 +19,8 @@
     "require": {
         "php": ">=8.3.0",
         "psr/event-dispatcher": "^1.0",
-        "nette/utils": "^3.2.10",
-        "nette/finder": "^2.6",
+        "nette/utils": "^3.2.10 || ^4.0",
+        "nette/finder": "^2.6 || ^3.0",
         "nexendrie/utils": "^1.9",
         "symfony/polyfill-php84": "^1.31"
     },
