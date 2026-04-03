@@ -1,3 +1,6 @@
+Version 2.7.0-dev
+- raised minimal version of PHP to 8.3
+
 Version 2.6.0
 - marked on* properties of FileLoader as deprecated
 - option onUntranslated of Nette DIC extension throws a deprecation warning with non-default values

@@ -17,14 +17,6 @@ stages:
         -   if: $CI_COMMIT_BRANCH
     retry: 2
 
-test:php8.1:
-    <<: *test_job
-    image: nexendrie/php:8.1
-
-test:php8.2:
-    <<: *test_job
-    image: nexendrie/php:8.2
-
 test:php8.3:
     <<: *test_job
     image: nexendrie/php:8.3
@@ -35,7 +27,7 @@ test:cc:
     coverage: '/(\d+\%) covered/'
 
 pages:
-    image: nexendrie/php:8.1
+    image: nexendrie/php:8.3
     stage: deploy
     environment:
         name: documentation
