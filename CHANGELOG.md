@@ -1,4 +1,4 @@
-Version 2.7.0-dev
+Version 2.7.0
 - raised minimal version of PHP to 8.3
 - allowed nette/utils 4
 
