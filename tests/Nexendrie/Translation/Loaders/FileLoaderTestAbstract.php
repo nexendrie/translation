@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
-use Circli\EventDispatcher\EventDispatcher;
-use Circli\EventDispatcher\ListenerProvider\DefaultProvider;
+use Konecnyjakub\EventDispatcher\AutoListenerProvider;
+use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Nexendrie\Translation\Events\FoldersChanged;
 use Nexendrie\Translation\Events\LanguageChanged;
 use Nexendrie\Translation\Events\LanguageLoaded;
@@ -22,7 +22,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
 {
     protected FileLoader $loader;
     protected EventDispatcherInterface $eventDispatcher;
-    protected DefaultProvider $listenerProvider;
+    protected AutoListenerProvider $listenerProvider;
     /**
      * @var LanguageChanged[]|FoldersChanged[]|LanguageLoaded[]
      */
@@ -31,14 +31,14 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
     protected function setUp(): void
     {
         $this->events = [];
-        $this->listenerProvider = new DefaultProvider();
-        $this->listenerProvider->listen(LanguageChanged::class, function (LanguageChanged $event): void {
+        $this->listenerProvider = new AutoListenerProvider();
+        $this->listenerProvider->addListener(function (LanguageChanged $event): void {
             $this->events[] = $event;
         });
-        $this->listenerProvider->listen(FoldersChanged::class, function (FoldersChanged $event): void {
+        $this->listenerProvider->addListener(function (FoldersChanged $event): void {
             $this->events[] = $event;
         });
-        $this->listenerProvider->listen(LanguageLoaded::class, function (LanguageLoaded $event): void {
+        $this->listenerProvider->addListener(function (LanguageLoaded $event): void {
             $this->events[] = $event;
         });
         $this->eventDispatcher = new EventDispatcher($this->listenerProvider);

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-use Circli\EventDispatcher\EventDispatcher;
-use Circli\EventDispatcher\ListenerProvider\DefaultProvider;
+use Konecnyjakub\EventDispatcher\AutoListenerProvider;
+use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Nexendrie\Translation\Events\UntranslatedMessage;
 use Tester\Assert;
 
@@ -24,10 +24,12 @@ final class TranslatorTest extends \Tester\TestCase
     {
         $loader = new Loaders\NeonLoader();
         $loader->folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2"];
-        $provider = new DefaultProvider();
+        $provider = new AutoListenerProvider();
         $dispatcher = new EventDispatcher($provider);
         $this->translator = new Translator($loader, eventDispatcher: $dispatcher);
-        $provider->listen(UntranslatedMessage::class, $this->translator->logUntranslatedMessage(...));
+        $provider->addListener(function (UntranslatedMessage $event): void {
+            $this->translator->logUntranslatedMessage($event);
+        });
         $this->translator->onUntranslated[] = $this->translator->logUntranslatedMessage(...);
     }
 

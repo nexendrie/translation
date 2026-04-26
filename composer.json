@@ -35,7 +35,7 @@
         "nette/neon": "^3.4.1",
         "nette/application": "^3.1.5",
         "devium/toml": "^1.0",
-        "circli/event-dispatcher": "^3.0"
+        "konecnyjakub/event-dispatcher": "^2.2"
     },
     "suggest": {
         "nette/di": "For easier integration to Nette applications",

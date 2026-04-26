@@ -5,8 +5,8 @@ namespace Nexendrie\Translation;
 
 require __DIR__ . "/../../bootstrap.php";
 
-use Circli\EventDispatcher\EventDispatcher;
-use Circli\EventDispatcher\ListenerProvider\DefaultProvider;
+use Konecnyjakub\EventDispatcher\AutoListenerProvider;
+use Konecnyjakub\EventDispatcher\EventDispatcher;
 use Nette\Utils\FileSystem;
 use Nexendrie\Translation\Events\CatalogueCompiled;
 use Nexendrie\Translation\Loaders\NeonLoader;
@@ -28,11 +28,10 @@ final class CatalogueCompilerTest extends \Tester\TestCase
         FileSystem::createDir($folder);
         $folders = [__DIR__ . "/../../lang", __DIR__ . "/../../lang2",];
         $loader = new NeonLoader(new ManualLocaleResolver(), $folders);
-        $provider = new DefaultProvider();
+        $provider = new AutoListenerProvider();
         $compiledLanguages = [];
-        $provider->listen(
-            CatalogueCompiled::class,
-            static function (CatalogueCompiled $event) use (&$compiledLanguages) {
+        $provider->addListener(
+            static function (CatalogueCompiled $event) use (&$compiledLanguages): void {
                 $compiledLanguages[] = $event->language;
             }
         );
