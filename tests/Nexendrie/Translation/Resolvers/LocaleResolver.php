@@ -10,8 +10,6 @@ namespace Nexendrie\Translation\Resolvers;
  */
 final class LocaleResolver implements \Nexendrie\Translation\LocaleResolver
 {
-    use \Nette\SmartObject;
-
     /**
      * Resolve language
      *
