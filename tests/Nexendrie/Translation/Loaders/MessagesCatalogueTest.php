@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Loaders;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 use Nexendrie\Translation\CatalogueCompiler;
 
 #[TestSuite("MessagesCatalogue")]
+#[Group("loaders")]
 final class MessagesCatalogueTest extends FileLoaderTestAbstract
 {
     #[BeforeTest]

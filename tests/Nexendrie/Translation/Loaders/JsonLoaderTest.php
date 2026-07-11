@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Loaders;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 use ReflectionMethod;
 use RuntimeException;
 
 #[TestSuite("JsonLoader")]
+#[Group("loaders")]
 final class JsonLoaderTest extends FileLoaderTestAbstract
 {
     #[BeforeTest]

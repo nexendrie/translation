@@ -5,6 +5,7 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Latte\Engine;
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Loaders\TomlLoader;
@@ -39,6 +40,7 @@ use Nexendrie\Translation\CustomMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
 
 #[TestSuite("TranslationExtension")]
+#[Group("nette")]
 #[RequiresPhpVersion("8.4.0")]
 final class TranslationExtensionTest extends \MyTester\TestCase
 {

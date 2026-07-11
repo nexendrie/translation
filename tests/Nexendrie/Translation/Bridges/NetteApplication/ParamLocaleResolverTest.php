@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Bridges\NetteApplication;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\TestSuite;
 use Nette\Application\Request;
 use Nette\Application\Application;
 
 #[TestSuite("ParamLocaleResolver")]
+#[Group("localeResolvers")]
+#[Group("nette")]
 #[RequiresPhpVersion("8.4.0")]
 final class ParamLocaleResolverTest extends \MyTester\TestCase
 {

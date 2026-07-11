@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Loaders;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Resolvers\ManualLocaleResolver;
 
 #[TestSuite("YamlLoader")]
+#[Group("loaders")]
 final class YamlLoaderTest extends FileLoaderTestAbstract
 {
     #[BeforeTest]

@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Bridges\Tracy;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Translator;
 
 #[TestSuite("TranslationPanel")]
+#[Group("nette")]
 final class TranslationPanelTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;

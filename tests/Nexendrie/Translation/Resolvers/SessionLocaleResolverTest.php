@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Resolvers;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nette\Http\Session;
 
 #[TestSuite("SessionLocaleResolver")]
+#[Group("localeResolvers")]
 final class SessionLocaleResolverTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;

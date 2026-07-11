@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
@@ -10,6 +11,7 @@ use Nexendrie\Translation\Loader;
 use Nexendrie\Translation\LoaderNotSetException;
 
 #[TestSuite("HeaderLocaleResolver")]
+#[Group("localeResolvers")]
 final class HeaderLocaleResolverTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;

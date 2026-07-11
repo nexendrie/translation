@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Resolvers;
 
 use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Group;
 use MyTester\Attributes\TestSuite;
 
 #[TestSuite("EnvironmentLocaleResolver")]
+#[Group("localeResolvers")]
 final class EnvironmentLocaleResolverTest extends \MyTester\TestCase
 {
     protected EnvironmentLocaleResolver $resolver;
