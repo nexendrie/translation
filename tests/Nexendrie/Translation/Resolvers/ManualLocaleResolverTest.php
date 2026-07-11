@@ -3,34 +3,28 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Tester\Assert;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class ManualLocaleResolverTest extends \Tester\TestCase
+#[TestSuite("ManualLocaleResolver")]
+final class ManualLocaleResolverTest extends \MyTester\TestCase
 {
     protected ManualLocaleResolver $resolver;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $this->resolver = new ManualLocaleResolver();
     }
 
     public function testResolve(): void
     {
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
         $this->resolver->lang = "cs";
-        Assert::same("cs", $this->resolver->resolve());
-        Assert::same("cs", $this->resolver->getLang());
+        $this->assertSame("cs", $this->resolver->resolve());
+        $this->assertSame("cs", $this->resolver->getLang());
         $this->resolver->lang = null;
-        Assert::null($this->resolver->resolve());
-        Assert::null($this->resolver->getLang());
+        $this->assertNull($this->resolver->resolve());
+        $this->assertNull($this->resolver->getLang());
     }
 }
-
-$test = new ManualLocaleResolverTest();
-$test->run();

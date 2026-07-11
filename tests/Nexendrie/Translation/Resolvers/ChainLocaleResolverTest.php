@@ -3,34 +3,28 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Tester\Assert;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class ChainLocaleResolverTest extends \Tester\TestCase
+#[TestSuite("ChainLocaleResolver")]
+final class ChainLocaleResolverTest extends \MyTester\TestCase
 {
     protected ChainLocaleResolver $resolver;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $this->resolver = new ChainLocaleResolver();
     }
 
     public function testResolve(): void
     {
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
         $this->resolver[] = new ManualLocaleResolver();
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
         $resolver = new ManualLocaleResolver();
         $this->resolver[] = $resolver;
         $resolver->lang = "en";
-        Assert::same("en", $this->resolver->resolve());
+        $this->assertSame("en", $this->resolver->resolve());
     }
 }
-
-$test = new ChainLocaleResolverTest();
-$test->run();

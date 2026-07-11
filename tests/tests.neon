@@ -7,3 +7,7 @@ routing:
         '<presenter>/<action>[/<id>]': "Micro:default"
 extensions:
     translation: Nexendrie\Translation\Bridges\NetteDI\TranslationExtension
+    fakeSession: Nexendrie\Translation\FakeSession\FakeSessionExtension
+mytester:
+    colors: true
+    coverageFormat: cobertura

@@ -17,6 +17,6 @@ final class ProviderExtension extends CompilerExtension implements TranslationPr
      */
     public function getTranslationResources(): array
     {
-        return [__DIR__ . "/../../../../_temp"];
+        return [__DIR__ . "/../../../../temp"];
     }
 }

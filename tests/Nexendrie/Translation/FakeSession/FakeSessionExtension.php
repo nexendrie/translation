@@ -1,0 +1,25 @@
+<?php
+declare(strict_types=1);
+
+namespace Nexendrie\Translation\FakeSession;
+
+use Nette\DI\CompilerExtension;
+use Nette\Http\Session;
+
+final class FakeSessionExtension extends CompilerExtension
+{
+    public function beforeCompile(): void
+    {
+        $builder = $this->getContainerBuilder();
+        $originalSessionName = $builder->getByType(Session::class);
+        if (is_string($originalSessionName)) {
+            $originalSession = $builder->getDefinition($originalSessionName);
+            $builder->removeDefinition($originalSessionName);
+            $builder->addDefinition($this->prefix("originalSession"), clone $originalSession)
+                ->setAutowired(false);
+            $builder->addDefinition($originalSessionName)
+                ->setType(Session::class)
+                ->setFactory(FakeSession::class, [$this->prefix("@originalSession"),]);
+        }
+    }
+}

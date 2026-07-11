@@ -5,21 +5,16 @@ namespace Nexendrie\Translation;
 
 use Konecnyjakub\EventDispatcher\AutoListenerProvider;
 use Konecnyjakub\EventDispatcher\EventDispatcher;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Events\UntranslatedMessage;
-use Tester\Assert;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * TranslatorTest
- *
- * @author Jakub Konečný
- * @testCase
- */
-final class TranslatorTest extends \Tester\TestCase
+#[TestSuite("Translator")]
+final class TranslatorTest extends \MyTester\TestCase
 {
     private Translator $translator;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         $loader = new Loaders\NeonLoader();
@@ -35,88 +30,88 @@ final class TranslatorTest extends \Tester\TestCase
 
     public function testTranslateEn(): void
     {
-        Assert::count(0, $this->translator->untranslated);
-        Assert::same("en", $this->translator->lang);
+        $this->assertCount(0, $this->translator->untranslated);
+        $this->assertSame("en", $this->translator->lang);
         // non-existing string
-        Assert::type("string", $this->translator->translate("abc"));
-        Assert::same("abc", $this->translator->translate("abc"));
+        $this->assertType("string", $this->translator->translate("abc"));
+        $this->assertSame("abc", $this->translator->translate("abc"));
         // existing string
-        Assert::type("string", $this->translator->translate("book.content"));
-        Assert::same("Content", $this->translator->translate("book.content"));
-        Assert::same("XYZ", $this->translator->translate("xyz"));
+        $this->assertType("string", $this->translator->translate("book.content"));
+        $this->assertSame("Content", $this->translator->translate("book.content"));
+        $this->assertSame("XYZ", $this->translator->translate("xyz"));
         // parameters
         $result = $this->translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::type("string", $result);
-        Assert::same("Param1: value1", $result);
+        $this->assertType("string", $result);
+        $this->assertSame("Param1: value1", $result);
         // string existing only in default translation
-        Assert::type("string", $this->translator->translate("test"));
-        Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(4, $this->translator->untranslated);
+        $this->assertType("string", $this->translator->translate("test"));
+        $this->assertSame("Test", $this->translator->translate("test"));
+        $this->assertCount(4, $this->translator->untranslated);
         // multi-level message
-        Assert::type("string", $this->translator->translate("abc.multi.abc"));
-        Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
-        Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
-        Assert::type("string", $this->translator->translate("abc.multi2.def"));
-        Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("ABC", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("abc.multi.def", $this->translator->translate("abc.multi.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi2.def"));
+        $this->assertSame("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
         // plurals
-        Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
-        Assert::same("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
-        Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
-        Assert::same("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
-        Assert::same("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
-        Assert::same("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
-        Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
-        Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
-        Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
+        $this->assertSame("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
+        $this->assertSame("", $this->translator->translate("abc.pluralSimple", 5));
+        $this->assertSame("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
+        $this->assertSame("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
+        $this->assertSame("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
+        $this->assertSame("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+        $this->assertSame("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
         // new style count
-        Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
-        Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+        $this->assertSame("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(10, $this->translator->untranslated);
+        $this->assertCount(10, $this->translator->untranslated);
     }
 
     public function testTranslateCs(): void
     {
-        Assert::count(0, $this->translator->untranslated);
+        $this->assertCount(0, $this->translator->untranslated);
         $this->translator->lang = "cs";
-        Assert::same("cs", $this->translator->lang);
+        $this->assertSame("cs", $this->translator->lang);
         // non-existing string
-        Assert::type("string", $this->translator->translate("abc"));
-        Assert::same("abc", $this->translator->translate("abc"));
-        Assert::count(4, $this->translator->untranslated);
+        $this->assertType("string", $this->translator->translate("abc"));
+        $this->assertSame("abc", $this->translator->translate("abc"));
+        $this->assertCount(4, $this->translator->untranslated);
         // existing string
-        Assert::type("string", $this->translator->translate("book.content"));
-        Assert::same("Obsah", $this->translator->translate("book.content"));
-        Assert::same("xyz", $this->translator->translate("xyz"));
+        $this->assertType("string", $this->translator->translate("book.content"));
+        $this->assertSame("Obsah", $this->translator->translate("book.content"));
+        $this->assertSame("xyz", $this->translator->translate("xyz"));
         // parameters
         $result = $this->translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::type("string", $result);
-        Assert::same("Param2: value1", $result);
+        $this->assertType("string", $result);
+        $this->assertSame("Param2: value1", $result);
         // string existing only in default translation
-        Assert::type("string", $this->translator->translate("test"));
-        Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(4, $this->translator->untranslated);
+        $this->assertType("string", $this->translator->translate("test"));
+        $this->assertSame("Test", $this->translator->translate("test"));
+        $this->assertCount(4, $this->translator->untranslated);
         // multi-level message
-        Assert::type("string", $this->translator->translate("abc.multi.abc"));
-        Assert::same("Abc", $this->translator->translate("abc.multi.abc"));
-        Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
-        Assert::type("string", $this->translator->translate("abc.multi2.def"));
-        Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("Abc", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("abc.multi.def", $this->translator->translate("abc.multi.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi2.def"));
+        $this->assertSame("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
         // plurals
-        Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", 0));
-        Assert::same("Je tu jedno jablko.", $this->translator->translate("abc.pluralSimple", 1));
-        Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
-        Assert::same("Je tu 0 jablek.", $this->translator->translate("abc.pluralSimpleParams", 0));
-        Assert::same("Je tu 1 jablko.", $this->translator->translate("abc.pluralSimpleParams", 1));
-        Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.multi.pluralSimple", 0));
-        Assert::same("Je tu jedno jablko.", $this->translator->translate("abc.multi.pluralSimple", 1));
-        Assert::same("Je tu 0 jablek.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
-        Assert::same("Je tu 1 jablko.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+        $this->assertSame("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", 0));
+        $this->assertSame("Je tu jedno jablko.", $this->translator->translate("abc.pluralSimple", 1));
+        $this->assertSame("", $this->translator->translate("abc.pluralSimple", 5));
+        $this->assertSame("Je tu 0 jablek.", $this->translator->translate("abc.pluralSimpleParams", 0));
+        $this->assertSame("Je tu 1 jablko.", $this->translator->translate("abc.pluralSimpleParams", 1));
+        $this->assertSame("Není tu žádné jablko.", $this->translator->translate("abc.multi.pluralSimple", 0));
+        $this->assertSame("Je tu jedno jablko.", $this->translator->translate("abc.multi.pluralSimple", 1));
+        $this->assertSame("Je tu 0 jablek.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+        $this->assertSame("Je tu 1 jablko.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
         // new style count
-        Assert::same("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
-        Assert::same("Param2: value1", $this->translator->translate("param", ["param1" => "value1"]));
+        $this->assertSame("Není tu žádné jablko.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+        $this->assertSame("Param2: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(10, $this->translator->untranslated);
+        $this->assertCount(10, $this->translator->untranslated);
     }
 
     /**
@@ -124,42 +119,39 @@ final class TranslatorTest extends \Tester\TestCase
      */
     public function testTranslateX(): void
     {
-        Assert::count(0, $this->translator->untranslated);
+        $this->assertCount(0, $this->translator->untranslated);
         $this->translator->lang = "x";
-        Assert::same("x", $this->translator->lang);
+        $this->assertSame("x", $this->translator->lang);
         // non-existing string
-        Assert::type("string", $this->translator->translate("abc"));
-        Assert::same("abc", $this->translator->translate("abc"));
+        $this->assertType("string", $this->translator->translate("abc"));
+        $this->assertSame("abc", $this->translator->translate("abc"));
         // existing string
-        Assert::type("string", $this->translator->translate("book.content"));
-        Assert::same("Content", $this->translator->translate("book.content"));
+        $this->assertType("string", $this->translator->translate("book.content"));
+        $this->assertSame("Content", $this->translator->translate("book.content"));
         // string existing only in default translation
-        Assert::type("string", $this->translator->translate("test"));
-        Assert::same("Test", $this->translator->translate("test"));
-        Assert::count(4, $this->translator->untranslated);
+        $this->assertType("string", $this->translator->translate("test"));
+        $this->assertSame("Test", $this->translator->translate("test"));
+        $this->assertCount(4, $this->translator->untranslated);
         // multi-level message
-        Assert::type("string", $this->translator->translate("abc.multi.abc"));
-        Assert::same("ABC", $this->translator->translate("abc.multi.abc"));
-        Assert::same("abc.multi.def", $this->translator->translate("abc.multi.def"));
-        Assert::type("string", $this->translator->translate("abc.multi2.def"));
-        Assert::same("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("ABC", $this->translator->translate("abc.multi.abc"));
+        $this->assertSame("abc.multi.def", $this->translator->translate("abc.multi.def"));
+        $this->assertType("string", $this->translator->translate("abc.multi2.def"));
+        $this->assertSame("abc.multi2.def", $this->translator->translate("abc.multi2.def"));
         // plurals
-        Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
-        Assert::same("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
-        Assert::same("", $this->translator->translate("abc.pluralSimple", 5));
-        Assert::same("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
-        Assert::same("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
-        Assert::same("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
-        Assert::same("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
-        Assert::same("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
-        Assert::same("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.pluralSimple", 0));
+        $this->assertSame("There is one apple.", $this->translator->translate("abc.pluralSimple", 1));
+        $this->assertSame("", $this->translator->translate("abc.pluralSimple", 5));
+        $this->assertSame("There are 0 apples.", $this->translator->translate("abc.pluralSimpleParams", 0));
+        $this->assertSame("There is 1 apple.", $this->translator->translate("abc.pluralSimpleParams", 1));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.multi.pluralSimple", 0));
+        $this->assertSame("There is one apple.", $this->translator->translate("abc.multi.pluralSimple", 1));
+        $this->assertSame("There are 0 apples.", $this->translator->translate("abc.multi.pluralSimpleParams", 0));
+        $this->assertSame("There is 1 apple.", $this->translator->translate("abc.multi.pluralSimpleParams", 1));
         // new style count
-        Assert::same("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
-        Assert::same("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
+        $this->assertSame("There are no apples.", $this->translator->translate("abc.pluralSimple", ["count" => 0]));
+        $this->assertSame("Param1: value1", $this->translator->translate("param", ["param1" => "value1"]));
         // test untranslated messages
-        Assert::count(10, $this->translator->untranslated);
+        $this->assertCount(10, $this->translator->untranslated);
     }
 }
-
-$test = new TranslatorTest();
-$test->run();

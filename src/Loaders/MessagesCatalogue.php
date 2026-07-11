@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
+use Nette\Utils\FileInfo;
 use Nette\Utils\Finder;
 use Nexendrie\Translation\FolderNotSetException;
 
@@ -35,7 +36,7 @@ final class MessagesCatalogue extends FileLoader
         $filename = str_replace(self::LANGUAGE_MASK, $this->lang, $this->getLanguageFilenameMask());
         $files = Finder::findFiles($filename)
             ->from(...$this->folders);
-        /** @var \SplFileInfo $file */
+        /** @var FileInfo $file */
         foreach ($files as $file) {
             $texts = array_merge($texts, $this->parseFile($file->getPathname()));
             if (isset($texts["__resources"])) {

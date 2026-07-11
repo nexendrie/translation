@@ -112,7 +112,7 @@ final class TranslationExtension extends CompilerExtension
     }
 
     /**
-     * @return string[]
+     * @return class-string[]
      * @throws InvalidLocaleResolverException
      */
     private function resolveResolverClass(): array
@@ -137,6 +137,7 @@ final class TranslationExtension extends CompilerExtension
     }
 
     /**
+     * @return class-string
      * @throws InvalidLoaderException
      */
     private function resolveLoaderClass(): string
@@ -162,6 +163,7 @@ final class TranslationExtension extends CompilerExtension
         $config = $this->getConfig();
         $folders = $config->loader["folders"];
         /** @var TranslationProvider $extension */
+        // @phpstan-ignore varTag.type, argument.type, argument.templateType
         foreach ($this->compiler->getExtensions(TranslationProvider::class) as $extension) {
             $folders = array_merge($folders, array_values($extension->getTranslationResources()));
         }
@@ -174,6 +176,7 @@ final class TranslationExtension extends CompilerExtension
     }
 
     /**
+     * @return class-string
      * @throws InvalidMessageSelectorException
      */
     private function resolveMessageSelector(): string
@@ -212,6 +215,10 @@ final class TranslationExtension extends CompilerExtension
         } else {
             $chainResolver = $builder->addDefinition($this->prefix(self::SERVICE_LOCALE_RESOLVER))
                 ->setType(ChainLocaleResolver::class);
+            /**
+             * @var int $index
+             * @var class-string $resolver
+             */
             foreach ($resolvers as $index => $resolver) {
                 $resolverService = $builder->addDefinition($this->prefix("resolver.$index"))
                     ->setType($resolver)

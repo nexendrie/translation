@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace Nexendrie\Translation\Bridges\NetteDI;
 
 use Latte\Engine;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\RequiresPhpVersion;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Loaders\TomlLoader;
 use Nexendrie\Translation\Translator;
 use Nexendrie\Translation\Loader;
@@ -28,7 +31,6 @@ use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\InvalidLoaderException;
 use Nexendrie\Translation\Bridges\Tracy\TranslationPanel;
 use Nette\DI\MissingServiceException;
-use Tester\Assert;
 use Nette\Application\Application;
 use Nette\Bridges\ApplicationLatte\LatteFactory;
 use Nexendrie\Translation\IMessageSelector;
@@ -36,37 +38,33 @@ use Nexendrie\Translation\IntervalsMessageSelector;
 use Nexendrie\Translation\CustomMessageSelector;
 use Nexendrie\Translation\InvalidMessageSelectorException;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * This class cannot have @testCase annotation because for some reason it causes failures on PHP 8.0+
- */
-final class TranslationExtensionTest extends \Tester\TestCase
+#[TestSuite("TranslationExtension")]
+#[RequiresPhpVersion("8.4.0")]
+final class TranslationExtensionTest extends \MyTester\TestCase
 {
-    use \Testbench\TCompiledContainer;
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $this->refreshContainer();
     }
 
     public function testTranslator(): void
     {
-        /** @var Translator $translator */
         $translator = $this->getService(\Nette\Localization\Translator::class);
-        Assert::type(Translator::class, $translator);
-        Assert::same("XYZ", $translator->translate("xyz"));
+        $this->assertType(Translator::class, $translator);
+        $this->assertSame("XYZ", $translator->translate("xyz"));
     }
 
     public function testDefaultLoader(): void
     {
         /** @var NeonLoader $loader */
         $loader = $this->getService(Loader::class);
-        Assert::type(NeonLoader::class, $loader);
-        Assert::type("string", $loader->getDefaultLang());
-        Assert::same("en", $loader->getDefaultLang());
-        Assert::count(1, $loader->folders);
+        $this->assertType(NeonLoader::class, $loader);
+        $this->assertType("string", $loader->getDefaultLang());
+        $this->assertSame("en", $loader->getDefaultLang());
+        $this->assertCount(1, $loader->folders);
         $config = [
             "translation" => [
                 "default" => "cs"
@@ -75,9 +73,9 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var NeonLoader $loader */
         $loader = $this->getService(Loader::class);
-        Assert::type(NeonLoader::class, $loader);
-        Assert::type("string", $loader->getDefaultLang());
-        Assert::same("cs", $loader->getDefaultLang());
+        $this->assertType(NeonLoader::class, $loader);
+        $this->assertType("string", $loader->getDefaultLang());
+        $this->assertSame("cs", $loader->getDefaultLang());
     }
 
     protected function customLoader(string $name, string $class): void
@@ -91,8 +89,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
         ];
         $this->refreshContainer($config);
         $loader = $this->getService(Loader::class);
-        /** @var Loader $loader */
-        Assert::type($class, $loader);
+        $this->assertType($class, $loader);
     }
 
     public function testCustomLoader(): void
@@ -115,7 +112,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 ]
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidLoaderException::class);
         $config = [
@@ -125,7 +122,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 ]
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidLoaderException::class);
     }
@@ -134,8 +131,8 @@ final class TranslationExtensionTest extends \Tester\TestCase
     {
         /** @var ChainLocaleResolver $resolver */
         $resolver = $this->getService(LocaleResolver::class);
-        Assert::type(ChainLocaleResolver::class, $resolver);
-        Assert::null($resolver->resolve());
+        $this->assertType(ChainLocaleResolver::class, $resolver);
+        $this->assertNull($resolver->resolve());
     }
 
     /**
@@ -152,8 +149,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
         ];
         $this->refreshContainer($config);
         $resolver = $this->getService(LocaleResolver::class);
-        /** @var LocaleResolver $resolver */
-        Assert::type($class, $resolver);
+        $this->assertType($class, $resolver);
     }
 
     public function testCustomResolver(): void
@@ -176,7 +172,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 "localeResolver" => "invalid"
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidLocaleResolverException::class);
         $config = [
@@ -184,7 +180,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 "localeResolver" => \stdClass::class
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidLocaleResolverException::class);
     }
@@ -201,13 +197,13 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var ChainLocaleResolver $resolver */
         $resolver = $this->getService(LocaleResolver::class);
-        Assert::type(ChainLocaleResolver::class, $resolver);
-        Assert::type(FallbackLocaleResolver::class, $resolver[0]);
-        Assert::type(EnvironmentLocaleResolver::class, $resolver[1]);
+        $this->assertType(ChainLocaleResolver::class, $resolver);
+        $this->assertType(FallbackLocaleResolver::class, $resolver[0]);
+        $this->assertType(EnvironmentLocaleResolver::class, $resolver[1]);
         /** @var EnvironmentLocaleResolver $environmentResolver */
         $environmentResolver = $resolver[1];
         $environmentResolver->lang = "cs";
-        Assert::same("cs", $resolver->resolve());
+        $this->assertSame("cs", $resolver->resolve());
     }
 
     public function testLoaderAwareResolver(): void
@@ -220,13 +216,12 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var HeaderLocaleResolver $resolver */
         $resolver = $this->getService(LocaleResolver::class);
-        Assert::type(LoaderAwareLocaleResolver::class, $resolver);
-        Assert::null($resolver->resolve());
+        $this->assertType(LoaderAwareLocaleResolver::class, $resolver);
+        $this->assertNull($resolver->resolve());
     }
 
     public function testAppRequestAwareResolver(): void
     {
-        /** @var Application $application */
         $application = $this->getService(Application::class);
         $count = (is_null($application->onRequest) ? 0 : count($application->onRequest));
         $config = [
@@ -235,9 +230,8 @@ final class TranslationExtensionTest extends \Tester\TestCase
             ]
         ];
         $this->refreshContainer($config);
-        /** @var Application $application */
         $application = $this->getService(Application::class);
-        Assert::count($count + 1, $application->onRequest);
+        $this->assertCount($count + 1, $application->onRequest);
     }
 
     public function testInvalidFolder(): void
@@ -251,7 +245,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 ]
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidFolderException::class);
     }
@@ -260,7 +254,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
     {
         /** @var IntervalsMessageSelector $resolver */
         $resolver = $this->getService(IMessageSelector::class);
-        Assert::type(IntervalsMessageSelector::class, $resolver);
+        $this->assertType(IntervalsMessageSelector::class, $resolver);
     }
 
     public function testCustomMessageSelector(): void
@@ -273,7 +267,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var CustomMessageSelector $resolver */
         $resolver = $this->getService(IMessageSelector::class);
-        Assert::type(CustomMessageSelector::class, $resolver);
+        $this->assertType(CustomMessageSelector::class, $resolver);
     }
 
     public function testInvalidMessageSelector(): void
@@ -283,7 +277,7 @@ final class TranslationExtensionTest extends \Tester\TestCase
                 "messageSelector" => \stdClass::class
             ]
         ];
-        Assert::exception(function () use ($config) {
+        $this->assertThrowsException(function () use ($config) {
             $this->refreshContainer($config);
         }, InvalidMessageSelectorException::class);
     }
@@ -291,17 +285,17 @@ final class TranslationExtensionTest extends \Tester\TestCase
     public function testPanel(): void
     {
         $panel = $this->getService(TranslationPanel::class);
-        Assert::type(TranslationPanel::class, $panel);
+        $this->assertType(TranslationPanel::class, $panel);
         $panel = \Tracy\Debugger::getBar()->getPanel("translation");
-        Assert::type(TranslationPanel::class, $panel);
-        Assert::exception(function () {
+        $this->assertType(TranslationPanel::class, $panel);
+        $this->assertThrowsException(function () {
             $this->refreshContainer([
                 "translation" => [
                     "debugger" => false
                 ]
             ]);
             $panel = $this->getService(TranslationPanel::class);
-            Assert::type(TranslationPanel::class, $panel);
+            $this->assertType(TranslationPanel::class, $panel);
         }, MissingServiceException::class);
     }
 
@@ -324,32 +318,32 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var MessagesCatalogue $loader */
         $loader = $this->getService(Loader::class);
-        Assert::type(MessagesCatalogue::class, $loader);
+        $this->assertType(MessagesCatalogue::class, $loader);
         /** @var NeonLoader $originalLoader */
         $originalLoader = $this->getContainer()
             ->getService("translation.originalLoader");
-        Assert::type(NeonLoader::class, $originalLoader);
+        $this->assertType(NeonLoader::class, $originalLoader);
         $compiler = $this->getService(CatalogueCompiler::class);
-        Assert::type(CatalogueCompiler::class, $compiler);
+        $this->assertType(CatalogueCompiler::class, $compiler);
         /** @var Translator $translator */
         $translator = $this->getService(\Nette\Localization\Translator::class);
-        Assert::same("Content", $translator->translate("book.content"));
-        Assert::same("Test", $translator->translate("book.test"));
-        Assert::same("ABC", $translator->translate("abc.multi.abc"));
+        $this->assertSame("Content", $translator->translate("book.content"));
+        $this->assertSame("Test", $translator->translate("book.test"));
+        $this->assertSame("ABC", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("Param1: value1", $result);
+        $this->assertSame("Param1: value1", $result);
         $translator->lang = "cs";
-        Assert::same("Obsah", $translator->translate("book.content"));
-        Assert::same("Test", $translator->translate("book.test"));
-        Assert::same("Abc", $translator->translate("abc.multi.abc"));
+        $this->assertSame("Obsah", $translator->translate("book.content"));
+        $this->assertSame("Test", $translator->translate("book.test"));
+        $this->assertSame("Abc", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("Param2: value1", $result);
+        $this->assertSame("Param2: value1", $result);
         $translator->lang = "xyz";
-        Assert::same("book.content", $translator->translate("book.content"));
-        Assert::same("book.test", $translator->translate("book.test"));
-        Assert::same("abc.multi.abc", $translator->translate("abc.multi.abc"));
+        $this->assertSame("book.content", $translator->translate("book.content"));
+        $this->assertSame("book.test", $translator->translate("book.test"));
+        $this->assertSame("abc.multi.abc", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("param", $result);
+        $this->assertSame("param", $result);
     }
 
     public function testCompilerWithLanguages(): void
@@ -371,32 +365,32 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var Loader $loader */
         $loader = $this->getService(Loader::class);
-        Assert::type(MessagesCatalogue::class, $loader);
+        $this->assertType(MessagesCatalogue::class, $loader);
         /** @var NeonLoader $originalLoader */
         $originalLoader = $this->getContainer()
             ->getService("translation.originalLoader");
-        Assert::type(NeonLoader::class, $originalLoader);
+        $this->assertType(NeonLoader::class, $originalLoader);
         $compiler = $this->getService(CatalogueCompiler::class);
-        Assert::type(CatalogueCompiler::class, $compiler);
+        $this->assertType(CatalogueCompiler::class, $compiler);
         /** @var Translator $translator */
         $translator = $this->getService(\Nette\Localization\Translator::class);
-        Assert::same("Content", $translator->translate("book.content"));
-        Assert::same("Test", $translator->translate("book.test"));
-        Assert::same("ABC", $translator->translate("abc.multi.abc"));
+        $this->assertSame("Content", $translator->translate("book.content"));
+        $this->assertSame("Test", $translator->translate("book.test"));
+        $this->assertSame("ABC", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("Param1: value1", $result);
+        $this->assertSame("Param1: value1", $result);
         $translator->lang = "cs";
-        Assert::same("Obsah", $translator->translate("book.content"));
-        Assert::same("Test", $translator->translate("book.test"));
-        Assert::same("Abc", $translator->translate("abc.multi.abc"));
+        $this->assertSame("Obsah", $translator->translate("book.content"));
+        $this->assertSame("Test", $translator->translate("book.test"));
+        $this->assertSame("Abc", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("Param2: value1", $result);
+        $this->assertSame("Param2: value1", $result);
         $translator->lang = "xyz";
-        Assert::same("book.content", $translator->translate("book.content"));
-        Assert::same("book.test", $translator->translate("book.test"));
-        Assert::same("abc.multi.abc", $translator->translate("abc.multi.abc"));
+        $this->assertSame("book.content", $translator->translate("book.content"));
+        $this->assertSame("book.test", $translator->translate("book.test"));
+        $this->assertSame("abc.multi.abc", $translator->translate("abc.multi.abc"));
         $result = $translator->translate("param", 0, ["param1" => "value1"]);
-        Assert::same("param", $result);
+        $this->assertSame("param", $result);
     }
 
     public function testTranslationProvider(): void
@@ -409,21 +403,18 @@ final class TranslationExtensionTest extends \Tester\TestCase
         $this->refreshContainer($config);
         /** @var FileLoader $loader */
         $loader = $this->getService(FileLoader::class);
-        Assert::contains(__DIR__ . "/../../../../_temp", $loader->getFolders());
+        $this->assertContains(__DIR__ . "/../../../../temp", $loader->getFolders());
     }
 
     public function testLatte(): void
     {
         if (version_compare(Engine::VERSION, "3", ">=")) {
-            $this->skip("Latte 3 support cannot be tested at the moment.");
+            $this->markTestSkipped("Latte 3 support cannot be tested at the moment.");
         }
         /** @var LatteFactory $factory */
         $factory = $this->getService(LatteFactory::class);
         $latte = $factory->create();
-        Assert::contains("translate", $latte->getFilters());
-        Assert::true(array_key_exists("translator", $latte->getProviders()));
+        $this->assertContains("translate", $latte->getFilters());
+        $this->assertTrue(array_key_exists("translator", $latte->getProviders()));
     }
 }
-
-$test = new TranslationExtensionTest();
-$test->run();

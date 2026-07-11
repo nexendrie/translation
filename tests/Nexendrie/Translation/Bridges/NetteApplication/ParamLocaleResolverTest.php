@@ -3,23 +3,22 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Bridges\NetteApplication;
 
-use Tester\Assert;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\RequiresPhpVersion;
+use MyTester\Attributes\TestSuite;
 use Nette\Application\Request;
 use Nette\Application\Application;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class ParamLocaleResolverTest extends \Tester\TestCase
+#[TestSuite("ParamLocaleResolver")]
+#[RequiresPhpVersion("8.4.0")]
+final class ParamLocaleResolverTest extends \MyTester\TestCase
 {
-    use \Testbench\TCompiledContainer;
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
 
     protected ParamLocaleResolver $resolver;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $config = [
             "translation" => [
@@ -27,7 +26,7 @@ final class ParamLocaleResolverTest extends \Tester\TestCase
             ]
         ];
         $this->refreshContainer($config);
-        $this->resolver = $this->getService(ParamLocaleResolver::class); // @phpstan-ignore assign.propertyType
+        $this->resolver = $this->getService(ParamLocaleResolver::class);
     }
 
     public function testResolve(): void
@@ -37,23 +36,23 @@ final class ParamLocaleResolverTest extends \Tester\TestCase
                 return "";
             }
         ];
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
         /** @var Application $application */
         $application = $this->getService(Application::class);
         $request = new Request("Micro", Request::FORWARD, $parameters);
-        Assert::null($this->resolver->resolve());
-        $request->method = "GET";
+        $this->assertNull($this->resolver->resolve());
+        $request->setMethod("GET");
         $application->processRequest($request);
         $parameters["locale"] = "en";
-        $request->parameters = $parameters;
+        $request->setParameters($parameters);
         $application->processRequest($request);
-        Assert::same("en", $this->resolver->resolve());
+        $this->assertSame("en", $this->resolver->resolve());
     }
 
     public function testCustomParamName(): void
     {
         $this->resolver->setParam("language");
-        Assert::same("language", $this->resolver->getParam());
+        $this->assertSame("language", $this->resolver->getParam());
         $parameters = [
             "callback" => function () {
                 return "";
@@ -63,9 +62,6 @@ final class ParamLocaleResolverTest extends \Tester\TestCase
         $application = $this->getService(Application::class);
         $request = new Request("Micro", "GET", $parameters);
         $application->processRequest($request);
-        Assert::same("en", $this->resolver->resolve());
+        $this->assertSame("en", $this->resolver->resolve());
     }
 }
-
-$test = new ParamLocaleResolverTest();
-$test->run();

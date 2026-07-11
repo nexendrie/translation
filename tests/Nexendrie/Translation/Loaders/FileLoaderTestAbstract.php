@@ -5,11 +5,11 @@ namespace Nexendrie\Translation\Loaders;
 
 use Konecnyjakub\EventDispatcher\AutoListenerProvider;
 use Konecnyjakub\EventDispatcher\EventDispatcher;
+use MyTester\Attributes\BeforeTest;
 use Nexendrie\Translation\Events\FoldersChanged;
 use Nexendrie\Translation\Events\LanguageChanged;
 use Nexendrie\Translation\Events\LanguageLoaded;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Tester\Assert;
 use Nexendrie\Translation\InvalidFolderException;
 use Nexendrie\Translation\FolderNotSetException;
 
@@ -18,7 +18,7 @@ use Nexendrie\Translation\FolderNotSetException;
  *
  * @author Jakub Konečný
  */
-abstract class FileLoaderTestAbstract extends \Tester\TestCase
+abstract class FileLoaderTestAbstract extends \MyTester\TestCase
 {
     protected FileLoader $loader;
     protected EventDispatcherInterface $eventDispatcher;
@@ -28,7 +28,8 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
      */
     private array $events = [];
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $this->events = [];
         $this->listenerProvider = new AutoListenerProvider();
@@ -47,36 +48,36 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
     public function testGetLang(): void
     {
         $lang = $this->loader->lang;
-        Assert::type("string", $lang);
-        Assert::same("en", $lang);
+        $this->assertType("string", $lang);
+        $this->assertSame("en", $lang);
     }
 
     public function testSetLang(): void
     {
-        Assert::count(1, $this->events);
+        $this->assertCount(1, $this->events);
         $this->loader->lang = "cs";
         $lang = $this->loader->lang;
-        Assert::same("cs", $lang);
-        Assert::count(2, $this->events);
+        $this->assertSame("cs", $lang);
+        $this->assertCount(2, $this->events);
         /** @var LanguageChanged $event */
         $event = $this->events[1];
-        Assert::type(LanguageChanged::class, $event);
-        Assert::same("en", $event->oldLanguage);
-        Assert::same("cs", $event->newLanguage);
+        $this->assertType(LanguageChanged::class, $event);
+        $this->assertSame("en", $event->oldLanguage);
+        $this->assertSame("cs", $event->newLanguage);
     }
 
     public function testGetFolders(): void
     {
         $folders = $this->loader->folders;
-        Assert::type("array", $folders);
-        Assert::count(2, $folders);
-        Assert::same(__DIR__ . "/../../../lang", $folders[0]);
-        Assert::same(__DIR__ . "/../../../lang2", $folders[1]);
+        $this->assertType("array", $folders);
+        $this->assertCount(2, $folders);
+        $this->assertSame(__DIR__ . "/../../../lang", $folders[0]);
+        $this->assertSame(__DIR__ . "/../../../lang2", $folders[1]);
     }
 
     public function testSetFolders(): void
     {
-        Assert::exception(function (): void {
+        $this->assertThrowsException(function (): void {
             $this->loader->folders = [""];
         }, InvalidFolderException::class, "Folder  does not exist.");
     }
@@ -85,25 +86,25 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
     {
         // texts were not loaded yet so there are no resources
         $resources = $this->loader->resources;
-        Assert::type("array", $resources);
-        Assert::count(0, $resources);
+        $this->assertType("array", $resources);
+        $this->assertCount(0, $resources);
         // english texts are loaded, there is 1 resource for each domain
         $this->loader->getTexts();
         $resources = $this->loader->resources;
-        Assert::type("array", $resources);
-        Assert::count(3, $resources);
-        Assert::count(1, $resources["messages"]);
-        Assert::count(1, $resources["book"]);
-        Assert::count(1, $resources["abc"]);
+        $this->assertType("array", $resources);
+        $this->assertCount(3, $resources);
+        $this->assertCount(1, $resources["messages"]);
+        $this->assertCount(1, $resources["book"]);
+        $this->assertCount(1, $resources["abc"]);
         // czech and english texts are loaded, there are 2 resources for each domain
         $this->loader->lang = "cs";
         $this->loader->getTexts();
         $resources = $this->loader->resources;
-        Assert::type("array", $resources);
-        Assert::count(3, $resources);
-        Assert::count(2, $resources["messages"]);
-        Assert::count(2, $resources["book"]);
-        Assert::count(2, $resources["abc"]);
+        $this->assertType("array", $resources);
+        $this->assertCount(3, $resources);
+        $this->assertCount(2, $resources["messages"]);
+        $this->assertCount(2, $resources["book"]);
+        $this->assertCount(2, $resources["abc"]);
         // the language does not exist, 1 (default) resource for each domain
         if ($this->loader instanceof MessagesCatalogue) {
             return; // the following tests for some reason fail with MessagesCatalogue
@@ -111,76 +112,76 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
         $this->loader->lang = "xyz";
         $this->loader->getTexts();
         $resources = $this->loader->resources;
-        Assert::type("array", $resources);
-        Assert::count(3, $resources);
-        Assert::count(1, $resources["messages"]);
-        Assert::count(1, $resources["book"]);
-        Assert::count(1, $resources["abc"]);
+        $this->assertType("array", $resources);
+        $this->assertCount(3, $resources);
+        $this->assertCount(1, $resources["messages"]);
+        $this->assertCount(1, $resources["book"]);
+        $this->assertCount(1, $resources["abc"]);
     }
 
     public function testGetTexts(): void
     {
-        Assert::count(1, $this->events);
+        $this->assertCount(1, $this->events);
         $texts = $this->loader->getTexts();
-        Assert::type("array", $texts);
-        Assert::count(3, $texts);
-        Assert::type("array", $texts["messages"]);
-        Assert::count(3, $texts["messages"]);
-        Assert::type("array", $texts["book"]);
-        Assert::count(5, $texts["book"]);
+        $this->assertType("array", $texts);
+        $this->assertCount(3, $texts);
+        $this->assertType("array", $texts["messages"]);
+        $this->assertCount(3, $texts["messages"]);
+        $this->assertType("array", $texts["book"]);
+        $this->assertCount(5, $texts["book"]);
         if (!$this instanceof MessagesCatalogueTest) {
-            Assert::count(2, $this->events);
+            $this->assertCount(2, $this->events);
             /** @var LanguageLoaded $event */
             $event = $this->events[1];
-            Assert::type(LanguageLoaded::class, $event);
-            Assert::same("en", $event->language);
+            $this->assertType(LanguageLoaded::class, $event);
+            $this->assertSame("en", $event->language);
         }
 
         $this->loader->lang = "cs";
         $texts = $this->loader->getTexts();
-        Assert::type("array", $texts);
-        Assert::count(3, $texts);
-        Assert::type("array", $texts["messages"]);
-        Assert::count(3, $texts["messages"]);
-        Assert::type("array", $texts["book"]);
-        Assert::count(5, $texts["book"]);
+        $this->assertType("array", $texts);
+        $this->assertCount(3, $texts);
+        $this->assertType("array", $texts["messages"]);
+        $this->assertCount(3, $texts["messages"]);
+        $this->assertType("array", $texts["book"]);
+        $this->assertCount(5, $texts["book"]);
         if ($this->loader instanceof MessagesCatalogue) {
             return; // the following tests for some reason fail with MessagesCatalogue
         }
-        Assert::count(4, $this->events);
+        $this->assertCount(4, $this->events);
         /** @var LanguageChanged $event */
         $event = $this->events[2];
-        Assert::type(LanguageChanged::class, $event);
-        Assert::same("en", $event->oldLanguage);
-        Assert::same("cs", $event->newLanguage);
+        $this->assertType(LanguageChanged::class, $event);
+        $this->assertSame("en", $event->oldLanguage);
+        $this->assertSame("cs", $event->newLanguage);
         /** @var LanguageLoaded $event */
         $event = $this->events[3];
-        Assert::type(LanguageLoaded::class, $event);
-        Assert::same("cs", $event->language);
+        $this->assertType(LanguageLoaded::class, $event);
+        $this->assertSame("cs", $event->language);
 
         $this->loader->lang = "xyz";
         $texts = $this->loader->getTexts();
-        Assert::type("array", $texts);
-        Assert::count(3, $texts);
-        Assert::type("array", $texts["messages"]);
-        Assert::count(3, $texts["messages"]);
-        Assert::type("array", $texts["book"]);
-        Assert::count(5, $texts["book"]);
-        Assert::count(6, $this->events);
+        $this->assertType("array", $texts);
+        $this->assertCount(3, $texts);
+        $this->assertType("array", $texts["messages"]);
+        $this->assertCount(3, $texts["messages"]);
+        $this->assertType("array", $texts["book"]);
+        $this->assertCount(5, $texts["book"]);
+        $this->assertCount(6, $this->events);
         /** @var LanguageChanged $event */
         $event = $this->events[4];
-        Assert::type(LanguageChanged::class, $event);
-        Assert::same("cs", $event->oldLanguage);
-        Assert::same("xyz", $event->newLanguage);
+        $this->assertType(LanguageChanged::class, $event);
+        $this->assertSame("cs", $event->oldLanguage);
+        $this->assertSame("xyz", $event->newLanguage);
         /** @var LanguageLoaded $event */
         $event = $this->events[5];
-        Assert::type(LanguageLoaded::class, $event);
-        Assert::same("xyz", $event->language);
+        $this->assertType(LanguageLoaded::class, $event);
+        $this->assertSame("xyz", $event->language);
     }
 
     public function testNoFolder(): void
     {
-        Assert::exception(function (): void {
+        $this->assertThrowsException(function (): void {
             $class = get_class($this->loader);
             $this->loader = new $class();
             $this->loader->getTexts();
@@ -190,11 +191,11 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
     public function testGetAvailableLanguages(): void
     {
         $result = $this->loader->getAvailableLanguages();
-        Assert::type("array", $result);
-        Assert::count(2, $result);
-        Assert::contains("en", $result);
-        Assert::contains("cs", $result);
-        Assert::exception(function (): void {
+        $this->assertType("array", $result);
+        $this->assertCount(2, $result);
+        $this->assertContains("en", $result);
+        $this->assertContains("cs", $result);
+        $this->assertThrowsException(function (): void {
             $class = get_class($this->loader);
             $this->loader = new $class();
             $this->loader->getAvailableLanguages();
@@ -204,7 +205,7 @@ abstract class FileLoaderTestAbstract extends \Tester\TestCase
     public function testGetResolverName(): void
     {
         $name = $this->loader->getResolverName();
-        Assert::type("string", $name);
-        Assert::same("ManualLocaleResolver", $name);
+        $this->assertType("string", $name);
+        $this->assertSame("ManualLocaleResolver", $name);
     }
 }

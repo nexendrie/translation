@@ -3,42 +3,37 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Tester\Assert;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
+use Nette\Http\Session;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class SessionLocaleResolverTest extends \Tester\TestCase
+#[TestSuite("SessionLocaleResolver")]
+final class SessionLocaleResolverTest extends \MyTester\TestCase
 {
-    use \Testbench\TCompiledContainer;
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
 
     protected SessionLocaleResolver $resolver;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
-        $this->resolver = new SessionLocaleResolver();
+        $this->resolver = new SessionLocaleResolver($this->getService(Session::class));
     }
 
     public function testResolver(): void
     {
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
         $this->resolver->lang = "en";
-        Assert::same("en", $this->resolver->resolve());
+        $this->assertSame("en", $this->resolver->resolve());
         $this->resolver->lang = null;
-        Assert::null($this->resolver->resolve());
+        $this->assertNull($this->resolver->resolve());
     }
 
     public function testCustomVarName(): void
     {
         $this->resolver->setVarName("locale");
-        Assert::same("locale", $this->resolver->getVarName());
+        $this->assertSame("locale", $this->resolver->getVarName());
         $this->resolver->lang = "en";
-        Assert::same("en", $this->resolver->resolve());
+        $this->assertSame("en", $this->resolver->resolve());
     }
 }
-
-$test = new SessionLocaleResolverTest();
-$test->run();

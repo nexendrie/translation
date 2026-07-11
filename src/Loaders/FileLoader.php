@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Loaders;
 
+use Nette\Utils\FileInfo;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
 use Nexendrie\Translation\Events\FoldersChanged;
@@ -169,7 +170,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         );
         $files = Finder::findFiles($defaultFilename)
             ->from(...$this->folders);
-        /** @var \SplFileInfo $file */
+        /** @var FileInfo $file */
         foreach ($files as $file) {
             $default = $this->parseFile($file->getPathname());
             $this->addResource($file->getPathname(), $name);
@@ -204,7 +205,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], ["*", $default,], $mask);
         $files = Finder::findFiles($mask)
             ->from(...$this->folders);
-        /** @var \SplFileInfo $file */
+        /** @var FileInfo $file */
         foreach ($files as $file) {
             $domain = $file->getBasename((string) Strings::after($mask, "*"));
             $texts[$domain] = $this->loadDomain($domain);
@@ -250,7 +251,7 @@ abstract class FileLoader implements \Nexendrie\Translation\FileLoader
         $mask = str_replace([static::DOMAIN_MASK, static::LANGUAGE_MASK,], "*", $mask);
         $files = Finder::findFiles($mask)
             ->from(...$this->folders);
-        /** @var \SplFileInfo $file */
+        /** @var FileInfo $file */
         foreach ($files as $file) {
             $filename = $file->getBasename(".$extension");
             $lang = (string) Strings::after($filename, ".");

@@ -3,20 +3,16 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation;
 
-require __DIR__ . "/../../bootstrap.php";
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 
-use Tester\Assert;
 
-/**
- * IntervalsMessageSelectorTest
- *
- * @author Jakub Konečný
- * @testCase
- */
-final class IntervalsMessageSelectorTest extends \Tester\TestCase
+#[TestSuite("IntervalsMessageSelector")]
+final class IntervalsMessageSelectorTest extends \MyTester\TestCase
 {
     protected MessageSelector $messageSelector;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         $this->messageSelector = new MessageSelector();
@@ -24,18 +20,15 @@ final class IntervalsMessageSelectorTest extends \Tester\TestCase
 
     public function testIsMultiChoice(): void
     {
-        Assert::false($this->messageSelector->isMultiChoice("abc"));
-        Assert::true($this->messageSelector->isMultiChoice("{0}abc|{1}def"));
+        $this->assertFalse($this->messageSelector->isMultiChoice("abc"));
+        $this->assertTrue($this->messageSelector->isMultiChoice("{0}abc|{1}def"));
     }
 
     public function testChoose(): void
     {
         $message = "abc";
-        Assert::same($message, $this->messageSelector->choose($message, 0));
-        Assert::same("abc", $this->messageSelector->choose("{0}abc|{1}def", 0));
-        Assert::same("Číh", $this->messageSelector->choose("{0}Číh|{1}def", 0));
+        $this->assertSame($message, $this->messageSelector->choose($message, 0));
+        $this->assertSame("abc", $this->messageSelector->choose("{0}abc|{1}def", 0));
+        $this->assertSame("Číh", $this->messageSelector->choose("{0}Číh|{1}def", 0));
     }
 }
-
-$test = new IntervalsMessageSelectorTest();
-$test->run();

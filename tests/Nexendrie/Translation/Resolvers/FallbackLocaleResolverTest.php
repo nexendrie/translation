@@ -3,19 +3,16 @@ declare(strict_types=1);
 
 namespace Nexendrie\Translation\Resolvers;
 
-use Tester\Assert;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class FallbackLocaleResolverTest extends \Tester\TestCase
+#[TestSuite("FallbackLocaleResolver")]
+final class FallbackLocaleResolverTest extends \MyTester\TestCase
 {
     protected FallbackLocaleResolver $resolver;
 
-    protected function setUp(): void
+    #[BeforeTest]
+    public function setUp(): void
     {
         $this->resolver = new FallbackLocaleResolver();
     }
@@ -23,9 +20,6 @@ final class FallbackLocaleResolverTest extends \Tester\TestCase
     public function testResolve(): void
     {
         $lang = $this->resolver->resolve();
-        Assert::type("null", $lang);
+        $this->assertType("null", $lang);
     }
 }
-
-$test = new FallbackLocaleResolverTest();
-$test->run();
