@@ -23,7 +23,7 @@ final class SessionLocaleResolver implements SettableLocaleResolver
     private readonly SessionSection $section;
     public string $varName = "lang";
 
-    public function __construct(Session $session = null)
+    public function __construct(?Session $session = null)
     {
         if ($session === null) {
             $request = (new RequestFactory())->fromGlobals();

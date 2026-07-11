@@ -19,7 +19,7 @@ final class HeaderLocaleResolver implements LoaderAwareLocaleResolver
     private ?Loader $loader = null;
     private IRequest $request;
 
-    public function __construct(IRequest $request = null)
+    public function __construct(?IRequest $request = null)
     {
         if ($request === null) {
             $request = (new RequestFactory())->fromGlobals();
