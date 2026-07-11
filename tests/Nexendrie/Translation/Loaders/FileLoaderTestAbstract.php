@@ -21,7 +21,7 @@ use Nexendrie\Translation\FolderNotSetException;
 abstract class FileLoaderTestAbstract extends \MyTester\TestCase
 {
     protected FileLoader $loader;
-    protected EventDispatcherInterface $eventDispatcher;
+    public EventDispatcherInterface $eventDispatcher;
     protected AutoListenerProvider $listenerProvider;
     /**
      * @var LanguageChanged[]|FoldersChanged[]|LanguageLoaded[]
