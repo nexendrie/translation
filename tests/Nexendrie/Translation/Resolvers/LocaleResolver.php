@@ -10,12 +10,7 @@ namespace Nexendrie\Translation\Resolvers;
  */
 final class LocaleResolver implements \Nexendrie\Translation\LocaleResolver
 {
-    /**
-     * Resolve language
-     *
-     * @return null
-     */
-    public function resolve(): ?string
+    public function resolve(): null
     {
         return null;
     }
