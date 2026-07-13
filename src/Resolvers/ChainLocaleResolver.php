@@ -10,10 +10,15 @@ use Nexendrie\Translation\LocaleResolver;
  * ChainResolver
  *
  * @author Jakub Konečný
+ * @extends Collection<LocaleResolver>
  */
 final class ChainLocaleResolver extends Collection implements LocaleResolver
 {
-    protected string $class = LocaleResolver::class;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->class = LocaleResolver::class;
+    }
 
     public function resolve(): ?string
     {
