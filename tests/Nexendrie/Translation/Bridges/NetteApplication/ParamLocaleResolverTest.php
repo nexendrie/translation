@@ -13,7 +13,6 @@ use Nette\Application\Application;
 #[TestSuite("ParamLocaleResolver")]
 #[Group("localeResolvers")]
 #[Group("nette")]
-#[RequiresPhpVersion("8.4.0")]
 final class ParamLocaleResolverTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;

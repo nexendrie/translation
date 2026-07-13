@@ -41,7 +41,6 @@ use Nexendrie\Translation\InvalidMessageSelectorException;
 
 #[TestSuite("TranslationExtension")]
 #[Group("nette")]
-#[RequiresPhpVersion("8.4.0")]
 final class TranslationExtensionTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;

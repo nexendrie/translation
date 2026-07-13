@@ -36,7 +36,7 @@ final class ParamLocaleResolver implements AppRequestAwareLocaleResolver
     public function onRequest(Application $application, Request $request): void
     {
         $locale = $request->getParameter($this->param);
-        if ($request->method === Request::FORWARD && $locale === null) { // @phpstan-ignore property.private
+        if ($request->getMethod() === Request::FORWARD && $locale === null) {
             return;
         }
         $this->request = $request;
