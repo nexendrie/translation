@@ -6,7 +6,6 @@ namespace Nexendrie\Translation\Bridges\NetteDI;
 use Latte\Engine;
 use MyTester\Attributes\BeforeTest;
 use MyTester\Attributes\Group;
-use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Translation\Loaders\TomlLoader;
 use Nexendrie\Translation\Translator;

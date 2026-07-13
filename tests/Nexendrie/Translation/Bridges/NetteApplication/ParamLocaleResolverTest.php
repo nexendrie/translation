@@ -5,7 +5,6 @@ namespace Nexendrie\Translation\Bridges\NetteApplication;
 
 use MyTester\Attributes\BeforeTest;
 use MyTester\Attributes\Group;
-use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\TestSuite;
 use Nette\Application\Request;
 use Nette\Application\Application;
