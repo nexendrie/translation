@@ -1,3 +1,3 @@
-A new version of Translation is out. Some parameters were made explicitly nullable (implicitly nullable ones are deprecated in PHP 8.4). It is possible to install newly released nexendrie/utils 2.
+A new version of Translation is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
