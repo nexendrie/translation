@@ -1,3 +1,7 @@
+Version 2.7.1
+- removed implicitly nullable parameters (they are deprecated in PHP 8.4)
+- allowed nexendrie/utils 2
+
 Version 2.7.0
 - raised minimal version of PHP to 8.3
 - allowed nette/utils 4
