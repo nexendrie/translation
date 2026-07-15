@@ -1,3 +1,6 @@
+Version 3.0.0-dev
+- dropped support for nexendrie/utils 1
+
 Version 2.7.1
 - removed implicitly nullable parameters (they are deprecated in PHP 8.4)
 - allowed nexendrie/utils 2
