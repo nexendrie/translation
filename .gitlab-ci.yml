@@ -25,7 +25,7 @@ test:cc:
     coverage: '/(\d+\%) covered/'
 
 pages:
-    image: nexendrie/php:8.3
+    image: nexendrie/php:8.5
     stage: deploy
     environment:
         name: documentation
