@@ -11,7 +11,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  *
  * @author Jakub Konečný
  * @property string $lang
- * @property-read string[] $untranslated
+ * @property-read list<string> $untranslated
  */
 final class Translator implements \Nette\Localization\Translator
 {
@@ -20,7 +20,7 @@ final class Translator implements \Nette\Localization\Translator
     /** @internal */
     public const string DEFAULT_DOMAIN = "messages";
 
-    /** @var string[] */
+    /** @var list<string> */
     private array $untranslated = [];
 
     /**
@@ -46,13 +46,16 @@ final class Translator implements \Nette\Localization\Translator
         $this->loader->setLang($lang);
     }
 
+    /**
+     * @return list<string>
+     */
     protected function getUntranslated(): array
     {
         return $this->untranslated;
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     private function extractDomainAndMessage(string $message): array
     {
@@ -64,6 +67,8 @@ final class Translator implements \Nette\Localization\Translator
 
     /**
      * Translate multi-level message
+     *
+     * @param list<string> $message
      */
     private function multiLevelTrans(array $message, array $texts): string
     {

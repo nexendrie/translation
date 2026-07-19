@@ -66,6 +66,9 @@ final class TranslationExtension extends CompilerExtension
     /** @internal */
     public const string SERVICE_LATTE_EXTENSION = "latteExtension";
 
+    /**
+     * @var array<string, class-string<LocaleResolver>>
+     */
     private array $resolvers = [
         "environment" => EnvironmentLocaleResolver::class,
         "manual" => ManualLocaleResolver::class,
@@ -75,6 +78,9 @@ final class TranslationExtension extends CompilerExtension
         "param" => ParamLocaleResolver::class
     ];
 
+    /**
+     * @var array<string, class-string<Loader>>
+     */
     private array $loaders = [
         "neon" => NeonLoader::class,
         "ini" => IniLoader::class,
