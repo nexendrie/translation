@@ -168,7 +168,7 @@ final class TranslationExtension extends CompilerExtension
         $config = $this->getConfig();
         $folders = $config->loader["folders"];
         /** @var TranslationProvider $extension */
-        // @phpstan-ignore varTag.type, argument.type, argument.templateType
+        // @phpstan-ignore varTag.type
         foreach ($this->compiler->getExtensions(TranslationProvider::class) as $extension) {
             $folders = array_merge($folders, array_values($extension->getTranslationResources()));
         }
